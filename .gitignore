@@ -1,0 +1,7 @@
+.vercel/
+.git/
+.git-data/
+tmp/
+work/uah-guides/
+.DS_Store
+Thumbs.db
