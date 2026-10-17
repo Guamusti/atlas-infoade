@@ -9,7 +9,32 @@
   "background_color": "#e9edf2",
   "theme_color": "#153c2d",
   "icons": [
-    { "src": "./atlas-icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "./atlas-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    {
+      "src": "./atlas-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./atlas-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Estudio",
+      "short_name": "Estudio",
+      "description": "Portal de estudio",
+      "url": "./estudio",
+      "icons": [
+        {
+          "src": "./atlas-icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
   ]
 }
