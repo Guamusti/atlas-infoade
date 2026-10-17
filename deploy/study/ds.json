@@ -1,0 +1,233 @@
+{
+  "sid": "ds",
+  "source": "Guía docente UAH 2026/27 · Derecho de Sociedades (340011)",
+  "topics": [
+    {
+      "id": "t1",
+      "title": "Tema 1 · Las sociedades mercantiles",
+      "guide": ["Formas sociales típicas: clasificación y atipicidad", "El negocio fundacional", "La personalidad jurídica", "La mercantilidad de las sociedades", "Domicilio y nacionalidad"],
+      "summary": [
+        "Sociedad: contrato por el que dos o más personas ponen en común bienes, dinero o industria para repartir las ganancias (art. 1665 CC; art. 116 CCom). Hoy también puede ser unipersonal en las sociedades de capital.",
+        "Tipos típicos: personalistas (colectiva y comanditaria simple) y capitalistas (anónima, limitada y comanditaria por acciones). Principio de tipicidad: no caben tipos mercantiles distintos de los legales.",
+        "Las sociedades de capital son mercantiles por la forma, cualquiera que sea su objeto (art. 2 LSC).",
+        "Personalidad jurídica: se adquiere con la inscripción en el Registro Mercantil (en las de capital). Antes existe la sociedad en formación; si se constata la voluntad de no inscribir, sociedad devenida irregular.",
+        "Domicilio: donde esté el centro de administración y dirección o el establecimiento principal; las sociedades con domicilio en España tienen nacionalidad española.",
+        "Elementos del negocio fundacional: consentimiento, objeto (actividad), causa (fin común de lucro) y aportaciones."
+      ],
+      "cards": [
+        ["Tipos de sociedades personalistas", "Sociedad colectiva y sociedad comanditaria simple."],
+        ["Tipos de sociedades de capital", "Sociedad anónima, sociedad de responsabilidad limitada y sociedad comanditaria por acciones."],
+        ["¿Cuándo adquiere personalidad jurídica una sociedad de capital?", "Con su inscripción en el Registro Mercantil."],
+        ["Mercantilidad por la forma", "Las sociedades de capital son mercantiles sea cual sea su objeto."],
+        ["Principio de tipicidad", "Las sociedades mercantiles deben adoptar uno de los tipos previstos por la ley."],
+        ["Domicilio social", "Lugar del centro de efectiva administración y dirección o del principal establecimiento."]
+      ],
+      "quiz": [
+        {"q": "Una SL que se dedica a la agricultura es…", "o": ["Civil, por su objeto", "Mercantil, por su forma", "Irregular", "Una cooperativa"], "a": 1, "e": "Las sociedades de capital son mercantiles por la forma."},
+        {"q": "¿Cuál es una sociedad personalista?", "o": ["Sociedad anónima", "Sociedad colectiva", "Sociedad limitada", "Comanditaria por acciones"], "a": 1, "e": "Colectiva y comanditaria simple son personalistas."},
+        {"q": "La sociedad de capital adquiere personalidad jurídica…", "o": ["Con la firma del contrato privado", "Con la escritura pública", "Con la inscripción registral", "Con el inicio de la actividad"], "a": 2, "e": "Art. 33 LSC."},
+        {"q": "La causa del contrato de sociedad es…", "o": ["La aportación de capital", "El fin común de obtener y repartir ganancias", "La personalidad jurídica", "El domicilio"], "a": 1, "e": "Ánimo de lucro común."}
+      ]
+    },
+    {
+      "id": "t2",
+      "title": "Tema 2 · Sociedad colectiva y comanditaria simple",
+      "guide": ["Concepto y caracteres", "Constitución", "Relaciones jurídicas internas", "Relaciones jurídicas externas"],
+      "summary": [
+        "Sociedad colectiva: todos los socios participan en la gestión y responden personal, ilimitada y solidariamente (entre sí) de las deudas sociales, de forma subsidiaria respecto del patrimonio social (beneficio de excusión).",
+        "Razón social con el nombre de todos o algunos socios + 'y compañía'. El socio industrial aporta trabajo.",
+        "Relaciones internas: prohibición de competencia, deber de aportar, participación en ganancias y pérdidas según el contrato (o en proporción al capital). La transmisión de la condición de socio requiere el consentimiento de los demás (intuitu personae).",
+        "Relaciones externas: la sociedad se obliga por los actos de los socios administradores con la firma social dentro del giro.",
+        "Comanditaria simple: socios colectivos (gestionan y responden ilimitadamente) y comanditarios (aportan capital, no gestionan y responden solo hasta lo aportado). El comanditario no puede figurar en la razón social; si lo hace, responde como colectivo."
+      ],
+      "cards": [
+        ["Responsabilidad de los socios colectivos", "Personal, ilimitada, solidaria entre ellos y subsidiaria respecto del patrimonio social."],
+        ["Diferencia entre socio colectivo y comanditario", "El colectivo gestiona y responde ilimitadamente; el comanditario no gestiona y responde hasta su aportación."],
+        ["¿Qué pasa si un comanditario incluye su nombre en la razón social?", "Responde frente a terceros como socio colectivo."],
+        ["Carácter intuitu personae", "La sociedad se basa en la confianza personal: la entrada de nuevos socios exige consentimiento de los demás."],
+        ["Beneficio de excusión", "El acreedor debe dirigirse primero contra el patrimonio social antes que contra el de los socios."]
+      ],
+      "quiz": [
+        {"q": "En la sociedad colectiva, los socios responden de las deudas sociales…", "o": ["Hasta lo aportado", "Ilimitada y solidariamente, tras agotar el patrimonio social", "No responden", "Solo los administradores"], "a": 1, "e": "Responsabilidad subsidiaria, personal, ilimitada y solidaria."},
+        {"q": "El socio comanditario…", "o": ["Gestiona la sociedad", "Responde ilimitadamente", "Responde hasta su aportación y no gestiona", "Aporta solo trabajo"], "a": 2, "e": "Es el socio capitalista de la comanditaria."},
+        {"q": "Para transmitir su posición, un socio colectivo necesita…", "o": ["Nada", "El consentimiento de los demás socios", "Autorización judicial", "Inscribirse en bolsa"], "a": 1, "e": "Por el carácter personalista."}
+      ]
+    },
+    {
+      "id": "t3",
+      "title": "Temas 3–4 · Sociedades de capital y su constitución",
+      "guide": ["La sociedad corporativa: antecedentes y evolución", "Caracterización de las sociedades de capital", "Sociedad unipersonal", "Grupo de sociedades", "Régimen general de constitución; constitución sucesiva", "Nulidad de la sociedad", "Aportaciones sociales", "Prestaciones accesorias"],
+      "summary": [
+        "Rasgos de las sociedades de capital: capital dividido en acciones (SA) o participaciones (SL), responsabilidad limitada de los socios (no responden de las deudas sociales) y organización corporativa (junta y administración).",
+        "Capital mínimo: SA 60.000 € (desembolsado al menos el 25 % de cada acción en la constitución). SL: tras la Ley 18/2022, mínimo 1 €, con reglas de protección mientras sea inferior a 3.000 € (reserva legal reforzada y responsabilidad solidaria por la diferencia en liquidación). SL: capital íntegramente desembolsado.",
+        "Sociedad unipersonal (originaria o sobrevenida): debe constar en el Registro y en la documentación; los contratos entre socio único y sociedad se inscriben en un libro registro.",
+        "Grupo de sociedades: una sociedad ostenta o puede ostentar el control de otras (art. 42 CCom).",
+        "Constitución: escritura pública otorgada por todos los socios fundadores (con los estatutos) e inscripción en el Registro Mercantil. La SA puede constituirse por fundación sucesiva (suscripción pública).",
+        "Aportaciones: dinerarias (acreditando el depósito) o no dinerarias (en la SA con informe de experto independiente; en la SL responsabilidad solidaria de fundadores por su valor). No puede aportarse trabajo o servicios.",
+        "Prestaciones accesorias: obligaciones distintas de la aportación (p. ej. trabajo o suministro) previstas en estatutos; no integran el capital.",
+        "Nulidad de la sociedad inscrita: solo por las causas tasadas (incapacidad de todos los fundadores, falta de consentimiento, objeto ilícito, falta de estatutos…); opera como causa de disolución."
+      ],
+      "cards": [
+        ["Capital mínimo de la SA y desembolso inicial", "60.000 € con al menos el 25 % de cada acción desembolsado."],
+        ["Capital de la SL tras la Ley 18/2022", "Mínimo 1 €; si es inferior a 3.000 € rigen reglas especiales de reserva y responsabilidad."],
+        ["¿Se puede aportar trabajo a una sociedad de capital?", "No como aportación al capital; sí como prestación accesoria."],
+        ["Requisitos de constitución de una sociedad de capital", "Escritura pública con los estatutos e inscripción en el Registro Mercantil."],
+        ["Aportación no dineraria en la SA", "Requiere informe de un experto independiente designado por el Registrador."],
+        ["Sociedad unipersonal", "Sociedad de capital con un único socio; debe publicarse esa condición en el Registro."]
+      ],
+      "quiz": [
+        {"q": "¿Cuánto debe estar desembolsado como mínimo en la constitución de una SA de 60.000 €?", "o": ["Todo", "15.000 €", "30.000 €", "Nada"], "a": 1, "e": "El 25 % de cada acción."},
+        {"q": "La SL debe tener su capital…", "o": ["Desembolsado al 25 %", "Íntegramente desembolsado", "Desembolsado en 5 años", "Sin desembolso"], "a": 1, "e": "Las participaciones se desembolsan íntegramente."},
+        {"q": "La fundación sucesiva es propia de…", "o": ["La SL", "La SA", "La colectiva", "La cooperativa"], "a": 1, "e": "Constitución por suscripción pública de acciones."},
+        {"q": "Los socios de una SA, ¿responden de las deudas sociales?", "o": ["Sí, ilimitadamente", "No, solo arriesgan lo aportado", "Solo los administradores", "Sí, subsidiariamente"], "a": 1, "e": "Responsabilidad limitada."}
+      ]
+    },
+    {
+      "id": "t4",
+      "title": "Temas 5–6 · Acciones y participaciones: derechos, representación y transmisión",
+      "guide": ["Concepto, características y función de acciones y participaciones", "Derechos del socio", "Clases de acciones y participaciones", "Representación", "Régimen de transmisión de participaciones y de acciones", "Copropiedad y derechos reales", "Autocartera"],
+      "summary": [
+        "Acciones (SA): pueden representarse en títulos o anotaciones en cuenta y son libremente transmisibles salvo restricciones estatutarias. Participaciones (SL): no pueden llamarse acciones, ni representarse en títulos ni en anotaciones; se documentan en escritura y libro registro de socios.",
+        "Derechos mínimos del socio (art. 93 LSC): participar en el reparto de ganancias y en el patrimonio de liquidación, asunción/suscripción preferente en ampliaciones, asistir y votar en juntas, impugnar acuerdos e información.",
+        "Clases: privilegiadas (p. ej. dividendo preferente), sin voto (con dividendo mínimo), rescatables (en sociedades cotizadas).",
+        "Transmisión de participaciones (SL): libre entre socios, cónyuge, ascendientes, descendientes y sociedades del grupo; en otros casos, régimen legal supletorio de comunicación a la sociedad y derecho de adquisición preferente de los socios/sociedad (aprobación por junta). Se formaliza en documento público.",
+        "Copropiedad: los copropietarios designan a una persona para ejercer los derechos. Usufructo: el socio es el nudo propietario, el usufructuario tiene derecho a los dividendos. Prenda: el derecho de voto corresponde, salvo pacto, al propietario.",
+        "Autocartera: adquisición de acciones o participaciones propias. Originaria: prohibida. Derivativa: en la SA permitida con autorización de la junta, límite del 10 % del capital (cotizadas) y con reservas libres; los derechos de voto quedan en suspenso. En la SL, supuestos más restringidos."
+      ],
+      "cards": [
+        ["Derechos mínimos del socio", "Dividendos y cuota de liquidación, suscripción/asunción preferente, asistencia y voto, impugnación de acuerdos e información."],
+        ["Diferencia de representación entre acciones y participaciones", "Las acciones pueden ser títulos o anotaciones en cuenta; las participaciones no, se documentan en escritura pública."],
+        ["Transmisión libre de participaciones", "Entre socios, al cónyuge, ascendientes, descendientes o sociedades del mismo grupo."],
+        ["Autocartera originaria", "Suscripción de acciones o participaciones propias en la constitución o ampliación: prohibida."],
+        ["Voto en la prenda de acciones", "Corresponde al propietario (salvo pacto en contrario)."],
+        ["Límite de autocartera en sociedades cotizadas", "10 % del capital."]
+      ],
+      "quiz": [
+        {"q": "Un socio de SL quiere vender a su hermano. Según el régimen legal supletorio…", "o": ["Es libre", "Rige el procedimiento de comunicación y adquisición preferente", "Está prohibido", "Necesita autorización judicial"], "a": 1, "e": "Hermanos no están en la lista de transmisiones libres."},
+        {"q": "Las participaciones sociales de una SL…", "o": ["Pueden representarse en anotaciones en cuenta", "Cotizan en bolsa", "No pueden representarse en títulos ni anotaciones", "Son títulos valores"], "a": 2, "e": "Art. 92 LSC."},
+        {"q": "Mientras la sociedad tenga acciones propias, su derecho de voto…", "o": ["Se ejerce por el consejo", "Queda en suspenso", "Se reparte entre socios", "Vale doble"], "a": 1, "e": "Los derechos políticos se suspenden."},
+        {"q": "En el usufructo de acciones, los dividendos corresponden a…", "o": ["El nudo propietario", "El usufructuario", "La sociedad", "Los acreedores"], "a": 1, "e": "Salvo disposición estatutaria, el usufructuario."}
+      ]
+    },
+    {
+      "id": "t5",
+      "title": "Tema 7 · La junta general",
+      "guide": ["Concepto y competencia", "Clases de juntas", "Convocatoria; junta universal", "Asistencia, representación y voto", "Constitución y adopción de acuerdos", "Acta", "Impugnación de acuerdos"],
+      "summary": [
+        "Órgano deliberante que expresa la voluntad social. Competencias: cuentas anuales y aplicación del resultado, nombramiento/cese de administradores, modificación de estatutos, aumento/reducción de capital, modificaciones estructurales, disolución…",
+        "Junta ordinaria: dentro de los seis primeros meses de cada ejercicio para aprobar la gestión, las cuentas y el resultado. Las demás son extraordinarias.",
+        "Convocatoria por los administradores (o por la minoría del 5 % que lo solicite). SA: anuncio en el BORME y web corporativa (o lo que digan los estatutos) con al menos un mes de antelación. SL: al menos 15 días, por los medios estatutarios.",
+        "Junta universal: sin convocatoria si está presente o representado todo el capital y aceptan por unanimidad celebrarla y el orden del día.",
+        "SA – quórum de constitución: 1.ª convocatoria 25 %, 2.ª sin mínimo; para acuerdos especiales (modificaciones estatutarias, aumento/reducción de capital…) 50 % y 25 %. Acuerdos por mayoría simple; los especiales con mayoría absoluta si concurre más del 50 % y dos tercios si concurre entre el 25 % y el 50 %.",
+        "SL – sin quórum de constitución; acuerdos por mayoría de votos válidos que represente al menos 1/3 del capital; modificaciones de estatutos y aumentos/reducciones: más de la mitad del capital; transformación, fusión, escisión, exclusión de socios: al menos 2/3.",
+        "Acta: aprobada por la propia junta o en 15 días por el presidente y dos interventores. Impugnación de acuerdos contrarios a la ley, los estatutos, el reglamento o lesivos del interés social: plazo general de un año (los contrarios al orden público no caducan). Legitimados: socios con al menos el 1 % del capital, administradores y terceros con interés legítimo."
+      ],
+      "cards": [
+        ["Plazo de la junta ordinaria", "Dentro de los seis primeros meses de cada ejercicio."],
+        ["Antelación de la convocatoria en SA y SL", "SA: un mes. SL: quince días."],
+        ["Requisitos de la junta universal", "Todo el capital presente o representado y aceptación unánime de la reunión y del orden del día."],
+        ["Mayoría ordinaria en la SL", "Mayoría de votos válidos que represente al menos un tercio del capital."],
+        ["Plazo para impugnar acuerdos", "Un año (salvo los contrarios al orden público, que no caducan)."],
+        ["Quórum de la SA en primera convocatoria (acuerdos ordinarios)", "25 % del capital suscrito con derecho a voto."]
+      ],
+      "quiz": [
+        {"q": "En una SA, ¿quórum mínimo en segunda convocatoria para acuerdos ordinarios?", "o": ["25 %", "50 %", "Ninguno", "10 %"], "a": 2, "e": "Válida cualquiera que sea el capital concurrente."},
+        {"q": "En una SL, para modificar los estatutos se necesita…", "o": ["Mayoría simple de los presentes", "Más de la mitad del capital", "Unanimidad", "Un tercio del capital"], "a": 1, "e": "Mayoría reforzada del art. 199 LSC."},
+        {"q": "La junta universal exige…", "o": ["Convocatoria en el BORME", "La presencia de todo el capital y unanimidad en celebrarla", "Un notario", "Solo la mayoría"], "a": 1, "e": "No necesita convocatoria previa."},
+        {"q": "¿Qué porcentaje de capital legitima a un socio para impugnar acuerdos (en general)?", "o": ["1 %", "5 %", "10 %", "25 %"], "a": 0, "e": "El 1 % (0,1 % en cotizadas)."}
+      ]
+    },
+    {
+      "id": "t6",
+      "title": "Tema 8 · La administración de la sociedad",
+      "guide": ["El órgano de administración", "Estatuto del administrador", "El consejo de administración", "Responsabilidad de los administradores"],
+      "summary": [
+        "Formas de organizar la administración: administrador único, varios administradores solidarios, dos o más mancomunados, o consejo de administración (en la SA, si hay más de dos mancomunados se forma consejo).",
+        "Consejo: SA mínimo 3 miembros; SL entre 3 y 12. Delegación de facultades en consejeros delegados o comisión ejecutiva (no delegables: formulación de cuentas, entre otras).",
+        "Nombramiento por la junta; en la SA, duración máxima de 6 años (4 en cotizadas) con reelección; en la SL por tiempo indefinido salvo estatutos. Separación ad nutum por la junta en cualquier momento.",
+        "Cargo gratuito salvo que los estatutos prevean retribución y su sistema.",
+        "Deberes: diligencia de un ordenado empresario (protegida por la business judgment rule en decisiones estratégicas) y lealtad (evitar conflictos de interés, no competir, confidencialidad).",
+        "Responsabilidad: frente a la sociedad, socios y acreedores por daños causados por actos contrarios a la ley o los estatutos o incumpliendo sus deberes (con culpa). Acción social (la ejerce la sociedad; subsidiariamente la minoría o los acreedores) y acción individual (socios o terceros dañados directamente). Además, responsabilidad por deudas si no promueven la disolución cuando concurre causa legal."
+      ],
+      "cards": [
+        ["Modos de organizar la administración", "Administrador único, solidarios, mancomunados o consejo de administración."],
+        ["Duración del cargo de administrador en la SA", "Máximo 6 años (4 en cotizadas), reelegible."],
+        ["Separación ad nutum", "La junta puede cesar a los administradores en cualquier momento, aunque no figure en el orden del día."],
+        ["Acción social vs acción individual", "Social: repara el daño a la sociedad. Individual: repara el daño directo a socios o terceros."],
+        ["Deberes de los administradores", "Diligencia de un ordenado empresario y lealtad."],
+        ["Business judgment rule", "Protege las decisiones estratégicas tomadas de buena fe, sin interés personal, con información suficiente y procedimiento adecuado."]
+      ],
+      "quiz": [
+        {"q": "En la SL, el número de miembros del consejo de administración es…", "o": ["Entre 2 y 10", "Entre 3 y 12", "Mínimo 5", "Libre"], "a": 1, "e": "Art. 242 LSC."},
+        {"q": "Un acreedor que ha sufrido un daño directo por un acto del administrador ejercita…", "o": ["La acción social", "La acción individual", "La acción de nulidad", "La acción de disolución"], "a": 1, "e": "Repara el daño al patrimonio del propio tercero."},
+        {"q": "El cargo de administrador es…", "o": ["Siempre retribuido", "Gratuito salvo previsión estatutaria", "Retribuido por ley en la SA", "Vitalicio"], "a": 1, "e": "Art. 217 LSC."},
+        {"q": "Si concurre causa legal de disolución y los administradores no convocan junta en dos meses…", "o": ["No pasa nada", "Responden solidariamente de las deudas sociales posteriores", "Se disuelve automáticamente", "Pierden el voto"], "a": 1, "e": "Art. 367 LSC."}
+      ]
+    },
+    {
+      "id": "t7",
+      "title": "Tema 9 · Modificación de estatutos y del capital",
+      "guide": ["Modificación de los estatutos sociales", "Aumento del capital social", "Reducción del capital social"],
+      "summary": [
+        "Modificar estatutos es competencia de la junta: propuesta/informe de los administradores (en la SA), mayorías reforzadas, escritura pública e inscripción. Cambiar el objeto o el domicilio al extranjero da derecho de separación.",
+        "Aumento de capital: por emisión de nuevas acciones/participaciones o por elevación del valor nominal. Contravalor: aportaciones dinerarias, no dinerarias, compensación de créditos o transformación de reservas (aumento liberado).",
+        "Derecho de preferencia en aumentos con aportaciones dinerarias: los socios pueden suscribir en proporción a su participación (plazo mínimo de 14 días en la SA, un mes en la SL). Puede excluirse por interés social con requisitos.",
+        "Aumento incompleto: si no se suscribe íntegramente, solo se amplía en la cuantía suscrita si así se previó.",
+        "Reducción de capital: para restituir aportaciones, condonar desembolsos pendientes, restablecer el equilibrio entre capital y patrimonio por pérdidas, o dotar reservas. Obligatoria en la SA si las pérdidas dejan el patrimonio por debajo de 2/3 del capital durante un ejercicio.",
+        "Protección de acreedores: en la SA, derecho de oposición en la reducción con restitución; en la SL, responsabilidad solidaria de los socios hasta lo recibido durante cinco años.",
+        "Operación acordeón: reducción a cero (o por debajo del mínimo) y aumento simultáneo."
+      ],
+      "cards": [
+        ["Formas de aumentar el capital", "Emitir nuevas acciones/participaciones o elevar el valor nominal de las existentes."],
+        ["Derecho de suscripción preferente", "Derecho del socio a suscribir en un aumento con aportaciones dinerarias en proporción a su participación."],
+        ["Reducción obligatoria por pérdidas en la SA", "Cuando el patrimonio neto cae por debajo de dos tercios del capital y no se recupera en un ejercicio."],
+        ["Operación acordeón", "Reducción del capital a cero o por debajo del mínimo seguida de un aumento simultáneo."],
+        ["Aumento liberado", "Aumento con cargo a reservas: los socios reciben nuevas acciones sin aportar."],
+        ["Protección de los acreedores en la reducción de la SA", "Derecho de oposición si la reducción implica restitución de aportaciones."]
+      ],
+      "quiz": [
+        {"q": "Un aumento de capital con cargo a reservas…", "o": ["Exige aportaciones dinerarias", "No requiere que los socios aporten", "Da derecho de oposición a los acreedores", "Reduce el patrimonio"], "a": 1, "e": "Se transforman reservas en capital."},
+        {"q": "El derecho de preferencia existe en aumentos con…", "o": ["Aportaciones no dinerarias", "Aportaciones dinerarias", "Compensación de créditos", "Cargo a reservas"], "a": 1, "e": "Solo en aportaciones dinerarias."},
+        {"q": "SA con capital 90.000 € y patrimonio neto de 55.000 € durante más de un ejercicio:", "o": ["No hay obligación", "Reducción obligatoria de capital", "Disolución automática", "Aumento obligatorio"], "a": 1, "e": "55.000 < 60.000 (2/3 de 90.000)."}
+      ]
+    },
+    {
+      "id": "t8",
+      "title": "Tema 10 · Separación, exclusión, disolución y liquidación",
+      "guide": ["Separación de socios", "Exclusión de socios", "Normas comunes", "Disolución", "Liquidación"],
+      "summary": [
+        "Separación: derecho del socio a salir de la sociedad recibiendo el valor razonable de sus acciones/participaciones. Causas legales (art. 346 LSC): sustitución o modificación sustancial del objeto, prórroga o reactivación, traslado del domicilio al extranjero, modificación del régimen de transmisión (SL), transformación… y falta de reparto de dividendos (art. 348 bis) si no vota a favor; además las estatutarias.",
+        "Exclusión (forzosa): por incumplir voluntariamente las prestaciones accesorias, administradores que infringen la prohibición de competencia o condenados por responsabilidad (SL), y causas estatutarias. Acordada por la junta.",
+        "Valoración: acuerdo entre las partes o, en su defecto, experto independiente designado por el Registrador.",
+        "Disolución de pleno derecho: transcurso del plazo, un año desde una reducción por debajo del mínimo sin regularizar…",
+        "Disolución por causa legal o estatutaria (acuerdo de junta): cese en la actividad, imposibilidad de conseguir el fin, paralización de órganos, pérdidas que dejan el patrimonio neto por debajo de la mitad del capital (salvo que se aumente o reduzca, y sin concurso), reducción por debajo del mínimo legal. Los administradores deben convocar junta en dos meses.",
+        "Liquidación: los administradores pasan a ser liquidadores (salvo otra designación); la sociedad conserva la personalidad y añade 'en liquidación'. Se cobra, paga y se reparte el haber social entre los socios tras pagar a los acreedores. Después se cancela la inscripción en el Registro y se extingue."
+      ],
+      "cards": [
+        ["Separación vs exclusión", "Separación: salida voluntaria del socio por causa legal o estatutaria. Exclusión: expulsión forzosa por causas previstas."],
+        ["Causa de disolución por pérdidas", "Patrimonio neto inferior a la mitad del capital social."],
+        ["Plazo para que los administradores convoquen junta ante causa de disolución", "Dos meses."],
+        ["¿Quiénes son liquidadores por defecto?", "Los administradores pasan a ser liquidadores."],
+        ["¿Cuándo se extingue la sociedad?", "Con la cancelación de su inscripción en el Registro Mercantil tras la liquidación."],
+        ["Separación por falta de dividendos", "El socio que vota a favor de distribuir dividendos puede separarse si no se reparte un mínimo (art. 348 bis LSC), con los requisitos legales."]
+      ],
+      "quiz": [
+        {"q": "Capital 100.000 € y patrimonio neto 45.000 €. ¿Causa de disolución?", "o": ["No", "Sí, por pérdidas (patrimonio < mitad del capital)", "Solo si es SL", "Solo con concurso"], "a": 1, "e": "45.000 < 50.000."},
+        {"q": "¿Cuál es causa legal de separación?", "o": ["Cambio de administradores", "Sustitución del objeto social", "Aprobación de cuentas", "Aumento liberado"], "a": 1, "e": "Art. 346 LSC."},
+        {"q": "Durante la liquidación, la sociedad…", "o": ["Pierde la personalidad jurídica", "Conserva la personalidad y añade 'en liquidación'", "Se transforma en colectiva", "Sigue igual"], "a": 1, "e": "Hasta la cancelación registral."},
+        {"q": "Antes de repartir el haber entre socios, los liquidadores deben…", "o": ["Pagar o consignar las deudas sociales", "Convocar elecciones", "Aumentar capital", "Nada"], "a": 0, "e": "Los acreedores tienen preferencia."}
+      ]
+    }
+  ],
+  "exams": {
+    "ordinary": [
+      {"topics": ["t1", "t2", "t3", "t4", "t5", "t6", "t7", "t8"], "note": "Prueba escrita con parte teórica y práctica; la guía no fija un corte de temas."},
+      {"topics": [], "note": "Asistencia y participación (sin temario específico)."},
+      {"topics": ["t1", "t2", "t3", "t4", "t5", "t6", "t7", "t8"], "note": "Trabajos, pruebas y supuestos prácticos durante el curso."}
+    ],
+    "extraordinary": [
+      {"topics": ["t1", "t2", "t3", "t4", "t5", "t6", "t7", "t8"], "note": "Parte teórica (mínimo 5)."},
+      {"topics": ["t3", "t4", "t5", "t6", "t7", "t8"], "note": "Supuesto práctico (mínimo 5)."}
+    ]
+  }
+}

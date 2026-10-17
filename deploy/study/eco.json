@@ -1,0 +1,225 @@
+{
+  "sid": "eco",
+  "source": "Guía docente UAH 2026/27 · Econometría (342003)",
+  "topics": [
+    {
+      "id": "t1",
+      "title": "Bloque 1 · Naturaleza de la Econometría y de los datos",
+      "guide": ["La naturaleza de la Econometría", "Los datos econométricos"],
+      "summary": [
+        "La Econometría usa la teoría económica, las matemáticas y la estadística para estimar relaciones económicas, contrastar hipótesis y predecir.",
+        "Pasos: modelo económico → modelo econométrico (con término de error u) → datos → estimación → contraste/validación → uso (predicción, política).",
+        "Tipos de datos: corte transversal (muchas unidades en un momento), series temporales (una unidad a lo largo del tiempo), datos fusionados de cortes transversales y datos de panel (las mismas unidades en varios periodos).",
+        "Causalidad vs correlación: el objetivo suele ser el efecto ceteris paribus de x sobre y; la correlación no implica causalidad.",
+        "El término de error recoge factores no observados, errores de medida y aleatoriedad."
+      ],
+      "cards": [
+        ["Tipos de datos econométricos", "Corte transversal, series temporales, cortes transversales fusionados y datos de panel."],
+        ["Datos de panel", "Las mismas unidades observadas en varios periodos de tiempo."],
+        ["¿Qué recoge el término de error u?", "Los factores que afectan a y y no están en el modelo, errores de medida y aleatoriedad."],
+        ["Ceteris paribus", "Efecto de una variable manteniendo constantes las demás."]
+      ],
+      "quiz": [
+        {"q": "Salarios de 500 trabajadores en 2025 son datos de…", "o": ["Serie temporal", "Corte transversal", "Panel", "Simulación"], "a": 1, "e": "Muchas unidades en un mismo momento."},
+        {"q": "El PIB trimestral de España 2000–2025 es…", "o": ["Corte transversal", "Serie temporal", "Panel", "Datos experimentales"], "a": 1, "e": "Una unidad a lo largo del tiempo."},
+        {"q": "Las mismas 200 empresas observadas cada año de 2015 a 2025 forman…", "o": ["Un panel", "Un corte transversal", "Cortes fusionados", "Una serie temporal"], "a": 0, "e": "Mismas unidades en varios periodos."}
+      ]
+    },
+    {
+      "id": "t2",
+      "title": "Bloque 2 · Regresión múltiple: estimación MCO",
+      "guide": ["El modelo de regresión múltiple: estimación"],
+      "summary": [
+        "Modelo: y = β₀ + β₁x₁ + … + βₖxₖ + u. βⱼ mide el efecto de xⱼ sobre y manteniendo constantes las demás x.",
+        "MCO (mínimos cuadrados ordinarios) elige los β̂ que minimizan la suma de residuos al cuadrado Σûᵢ². En la simple: β̂₁ = Cov(x,y)/Var(x), β̂₀ = ȳ − β̂₁x̄.",
+        "Supuestos de Gauss-Markov: linealidad en parámetros, muestreo aleatorio, no multicolinealidad perfecta, media condicional nula E(u|x)=0 y homocedasticidad. Con ellos MCO es ELIO (estimador lineal insesgado óptimo / BLUE).",
+        "Bondad de ajuste: R² = SCE/SCT = 1 − SCR/SCT (proporción de la variación de y explicada). R² ajustado penaliza el número de variables: R̄² = 1 − (1−R²)(n−1)/(n−k−1).",
+        "Interpretaciones con logaritmos: nivel-nivel (Δy = β·Δx), log-nivel (β·100 % por unidad de x), nivel-log (β/100 por 1 % de x), log-log (elasticidad: β % por 1 %).",
+        "Sesgo por omisión de variable relevante: si se omite x₂ correlacionada con x₁, β̂₁ está sesgado (sesgo = β₂ · δ̃₁)."
+      ],
+      "cards": [
+        ["Criterio de MCO", "Minimizar la suma de los residuos al cuadrado."],
+        ["Pendiente MCO en la regresión simple", "β̂₁ = Cov(x, y) / Var(x)."],
+        ["Fórmula del R²", "SCE/SCT = 1 − SCR/SCT."],
+        ["Teorema de Gauss-Markov", "Bajo los supuestos clásicos, MCO es el estimador lineal insesgado de menor varianza (ELIO/BLUE)."],
+        ["Interpretación en un modelo log-log", "β es una elasticidad: un 1 % más de x se asocia a un β % más de y."],
+        ["Interpretación en un modelo log-nivel", "Una unidad más de x se asocia a un cambio aproximado de 100·β % en y."],
+        ["¿Por qué usar el R² ajustado?", "Porque el R² nunca baja al añadir variables; el ajustado penaliza las irrelevantes."]
+      ],
+      "quiz": [
+        {"q": "En log(salario) = 0,5 + 0,08·educ, un año más de educación se asocia a…", "o": ["+0,08 € de salario", "+8 % de salario aprox.", "+0,08 % de salario", "+80 % de salario"], "a": 1, "e": "Modelo log-nivel: 100·0,08 = 8 %."},
+        {"q": "En log(Q) = 2 − 1,2·log(P), la elasticidad precio es…", "o": ["−1,2", "2", "−0,012", "1,2 %"], "a": 0, "e": "Log-log: β es la elasticidad."},
+        {"q": "SCT = 200, SCR = 50. R² =", "o": ["0,25", "0,75", "0,5", "4"], "a": 1, "e": "1 − 50/200 = 0,75."},
+        {"q": "Cov(x,y) = 12, Var(x) = 4, ȳ = 10, x̄ = 2. Estimación MCO:", "o": ["ŷ = 4 + 3x", "ŷ = 3 + 4x", "ŷ = 10 + 3x", "ŷ = 6 + 2x"], "a": 0, "e": "β̂₁ = 3; β̂₀ = 10 − 3·2 = 4."},
+        {"q": "Omitir una variable relevante correlacionada con un regresor provoca…", "o": ["Solo pérdida de eficiencia", "Sesgo en los estimadores", "Heterocedasticidad", "Nada"], "a": 1, "e": "Sesgo de variable omitida."}
+      ]
+    },
+    {
+      "id": "t3",
+      "title": "Bloque 2 · Inferencia y predicción",
+      "guide": ["El modelo de regresión múltiple: inferencia y predicción"],
+      "summary": [
+        "Supuesto adicional de normalidad de u (o muestras grandes): β̂ⱼ ~ Normal y el estadístico t = (β̂ⱼ − βⱼ⁰)/ee(β̂ⱼ) sigue una t de Student con n − k − 1 grados de libertad.",
+        "Contraste de significatividad individual H₀: βⱼ = 0. Se rechaza si |t| > valor crítico (≈1,96 al 5 % con muchos g.l.) o si el p-valor < α.",
+        "Intervalo de confianza: β̂ⱼ ± t_crítico · ee(β̂ⱼ). Si no contiene el 0, la variable es significativa a ese nivel.",
+        "Contraste F de restricciones lineales: F = [(SCR_r − SCR_nr)/q] / [SCR_nr/(n−k−1)] con q restricciones. Significatividad conjunta del modelo: F = (R²/k) / [(1−R²)/(n−k−1)].",
+        "Predicción: ŷ₀ = β̂₀ + β̂₁x₁⁰ + … El intervalo para un valor individual es más ancho que el de la media porque incluye la varianza del error.",
+        "Error tipo I: rechazar H₀ siendo cierta (probabilidad α). Error tipo II: no rechazar H₀ siendo falsa."
+      ],
+      "cards": [
+        ["Estadístico t de significatividad", "t = β̂ⱼ / ee(β̂ⱼ), con n − k − 1 grados de libertad."],
+        ["Regla con el p-valor", "Se rechaza H₀ si el p-valor es menor que el nivel de significación α."],
+        ["Intervalo de confianza de βⱼ", "β̂ⱼ ± t_crítico · ee(β̂ⱼ)."],
+        ["F de significatividad conjunta con R²", "F = (R²/k) / [(1 − R²)/(n − k − 1)]."],
+        ["F con SCR restringida y no restringida", "F = [(SCR_r − SCR_nr)/q] / [SCR_nr/(n − k − 1)]."],
+        ["Error tipo I", "Rechazar H₀ cuando es verdadera; su probabilidad es α."]
+      ],
+      "quiz": [
+        {"q": "β̂ = 0,6 con ee = 0,2 y muchos grados de libertad. Al 5 %…", "o": ["No significativo (t = 0,3)", "Significativo (t = 3)", "No se puede saber", "Significativo solo al 10 %"], "a": 1, "e": "t = 3 > 1,96."},
+        {"q": "Un p-valor de 0,08 implica…", "o": ["Se rechaza H₀ al 5 %", "Se rechaza H₀ al 10 % pero no al 5 %", "Se rechaza al 1 %", "No se rechaza nunca"], "a": 1, "e": "0,08 < 0,10 pero > 0,05."},
+        {"q": "SCR_r = 120, SCR_nr = 100, q = 2, n − k − 1 = 50. F =", "o": ["5", "10", "2", "0,2"], "a": 0, "e": "(20/2)/(100/50) = 10/2 = 5."},
+        {"q": "IC al 95 %: β̂ = 1,5, ee = 0,5, t crítico ≈ 2. El intervalo es…", "o": ["[0,5 ; 2,5]", "[1 ; 2]", "[−0,5 ; 3,5]", "[1,5 ; 2,5]"], "a": 0, "e": "1,5 ± 1."},
+        {"q": "El intervalo de predicción para un valor individual de y respecto al de su valor medio es…", "o": ["Igual", "Más estrecho", "Más ancho", "Siempre el doble"], "a": 2, "e": "Añade la varianza del término de error."}
+      ]
+    },
+    {
+      "id": "t4",
+      "title": "Bloque 3 · Heterocedasticidad",
+      "guide": ["Relajación de los supuestos clásicos: heterocedasticidad"],
+      "summary": [
+        "Heterocedasticidad: Var(u|x) no es constante (p. ej. el gasto varía más entre rentas altas). Habitual en corte transversal.",
+        "Consecuencias: MCO sigue siendo insesgado y consistente, pero ya no es ELIO y los errores estándar habituales son incorrectos → t y F no válidos.",
+        "Detección: gráficos de residuos; contraste de Breusch-Pagan (regresar û² sobre las x; LM = n·R² ~ χ²ₖ) y contraste de White (incluye cuadrados y productos cruzados de las x, o ŷ y ŷ²).",
+        "Soluciones: errores estándar robustos a la heterocedasticidad (White/HC), mínimos cuadrados ponderados (MCP/MCG) si se conoce la forma de la varianza, MCG factibles, o transformar el modelo (logaritmos)."
+      ],
+      "cards": [
+        ["Definición de heterocedasticidad", "Varianza del error que depende de las variables explicativas."],
+        ["¿Sesga la heterocedasticidad a MCO?", "No: sigue siendo insesgado, pero no eficiente y los errores estándar habituales son incorrectos."],
+        ["Estadístico del contraste de Breusch-Pagan (versión LM)", "LM = n · R² de la regresión de û² sobre las x, ~ χ² con k g.l."],
+        ["Solución más habitual en la práctica", "Usar errores estándar robustos (de White)."],
+        ["Mínimos cuadrados ponderados", "Dividir la ecuación por la desviación típica del error para que el modelo transformado sea homocedástico."]
+      ],
+      "quiz": [
+        {"q": "Con heterocedasticidad, los estimadores MCO de β son…", "o": ["Sesgados", "Insesgados pero no eficientes", "Inconsistentes", "Eficientes"], "a": 1, "e": "La media condicional nula no depende de la varianza."},
+        {"q": "En Breusch-Pagan, n = 200 y R² de la regresión auxiliar = 0,05. LM =", "o": ["0,05", "10", "4", "200"], "a": 1, "e": "200 · 0,05 = 10."},
+        {"q": "La hipótesis nula del contraste de White es…", "o": ["Heterocedasticidad", "Homocedasticidad", "Autocorrelación", "Normalidad"], "a": 1, "e": "H₀: varianza constante."},
+        {"q": "Si Var(u|x) = σ²·x, MCP divide la ecuación entre…", "o": ["x", "√x", "x²", "σ"], "a": 1, "e": "Entre la desviación típica del error, proporcional a √x."}
+      ]
+    },
+    {
+      "id": "t5",
+      "title": "Bloque 3 · Autocorrelación",
+      "guide": ["Relajación de los supuestos clásicos: autocorrelación"],
+      "summary": [
+        "Autocorrelación (correlación serial): los errores de distintos periodos están correlacionados, Cov(uₜ, uₛ) ≠ 0. Típica en series temporales. Modelo AR(1): uₜ = ρ·uₜ₋₁ + eₜ.",
+        "Consecuencias (con regresores exógenos): MCO insesgado pero no eficiente; errores estándar incorrectos (suelen infraestimarse con ρ > 0) → inferencia no válida.",
+        "Detección: gráfico de residuos en el tiempo; Durbin-Watson DW ≈ 2(1 − ρ̂) (≈2 sin autocorrelación, cerca de 0 positiva, cerca de 4 negativa; zonas de indecisión dL–dU); Breusch-Godfrey (válido con retardos de y como regresores).",
+        "Soluciones: errores estándar robustos HAC (Newey-West), MCG factibles (Cochrane-Orcutt, Prais-Winsten), revisar la especificación (variables omitidas, dinámica)."
+      ],
+      "cards": [
+        ["Relación aproximada entre DW y ρ̂", "DW ≈ 2(1 − ρ̂)."],
+        ["Valor de DW sin autocorrelación", "Cercano a 2."],
+        ["Limitación de Durbin-Watson", "No es válido si hay variable dependiente retardada entre los regresores y tiene zonas de indecisión."],
+        ["Errores robustos ante autocorrelación", "HAC de Newey-West."],
+        ["Procedimientos de MCG factibles para AR(1)", "Cochrane-Orcutt y Prais-Winsten."]
+      ],
+      "quiz": [
+        {"q": "DW = 0,6. ρ̂ aproximado:", "o": ["0,3", "0,7", "−0,7", "0,6"], "a": 1, "e": "0,6 = 2(1 − ρ) → ρ = 0,7: autocorrelación positiva."},
+        {"q": "Un DW cercano a 4 indica…", "o": ["Autocorrelación positiva", "Autocorrelación negativa", "Ausencia de autocorrelación", "Heterocedasticidad"], "a": 1, "e": "ρ̂ ≈ −1."},
+        {"q": "Con autocorrelación positiva, los errores estándar MCO habituales tienden a…", "o": ["Sobreestimarse", "Infraestimarse", "Ser exactos", "Ser cero"], "a": 1, "e": "Por eso los t parecen más significativos de lo que son."},
+        {"q": "Contraste adecuado si hay yₜ₋₁ entre los regresores:", "o": ["Durbin-Watson", "Breusch-Godfrey", "White", "Jarque-Bera"], "a": 1, "e": "DW está sesgado hacia 2 en ese caso."}
+      ]
+    },
+    {
+      "id": "t6",
+      "title": "Bloque 3 · Errores de especificación y cuestiones adicionales",
+      "guide": ["Errores de especificación", "Cuestiones adicionales (multicolinealidad, forma funcional, datos)"],
+      "summary": [
+        "Omitir una variable relevante → sesgo e inconsistencia si está correlacionada con los regresores. Incluir una irrelevante → sigue insesgado pero con más varianza.",
+        "Forma funcional incorrecta: se contrasta con RESET de Ramsey (añadir ŷ² y ŷ³ y contrastar su significatividad conjunta con F).",
+        "Multicolinealidad: correlación alta entre regresores. No sesga, pero aumenta las varianzas (t bajos con R² alto, coeficientes inestables). Se mide con el FIV = 1/(1 − Rⱼ²) (problemático si > 10). Multicolinealidad perfecta impide estimar (trampa de las ficticias).",
+        "Errores de medida: en y solo aumentan la varianza; en x provocan sesgo de atenuación hacia cero.",
+        "Normalidad de los errores: contraste de Jarque-Bera (asimetría y curtosis)."
+      ],
+      "cards": [
+        ["Consecuencia de incluir una variable irrelevante", "Estimadores insesgados pero con mayor varianza."],
+        ["Contraste RESET de Ramsey", "Detecta forma funcional incorrecta añadiendo potencias de ŷ y contrastando su significatividad conjunta."],
+        ["Factor de inflación de la varianza", "FIV = 1 / (1 − Rⱼ²); valores > 10 indican multicolinealidad grave."],
+        ["Síntoma típico de multicolinealidad", "R² alto y F significativo pero t individuales no significativos."],
+        ["Error de medida en un regresor", "Sesgo de atenuación: el coeficiente se acerca a cero."],
+        ["Contraste de normalidad", "Jarque-Bera."]
+      ],
+      "quiz": [
+        {"q": "Rⱼ² = 0,95 en la regresión auxiliar de xⱼ. FIV =", "o": ["1,05", "5", "20", "95"], "a": 2, "e": "1/(1 − 0,95) = 20."},
+        {"q": "La multicolinealidad no perfecta…", "o": ["Sesga los estimadores", "Aumenta las varianzas de los estimadores", "Hace imposible estimar", "Provoca heterocedasticidad"], "a": 1, "e": "Siguen siendo insesgados."},
+        {"q": "Un error de medida clásico en la variable dependiente…", "o": ["Sesga los β", "Aumenta la varianza del error, sin sesgo", "Atenúa los β", "Provoca autocorrelación"], "a": 1, "e": "Se absorbe en el término de error."},
+        {"q": "Para contrastar si falta una forma no lineal se usa…", "o": ["White", "RESET de Ramsey", "Durbin-Watson", "Chow"], "a": 1, "e": "Añade ŷ² y ŷ³."}
+      ]
+    },
+    {
+      "id": "t7",
+      "title": "Bloque 4 · Variables binarias o ficticias",
+      "guide": ["Variables binarias o ficticias exógenas"],
+      "summary": [
+        "Ficticia (dummy): toma 1 si se cumple una característica y 0 si no. Su coeficiente mide la diferencia media en y respecto a la categoría base, ceteris paribus.",
+        "Con m categorías se incluyen m − 1 ficticias (si se incluyen todas con constante: trampa de las variables ficticias, multicolinealidad perfecta).",
+        "Con y en logaritmos, el efecto exacto de la ficticia es 100·(e^β − 1) %; aproximadamente 100·β %.",
+        "Interacciones: ficticia × variable continua permite pendientes distintas por grupo; ficticia × ficticia, efectos combinados.",
+        "Contraste de Chow / de cambio estructural: ¿son iguales los coeficientes en dos grupos o periodos? Con estadístico F (o con ficticias e interacciones).",
+        "Ficticias estacionales en series temporales (p. ej. trimestrales: 3 ficticias)."
+      ],
+      "cards": [
+        ["Trampa de las variables ficticias", "Incluir una ficticia por cada categoría junto con la constante: multicolinealidad perfecta."],
+        ["Número de ficticias para m categorías", "m − 1 (una categoría es la base)."],
+        ["Interpretación de una ficticia en un modelo en niveles", "Diferencia media de y respecto a la categoría base, manteniendo lo demás constante."],
+        ["Efecto exacto de una ficticia con y en logaritmos", "100·(e^β − 1) %."],
+        ["Interacción ficticia × continua", "Permite que la pendiente de la variable continua difiera entre grupos."],
+        ["Contraste de Chow", "Contraste F de igualdad de coeficientes entre dos grupos o periodos (cambio estructural)."]
+      ],
+      "quiz": [
+        {"q": "salario = 10 + 2·mujer + 1,5·educ (mujer = 1 si es mujer). Interpretación de 2:", "o": ["Las mujeres ganan 2 € más que los hombres de igual educación (en media)", "Los hombres ganan 2 € más", "Cada año de educación suma 2", "No se puede interpretar"], "a": 0, "e": "Diferencia respecto a la base (hombres)."},
+        {"q": "Datos trimestrales con constante: ¿cuántas ficticias estacionales?", "o": ["4", "3", "2", "12"], "a": 1, "e": "4 − 1 = 3."},
+        {"q": "log(salario) con coeficiente de una ficticia β = 0,10. Efecto exacto:", "o": ["10 %", "≈10,5 %", "≈9,5 %", "0,10 %"], "a": 1, "e": "e^0,10 − 1 ≈ 0,105."},
+        {"q": "Para permitir que el rendimiento de la educación difiera por sexo se incluye…", "o": ["Solo la ficticia mujer", "La interacción mujer × educ", "Dos ficticias de sexo", "educ²"], "a": 1, "e": "La interacción cambia la pendiente."}
+      ]
+    },
+    {
+      "id": "t8",
+      "title": "Bloque 5 · Modelos de elección binaria: logit y probit",
+      "guide": ["Modelos de elección binaria: logit / probit"],
+      "summary": [
+        "Variable dependiente binaria (y = 1 si ocurre el suceso). Modelo de probabilidad lineal (MPL): MCO de y sobre x; βⱼ es el cambio en la probabilidad. Problemas: probabilidades fuera de [0,1], efectos constantes, heterocedasticidad.",
+        "Logit y probit: P(y=1|x) = G(β₀ + xβ) con G la función logística (logit) o la normal estándar acumulada (probit). Siempre entre 0 y 1.",
+        "Se estiman por máxima verosimilitud. Contrastes con z (Wald) o razón de verosimilitudes LR = 2(logL_nr − logL_r) ~ χ²_q.",
+        "Los coeficientes no son efectos marginales: solo su signo y significatividad se interpretan directamente. Efecto marginal = g(xβ)·βⱼ, evaluado en la media (MEM) o promediado (efecto marginal medio, AME).",
+        "Logit: odds ratio = e^βⱼ (cambio multiplicativo en la razón de probabilidades). Coeficientes logit ≈ 1,6 × coeficientes probit.",
+        "Bondad: pseudo-R² de McFadden = 1 − logL_nr / logL₀, y porcentaje de predicciones correctas."
+      ],
+      "cards": [
+        ["Problemas del modelo de probabilidad lineal", "Predicciones fuera de [0,1], efectos marginales constantes y heterocedasticidad."],
+        ["Función G en logit y en probit", "Logit: logística e^z/(1+e^z). Probit: función de distribución normal estándar Φ(z)."],
+        ["Método de estimación de logit/probit", "Máxima verosimilitud."],
+        ["¿Qué se interpreta directamente de un coeficiente logit?", "Su signo y su significatividad; la magnitud requiere efectos marginales u odds ratios."],
+        ["Odds ratio en logit", "e^β: factor por el que se multiplica la razón P/(1−P) al aumentar x en una unidad."],
+        ["Pseudo-R² de McFadden", "1 − logL del modelo / logL del modelo solo con constante."]
+      ],
+      "quiz": [
+        {"q": "En un MPL, β = 0,03 para la renta (miles €) significa…", "o": ["+3 % de renta", "+0,03 en la probabilidad (3 p.p.) por cada 1000 € más", "Odds ratio de 1,03", "Elasticidad de 0,03"], "a": 1, "e": "En el MPL los coeficientes son cambios en la probabilidad."},
+        {"q": "Logit con β = 0,693 para una variable. Odds ratio:", "o": ["0,693", "≈2", "≈0,5", "1,693"], "a": 1, "e": "e^0,693 ≈ 2: duplica la razón de probabilidades."},
+        {"q": "logL_nr = −80, logL_r = −90, 2 restricciones. LR =", "o": ["10", "20", "170", "5"], "a": 1, "e": "2·(−80 − (−90)) = 20 > χ²₂ crítico (5,99)."},
+        {"q": "¿Qué ventaja tiene logit/probit frente al MPL?", "o": ["Se estima por MCO", "Las probabilidades predichas quedan siempre entre 0 y 1", "Los coeficientes son efectos marginales", "No necesita datos"], "a": 1, "e": "Por la forma de la función G."}
+      ]
+    }
+  ],
+  "exams": {
+    "ordinary": [
+      {"topics": [], "note": "Asistencia y participación (sin temario específico)."},
+      {"topics": ["t1", "t2", "t3", "t4", "t5", "t6", "t7", "t8"], "note": "Mínimo dos pruebas parciales; el profesor concreta al inicio los temas de cada parcial."},
+      {"topics": ["t1", "t2", "t3", "t4", "t5", "t6", "t7", "t8"], "note": "Examen global obligatorio de todas las técnicas estudiadas y su aplicación con Stata."},
+      {"topics": ["t1", "t2", "t3"], "note": "Estimado: por la fecha (12-nov) es probable que cubra los primeros bloques. Confírmalo en el Aula Virtual."}
+    ],
+    "extraordinary": [
+      {"topics": ["t1", "t2", "t3", "t4", "t5", "t6", "t7", "t8"], "note": "Examen final teórico-práctico de todo el temario."}
+    ]
+  }
+}

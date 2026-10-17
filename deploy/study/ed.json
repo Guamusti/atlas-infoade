@@ -1,0 +1,190 @@
+{
+  "sid": "ed",
+  "source": "Guía docente UAH 2026/27 · Estructuras de Datos (780009)",
+  "topics": [
+    {
+      "id": "b1",
+      "title": "Bloque 1 · Fundamentos y Tipos Abstractos de Datos",
+      "guide": ["Conceptos básicos", "Estructura de datos", "Tipos Abstractos de Datos (TAD)", "Especificación de TAD", "Complejidad / eficiencia y recursividad (criterios de evaluación)"],
+      "summary": [
+        "Un TAD define un conjunto de valores y sus operaciones por su comportamiento, ocultando la implementación (encapsulación). Una estructura de datos es la implementación concreta.",
+        "Especificación de un TAD: signatura (nombre, tipos, operaciones con sus dominios) + semántica (axiomas o pre/postcondiciones).",
+        "Operaciones: constructoras (crean valores), modificadoras, observadoras/consultoras (devuelven información sin modificar).",
+        "Complejidad asintótica con O grande: O(1) < O(log n) < O(n) < O(n log n) < O(n²) < O(2ⁿ). Se analiza el peor caso, el mejor y el medio.",
+        "Recursividad: toda función recursiva necesita un caso base (sin llamada) y un caso general que se acerque al caso base. Cada llamada ocupa espacio en la pila.",
+        "Iterativo vs recursivo: la recursión da soluciones más claras para estructuras recursivas (árboles), la iteración suele ser más eficiente en memoria."
+      ],
+      "cards": [
+        ["¿Qué es un TAD?", "Un tipo definido por sus valores y operaciones, independientemente de su implementación."],
+        ["Partes de la especificación de un TAD", "Signatura (sintaxis: operaciones y tipos) y semántica (axiomas o pre/postcondiciones)."],
+        ["Ordena de menor a mayor: O(n log n), O(1), O(n²), O(log n), O(n)", "O(1) < O(log n) < O(n) < O(n log n) < O(n²)."],
+        ["Elementos imprescindibles de una función recursiva", "Caso base que termina y caso general que reduce el problema hacia el caso base."],
+        ["Complejidad de un bucle que divide n entre 2 en cada iteración", "O(log n)."],
+        ["Dos bucles anidados de 0 a n", "O(n²)."]
+      ],
+      "quiz": [
+        {"q": "¿Cuál es la complejidad de buscar un elemento en un vector desordenado de n elementos (peor caso)?", "o": ["O(1)", "O(log n)", "O(n)", "O(n²)"], "a": 2, "e": "Hay que recorrerlo entero en el peor caso."},
+        {"q": "En la especificación de un TAD, los axiomas describen…", "o": ["La implementación en C++", "El comportamiento de las operaciones", "La memoria usada", "Los nombres de las variables"], "a": 1, "e": "Son la semántica del TAD."},
+        {"q": "¿Qué pasa si una función recursiva no tiene caso base alcanzable?", "o": ["Devuelve 0", "Recursión infinita y desbordamiento de pila", "Se convierte en iterativa", "El compilador la optimiza"], "a": 1, "e": "Cada llamada consume pila hasta agotarla."},
+        {"q": "f(n) = 3n² + 10n + 5 pertenece a…", "o": ["O(n)", "O(n²)", "O(n³)", "O(log n)"], "a": 1, "e": "Domina el término de mayor grado."},
+        {"q": "Una operación observadora de un TAD…", "o": ["Crea un valor nuevo", "Consulta información sin modificar el valor", "Libera memoria", "Ordena el contenido"], "a": 1, "e": "Ejemplo: cima() de una pila o esVacia()."}
+      ]
+    },
+    {
+      "id": "b2a",
+      "title": "Bloque 2 · Pilas, colas y listas",
+      "guide": ["Introducción a las estructuras lineales", "Especificación de pilas, colas y listas", "Implementación (estática y dinámica)", "Aplicaciones"],
+      "summary": [
+        "Pila (LIFO): apilar/push, desapilar/pop, cima/top, esVacia. Todas O(1). Aplicaciones: llamadas a funciones, deshacer, evaluación de expresiones, paréntesis balanceados.",
+        "Cola (FIFO): encolar al final, desencolar del frente, primero. O(1). Implementación estática con array circular (índices módulo capacidad) o dinámica con punteros a frente y final.",
+        "Lista: secuencia con acceso por posición. Enlazada simple (cada nodo apunta al siguiente), doblemente enlazada (anterior y siguiente), circular.",
+        "Insertar/borrar en lista enlazada es O(1) si tienes el puntero al nodo; buscar o acceder a la posición i es O(n). En un array, acceso O(1) pero insertar en medio O(n).",
+        "Implementación dinámica en C++: struct Nodo { T dato; Nodo* sig; }; con new y delete; el destructor debe liberar todos los nodos.",
+        "Bicola (deque): inserciones y extracciones por ambos extremos."
+      ],
+      "cards": [
+        ["LIFO vs FIFO", "LIFO (pila): sale el último en entrar. FIFO (cola): sale el primero en entrar."],
+        ["Coste de insertar al principio de una lista enlazada", "O(1)."],
+        ["Coste de acceder al elemento i de una lista enlazada", "O(n), hay que recorrerla."],
+        ["¿Cómo se implementa una cola en un array sin desplazar elementos?", "Como array circular: frente y final avanzan módulo la capacidad."],
+        ["Aplicación típica de la pila", "Comprobar paréntesis balanceados, evaluar expresiones postfijas, gestionar llamadas recursivas, deshacer."],
+        ["Ventaja de la lista doblemente enlazada", "Permite recorrer en ambos sentidos y borrar un nodo conocido en O(1) sin buscar su anterior."]
+      ],
+      "quiz": [
+        {"q": "Secuencia: push(1), push(2), pop(), push(3), push(4), pop(). ¿Cima de la pila?", "o": ["1", "2", "3", "4"], "a": 2, "e": "Queda [1,3] → cima 3."},
+        {"q": "Secuencia en cola: enc(1), enc(2), desenc(), enc(3). ¿Primero?", "o": ["1", "2", "3", "Vacía"], "a": 1, "e": "Sale el 1; quedan 2 y 3 → primero 2."},
+        {"q": "En un array circular de capacidad 5, si final = 4, tras encolar final vale…", "o": ["5", "0", "4", "-1"], "a": 1, "e": "(4+1) mod 5 = 0."},
+        {"q": "¿Qué estructura usarías para evaluar una expresión en notación postfija?", "o": ["Cola", "Pila", "Lista circular", "Tabla hash"], "a": 1, "e": "Se apilan operandos y al leer un operador se desapilan dos."},
+        {"q": "Borrar un nodo de una lista simplemente enlazada conociendo solo ese nodo (no el anterior)…", "o": ["Es O(1) siempre", "Requiere encontrar el anterior: O(n)", "Es imposible", "Es O(log n)"], "a": 1, "e": "Hay que enlazar el anterior con el siguiente."}
+      ]
+    },
+    {
+      "id": "b2b",
+      "title": "Bloque 2 · Vectores, ordenación y búsqueda",
+      "guide": ["Vectores", "Algoritmos de ordenación", "Algoritmos de búsqueda"],
+      "summary": [
+        "Búsqueda secuencial O(n). Búsqueda binaria en vector ORDENADO O(log n): comparar con el central y descartar la mitad.",
+        "Burbuja, selección e inserción: O(n²) en el peor caso. Inserción es O(n) si el vector ya está casi ordenado; es estable.",
+        "Mergesort: divide en mitades, ordena recursivamente y mezcla. O(n log n) siempre, estable, necesita memoria auxiliar O(n).",
+        "Quicksort: elige pivote, particiona menores/mayores y ordena recursivamente. O(n log n) medio, O(n²) peor caso (pivote siempre extremo); in situ.",
+        "Heapsort: construye un montículo y extrae el máximo repetidamente. O(n log n), in situ, no estable.",
+        "Estabilidad: un algoritmo es estable si mantiene el orden relativo de elementos con la misma clave."
+      ],
+      "cards": [
+        ["Requisito de la búsqueda binaria", "El vector debe estar ordenado."],
+        ["Peor caso de Quicksort y cuándo ocurre", "O(n²), cuando el pivote es siempre el mínimo o el máximo (p. ej. vector ya ordenado eligiendo el primero)."],
+        ["Complejidad de Mergesort", "O(n log n) en todos los casos, con O(n) de memoria extra."],
+        ["¿Qué algoritmo O(n²) va bien con datos casi ordenados?", "Inserción: O(n) en el mejor caso."],
+        ["¿Qué significa que un algoritmo de ordenación sea estable?", "Que elementos con claves iguales conservan su orden relativo original."],
+        ["Comparaciones máximas en búsqueda binaria con 1024 elementos", "Unas 10–11 (log₂ 1024 = 10)."]
+      ],
+      "quiz": [
+        {"q": "¿Cuál de estos algoritmos es O(n log n) incluso en el peor caso?", "o": ["Quicksort", "Mergesort", "Inserción", "Burbuja"], "a": 1, "e": "Quicksort degenera a O(n²); Mergesort no."},
+        {"q": "Tras la primera pasada de selección (mínimo al principio) sobre [5,3,8,1], el vector queda…", "o": ["[1,3,8,5]", "[3,5,8,1]", "[1,5,3,8]", "[3,5,1,8]"], "a": 0, "e": "Se intercambia el mínimo (1) con la posición 0 (5)."},
+        {"q": "Búsqueda binaria de 7 en [1,3,5,7,9,11,13]: ¿primer elemento comparado?", "o": ["1", "7", "5", "13"], "a": 1, "e": "El central (índice 3) es 7."},
+        {"q": "¿Qué algoritmo NO es in situ en su versión habitual?", "o": ["Quicksort", "Heapsort", "Mergesort", "Selección"], "a": 2, "e": "Mergesort necesita un vector auxiliar para mezclar."},
+        {"q": "Inserción sobre un vector ya ordenado de n elementos tiene coste…", "o": ["O(1)", "O(n)", "O(n log n)", "O(n²)"], "a": 1, "e": "Cada elemento se compara una vez con su anterior."}
+      ]
+    },
+    {
+      "id": "b3a",
+      "title": "Bloque 3 · Árboles: ABB, AVL, montículos y árboles generales",
+      "guide": ["Introducción a las estructuras no lineales", "Árboles binarios de búsqueda", "Colas de prioridad y montículos", "Árboles AVL", "Árboles generales", "Implementación y aplicaciones"],
+      "summary": [
+        "Terminología: raíz, hoja, padre/hijo, altura (camino más largo raíz–hoja), profundidad, nivel, grado.",
+        "Recorridos de un árbol binario: preorden (R-I-D), inorden (I-R-D), postorden (I-D-R) y por niveles (con una cola).",
+        "ABB: para cada nodo, el subárbol izquierdo tiene claves menores y el derecho mayores. El inorden da las claves ordenadas. Buscar/insertar/borrar O(h): O(log n) si está equilibrado, O(n) si degenera en lista.",
+        "Borrar en ABB: hoja → se elimina; un hijo → se sustituye por él; dos hijos → se reemplaza por el sucesor inorden (mínimo del subárbol derecho) o el predecesor.",
+        "AVL: ABB en el que en cada nodo |altura(izq) − altura(der)| ≤ 1. Tras insertar/borrar se reequilibra con rotaciones simples (II, DD) o dobles (ID, DI). Garantiza O(log n).",
+        "Montículo binario (heap): árbol completo con propiedad de orden (en min-heap, cada padre ≤ hijos). Se guarda en array: hijos de i en 2i+1 y 2i+2, padre en (i−1)/2. Insertar (flotar) y extraer la raíz (hundir) en O(log n). Implementa colas de prioridad.",
+        "Árbol general: cada nodo con cualquier número de hijos; se representa como primer hijo–siguiente hermano."
+      ],
+      "cards": [
+        ["Recorrido que lista ordenadas las claves de un ABB", "Inorden (izquierdo, raíz, derecho)."],
+        ["Factor de equilibrio permitido en un AVL", "−1, 0 o +1 en cada nodo."],
+        ["Posición de los hijos del nodo i en un heap en array (base 0)", "2i+1 y 2i+2; padre en ⌊(i−1)/2⌋."],
+        ["Borrar en ABB un nodo con dos hijos", "Sustituir su clave por la del sucesor inorden (mínimo del subárbol derecho) y borrar ese sucesor."],
+        ["Coste de buscar en un ABB degenerado", "O(n): se comporta como una lista."],
+        ["Rotaciones del AVL", "Simples (II/LL y DD/RR) y dobles (ID/LR y DI/RL)."],
+        ["Coste de extraer el mínimo de un min-heap", "O(log n): se pone el último en la raíz y se hunde."]
+      ],
+      "quiz": [
+        {"q": "Insertando 50, 30, 70, 20, 40 en un ABB vacío, el recorrido preorden es…", "o": ["20 30 40 50 70", "50 30 20 40 70", "20 40 30 70 50", "50 30 70 20 40"], "a": 1, "e": "Preorden: raíz, izquierdo, derecho."},
+        {"q": "Insertando 10, 20, 30 en un AVL vacío, ¿qué ocurre?", "o": ["Nada, sigue equilibrado", "Rotación simple a la izquierda (caso DD) y 20 queda como raíz", "Rotación doble", "Se convierte en heap"], "a": 1, "e": "Desequilibrio derecha-derecha en 10 → rotación simple."},
+        {"q": "En el min-heap [2, 5, 3, 9, 6], ¿quién es el padre del elemento 6 (índice 4)?", "o": ["2", "5", "3", "9"], "a": 1, "e": "(4−1)/2 = 1 → elemento 5."},
+        {"q": "La altura de un ABB con n nodos en el peor caso es…", "o": ["log n", "n", "n/2", "1"], "a": 1, "e": "Si se insertan claves ordenadas degenera en lista."},
+        {"q": "¿Qué estructura implementa eficientemente una cola de prioridad?", "o": ["Pila", "Montículo (heap)", "Lista ordenada siempre", "Cola circular"], "a": 1, "e": "Insertar y extraer en O(log n)."},
+        {"q": "El recorrido postorden visita…", "o": ["Raíz, izquierdo, derecho", "Izquierdo, raíz, derecho", "Izquierdo, derecho, raíz", "Por niveles"], "a": 2, "e": "La raíz al final."}
+      ]
+    },
+    {
+      "id": "b3b",
+      "title": "Bloque 3 · Diccionarios y tablas hash",
+      "guide": ["Diccionarios", "Tablas hash"],
+      "summary": [
+        "Diccionario (mapa): TAD de pares clave→valor con insertar, buscar y borrar por clave.",
+        "Tabla hash: un array donde la función hash h(k) da la posición de cada clave. Coste medio O(1); peor caso O(n) si todo colisiona.",
+        "Buena función hash: rápida, reparte uniformemente; con claves enteras es típico h(k) = k mod M con M primo.",
+        "Colisión: dos claves con la misma posición. Encadenamiento (hashing abierto): cada celda tiene una lista. Direccionamiento abierto (hashing cerrado): buscar otra celda con sondeo lineal (h+i), cuadrático (h+i²) o doble hash.",
+        "Factor de carga α = n / M. Con direccionamiento abierto debe mantenerse < 1 (≈0,5–0,7); al superarlo se redimensiona y se rehashean las claves.",
+        "En direccionamiento abierto, al borrar se marca la celda como 'borrada' (no vacía) para no cortar las secuencias de sondeo."
+      ],
+      "cards": [
+        ["Coste medio de búsqueda en tabla hash", "O(1); en el peor caso O(n)."],
+        ["Factor de carga", "α = número de elementos / tamaño de la tabla."],
+        ["Encadenamiento vs direccionamiento abierto", "Encadenamiento: lista por celda. Abierto: se busca otra celda libre de la propia tabla con una secuencia de sondeo."],
+        ["¿Por qué se usa M primo en h(k)=k mod M?", "Para repartir mejor las claves y evitar patrones con claves que comparten divisores."],
+        ["¿Por qué no se vacía la celda al borrar en sondeo lineal?", "Cortaría la secuencia de sondeo y no se encontrarían claves insertadas después; se marca como borrada."],
+        ["¿Qué es el agrupamiento primario?", "En sondeo lineal, las claves tienden a formar bloques contiguos que alargan los sondeos."]
+      ],
+      "quiz": [
+        {"q": "Tabla de tamaño 7, h(k)=k mod 7, sondeo lineal. Insertas 10, 3, 17. ¿Dónde queda 17?", "o": ["Posición 3", "Posición 4", "Posición 5", "Posición 0"], "a": 2, "e": "10→3, 3→3 ocupada→4, 17→3 ocupada, 4 ocupada → 5."},
+        {"q": "Con encadenamiento, el factor de carga puede…", "o": ["Ser mayor que 1", "Ser solo menor que 0,5", "Ser exactamente 1", "No existe"], "a": 0, "e": "Cada celda puede tener varios elementos."},
+        {"q": "¿Qué operación NO es eficiente en una tabla hash?", "o": ["Buscar por clave", "Insertar", "Listar las claves en orden", "Borrar por clave"], "a": 2, "e": "No mantiene orden; para eso un ABB/AVL."},
+        {"q": "Sondeo cuadrático usa posiciones…", "o": ["h, h+1, h+2…", "h, h+1, h+4, h+9…", "h, 2h, 3h…", "Aleatorias"], "a": 1, "e": "h + i² mod M."}
+      ]
+    },
+    {
+      "id": "b3c",
+      "title": "Bloque 3 · Grafos",
+      "guide": ["Grafos: especificación, implementación y aplicaciones"],
+      "summary": [
+        "Grafo G = (V, E): vértices y aristas; dirigido o no dirigido; ponderado o no. Grado de un vértice = número de aristas incidentes (entrada/salida en dirigidos).",
+        "Representación: matriz de adyacencia (O(V²) memoria, consulta de arista O(1), buena para grafos densos) o listas de adyacencia (O(V+E), buena para grafos dispersos).",
+        "Recorrido en anchura (BFS): usa una cola; visita por niveles; da caminos mínimos en número de aristas. O(V+E) con listas.",
+        "Recorrido en profundidad (DFS): usa pila o recursión; útil para detectar ciclos, componentes conexas y ordenación topológica.",
+        "Dijkstra: caminos mínimos desde un origen con pesos no negativos, usando cola de prioridad. Ordenación topológica: solo en grafos dirigidos acíclicos (DAG).",
+        "Árbol de recubrimiento mínimo: Prim (crece desde un vértice) y Kruskal (aristas por peso con conjuntos disjuntos)."
+      ],
+      "cards": [
+        ["Estructura auxiliar de BFS y de DFS", "BFS: cola. DFS: pila (o recursión)."],
+        ["Memoria de la matriz de adyacencia", "O(V²)."],
+        ["¿Cuándo usar listas de adyacencia?", "En grafos dispersos (pocas aristas respecto a V²)."],
+        ["Requisito de Dijkstra", "Pesos no negativos."],
+        ["¿Qué grafos admiten ordenación topológica?", "Los dirigidos acíclicos (DAG)."],
+        ["¿Qué recorrido da caminos mínimos en número de aristas?", "BFS."]
+      ],
+      "quiz": [
+        {"q": "Aristas A-B, A-C, B-D, C-D (no dirigido). BFS desde A visitando en orden alfabético:", "o": ["A B D C", "A B C D", "A C B D", "A D B C"], "a": 1, "e": "Nivel 1: B, C; nivel 2: D."},
+        {"q": "Mismo grafo, DFS recursivo desde A en orden alfabético:", "o": ["A B C D", "A B D C", "A C D B", "A D C B"], "a": 1, "e": "A → B → D → C."},
+        {"q": "Para un grafo con 1000 vértices y 2000 aristas, ¿qué representación conviene?", "o": ["Matriz de adyacencia", "Listas de adyacencia", "Da igual", "Un vector ordenado"], "a": 1, "e": "Es disperso: la matriz desperdiciaría ~10⁶ celdas."},
+        {"q": "Complejidad de BFS con listas de adyacencia:", "o": ["O(V)", "O(E)", "O(V + E)", "O(V²)"], "a": 2, "e": "Cada vértice y arista se procesa una vez."}
+      ]
+    }
+  ],
+  "exams": {
+    "ordinary": [
+      {"topics": ["b1", "b2a", "b2b"], "note": "PEI1: bloques 1 y 2 (TAD, estructuras lineales, vectores y ordenación)."},
+      {"topics": ["b3a", "b3b", "b3c", "b1"], "note": "La tabla de calificación de la guía asigna a PEI2 el bloque 3; la descripción general indica bloques 1, 2 y 3. Repasa también lo anterior."},
+      {"topics": ["b2a", "b2b", "b1"], "note": "Práctica PL1 + prueba de laboratorio sobre los bloques 1 y 2."},
+      {"topics": ["b3a", "b3b", "b3c"], "note": "Práctica PL2 + prueba de laboratorio sobre el bloque 3."},
+      {"topics": ["b2a", "b2b"], "note": "Entrega de la práctica PL1."},
+      {"topics": ["b3a", "b3b", "b3c"], "note": "Entrega de la práctica PL2."},
+      {"topics": [], "note": "Entrega en GitHub (sin contenidos teóricos asociados)."}
+    ],
+    "extraordinary": [
+      {"topics": ["b1", "b2a", "b2b", "b3a", "b3b", "b3c"], "note": "Examen de todos los bloques."},
+      {"topics": ["b2a", "b2b", "b3a", "b3b", "b3c"], "note": "Práctica extraordinaria sobre los bloques 1, 2 y 3."}
+    ]
+  }
+}

@@ -1,0 +1,241 @@
+{
+  "sid": "ssoo",
+  "source": "Guía docente UAH 2026/27 · Sistemas Operativos (780007)",
+  "topics": [
+    {
+      "id": "p1",
+      "title": "Parte 1 · Introducción y arquitectura de computadores",
+      "guide": ["Definición de computador y de sistema operativo", "Máquina desnuda: arquitectura Von Neumann; CPU, memoria, buses y E/S", "Monitor residente: monoprogramación, protección del monitor, llamadas al monitor, concepto de interrupción", "Procesamiento por lotes: solapamiento CPU/E/S, buffering", "Sistemas multiprogramados: E/S por interrupciones, protección de memoria, modo dual (traps e interrupciones), MMU", "Tiempo compartido: protección frente al monopolio de CPU, expulsión, necesidad de planificación", "Técnicas de diseño: vista funcional y estructural, mecanismos vs políticas, representación jerárquica"],
+      "summary": [
+        "El sistema operativo es el software que gestiona los recursos del computador (CPU, memoria, E/S) y ofrece una máquina extendida más cómoda que la máquina desnuda.",
+        "Arquitectura Von Neumann: programa y datos comparten memoria; la CPU ejecuta el ciclo captar–decodificar–ejecutar y se comunica por buses con memoria y periféricos.",
+        "El monitor residente fue el primer SO: permanece en memoria, encadena trabajos y ofrece servicios mediante llamadas; necesita protegerse de los programas de usuario.",
+        "Una interrupción es una señal asíncrona (hardware) que hace que la CPU salte a una rutina del SO; un trap o excepción es síncrono y lo provoca la propia instrucción (p. ej. llamada al sistema, división por cero).",
+        "Lotes → multiprogramación: mientras un trabajo espera E/S, la CPU ejecuta otro. Requiere E/S por interrupciones, protección de memoria y modo dual (usuario/núcleo).",
+        "La MMU traduce direcciones lógicas a físicas y aísla los espacios de direcciones de cada proceso.",
+        "Tiempo compartido: el temporizador interrumpe periódicamente para expulsar al proceso en ejecución y evitar que monopolice la CPU; aparece la necesidad de planificar.",
+        "Principio de diseño clave: separar mecanismos (cómo se hace) de políticas (qué se decide)."
+      ],
+      "cards": [
+        ["¿Qué diferencia una interrupción de un trap?", "La interrupción es asíncrona y la genera el hardware externo (E/S, reloj); el trap es síncrono, lo provoca la instrucción en ejecución (llamada al sistema, fallo, excepción)."],
+        ["¿Para qué sirve el modo dual de ejecución?", "Para que solo el núcleo (modo privilegiado) pueda ejecutar instrucciones peligrosas (E/S, gestión de memoria, interrupciones); el usuario ejecuta en modo restringido."],
+        ["¿Qué hace la MMU?", "Traduce direcciones lógicas a físicas en cada acceso y comprueba que el proceso solo accede a su propio espacio de direcciones."],
+        ["¿Qué aporta la multiprogramación?", "Aprovechar la CPU mientras un trabajo espera E/S, ejecutando otro trabajo cargado en memoria."],
+        ["¿Qué añade el tiempo compartido sobre la multiprogramación?", "Un temporizador que expulsa periódicamente al proceso (rodaja de tiempo) para dar respuesta interactiva a varios usuarios."],
+        ["Mecanismo vs política", "El mecanismo es cómo se hace algo (p. ej. cambio de contexto); la política decide qué/cuándo (p. ej. qué proceso entra en CPU). Separarlos da flexibilidad."],
+        ["¿Qué es el buffering?", "Usar memoria intermedia para solapar la E/S de un dispositivo con el cómputo de la CPU."]
+      ],
+      "quiz": [
+        {"q": "¿Qué elemento hardware permite al SO recuperar el control de la CPU en un sistema de tiempo compartido?", "o": ["La MMU", "El temporizador (reloj) que genera interrupciones", "El bus de datos", "La caché"], "a": 1, "e": "El reloj interrumpe periódicamente y el SO puede expulsar al proceso en ejecución."},
+        {"q": "Una llamada al sistema se implementa normalmente mediante…", "o": ["Una interrupción hardware del reloj", "Una instrucción de trap que cambia a modo núcleo", "Un acceso directo a memoria (DMA)", "Una función de biblioteca sin cambio de modo"], "a": 1, "e": "La biblioteca prepara los parámetros y ejecuta un trap; la CPU pasa a modo privilegiado y salta al núcleo."},
+        {"q": "¿Qué problema resuelve la protección de memoria en multiprogramación?", "o": ["Que la CPU vaya más rápido", "Que un programa pueda leer o escribir la memoria de otro o del SO", "La fragmentación externa", "El retardo de la E/S"], "a": 1, "e": "Con varios programas cargados a la vez hay que aislarlos entre sí y del SO."},
+        {"q": "En la arquitectura Von Neumann…", "o": ["Datos e instrucciones están en memorias separadas", "Datos e instrucciones comparten la misma memoria", "No existe unidad de control", "La E/S no usa buses"], "a": 1, "e": "Es la característica que la distingue de la arquitectura Harvard."},
+        {"q": "¿Cuál es un ejemplo de política y no de mecanismo?", "o": ["Guardar los registros en el cambio de contexto", "Decidir qué proceso listo se ejecuta a continuación", "Programar el temporizador", "Cambiar el bit de modo"], "a": 1, "e": "Elegir el siguiente proceso es una decisión (política de planificación)."}
+      ]
+    },
+    {
+      "id": "p2",
+      "title": "Parte 2 · Estructura del sistema operativo",
+      "guide": ["Vista restringida y amplia del SO", "Funciones del SO", "Interfaces: con el usuario (shell, entornos gráficos) y con las aplicaciones (llamadas al sistema)", "Descomposición en capas", "El núcleo: descripción y funciones básicas", "Casos de diseño: Linux, Windows, Mach", "Mecanismo de llamadas al sistema y tipos"],
+      "summary": [
+        "Vista restringida: el SO es solo el núcleo. Vista amplia: núcleo + intérprete de órdenes, bibliotecas y utilidades del sistema.",
+        "Funciones: gestión de procesos, memoria, E/S y archivos, protección/seguridad e interfaz con usuarios y aplicaciones.",
+        "Interfaz de usuario: shell (intérprete de órdenes) o entorno gráfico. Interfaz de aplicaciones: llamadas al sistema (p. ej. API POSIX).",
+        "Diseño en capas: cada capa usa solo servicios de la inferior; facilita depuración pero penaliza el rendimiento.",
+        "Núcleo monolítico (Linux): todo el núcleo en un único espacio privilegiado, rápido; módulos cargables. Micronúcleo (Mach): núcleo mínimo (IPC, planificación básica, memoria) y servicios en espacio de usuario, más robusto pero con más paso de mensajes. Windows: núcleo híbrido.",
+        "Llamada al sistema: el programa invoca una función de biblioteca → parámetros en registros/pila → trap → el núcleo identifica el servicio por su número, lo ejecuta y vuelve a modo usuario.",
+        "Tipos de llamadas: control de procesos, gestión de archivos, gestión de dispositivos, información del sistema y comunicaciones."
+      ],
+      "cards": [
+        ["Núcleo monolítico vs micronúcleo", "Monolítico: todos los servicios en modo núcleo, eficiente pero un fallo afecta a todo. Micronúcleo: mínimo en núcleo y servicios como procesos de usuario; más modular y robusto, más coste de comunicación."],
+        ["¿Qué es el shell?", "El intérprete de órdenes: programa de usuario que lee órdenes y las ejecuta creando procesos mediante llamadas al sistema."],
+        ["Pasos de una llamada al sistema", "Función de biblioteca → parámetros + número de llamada → trap → modo núcleo → tabla de llamadas → servicio → retorno a modo usuario con el resultado."],
+        ["Ventaja e inconveniente del diseño por capas", "Ventaja: modularidad y depuración por niveles. Inconveniente: sobrecoste al atravesar capas y dificultad para definirlas."],
+        ["Cita tres tipos de llamadas al sistema", "Control de procesos (fork, exit), archivos (open, read), dispositivos (ioctl), información (getpid), comunicaciones (pipe)."],
+        ["Vista amplia del SO", "Incluye además del núcleo el shell, las bibliotecas del sistema y las utilidades."]
+      ],
+      "quiz": [
+        {"q": "¿Qué diseño de núcleo usa Linux principalmente?", "o": ["Micronúcleo puro", "Monolítico con módulos cargables", "Exonúcleo", "Máquina virtual"], "a": 1, "e": "Linux es monolítico pero permite cargar módulos en tiempo de ejecución."},
+        {"q": "¿Qué SO se cita como ejemplo clásico de micronúcleo?", "o": ["MS-DOS", "Mach", "Linux", "Unix V6"], "a": 1, "e": "Mach separa los servicios en servidores de usuario comunicados por mensajes."},
+        {"q": "La interfaz del SO con las aplicaciones es…", "o": ["El shell", "El conjunto de llamadas al sistema", "El gestor de ventanas", "El BIOS"], "a": 1, "e": "Las aplicaciones piden servicios al núcleo mediante llamadas al sistema."},
+        {"q": "¿Por qué una llamada al sistema es más costosa que una llamada a función normal?", "o": ["Porque usa más memoria de pila", "Porque implica un cambio de modo usuario→núcleo y vuelta", "Porque siempre hace E/S", "Porque crea un proceso"], "a": 1, "e": "El trap y el cambio de modo (y comprobaciones) tienen coste."},
+        {"q": "En la vista restringida, el sistema operativo es…", "o": ["Todo el software instalado", "Solo el núcleo", "El shell y las utilidades", "El firmware"], "a": 1, "e": "La vista restringida identifica el SO con el núcleo."}
+      ]
+    },
+    {
+      "id": "p3",
+      "title": "Parte 3 · Procesos e hilos",
+      "guide": ["Programas vs procesos; estructura de un programa", "Concepto de proceso; proyección del programa en memoria (contexto de usuario)", "Creación de procesos y ciclo de vida básico", "Llamadas al sistema de procesos", "Contexto del núcleo: estructuras de datos internas (BCP)", "Hilos: justificación, características, procesos vs hilos, ejemplo con hilos POSIX"],
+      "summary": [
+        "Un programa es un archivo pasivo; un proceso es un programa en ejecución con su estado (registros, pila, memoria, recursos).",
+        "Imagen en memoria: código (texto), datos (inicializados y no inicializados/BSS), montículo (heap, crece hacia arriba) y pila (crece hacia abajo).",
+        "El núcleo representa cada proceso con un BCP (bloque de control de proceso): PID, estado, registros, información de memoria, archivos abiertos, prioridad…",
+        "Estados básicos: nuevo → listo → ejecución → (bloqueado ↔ listo) → terminado. Un proceso bloqueado espera un evento; uno listo solo espera CPU.",
+        "En UNIX/POSIX: fork() duplica el proceso (devuelve 0 al hijo y el PID del hijo al padre); exec() sustituye la imagen por otro programa; wait()/waitpid() espera a un hijo; exit() termina.",
+        "Proceso zombi: hijo terminado cuyo padre aún no ha hecho wait. Huérfano: hijo cuyo padre terminó (lo adopta init/systemd).",
+        "Un hilo es un flujo de ejecución dentro de un proceso: comparte código, datos, heap y archivos, pero tiene pila, registros y contador de programa propios.",
+        "Hilos POSIX: pthread_create(&id, attr, funcion, arg) y pthread_join(id, &ret). Crear y cambiar entre hilos es más barato que entre procesos."
+      ],
+      "cards": [
+        ["¿Qué devuelve fork()?", "0 en el hijo, el PID del hijo en el padre y -1 si hay error."],
+        ["¿Qué hace exec()?", "Sustituye la imagen de memoria del proceso por un nuevo programa; el PID se mantiene y, si tiene éxito, no retorna."],
+        ["¿Qué es un proceso zombi?", "Un proceso terminado cuya entrada sigue en la tabla de procesos porque el padre no ha recogido su estado con wait()."],
+        ["¿Qué comparten los hilos de un proceso?", "Código, datos globales, heap y archivos abiertos. Cada hilo tiene su pila, registros y PC."],
+        ["Estados de un proceso", "Nuevo, listo, en ejecución, bloqueado y terminado."],
+        ["¿Qué es el BCP?", "Bloque de control de proceso: estructura del núcleo con la información de cada proceso (PID, estado, registros, memoria, archivos, planificación)."],
+        ["¿Cuántos procesos hay tras ejecutar fork(); fork(); en un proceso?", "4 procesos (2^n con n llamadas encadenadas)."],
+        ["Ventaja de los hilos frente a procesos", "Creación y cambio de contexto más baratos y comunicación directa por memoria compartida."]
+      ],
+      "quiz": [
+        {"q": "Tras fork(), ¿qué valor ve el proceso hijo como retorno?", "o": ["Su propio PID", "El PID del padre", "0", "-1"], "a": 2, "e": "El hijo recibe 0; el padre recibe el PID del hijo."},
+        {"q": "¿Cuántas veces se imprime \"hola\"? fork(); fork(); printf(\"hola\\n\");", "o": ["2", "3", "4", "8"], "a": 2, "e": "Dos fork encadenados generan 4 procesos y cada uno imprime una vez."},
+        {"q": "¿Qué NO comparten dos hilos del mismo proceso?", "o": ["Variables globales", "Archivos abiertos", "La pila", "El heap"], "a": 2, "e": "Cada hilo tiene su propia pila y registros."},
+        {"q": "Un proceso pasa de ejecución a listo cuando…", "o": ["Pide una operación de E/S", "Se le acaba la rodaja de tiempo (expulsión)", "Termina", "Hace wait()"], "a": 1, "e": "Si pide E/S pasa a bloqueado; si es expulsado vuelve a listo."},
+        {"q": "Si exec() tiene éxito…", "o": ["Devuelve 0", "Devuelve el PID del nuevo programa", "No retorna, el código antiguo desaparece", "Crea un proceso hijo"], "a": 2, "e": "La imagen se reemplaza; solo retorna (-1) si falla."},
+        {"q": "¿Qué llamada evita que un hijo terminado quede zombi?", "o": ["kill()", "wait()/waitpid() en el padre", "exec()", "sleep()"], "a": 1, "e": "El padre recoge el estado de terminación y el núcleo libera la entrada."}
+      ]
+    },
+    {
+      "id": "p4",
+      "title": "Parte 4 · Sincronización de procesos e hilos",
+      "guide": ["Necesidad de comunicación y sincronización; escenarios concurrentes típicos", "Condiciones de carrera, atomicidad", "Problema de la sección crítica: exclusión mutua, progreso y espera limitada", "Tuberías (pipes): tipos, operaciones, llamadas y problemas clásicos", "Semáforos: operaciones, llamadas y problemas clásicos", "Mutex y variables condición: operaciones, llamadas y problemas clásicos"],
+      "summary": [
+        "Condición de carrera: el resultado depende del orden de ejecución de procesos/hilos que acceden a datos compartidos sin coordinarse (p. ej. contador++ no es atómico).",
+        "Sección crítica: fragmento que accede a recursos compartidos. Una solución debe garantizar exclusión mutua, progreso y espera limitada.",
+        "Pipes: canal unidireccional FIFO de bytes. pipe(fd) crea fd[0] (lectura) y fd[1] (escritura). Leer de un pipe vacío bloquea; si no quedan escritores, read devuelve 0 (EOF). Hay que cerrar los extremos que no se usan. Con nombre: mkfifo.",
+        "Semáforo: entero con wait/P (decrementa; si queda negativo bloquea) y signal/V (incrementa; despierta a uno). Inicializado a 1 → exclusión mutua; a 0 → sincronización (esperar un evento); a N → N recursos.",
+        "POSIX: sem_init/sem_open, sem_wait, sem_post, sem_destroy.",
+        "Mutex: cerrojo binario con dueño (pthread_mutex_lock/unlock). Variables condición: pthread_cond_wait(&c,&m) libera el mutex y bloquea de forma atómica; pthread_cond_signal/broadcast despiertan. Se usa siempre while(condición) wait.",
+        "Problemas clásicos: productor-consumidor (búfer acotado: semáforos huecos=N, llenos=0, mutex=1), lectores-escritores y filósofos comensales.",
+        "Interbloqueo: espera circular entre procesos que retienen recursos; puede aparecer si se ordenan mal los wait."
+      ],
+      "cards": [
+        ["Tres requisitos de la sección crítica", "Exclusión mutua, progreso y espera limitada."],
+        ["¿Qué hace sem_wait / P?", "Decrementa el semáforo; si el valor no permite continuar, bloquea al proceso hasta un sem_post."],
+        ["Semáforos del productor-consumidor con búfer de N", "huecos = N, llenos = 0, mutex = 1. Productor: wait(huecos), wait(mutex), insertar, signal(mutex), signal(llenos). Consumidor simétrico."],
+        ["¿Por qué cond_wait va en un while?", "Por despertares espurios y porque otro hilo puede cambiar la condición antes de recuperar el mutex: hay que volver a comprobarla."],
+        ["¿Qué devuelve read() en un pipe vacío sin escritores?", "0 (fin de archivo). Si aún hay escritores abiertos, se bloquea."],
+        ["Condición de carrera", "Resultado incorrecto que depende del entrelazado de accesos concurrentes no sincronizados a datos compartidos."],
+        ["Mutex vs semáforo", "El mutex es binario y lo libera quien lo cerró (exclusión mutua). El semáforo es un contador y cualquiera puede hacer signal (sirve también para sincronizar eventos)."],
+        ["Semáforo inicializado a 0", "Sirve para que un proceso espere a que otro señale un evento (sincronización de orden)."]
+      ]
+      ,
+      "quiz": [
+        {"q": "Dos hilos hacen 1000 veces contador++ sin sincronizar. El resultado final…", "o": ["Siempre es 2000", "Puede ser menor que 2000", "Siempre es 1000", "Provoca interbloqueo"], "a": 1, "e": "contador++ es leer-sumar-escribir; los entrelazados pierden actualizaciones."},
+        {"q": "En productor-consumidor, ¿cuál es el orden correcto en el productor?", "o": ["wait(mutex); wait(huecos)", "wait(huecos); wait(mutex)", "signal(llenos); wait(huecos)", "wait(llenos); wait(mutex)"], "a": 1, "e": "Si se coge primero el mutex y no hay huecos, el productor bloquea con el mutex y hay interbloqueo."},
+        {"q": "¿Qué ocurre si un proceso escribe en un pipe sin lectores?", "o": ["Se bloquea para siempre", "Recibe SIGPIPE / error EPIPE", "Los datos se guardan en disco", "read devuelve 0"], "a": 1, "e": "Escribir en un pipe sin lectores genera SIGPIPE."},
+        {"q": "pthread_cond_wait(&c, &m)…", "o": ["Necesita que el mutex esté libre", "Libera el mutex y bloquea de forma atómica, y lo recupera al despertar", "Despierta a todos los hilos", "Equivale a sem_post"], "a": 1, "e": "Esa atomicidad evita perder la señal."},
+        {"q": "¿Con qué valor inicial se usa un semáforo para exclusión mutua?", "o": ["0", "1", "N", "-1"], "a": 1, "e": "Valor 1: solo uno entra en la sección crítica."},
+        {"q": "En un pipe, fd[0] es…", "o": ["El extremo de escritura", "El extremo de lectura", "El PID del lector", "Un semáforo"], "a": 1, "e": "fd[0] lectura, fd[1] escritura."}
+      ]
+    },
+    {
+      "id": "p5",
+      "title": "Parte 5 · Planificación de la CPU",
+      "guide": ["Mecanismo de cambio de CPU (cambio de contexto)", "Concepto de planificación: justificación, objetivos, parámetros de evaluación", "Tipos de planificadores", "Políticas básicas: FCFS, SJF", "Prioridad y expulsión (requisa)", "Políticas avanzadas: prioridades puras, Round Robin, colas multinivel con y sin realimentación", "Casos reales: Linux y Windows"],
+      "summary": [
+        "Cambio de contexto: guardar el estado (registros, PC) del proceso saliente en su BCP y cargar el del entrante. Es sobrecoste puro.",
+        "Planificador a largo plazo (admisión), a medio plazo (suspensión/swapping) y a corto plazo (qué proceso listo usa la CPU).",
+        "Métricas: tiempo de retorno = fin − llegada; tiempo de espera = retorno − ráfaga de CPU; tiempo de respuesta = primer uso de CPU − llegada; además utilización y productividad.",
+        "FCFS: por orden de llegada, no expulsivo; sufre efecto convoy.",
+        "SJF: primero la ráfaga más corta; minimiza el tiempo medio de espera. Su versión expulsiva es SRTF. Puede provocar inanición de los largos.",
+        "Prioridades: se ejecuta el de mayor prioridad (expulsiva o no); riesgo de inanición, se corrige con envejecimiento (aging).",
+        "Round Robin: FCFS con expulsión al agotar el quantum q. q muy grande → FCFS; q muy pequeño → demasiados cambios de contexto.",
+        "Colas multinivel: varias colas con políticas distintas; con realimentación los procesos cambian de cola según su comportamiento (los que gastan el quantum bajan de prioridad).",
+        "Linux usa CFS/EEVDF (reparto justo por tiempo virtual); Windows usa prioridades con 32 niveles y expulsión."
+      ],
+      "cards": [
+        ["Fórmula del tiempo de retorno", "Tiempo de finalización − tiempo de llegada."],
+        ["Fórmula del tiempo de espera", "Tiempo de retorno − tiempo de ráfaga de CPU (si no hay E/S)."],
+        ["¿Qué política minimiza el tiempo medio de espera?", "SJF (y su versión expulsiva SRTF), si se conocen las ráfagas."],
+        ["Efecto convoy", "En FCFS, procesos cortos esperan detrás de uno largo de CPU, aumentando la espera media."],
+        ["¿Cómo se evita la inanición en prioridades?", "Con envejecimiento: aumentar la prioridad de los procesos según el tiempo que llevan esperando."],
+        ["Efecto del tamaño del quantum en RR", "Grande: tiende a FCFS. Pequeño: mejor respuesta pero más sobrecoste por cambios de contexto."],
+        ["Colas multinivel con realimentación", "Varias colas de distinta prioridad; un proceso que agota su quantum baja de cola y uno que espera mucho puede subir."]
+      ],
+      "quiz": [
+        {"q": "Procesos A(ráfaga 8), B(4), C(2) llegan en t=0 en ese orden. Tiempo medio de espera con FCFS:", "o": ["4", "6.67", "2.67", "8"], "a": 1, "e": "Esperas: A=0, B=8, C=12 → 20/3 ≈ 6.67."},
+        {"q": "Mismos procesos A(8), B(4), C(2) con SJF no expulsivo, todos en t=0. Espera media:", "o": ["2.67", "6.67", "4", "3.33"], "a": 0, "e": "Orden C, B, A: esperas 0, 2, 6 → 8/3 ≈ 2.67."},
+        {"q": "¿Qué política es intrínsecamente expulsiva?", "o": ["FCFS", "SJF no expulsivo", "Round Robin", "Prioridades no expulsivas"], "a": 2, "e": "RR expulsa al agotar el quantum."},
+        {"q": "Con Round Robin y un quantum enorme, el comportamiento se parece a…", "o": ["SJF", "FCFS", "Prioridades", "SRTF"], "a": 1, "e": "Si nadie agota el quantum, no hay expulsiones: FCFS."},
+        {"q": "¿Qué planificador decide qué proceso listo pasa a la CPU?", "o": ["Largo plazo", "Medio plazo", "Corto plazo", "De disco"], "a": 2, "e": "El planificador a corto plazo (dispatcher incluido)."},
+        {"q": "El tiempo de respuesta se mide como…", "o": ["Fin − llegada", "Primer acceso a CPU − llegada", "Ráfaga − espera", "Fin − inicio"], "a": 1, "e": "Es lo que tarda en empezar a ejecutarse por primera vez."}
+      ]
+    },
+    {
+      "id": "lab1",
+      "title": "Laboratorio 1 · Shell y comandos de Linux (PRL1)",
+      "guide": ["Configuración y operación del sistema", "Órdenes del intérprete y primeras prácticas (según Aula Virtual)"],
+      "summary": [
+        "Navegación: pwd, ls -l (permisos, propietario, tamaño), cd, mkdir, rmdir, cp, mv, rm -r, touch.",
+        "Contenido de ficheros: cat, less, head/tail -n, wc -l, grep patrón fichero (-i, -v, -r, -c), sort, uniq, cut -d -f.",
+        "Redirecciones: > (sobrescribe), >> (añade), < (entrada), 2> (errores), 2>&1. Tuberías: orden1 | orden2.",
+        "Permisos rwx para usuario, grupo y otros; chmod 755 fichero (7=rwx, 5=r-x, 4=r--) o chmod u+x; chown cambia propietario.",
+        "Procesos: ps aux, top, kill PID / kill -9, & para segundo plano, jobs, fg, bg, Ctrl+Z suspende, Ctrl+C interrumpe.",
+        "Búsqueda: find ruta -name \"*.c\" -type f; which, man orden para la ayuda.",
+        "Variables y scripts: VAR=valor, echo $VAR, $? (código de salida del último comando), #!/bin/bash, chmod +x script.sh."
+      ],
+      "cards": [
+        ["Diferencia entre > y >>", "> sobrescribe el fichero destino; >> añade al final."],
+        ["¿Qué significa chmod 754 f?", "Usuario rwx (7), grupo r-x (5), otros r-- (4)."],
+        ["¿Cómo cuento las líneas que contienen \"error\" en log.txt?", "grep -c error log.txt (o grep error log.txt | wc -l)."],
+        ["¿Qué contiene $?", "El código de salida del último comando (0 = éxito)."],
+        ["¿Cómo envío una orden a segundo plano?", "Añadiendo & al final; jobs las lista, fg la trae al primer plano."],
+        ["Redirigir salida y errores al mismo fichero", "orden > salida.txt 2>&1"],
+        ["Buscar todos los .c bajo el directorio actual", "find . -name \"*.c\" -type f"]
+      ],
+      "quiz": [
+        {"q": "¿Qué hace: ls -l | grep \"^d\" | wc -l ?", "o": ["Cuenta ficheros ocultos", "Cuenta los directorios del directorio actual", "Borra directorios", "Lista permisos"], "a": 1, "e": "En ls -l las líneas de directorios empiezan por d."},
+        {"q": "chmod u+x script.sh…", "o": ["Quita la ejecución a todos", "Da permiso de ejecución al propietario", "Cambia el propietario", "Lo hace oculto"], "a": 1, "e": "u = usuario propietario, +x añade ejecución."},
+        {"q": "¿Qué señal envía kill -9?", "o": ["SIGTERM", "SIGKILL", "SIGINT", "SIGSTOP"], "a": 1, "e": "SIGKILL no se puede capturar ni ignorar."},
+        {"q": "orden 2> err.txt redirige…", "o": ["La salida estándar", "La salida de errores", "La entrada estándar", "Ambas salidas"], "a": 1, "e": "El descriptor 2 es stderr."},
+        {"q": "¿Qué orden muestra las 5 últimas líneas de un fichero?", "o": ["head -5 f", "tail -n 5 f", "cat -5 f", "less -5 f"], "a": 1, "e": "tail muestra el final; head el principio."}
+      ]
+    },
+    {
+      "id": "lab2",
+      "title": "Laboratorio 2 · Programación con la API POSIX (EL2 + PRL2)",
+      "guide": ["Programación con la API del sistema operativo: procesos, hilos y ejercicios prácticos asociados"],
+      "summary": [
+        "Patrón básico: pid_t pid = fork(); if (pid == 0) { /* hijo */ execlp(\"ls\",\"ls\",\"-l\",NULL); perror(\"exec\"); exit(1);} else if (pid > 0) { waitpid(pid,&st,0); } else perror(\"fork\");",
+        "Estado de terminación: WIFEXITED(st) y WEXITSTATUS(st) para leer el exit del hijo.",
+        "Familia exec: execl/execlp (lista de argumentos), execv/execvp (vector); la 'p' busca en el PATH. El último argumento siempre es NULL.",
+        "Comunicar padre e hijo con pipe: crear el pipe ANTES del fork, cada proceso cierra el extremo que no usa; dup2(fd[1], STDOUT_FILENO) para redirigir la salida (como hace el shell con |).",
+        "Hilos: #include <pthread.h>, compilar con -pthread. pthread_create(&t, NULL, func, &arg); la función es void *func(void *arg); pthread_join(t, &ret).",
+        "Pasar argumentos distintos a cada hilo: usar un array de estructuras, no la dirección de una variable de bucle que cambia.",
+        "Comprobar siempre los errores de las llamadas (-1 / errno) y usar perror."
+      ],
+      "cards": [
+        ["¿Por qué se crea el pipe antes del fork?", "Para que el hijo herede los descriptores y ambos compartan el mismo pipe."],
+        ["¿Qué hace dup2(fd[1], 1)?", "Duplica fd[1] sobre la salida estándar: lo que el proceso escriba en stdout va al pipe."],
+        ["Firma de la función de un hilo POSIX", "void *funcion(void *arg)"],
+        ["¿Cómo obtengo el código de salida de un hijo?", "waitpid(pid, &st, 0); if (WIFEXITED(st)) WEXITSTATUS(st)."],
+        ["Diferencia execlp vs execv", "execlp recibe los argumentos como lista y busca en PATH; execv recibe un vector y necesita la ruta."],
+        ["Error típico al pasar &i a varios hilos", "Todos reciben la misma dirección y leen el valor cambiado de i; hay que usar memoria distinta por hilo."]
+      ],
+      "quiz": [
+        {"q": "En la orden \"ls | wc -l\" implementada con fork y pipe, el proceso de ls debe…", "o": ["dup2(fd[0], 0)", "dup2(fd[1], 1) y cerrar fd[0]", "No usar dup2", "Cerrar fd[1]"], "a": 1, "e": "ls escribe en el pipe: su stdout pasa a ser fd[1]."},
+        {"q": "Si execvp falla, la ejecución…", "o": ["Termina el proceso automáticamente", "Continúa en la línea siguiente al exec", "Vuelve al padre", "Reinicia el programa"], "a": 1, "e": "Por eso tras exec se pone perror y exit."},
+        {"q": "¿Qué opción de compilación necesita un programa con pthreads en gcc?", "o": ["-lm", "-pthread", "-O3", "-static"], "a": 1, "e": "-pthread enlaza la biblioteca y define las macros necesarias."},
+        {"q": "Un lector del pipe nunca termina de leer. Causa más probable:", "o": ["El pipe es demasiado pequeño", "Algún proceso (incluido él mismo) no cerró el extremo de escritura", "Falta un sleep", "fork devolvió 0"], "a": 1, "e": "read solo devuelve 0 (EOF) cuando no queda ningún escritor abierto."},
+        {"q": "pthread_join sirve para…", "o": ["Crear un hilo", "Esperar a que termine un hilo y recoger su valor de retorno", "Sincronizar con un mutex", "Matar un hilo"], "a": 1, "e": "Es el equivalente a wait para hilos."}
+      ]
+    }
+  ],
+  "exams": {
+    "ordinary": [
+      {"topics": ["p1", "p2", "p3", "p4", "p5"], "note": "TC1 (5-nov) cubre aproximadamente las partes 1–3 y TC2 las partes 4–5, según el cronograma de la guía (evaluaciones en las semanas 6–9 y 12–15). El corte exacto lo fija el profesor."},
+      {"topics": ["lab1"], "note": "Prueba individual de laboratorio sobre configuración, órdenes del sistema y primeras prácticas."},
+      {"topics": ["lab2", "p3"], "note": "Entrega + prueba sobre programación con la API del SO: procesos e hilos."},
+      {"topics": ["p4", "p5"], "note": "Prácticas restantes: concurrencia y planificación (detalle en el Aula Virtual)."},
+      {"topics": ["p3", "p4", "p5", "p1", "p2"], "note": "Prueba final de problemas sobre el conjunto de la asignatura; los problemas suelen centrarse en procesos, sincronización y planificación."}
+    ],
+    "extraordinary": [
+      {"topics": ["p1", "p2", "p3", "p4", "p5"], "note": "Test/ensayo final de toda la teoría."},
+      {"topics": ["lab1"]},
+      {"topics": ["lab2", "p3"]},
+      {"topics": ["p4", "p5"]},
+      {"topics": ["p3", "p4", "p5", "p1", "p2"]}
+    ]
+  }
+}

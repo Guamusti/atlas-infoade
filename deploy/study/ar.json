@@ -1,0 +1,164 @@
+{
+  "sid": "ar",
+  "source": "Guía docente UAH 2026/27 · Arquitectura de Redes (780011)",
+  "topics": [
+    {
+      "id": "u1",
+      "title": "Unidad 1 · Redes de computadores: elementos, conmutación, retardos y capas",
+      "guide": ["Elementos de una red y protocolos", "Opciones de conmutación (circuitos y paquetes)", "Retardo y parámetros de eficiencia", "Modelos de servicio", "Arquitecturas por capas (OSI y TCP/IP)"],
+      "summary": [
+        "Elementos: sistemas finales (hosts), enlaces y conmutadores (routers, switches). Un protocolo define formato, orden de mensajes y acciones ante su envío/recepción.",
+        "Conmutación de circuitos: reserva de recursos extremo a extremo (rendimiento garantizado, recursos ociosos). Conmutación de paquetes: almacenamiento y reenvío, multiplexación estadística (eficiente, con colas y pérdidas).",
+        "Retardo por nodo = procesamiento + cola + transmisión + propagación. Transmisión = L/R (bits / tasa en bps). Propagación = d/v (distancia / velocidad de propagación, ≈2·10⁸ m/s).",
+        "Con N enlaces store-and-forward y sin colas: retardo extremo a extremo = N·L/R (+ propagaciones).",
+        "Throughput extremo a extremo ≈ tasa del enlace cuello de botella (el mínimo de las tasas).",
+        "Producto ancho de banda × retardo (R·dprop): bits 'en vuelo' en el enlace.",
+        "OSI (7 capas): física, enlace, red, transporte, sesión, presentación, aplicación. TCP/IP (5): física, enlace, red (IP), transporte (TCP/UDP), aplicación. Encapsulación: mensaje → segmento → datagrama → trama."
+      ],
+      "cards": [
+        ["Fórmula del retardo de transmisión", "L / R (tamaño del paquete en bits entre la tasa del enlace)."],
+        ["Fórmula del retardo de propagación", "d / v (distancia entre velocidad de propagación)."],
+        ["Componentes del retardo nodal", "Procesamiento, cola, transmisión y propagación."],
+        ["Nombre de la PDU en cada capa TCP/IP", "Aplicación: mensaje; transporte: segmento; red: datagrama; enlace: trama."],
+        ["Circuitos vs paquetes", "Circuitos: recursos reservados y garantizados. Paquetes: compartidos bajo demanda, más eficientes pero con colas y pérdidas."],
+        ["Throughput extremo a extremo", "Lo marca el enlace más lento (cuello de botella)."],
+        ["Capas del modelo OSI", "Física, enlace, red, transporte, sesión, presentación, aplicación."]
+      ],
+      "quiz": [
+        {"q": "Paquete de 1000 bytes por un enlace de 1 Mbps. Retardo de transmisión:", "o": ["1 ms", "8 ms", "0,8 ms", "80 ms"], "a": 1, "e": "8000 bits / 10⁶ bps = 8 ms."},
+        {"q": "Enlace de 2000 km con v = 2·10⁸ m/s. Retardo de propagación:", "o": ["1 ms", "10 ms", "100 ms", "0,1 ms"], "a": 1, "e": "2·10⁶ m / 2·10⁸ m/s = 10 ms."},
+        {"q": "Un paquete de L bits atraviesa 3 enlaces de tasa R (store-and-forward, sin colas ni propagación). Retardo total:", "o": ["L/R", "3L/R", "L/(3R)", "2L/R"], "a": 1, "e": "Cada nodo debe recibir el paquete completo antes de reenviarlo."},
+        {"q": "Tasas de los enlaces de un camino: 10, 2 y 100 Mbps. Throughput máximo:", "o": ["100 Mbps", "10 Mbps", "2 Mbps", "37 Mbps"], "a": 2, "e": "El cuello de botella."},
+        {"q": "¿En qué capa de TCP/IP trabaja IP?", "o": ["Enlace", "Red", "Transporte", "Aplicación"], "a": 1, "e": "IP es el protocolo de la capa de red."},
+        {"q": "¿Qué componente del retardo depende de la carga de la red?", "o": ["Transmisión", "Propagación", "Cola", "Procesamiento"], "a": 2, "e": "La cola crece con la intensidad de tráfico."}
+      ]
+    },
+    {
+      "id": "u2",
+      "title": "Unidad 2 · Protocolos de aplicación: modelo C/S, HTTP y DNS",
+      "guide": ["Aplicaciones distribuidas", "Modelo cliente/servidor (y P2P)", "Protocolos habituales: HTTP, DNS"],
+      "summary": [
+        "Cliente/servidor: el servidor está siempre activo con dirección conocida; los clientes inician la comunicación. P2P: los pares actúan como cliente y servidor.",
+        "Un proceso se identifica por dirección IP + número de puerto. HTTP usa TCP 80 (HTTPS 443); DNS usa UDP 53 (TCP para respuestas grandes/transferencias).",
+        "HTTP es sin estado; petición (método GET/POST/HEAD/PUT/DELETE, URL, cabeceras, cuerpo) y respuesta (código de estado + cabeceras + cuerpo). Códigos: 200 OK, 301 movido, 304 no modificado, 400, 404, 500.",
+        "HTTP no persistente: una conexión TCP por objeto → ~2 RTT + transmisión por objeto. Persistente (HTTP/1.1 por defecto): reutiliza la conexión → ~1 RTT por objeto tras el primero.",
+        "Estado con cookies; cachés web (proxy) y GET condicional (If-Modified-Since → 304).",
+        "DNS traduce nombres a IP. Jerarquía: servidores raíz → TLD (.es, .com) → autoritativos; servidor local que cachea. Consultas recursivas e iterativas. Registros: A (IPv4), AAAA (IPv6), NS, CNAME, MX."
+      ],
+      "cards": [
+        ["Puerto y transporte de HTTP y DNS", "HTTP: TCP 80 (HTTPS 443). DNS: UDP 53."],
+        ["Tiempo para obtener un objeto con HTTP no persistente", "2 RTT (conexión TCP + petición/respuesta) + tiempo de transmisión."],
+        ["¿Qué significa que HTTP es sin estado?", "El servidor no guarda información de peticiones anteriores; el estado se mantiene con cookies u otros mecanismos."],
+        ["Código 304", "Not Modified: la copia en caché sigue siendo válida (respuesta a un GET condicional)."],
+        ["Registro DNS de servidor de correo", "MX."],
+        ["Consulta iterativa vs recursiva", "Iterativa: el servidor responde con a quién preguntar. Recursiva: el servidor resuelve el nombre completo por el cliente."],
+        ["Jerarquía DNS", "Raíz → dominios de primer nivel (TLD) → servidores autoritativos (y servidor local con caché)."]
+      ],
+      "quiz": [
+        {"q": "Una página con HTML + 10 imágenes, HTTP no persistente sin paralelismo. RTTs aproximados (ignorando transmisión):", "o": ["2", "11", "22", "12"], "a": 2, "e": "11 objetos × 2 RTT."},
+        {"q": "Lo mismo con HTTP persistente (sin pipelining):", "o": ["12 RTT", "22 RTT", "2 RTT", "11 RTT"], "a": 0, "e": "1 RTT de conexión + 11 peticiones de 1 RTT."},
+        {"q": "¿Qué registro DNS asocia un alias a un nombre canónico?", "o": ["A", "NS", "CNAME", "MX"], "a": 2, "e": "CNAME = nombre canónico."},
+        {"q": "Un GET condicional con la página sin cambios recibe…", "o": ["200 OK con la página", "304 Not Modified sin cuerpo", "404", "301"], "a": 1, "e": "Ahorra transferir de nuevo el objeto."},
+        {"q": "¿Qué identifica al proceso destino en un host?", "o": ["La MAC", "La IP", "El número de puerto (junto a la IP)", "El nombre DNS"], "a": 2, "e": "La IP llega al host; el puerto al proceso."}
+      ]
+    },
+    {
+      "id": "u2s",
+      "title": "Unidad 2 · Programación con sockets",
+      "guide": ["Programación de sockets (API simple para aplicaciones telemáticas)"],
+      "summary": [
+        "Socket: puerta entre el proceso de aplicación y el transporte. Tipos: SOCK_STREAM (TCP) y SOCK_DGRAM (UDP).",
+        "Servidor TCP: socket() → bind(puerto) → listen() → accept() (devuelve un NUEVO socket por cliente) → recv/send → close.",
+        "Cliente TCP: socket() → connect(IP, puerto) → send/recv → close.",
+        "UDP: sin conexión; servidor socket → bind → recvfrom (obtiene la dirección del cliente) → sendto. Cliente: socket → sendto/recvfrom.",
+        "TCP entrega un flujo de bytes: un recv puede devolver menos datos de los enviados en un send; hay que delimitar mensajes.",
+        "Orden de bytes de red: htons/htonl al rellenar puertos y direcciones."
+      ],
+      "cards": [
+        ["Secuencia del servidor TCP", "socket → bind → listen → accept → recv/send → close."],
+        ["¿Qué devuelve accept()?", "Un nuevo socket conectado con ese cliente; el original sigue escuchando."],
+        ["Llamadas de envío/recepción en UDP", "sendto() y recvfrom(), indicando o recibiendo la dirección del otro extremo."],
+        ["¿Para qué sirve htons?", "Convierte un entero de 16 bits (p. ej. el puerto) al orden de bytes de red."],
+        ["¿Necesita connect un cliente UDP?", "No (puede usarlo opcionalmente para fijar el destino)."]
+      ],
+      "quiz": [
+        {"q": "¿Qué llamada NO aparece en un servidor UDP típico?", "o": ["socket", "bind", "accept", "recvfrom"], "a": 2, "e": "accept y listen son de TCP."},
+        {"q": "Un servidor TCP atiende 3 clientes a la vez. ¿Cuántos sockets tiene abiertos como mínimo?", "o": ["1", "3", "4", "6"], "a": 2, "e": "1 de escucha + 1 por cliente."},
+        {"q": "Con TCP, el emisor hace dos send de 100 bytes. El receptor…", "o": ["Siempre recibe dos bloques de 100", "Puede recibirlos en uno de 200 o en trozos distintos", "Pierde uno", "Recibe en orden inverso"], "a": 1, "e": "TCP es un flujo de bytes sin límites de mensaje."},
+        {"q": "¿Qué tipo de socket se usa para TCP?", "o": ["SOCK_DGRAM", "SOCK_STREAM", "SOCK_RAW", "SOCK_SEQ"], "a": 1, "e": "Stream = flujo orientado a conexión."}
+      ]
+    },
+    {
+      "id": "u3a",
+      "title": "Unidad 3 · Transporte: UDP, TCP y transferencia fiable",
+      "guide": ["Servicios del nivel de transporte; multiplexación", "UDP", "Principios de transferencia fiable y técnicas de retransmisión", "TCP: segmento, números de secuencia y ACK, conexión"],
+      "summary": [
+        "Transporte: comunicación lógica entre procesos. Multiplexación/demultiplexación por puertos. UDP demultiplexa por (IP, puerto destino); TCP por la 4-tupla (IP y puerto origen y destino).",
+        "UDP: sin conexión, sin fiabilidad ni control de congestión; cabecera de 8 bytes (puertos, longitud, checksum). Útil para DNS, streaming, juegos.",
+        "Transferencia fiable: checksum + ACK + números de secuencia + temporizador de retransmisión.",
+        "Parada y espera: eficiencia U = (L/R) / (RTT + L/R); muy baja con RTT grandes.",
+        "Ventana deslizante: Go-Back-N (ACK acumulativos; un timeout reenvía toda la ventana; el receptor descarta lo desordenado) y Repetición Selectiva (ACK individuales; solo se reenvía lo perdido; el receptor guarda en búfer). En SR la ventana debe ser ≤ la mitad del espacio de números de secuencia.",
+        "Con ventana de N segmentos: U = N·(L/R) / (RTT + L/R), hasta un máximo de 1.",
+        "TCP: orientado a conexión, fiable, flujo de bytes, full-duplex. Número de secuencia = byte; ACK = siguiente byte esperado (acumulativo). Conexión con acuerdo en 3 fases (SYN, SYN-ACK, ACK) y cierre con FIN.",
+        "Timeout de TCP: EstimatedRTT = (1−α)·EstimatedRTT + α·SampleRTT (α=0,125); DevRTT con β=0,25; Timeout = EstimatedRTT + 4·DevRTT. Retransmisión rápida con 3 ACK duplicados."
+      ],
+      "cards": [
+        ["Eficiencia de parada y espera", "U = (L/R) / (RTT + L/R)."],
+        ["Go-Back-N vs Repetición Selectiva", "GBN: ACK acumulativo, reenvía toda la ventana desde el perdido. SR: ACK individual, reenvía solo los perdidos, receptor con búfer."],
+        ["Tamaño máximo de ventana en SR con k bits de secuencia", "2^(k−1) (la mitad del espacio de números)."],
+        ["Acuerdo en tres fases de TCP", "SYN → SYN-ACK → ACK."],
+        ["Significado del ACK en TCP", "Número del siguiente byte que espera el receptor (acumulativo)."],
+        ["Cálculo del timeout de TCP", "EstimatedRTT + 4·DevRTT."],
+        ["¿Qué dispara la retransmisión rápida en TCP?", "Tres ACK duplicados."],
+        ["Tamaño de la cabecera UDP", "8 bytes."]
+      ],
+      "quiz": [
+        {"q": "R = 1 Gbps, L = 8000 bits, RTT = 30 ms. Eficiencia de parada y espera aproximada:", "o": ["0,027 %", "2,7 %", "27 %", "0,27 %"], "a": 0, "e": "L/R = 8 µs → 0,008 / 30,008 ≈ 0,00027 (0,027 %)."},
+        {"q": "Mismo enlace, ventana de 1000 segmentos. Eficiencia aproximada:", "o": ["0,27 %", "2,7 %", "26,7 %", "100 %"], "a": 2, "e": "1000 × 0,008 ms / 30,008 ms ≈ 0,267."},
+        {"q": "Un segmento TCP lleva bytes 1000–1499. El ACK del receptor (si todo llegó en orden) es…", "o": ["1000", "1499", "1500", "500"], "a": 2, "e": "Siguiente byte esperado."},
+        {"q": "En Go-Back-N con ventana 4 se pierde el segmento 2 de 0..3. Tras el timeout se reenvían…", "o": ["Solo el 2", "2 y 3", "0 a 3", "Ninguno"], "a": 1, "e": "Desde el perdido hasta el final de la ventana."},
+        {"q": "EstimatedRTT = 100 ms, SampleRTT = 180 ms, α = 0,125. Nuevo EstimatedRTT:", "o": ["110 ms", "180 ms", "140 ms", "90 ms"], "a": 0, "e": "0,875·100 + 0,125·180 = 87,5 + 22,5 = 110 ms."},
+        {"q": "¿Qué protocolo usarías para una aplicación que prioriza latencia y tolera pérdidas?", "o": ["TCP", "UDP", "HTTP", "FTP"], "a": 1, "e": "UDP no retransmite ni hace control de congestión."}
+      ]
+    },
+    {
+      "id": "u3b",
+      "title": "Unidad 3 · Control de flujo y de congestión en TCP",
+      "guide": ["Control de flujo", "Control de congestión: principios y control en TCP"],
+      "summary": [
+        "Control de flujo: evita desbordar el búfer del RECEPTOR. El receptor anuncia la ventana rwnd (espacio libre) y el emisor limita los datos sin confirmar a rwnd.",
+        "Control de congestión: evita saturar la RED. El emisor mantiene cwnd; datos sin confirmar ≤ min(cwnd, rwnd). Tasa ≈ cwnd / RTT.",
+        "Arranque lento (slow start): cwnd empieza en 1 MSS y se duplica cada RTT (crecimiento exponencial) hasta ssthresh.",
+        "Evitación de congestión: por encima de ssthresh, cwnd crece 1 MSS por RTT (lineal) → AIMD (aumento aditivo, disminución multiplicativa).",
+        "Ante timeout: ssthresh = cwnd/2 y cwnd = 1 MSS (vuelta a arranque lento). Ante 3 ACK duplicados (TCP Reno): ssthresh = cwnd/2, cwnd = ssthresh (+3) y recuperación rápida. TCP Tahoe vuelve a 1 en ambos casos.",
+        "Equidad: varias conexiones TCP con AIMD tienden a repartir por igual el enlace cuello de botella."
+      ],
+      "cards": [
+        ["Flujo vs congestión", "Flujo protege al receptor (rwnd); congestión protege a la red (cwnd)."],
+        ["Límite de datos en vuelo en TCP", "min(cwnd, rwnd)."],
+        ["Crecimiento en arranque lento", "cwnd se duplica cada RTT (+1 MSS por ACK)."],
+        ["Reacción de TCP Reno a 3 ACK duplicados", "ssthresh = cwnd/2 y cwnd = ssthresh (recuperación rápida), crecimiento lineal después."],
+        ["Reacción ante timeout", "ssthresh = cwnd/2 y cwnd = 1 MSS, arranque lento."],
+        ["Significado de AIMD", "Aumento aditivo (1 MSS/RTT) y disminución multiplicativa (a la mitad) ante pérdida."]
+      ],
+      "quiz": [
+        {"q": "cwnd = 1 MSS y ssthresh = 16 MSS, sin pérdidas. Tras 4 RTT en arranque lento, cwnd vale…", "o": ["4 MSS", "5 MSS", "16 MSS", "8 MSS"], "a": 2, "e": "1 → 2 → 4 → 8 → 16."},
+        {"q": "Con cwnd = 20 MSS ocurre un timeout. Nuevos valores:", "o": ["cwnd 10, ssthresh 20", "cwnd 1, ssthresh 10", "cwnd 1, ssthresh 20", "cwnd 10, ssthresh 10"], "a": 1, "e": "ssthresh = 20/2 = 10 y cwnd vuelve a 1."},
+        {"q": "Con cwnd = 20 MSS llegan 3 ACK duplicados (Reno). cwnd pasa a ser aproximadamente…", "o": ["1", "10", "20", "40"], "a": 1, "e": "Se reduce a la mitad (≈10, +3 en recuperación rápida)."},
+        {"q": "rwnd = 5000 bytes y cwnd = 8000 bytes. Bytes máximos sin confirmar:", "o": ["8000", "5000", "13000", "3000"], "a": 1, "e": "min(cwnd, rwnd)."},
+        {"q": "En evitación de congestión cwnd crece…", "o": ["Exponencialmente", "1 MSS por RTT", "1 MSS por ACK", "No crece"], "a": 1, "e": "Crecimiento lineal (aditivo)."}
+      ]
+    }
+  ],
+  "exams": {
+    "ordinary": [
+      {"topics": ["u1", "u2", "u2s", "u3a", "u3b"], "note": "Pruebas breves a lo largo del curso sobre lo que se va impartiendo."},
+      {"topics": ["u2", "u2s", "u3a"], "note": "Pruebas de laboratorio y seguimiento en grupos pequeños (análisis de protocolos y sockets)."},
+      {"topics": ["u1", "u2", "u2s"], "note": "PEI1: unidades 1 y 2, teoría y ejercicios."},
+      {"topics": ["u3a", "u3b"], "note": "PEI2: unidad 3, teoría y ejercicios, en la fecha oficial de examen."}
+    ],
+    "extraordinary": [
+      {"topics": ["u1", "u2", "u2s", "u3a", "u3b"], "note": "Examen global de todas las unidades."}
+    ]
+  }
+}

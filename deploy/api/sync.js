@@ -33,7 +33,7 @@ module.exports = async (req, res) => {
       const current = await redis(['GET', key]);
       if (current != null) {
         const remote = JSON.parse(current);
-        if (remote.updatedAt > body.updatedAt) return res.status(409).send(current);
+        if (body.base !== remote.updatedAt) return res.status(409).send(current);
       }
       await redis(['SET', key, payload]);
       return res.status(200).json({ ok: true });

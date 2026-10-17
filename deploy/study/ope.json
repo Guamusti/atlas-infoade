@@ -1,0 +1,229 @@
+{
+  "sid": "ope",
+  "source": "Guía docente UAH 2026/27 · Operaciones y Procesos Empresariales (340014)",
+  "topics": [
+    {
+      "id": "t1",
+      "title": "Tema 1 · Introducción a la Dirección de Operaciones y productividad",
+      "guide": ["Introducción y objetivos de la Dirección de Operaciones", "Evolución histórica", "Productividad parcial y total de los factores productivos"],
+      "summary": [
+        "La Dirección de Operaciones gestiona el sistema que transforma entradas (materiales, trabajo, capital, información) en bienes y servicios con valor añadido.",
+        "Objetivos clásicos: coste, calidad, plazo/entrega, flexibilidad (y sostenibilidad).",
+        "Evolución: producción artesanal → revolución industrial y división del trabajo (Smith) → organización científica (Taylor) → producción en masa (Ford) → calidad total y JIT (Toyota) → producción ajustada, digital y sostenible.",
+        "Productividad = producción / recursos empleados. Productividad parcial: respecto a un solo factor (p. ej. unidades/hora de trabajo). Productividad total (multifactor): producción / suma valorada de todos los factores.",
+        "Variación de productividad = (P₁ − P₀) / P₀. Eficacia es lograr el objetivo; eficiencia es lograrlo con pocos recursos."
+      ],
+      "cards": [
+        ["Fórmula de productividad", "Producción obtenida / recursos utilizados."],
+        ["Productividad parcial vs total", "Parcial: respecto a un único factor. Total o multifactor: respecto al conjunto de factores valorados en unidades monetarias."],
+        ["Objetivos de la Dirección de Operaciones", "Coste, calidad, plazo de entrega y flexibilidad."],
+        ["Eficacia vs eficiencia", "Eficacia: cumplir el objetivo. Eficiencia: cumplirlo con el mínimo de recursos."],
+        ["Aportación de Taylor", "Organización científica del trabajo: estudio de tiempos y métodos y estandarización de tareas."]
+      ],
+      "quiz": [
+        {"q": "Una planta produce 1200 unidades con 300 horas de trabajo. Productividad del trabajo:", "o": ["0,25 u/h", "4 u/h", "40 u/h", "360000"], "a": 1, "e": "1200 / 300 = 4 unidades por hora."},
+        {"q": "Pasa de 4 a 5 u/h. Variación de productividad:", "o": ["20 %", "25 %", "1 %", "80 %"], "a": 1, "e": "(5−4)/4 = 0,25."},
+        {"q": "Producción valorada en 50000 €; trabajo 20000 €, materiales 15000 €, capital 5000 €. Productividad total:", "o": ["1,25", "2,5", "0,8", "3,33"], "a": 0, "e": "50000 / 40000 = 1,25."},
+        {"q": "¿Qué sistema de producción se asocia a Toyota?", "o": ["Producción en masa", "Just in Time / producción ajustada", "Taylorismo", "Producción artesanal"], "a": 1, "e": "Toyota Production System: JIT y eliminación de desperdicios."}
+      ]
+    },
+    {
+      "id": "t2",
+      "title": "Tema 2 · Dirección de proyectos: Gantt, CPM y PERT",
+      "guide": ["La dirección de proyectos y sus fases", "Importancia de la dirección de proyectos", "Programación y control", "Técnicas: GANTT, CPM y PERT; crítica a los métodos"],
+      "summary": [
+        "Fases: definición/iniciación, planificación, programación, ejecución y control, y cierre.",
+        "Gantt: barras de las actividades en el tiempo; sencillo pero no muestra bien las dependencias ni el camino crítico.",
+        "CPM (tiempos deterministas): red de actividades con precedencias. Pasada hacia delante: inicio temprano IC y fin temprano FC = IC + duración. Pasada hacia atrás: fin tardío FL e inicio tardío IL = FL − duración.",
+        "Holgura = IL − IC = FL − FC. Las actividades con holgura 0 forman el camino crítico, cuya duración es la duración del proyecto.",
+        "PERT (tiempos probabilísticos): optimista a, más probable m, pesimista b. Tiempo esperado te = (a + 4m + b)/6; varianza σ² = ((b − a)/6)².",
+        "Duración del proyecto ≈ Normal con media = suma de te del camino crítico y varianza = suma de varianzas del camino crítico. P(T ≤ D) con Z = (D − μ)/σ.",
+        "Críticas: estimaciones subjetivas, independencia supuesta entre actividades, se ignoran caminos casi críticos."
+      ],
+      "cards": [
+        ["Tiempo esperado en PERT", "te = (a + 4m + b) / 6."],
+        ["Varianza de una actividad en PERT", "σ² = ((b − a) / 6)²."],
+        ["Holgura de una actividad", "Inicio tardío − inicio temprano (o fin tardío − fin temprano)."],
+        ["Camino crítico", "Secuencia de actividades con holgura cero; determina la duración mínima del proyecto."],
+        ["CPM vs PERT", "CPM usa duraciones deterministas; PERT usa tres estimaciones y trata la duración como variable aleatoria."],
+        ["Limitación del diagrama de Gantt", "No refleja bien las relaciones de precedencia ni el camino crítico."]
+      ],
+      "quiz": [
+        {"q": "a = 2, m = 5, b = 14 días. Tiempo esperado PERT:", "o": ["5", "6", "7", "7,5"], "a": 1, "e": "(2 + 20 + 14)/6 = 36/6 = 6."},
+        {"q": "Con a = 2 y b = 14, la varianza es…", "o": ["2", "4", "12", "16"], "a": 1, "e": "((14−2)/6)² = 2² = 4."},
+        {"q": "A(3) y B(5) empiezan en 0; C(2) requiere A y B. Duración del proyecto:", "o": ["5", "7", "10", "8"], "a": 1, "e": "C empieza en 5 (máximo de los fines) y acaba en 7."},
+        {"q": "En el ejemplo anterior, la holgura de A es…", "o": ["0", "2", "3", "5"], "a": 1, "e": "A puede acabar como tarde en 5: 5 − 3 = 2."},
+        {"q": "Camino crítico con media 20 días y σ = 2. P(acabar en ≤ 22 días) ≈", "o": ["50 %", "84 %", "98 %", "16 %"], "a": 1, "e": "Z = (22−20)/2 = 1 → ≈ 0,8413."}
+      ]
+    },
+    {
+      "id": "t3",
+      "title": "Tema 3 · Concepto y desarrollo del producto: QFD y coste objetivo",
+      "guide": ["Concepto y desarrollo del producto", "Técnicas de aplicación: QFD", "El coste objetivo"],
+      "summary": [
+        "Ciclo de vida del producto: introducción, crecimiento, madurez y declive; condiciona la estrategia de operaciones.",
+        "Desarrollo de nuevos productos: generación de ideas, selección, diseño preliminar, prototipo, pruebas y diseño final. Ingeniería concurrente: diseño y producción trabajan en paralelo para reducir el plazo.",
+        "QFD (despliegue de la función de calidad): traduce la 'voz del cliente' (qué quiere) en características técnicas (cómo). Su herramienta es la Casa de la Calidad: requisitos del cliente y su importancia, características técnicas, matriz de relaciones, correlaciones (tejado), evaluación competitiva y valores objetivo.",
+        "Coste objetivo (target costing): coste objetivo = precio de venta aceptado por el mercado − margen deseado. El diseño se ajusta para no superarlo (el precio no se fija sumando costes).",
+        "Ingeniería de valor / análisis del valor: reducir el coste manteniendo las funciones que el cliente valora."
+      ],
+      "cards": [
+        ["¿Qué hace el QFD?", "Traduce las necesidades del cliente en especificaciones técnicas del producto o proceso."],
+        ["Nombre de la matriz principal del QFD", "Casa de la Calidad."],
+        ["Fórmula del coste objetivo", "Precio de mercado − margen de beneficio deseado."],
+        ["Ingeniería concurrente", "Realizar en paralelo las fases de diseño y desarrollo con participación de todas las áreas, para acortar plazos y evitar rediseños."],
+        ["Fases del ciclo de vida del producto", "Introducción, crecimiento, madurez y declive."]
+      ],
+      "quiz": [
+        {"q": "Precio de mercado 80 € y margen deseado 25 % sobre el precio. Coste objetivo:", "o": ["55 €", "60 €", "64 €", "100 €"], "a": 1, "e": "80 − 0,25·80 = 60 €."},
+        {"q": "En la Casa de la Calidad, el 'tejado' representa…", "o": ["La importancia para el cliente", "Las correlaciones entre características técnicas", "Los competidores", "Los costes"], "a": 1, "e": "Muestra qué características técnicas se refuerzan o se contradicen."},
+        {"q": "El enfoque de coste objetivo parte de…", "o": ["Los costes de producción", "El precio que el mercado está dispuesto a pagar", "El margen del sector", "El coste de la competencia"], "a": 1, "e": "Se fija el precio y se deduce el coste máximo."}
+      ]
+    },
+    {
+      "id": "t4",
+      "title": "Tema 4 · Estrategias de procesos y capacidad; planificación agregada",
+      "guide": ["Selección del proceso y estrategias de capacidad", "Tipos de procesos o configuraciones productivas", "Estrategias de proceso en industria y servicios", "Selección y diseño del proceso: repercusiones y factores", "Capacidad teórica de una instalación", "Planificación agregada"],
+      "summary": [
+        "Configuraciones productivas (de menor a mayor volumen y estandarización): proyecto, taller (job shop/por lotes pequeños), lotes, línea/cadena (repetitiva) y flujo continuo. Matriz producto-proceso de Hayes y Wheelwright.",
+        "Orientación al proceso (distribución funcional, flexible) vs orientación al producto (en línea, eficiente). Personalización masiva como híbrido.",
+        "Capacidad diseñada (teórica máxima), efectiva (esperada con las restricciones reales) y producción real. Utilización = real / diseñada. Eficiencia = real / efectiva.",
+        "Punto muerto para elegir proceso: Q* = CF / (p − cv). Comparando dos procesos: CF₁ + cv₁·Q = CF₂ + cv₂·Q.",
+        "Cuello de botella: la etapa de menor capacidad limita la capacidad del sistema.",
+        "Planificación agregada (medio plazo, 3–18 meses): ajustar capacidad y demanda. Estrategias puras: persecución de la demanda (contratar/despedir), nivelación (producción constante con inventario o pedidos pendientes), horas extra/subcontratación. Se comparan por coste total."
+      ],
+      "cards": [
+        ["Utilización vs eficiencia", "Utilización = producción real / capacidad diseñada. Eficiencia = producción real / capacidad efectiva."],
+        ["Punto muerto de un proceso", "Q* = costes fijos / (precio − coste variable unitario)."],
+        ["Tipos de procesos según volumen", "Proyecto, taller, lotes, línea y continuo."],
+        ["Estrategia de persecución vs nivelación", "Persecución: la producción sigue a la demanda (contratar/despedir). Nivelación: producción constante absorbiendo diferencias con inventario."],
+        ["¿Qué limita la capacidad de un proceso en serie?", "El cuello de botella (la etapa más lenta)."]
+      ],
+      "quiz": [
+        {"q": "Capacidad diseñada 100 u/día, efectiva 80, producción real 72. Utilización y eficiencia:", "o": ["72 % y 90 %", "80 % y 72 %", "90 % y 72 %", "72 % y 80 %"], "a": 0, "e": "72/100 = 72 %; 72/80 = 90 %."},
+        {"q": "CF = 30000 €, precio 50 €, cv = 20 €. Punto muerto:", "o": ["600 u", "1000 u", "1500 u", "428 u"], "a": 1, "e": "30000 / (50 − 20) = 1000."},
+        {"q": "Proceso A: CF 10000, cv 8. Proceso B: CF 4000, cv 10. ¿A partir de qué volumen conviene A?", "o": ["2000 u", "3000 u", "5000 u", "1000 u"], "a": 1, "e": "10000 + 8Q = 4000 + 10Q → Q = 3000; por encima A es más barato."},
+        {"q": "Etapas en serie con capacidades 50, 30 y 45 u/h. Capacidad del sistema:", "o": ["125 u/h", "45 u/h", "30 u/h", "41,7 u/h"], "a": 2, "e": "La etapa de 30 es el cuello de botella."},
+        {"q": "Una fábrica de automóviles en cadena es un proceso…", "o": ["Por proyecto", "De taller", "En línea / repetitivo", "Artesanal"], "a": 2, "e": "Alto volumen y producto estandarizado."}
+      ]
+    },
+    {
+      "id": "t5",
+      "title": "Tema 5 · Localización",
+      "guide": ["Estrategias de localización", "Objetivos y factores clave", "Tendencias y estrategias futuras", "Métodos cuantitativos y cualitativos"],
+      "summary": [
+        "Objetivo: maximizar el beneficio (industria: minimizar costes; servicios: maximizar ingresos/cercanía al cliente).",
+        "Factores: costes laborales y productividad, cercanía a mercados y proveedores, transporte e infraestructuras, tipos de cambio, impuestos y subvenciones, estabilidad política, cultura, calidad de vida, medio ambiente.",
+        "Método de los factores ponderados: asignar pesos a los factores (suman 1), puntuar cada alternativa y elegir la de mayor suma ponderada.",
+        "Análisis del punto muerto de localización: comparar CF + cv·Q de cada ubicación; para cada rango de volumen elegir la de menor coste total.",
+        "Método del centro de gravedad: Cx = Σ(xᵢ·Qᵢ)/ΣQᵢ, Cy = Σ(yᵢ·Qᵢ)/ΣQᵢ, minimiza el coste de transporte a los destinos.",
+        "Método del transporte (programación lineal) para asignar envíos entre orígenes y destinos al mínimo coste."
+      ],
+      "cards": [
+        ["Fórmula del centro de gravedad", "Cx = Σ xᵢQᵢ / Σ Qᵢ; Cy = Σ yᵢQᵢ / Σ Qᵢ."],
+        ["Método de factores ponderados", "Puntuar cada alternativa en cada factor, multiplicar por el peso y sumar; se elige la de mayor total."],
+        ["Objetivo de localización en servicios", "Maximizar ingresos (cercanía al cliente, visibilidad), más que minimizar costes."],
+        ["Análisis de punto muerto en localización", "Comparar las rectas de coste total CF + cv·Q de cada ubicación según el volumen."]
+      ],
+      "quiz": [
+        {"q": "Destinos: (0,0) con 100 u y (10,0) con 300 u. Coordenada X del centro de gravedad:", "o": ["5", "7,5", "2,5", "10"], "a": 1, "e": "(0·100 + 10·300)/400 = 7,5."},
+        {"q": "Pesos 0,6 (coste) y 0,4 (mercado). A: 80 y 60; B: 70 y 90. ¿Cuál se elige?", "o": ["A (72)", "B (78)", "Empate", "A (70)"], "a": 1, "e": "A = 48 + 24 = 72; B = 42 + 36 = 78."},
+        {"q": "Para un volumen alto suele convenir la ubicación con…", "o": ["Menor coste fijo", "Menor coste variable unitario", "Más impuestos", "Mayor coste fijo y variable"], "a": 1, "e": "Con mucho volumen pesa más el coste variable."}
+      ]
+    },
+    {
+      "id": "t6",
+      "title": "Tema 6 · Gestión de la calidad",
+      "guide": ["Conceptos básicos y relevancia económica", "Evolución histórica de la calidad y sus métodos", "Técnicas empleadas", "Estandarización, normalización y certificación", "Costes de la calidad; sistemas de gestión ISO y EFQM"],
+      "summary": [
+        "Calidad: grado en que el producto satisface las necesidades del cliente (adecuación al uso / conformidad con especificaciones).",
+        "Evolución: inspección → control estadístico de calidad (Shewhart) → aseguramiento de la calidad → gestión de la calidad total (TQM: Deming, Juran, Crosby, Ishikawa).",
+        "Ciclo PDCA (Deming): planificar, hacer, verificar, actuar. Mejora continua (kaizen). Seis Sigma: reducir variabilidad hasta 3,4 defectos por millón; ciclo DMAIC.",
+        "Herramientas básicas: diagrama de Pareto (80/20), causa-efecto (Ishikawa/espina de pescado), histogramas, hojas de control, diagramas de dispersión, gráficos de control (límites ±3σ), diagramas de flujo.",
+        "Costes de calidad: prevención y evaluación (costes de conformidad) y fallos internos y externos (costes de no conformidad). Invertir en prevención reduce los fallos.",
+        "Normalización (UNE, ISO) y certificación por terceros. ISO 9001: sistema de gestión de la calidad certificable. EFQM: modelo de excelencia de autoevaluación (no certificación ISO)."
+      ],
+      "cards": [
+        ["Ciclo PDCA", "Plan (planificar), Do (hacer), Check (verificar), Act (actuar)."],
+        ["Cuatro categorías de costes de calidad", "Prevención, evaluación, fallos internos y fallos externos."],
+        ["¿Para qué sirve un diagrama de Pareto?", "Para priorizar: pocas causas generan la mayoría de los problemas (80/20)."],
+        ["Diagrama de Ishikawa", "Diagrama causa-efecto o espina de pescado que organiza las causas posibles de un problema (método, máquina, material, mano de obra, medio, medición)."],
+        ["Seis Sigma", "Metodología para reducir la variabilidad a 3,4 defectos por millón de oportunidades (DMAIC)."],
+        ["ISO 9001 vs EFQM", "ISO 9001: norma certificable de sistema de gestión de calidad. EFQM: modelo de excelencia para autoevaluación y mejora."]
+      ],
+      "quiz": [
+        {"q": "Una devolución por defecto descubierta por el cliente es un coste de…", "o": ["Prevención", "Evaluación", "Fallo interno", "Fallo externo"], "a": 3, "e": "El defecto ha llegado al cliente."},
+        {"q": "La formación del personal en calidad es un coste de…", "o": ["Prevención", "Evaluación", "Fallo interno", "Fallo externo"], "a": 0, "e": "Se invierte para evitar defectos."},
+        {"q": "Un punto fuera de los límites de control indica…", "o": ["Variabilidad natural", "Probable causa asignable (especial)", "Que el proceso es capaz", "Error del gráfico"], "a": 1, "e": "Hay que investigar la causa."},
+        {"q": "¿Qué autor se asocia al ciclo PDCA y los 14 puntos?", "o": ["Taylor", "Deming", "Ford", "Porter"], "a": 1, "e": "W. Edwards Deming."}
+      ]
+    },
+    {
+      "id": "t7",
+      "title": "Tema 7 · Gestión de la cadena de suministro",
+      "guide": ["Concepto, tareas y problemas básicos de la SCM", "Gestión del aprovisionamiento: importancia económica, objetivos, fases", "Logística de adquisiciones y valoración de proveedores"],
+      "summary": [
+        "Cadena de suministro: red de empresas y actividades desde las materias primas hasta el cliente final (proveedores, fabricación, distribución, minoristas). La SCM coordina flujos de materiales, información y dinero.",
+        "Efecto látigo (bullwhip): pequeñas variaciones de la demanda final se amplifican aguas arriba por pedidos por lotes, previsiones independientes, promociones y racionamiento. Se combate compartiendo información (VMI, CPFR).",
+        "Aprovisionamiento: obtener los materiales en cantidad, calidad, plazo y coste adecuados. Fases: detección de la necesidad, búsqueda y selección de proveedores, negociación, pedido, seguimiento, recepción y control.",
+        "Estrategias: muchos proveedores (competencia en precio) vs pocos proveedores con relación a largo plazo (colaboración, JIT); integración vertical (hacia atrás o hacia delante) vs externalización (make or buy).",
+        "Valoración de proveedores: factores ponderados (precio, calidad, plazo, servicio, capacidad financiera…).",
+        "Logística: transporte, almacenamiento, distribución; operadores logísticos y cross-docking."
+      ],
+      "cards": [
+        ["Efecto látigo", "Amplificación de la variabilidad de los pedidos a medida que se sube por la cadena de suministro."],
+        ["¿Cómo se reduce el efecto látigo?", "Compartiendo información de demanda, reduciendo lotes y plazos, VMI/CPFR y precios estables."],
+        ["Make or buy", "Decidir si fabricar internamente un componente o comprarlo/externalizarlo."],
+        ["Integración vertical hacia atrás", "La empresa asume actividades de sus proveedores."],
+        ["Fases del aprovisionamiento", "Necesidad, selección de proveedor, negociación, pedido, seguimiento, recepción y control."]
+      ],
+      "quiz": [
+        {"q": "Un fabricante compra a su proveedor de componentes. Es integración vertical…", "o": ["Hacia delante", "Hacia atrás", "Horizontal", "Externalización"], "a": 1, "e": "Hacia atrás: hacia los proveedores."},
+        {"q": "¿Cuál NO es causa del efecto látigo?", "o": ["Pedidos por lotes", "Promociones de precios", "Compartir los datos de venta en tiempo real", "Previsiones independientes en cada eslabón"], "a": 2, "e": "Compartir información lo reduce."},
+        {"q": "Proveedor A: calidad 9, precio 6; B: calidad 7, precio 9. Pesos calidad 0,7 y precio 0,3. Mejor:", "o": ["A (8,1)", "B (7,6)", "Empate", "B (8,1)"], "a": 0, "e": "A = 6,3 + 1,8 = 8,1; B = 4,9 + 2,7 = 7,6."}
+      ]
+    },
+    {
+      "id": "t8",
+      "title": "Tema 8 · Gestión de inventarios: EOQ, punto de pedido y stock de seguridad",
+      "guide": ["Gestión de almacén y modelos de gestión", "Punto de pedido", "Stock de seguridad: procedimientos de cálculo"],
+      "summary": [
+        "Funciones del inventario: desacoplar etapas, protegerse de la incertidumbre, aprovechar descuentos por cantidad. Costes: de pedido (S), de mantenimiento (H por unidad y año) y de rotura.",
+        "Clasificación ABC: A (≈20 % de artículos, ≈80 % del valor) con control estricto; C con control simple.",
+        "Lote económico (EOQ, Wilson): Q* = √(2·D·S / H). Coste total = (D/Q)·S + (Q/2)·H (+ D·precio). En el óptimo, coste de pedir = coste de mantener.",
+        "Número de pedidos al año = D/Q*; tiempo entre pedidos = días laborables / número de pedidos.",
+        "Punto de pedido (revisión continua): PP = d · L + SS (demanda diaria × plazo de entrega + stock de seguridad).",
+        "Stock de seguridad con demanda incierta: SS = Z · σ_L (σ de la demanda durante el plazo; σ_L = σ_d·√L). Z según nivel de servicio (90 % → 1,28; 95 % → 1,65; 99 % → 2,33).",
+        "Modelo de revisión periódica: se revisa cada T y se pide hasta un nivel objetivo. JIT busca inventario mínimo."
+      ],
+      "cards": [
+        ["Fórmula del lote económico", "Q* = √(2DS / H)."],
+        ["Coste total anual del modelo EOQ (sin precio)", "(D/Q)·S + (Q/2)·H."],
+        ["Punto de pedido", "PP = demanda diaria × plazo de entrega + stock de seguridad."],
+        ["Stock de seguridad", "SS = Z × desviación típica de la demanda durante el plazo de entrega."],
+        ["Z para un nivel de servicio del 95 %", "≈ 1,65."],
+        ["Clasificación ABC", "A: pocos artículos con la mayor parte del valor (control estricto); B intermedios; C muchos artículos de poco valor."]
+      ],
+      "quiz": [
+        {"q": "D = 1000 u/año, S = 20 €/pedido, H = 4 €/u·año. EOQ:", "o": ["100 u", "141 u", "50 u", "200 u"], "a": 0, "e": "√(2·1000·20/4) = √10000 = 100."},
+        {"q": "Con esos datos, número de pedidos al año:", "o": ["5", "10", "20", "100"], "a": 1, "e": "1000 / 100 = 10."},
+        {"q": "Coste anual de pedir + mantener en el EOQ anterior:", "o": ["200 €", "400 €", "100 €", "4000 €"], "a": 1, "e": "(10·20) + (50·4) = 200 + 200 = 400 €."},
+        {"q": "Demanda 20 u/día, plazo 5 días, SS = 30 u. Punto de pedido:", "o": ["100 u", "130 u", "70 u", "150 u"], "a": 1, "e": "20·5 + 30 = 130."},
+        {"q": "Si sube el coste de mantener H, el EOQ…", "o": ["Sube", "Baja", "No cambia", "Se duplica"], "a": 1, "e": "H está en el denominador."}
+      ]
+    }
+  ],
+  "exams": {
+    "ordinary": [
+      {"topics": ["t1", "t2", "t3", "t4", "t5", "t6", "t7", "t8"], "note": "Casos prácticos, test de progreso y trabajos durante el curso; el corte por tema lo fija el profesor."},
+      {"topics": ["t1", "t2", "t3", "t4", "t5", "t6", "t7", "t8"], "note": "Examen final teórico-práctico de todo el temario (mínimo 4/10)."},
+      {"topics": ["t1", "t2", "t3"], "note": "Estimado: por la fecha (26-oct) es probable que cubra los primeros temas. Confírmalo en el Aula Virtual."},
+      {"topics": ["t4", "t5", "t6"], "note": "Estimado: temas centrales según el avance del curso. Confírmalo en el Aula Virtual."},
+      {"topics": [], "note": "Trabajo: consulta el enunciado del profesor."}
+    ],
+    "extraordinary": [
+      {"topics": [], "note": "Se conserva la nota de actividades."},
+      {"topics": ["t1", "t2", "t3", "t4", "t5", "t6", "t7", "t8"], "note": "Examen teórico-práctico de todo el temario."}
+    ]
+  }
+}
