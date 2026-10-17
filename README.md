@@ -29,7 +29,7 @@ El script opcional `work/process_logo.py` genera iconos a partir de una imagen d
 ## Estructura
 
 - `deploy/`: versión publicada de la aplicación y sus recursos PWA.
-- `work/`: plantilla, scripts auxiliares y guías docentes de referencia.
+- `work/`: plantilla, scripts auxiliares y fuentes de apoyo que se pueden descargar localmente.
 - `outputs/`: copia exportable del HTML final y recursos asociados.
 
 No subas credenciales ni la carpeta local `.vercel/`. Los cambios publicados por GitHub/Vercel actualizan el sitio, pero los datos locales guardados por cada usuario no se sincronizan automáticamente entre dispositivos.
