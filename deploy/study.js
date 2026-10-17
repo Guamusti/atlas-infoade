@@ -122,7 +122,42 @@ const css=`.study-overlay{position:fixed;inset:0;z-index:250;background:var(--pa
  .sp-stats{grid-template-columns:repeat(2,1fr)}
  .sp-cols{grid-template-columns:1fr}
 }
-`;
+
+.sn{font-size:14px;line-height:1.6;color:#17201b}.sn p{margin:8px 0}
+.sn code,.study-q code,.study-options code,.study-card-text code,.study-explain code,.lab-q code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:#eef2ef;border:1px solid #d6ddd8;border-radius:5px;padding:1px 5px}
+.sn-h{font:400 19px 'DM Serif Display',serif;color:var(--forest,#153c2d);margin:18px 0 6px}
+.sn-list{margin:6px 0;padding-left:20px}.sn-list li{margin:4px 0}
+.sn-cap{font-size:11px;font-weight:700;color:var(--muted,#53615a);margin:10px 0 -4px}
+.sn-code{background:#17201b;color:#e8f5d6;border-radius:10px;padding:12px 14px;overflow-x:auto;font:12.5px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;margin:8px 0;white-space:pre}
+.sn-code code{background:none;border:0;padding:0;color:inherit;font:inherit}
+.sn-tw{overflow-x:auto;margin:8px 0}.sn-table{border-collapse:collapse;width:100%;font-size:13px}
+.sn-table th{background:var(--forest,#153c2d);color:#fff;text-align:left;padding:7px 9px;font-weight:700}
+.sn-table td{border-bottom:1px solid #d6ddd8;padding:7px 9px;vertical-align:top}.sn-table tr:nth-child(even) td{background:#f6f8f6}
+.sn-box{border-radius:10px;padding:10px 12px;margin:10px 0;font-size:13.5px}.sn-box b{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:3px}
+.sn-box.tip{background:#f3ffd0;border:1.5px solid #9fbf3b}.sn-box.warn{background:#fff1ed;border:1.5px solid #ffb99f}.sn-box.warn b{color:#c2410c}
+.sn-steps,.sn-widget{border:2px solid #17201b;border-radius:12px;padding:12px;margin:12px 0;background:#fffdf7}
+.sn-steps-head{display:flex;justify-content:space-between;gap:8px;align-items:baseline;margin-bottom:8px}.sn-steps-head span{font-size:11px;color:var(--muted,#53615a)}
+.sn-step{display:flex;gap:10px;padding:8px 0;border-top:1px dashed #d6ddd8}.sn-step[hidden]{display:none}.sn-step:first-of-type{border-top:0}
+.sn-step-n{flex:0 0 28px;height:28px;border-radius:50%;background:var(--acid,#dfff59);border:1.5px solid #17201b;display:grid;place-items:center;font-weight:800;font-size:12px}
+.sn-step p{margin:2px 0}.sn-steps-nav{display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap;margin-top:8px}
+.sn-widget label{display:flex;gap:8px;align-items:center;font-size:13px;font-weight:700;margin-top:8px}
+.sn-widget input{flex:1;min-width:0;font:14px ui-monospace,Menlo,Consolas,monospace;padding:8px;border:1.5px solid #17201b;border-radius:8px}
+.sn-out{font-size:13px;line-height:1.6;background:#f6f8f6;border-radius:8px;padding:8px 10px;margin-top:6px}
+.sn-source{font-size:11px;color:var(--muted,#53615a);margin-top:10px}
+.sn-guide{margin-top:12px;font-size:12px}.sn-guide summary{cursor:pointer;color:var(--muted,#53615a);font-weight:700}
+.study-order{list-style:none;padding:0;margin:8px 0;display:grid;gap:6px;counter-reset:o}
+.study-order li{counter-increment:o;display:flex;gap:10px;align-items:center;background:#fff;border:1.5px solid #17201b;border-radius:10px;padding:9px 10px;font-size:14px}
+.study-order li::before{content:counter(o);flex:0 0 24px;height:24px;border-radius:50%;background:#eef2ef;display:grid;place-items:center;font-size:11px;font-weight:800}
+.study-order li>span:first-child{flex:1}.study-order li.right{background:#dcf7e8;border-color:#16855b}.study-order li.wrong{background:#ffe1d5;border-color:#d94b38}
+.so-btns{display:flex;gap:4px}.so-btns button{width:34px;height:34px;border:1.5px solid #17201b;border-radius:8px;background:#fffdf7;cursor:pointer;font-size:15px}.so-btns button:disabled{opacity:.3}
+.study-explain ol{margin:6px 0 6px 18px;padding:0}
+.lab-q{font-size:clamp(15px,3.2vw,18px);font-weight:600;line-height:1.45;margin-bottom:8px}
+.lab-ctx{font-size:12px}
+.lab-term{display:flex;align-items:center;gap:8px;background:#17201b;border-radius:10px;padding:12px 14px;border:2px solid #17201b}
+.lab-term.ok{border-color:#16855b}.lab-term.ko{border-color:#d94b38}
+.lab-prompt{color:var(--acid,#dfff59);font:13px ui-monospace,Menlo,Consolas,monospace;white-space:nowrap}
+.lab-term input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:#e8f5d6;font:15px ui-monospace,Menlo,Consolas,monospace}
+.lab-sol{margin-top:6px}`;
 const st=document.createElement('style');st.textContent=css;document.head.append(st);
 
 const STUDY_CACHE={};let STUDY_INDEX=null;
@@ -146,7 +181,7 @@ const topicKey=(sid,tid)=>`${sid}/${tid}`;
 const prog=(sid,tid)=>studyState().studyProgress[topicKey(sid,tid)]||{};
 function topicProgress(sid,t){
   const p=prog(sid,t.id),cards=t.cards?.length||0,known=Math.min((p.k||[]).length,cards),parts=[];
-  if(cards)parts.push(known/cards);if(t.quiz?.length)parts.push((p.q||0)/100);
+  if(cards)parts.push(known/cards);if(t.quiz?.length)parts.push((p.q||0)/100);if(t.labs?.length)parts.push((p.l||0)/100);
   return parts.length?parts.reduce((a,x)=>a+x,0)/parts.length:0;
 }
 const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:null;
@@ -275,7 +310,7 @@ async function renderExam(sid,conv,i,mode,topicFilter){
     ${note?`<div class="history-note">${esc(note)}</div>`:''}
     ${data?`<div class="study-assign"><button class="btn" data-study-edit>Elegir temas</button>${Array.isArray(state.examTopics?.[`${sid}:${conv}:${i}`])?'<button class="btn ghost" data-study-reset>Usar los de la guía</button>':''}</div>`:''}
     ${!topics.length?`<div class="empty">${data?'Esta prueba no tiene temas asignados. Pulsa «Elegir temas».':'Sin material interactivo todavía para esta asignatura.'}</div>`:`
-    <div class="study-modes">${[['resumen','Resumen'],['tarjetas','Tarjetas'],['test','Test']].map(([m,l])=>`<button class="${mode===m?'active':''}" data-sp-go="${base}/${m}${topicFilter?'/'+topicFilter:''}">${l}</button>`).join('')}</div>
+    <div class="study-modes">${[['resumen','Apuntes'],['tarjetas','Tarjetas'],['test','Test'],...(topics.some(t=>t.labs?.length)?[['practica','Terminal']]:[])].map(([m,l])=>`<button class="${mode===m?'active':''}" data-sp-go="${base}/${m}${topicFilter?'/'+topicFilter:''}">${l}</button>`).join('')}</div>
     ${topics.length>1?`<label class="study-filter">Tema <select data-study-topic><option value="">Todos los de esta prueba (${topics.length})</option>${topics.map(t=>`<option value="${t.id}" ${t.id===topicFilter?'selected':''}>${esc(t.title)}</option>`).join('')}</select></label>`:''}
     <div id="studyPane"></div>`}`;
   main.querySelector('[data-study-topic]')?.addEventListener('change',ev=>go(`${base}/${mode}${ev.target.value?'/'+ev.target.value:''}`));
@@ -285,9 +320,11 @@ async function renderExam(sid,conv,i,mode,topicFilter){
   const entries=active.map(t=>({sid,t}));
   if(mode==='tarjetas')return renderCards(pane,entries);
   if(mode==='test')return renderQuiz(pane,entries);
+  if(mode==='practica')return renderLabs(pane,entries);
   pane.innerHTML=active.map(t=>`<section class="study-topic"><div class="study-topic-head"><h3>${esc(t.title)}</h3><span class="study-topic-pct">${pct(topicProgress(sid,t))}</span></div>
-    <div class="study-label">Contenidos de la guía docente</div><ul class="study-guide">${t.guide.map(g=>`<li>${esc(g)}</li>`).join('')}</ul>
-    <div class="study-label">Claves para el examen</div><ul class="study-summary">${t.summary.map(g=>`<li>${esc(g)}</li>`).join('')}</ul></section>`).join('');
+    ${t.notes?`<div class="sn">${renderNotes(t.notes)}</div>${t.source?`<div class="sn-source">Fuente: ${esc(t.source)}</div>`:''}<details class="sn-guide"><summary>Contenidos según la guía docente</summary><ul class="study-guide">${t.guide.map(g=>`<li>${esc(g)}</li>`).join('')}</ul></details>`:`<div class="study-label">Contenidos de la guía docente</div><ul class="study-guide">${t.guide.map(g=>`<li>${esc(g)}</li>`).join('')}</ul>
+    <div class="study-label">Claves para el examen</div><ul class="study-summary">${t.summary.map(g=>`<li>${esc(g)}</li>`).join('')}</ul>`}</section>`).join('');
+  initWidgets(pane);
 }
 function editTopics(sid,conv,i,all,ids){
   const pop=document.createElement('div');pop.className='study-picker';
@@ -306,7 +343,7 @@ async function renderReview(scope,mode){
         <section class="sp-card"><h3 class="sp-h3">Lo que viene (14 días)</h3><p class="sp-muted">${list.length?list.map(x=>`${esc(x.s.short)} · ${esc(x.e.name)}`).join(' · '):'No hay pruebas con temas en los próximos 14 días.'}</p>
           <div class="sp-hero-actions"><button class="btn primary" data-sp-go="#estudio/repaso/proximos/tarjetas" ${list.length?'':'disabled'}>Tarjetas pendientes</button><button class="btn" data-sp-go="#estudio/repaso/proximos/test" ${list.length?'':'disabled'}>Test de 10</button></div></section>
         ${Object.entries(all).map(([sid,d])=>{const s=subj(sid);if(!s)return '';return `<section class="sp-card" style="--subject-color:${subjectColor(s)}"><h3 class="sp-h3"><span class="subject-color-dot"></span> ${esc(s.name)}</h3><p class="sp-muted">${d.topics.length} temas · ${pct(avg(d.topics.map(t=>topicProgress(sid,t))))} dominado</p>
-          <div class="sp-hero-actions"><button class="btn primary" data-sp-go="#estudio/repaso/${sid}/tarjetas">Tarjetas pendientes</button><button class="btn" data-sp-go="#estudio/repaso/${sid}/test">Test de 10</button></div></section>`}).join('')}
+          <div class="sp-hero-actions"><button class="btn primary" data-sp-go="#estudio/repaso/${sid}/tarjetas">Tarjetas pendientes</button><button class="btn" data-sp-go="#estudio/repaso/${sid}/test">Test de 10</button>${d.topics.some(t=>t.labs?.length)?`<button class="btn" data-sp-go="#estudio/repaso/${sid}/practica">Retos de terminal</button>`:''}</div></section>`}).join('')}
       </div>`;
     return;
   }
@@ -317,7 +354,7 @@ async function renderReview(scope,mode){
   main.innerHTML=`${pageHead(mode==='test'?'Test rápido':'Tarjetas pendientes',label,'#estudio/repaso')}<div id="studyPane"></div>`;
   const pane=main.querySelector('#studyPane');
   if(!entries.length){pane.innerHTML='<div class="empty">No hay temas para repasar en este ámbito.</div>';return}
-  if(mode==='test')renderQuiz(pane,entries,10);else renderCards(pane,entries,{onlyPending:true,limit:15});
+  if(mode==='test')renderQuiz(pane,entries,10);else if(mode==='practica')renderLabs(pane,entries.filter(x=>x.t.labs?.length),10);else renderCards(pane,entries,{onlyPending:true,limit:15});
 }
 
 /* ---------- Motores: tarjetas y test ---------- */
@@ -331,7 +368,7 @@ function renderCards(pane,entries,opts={}){
     if(pos>=deck.length){pane.innerHTML=`<div class="study-done"><div class="study-big">${ok}/${deck.length}</div><p>tarjetas que ya dominas en esta ronda.</p><button class="btn primary" data-again>Otra ronda</button></div>`;pane.querySelector('[data-again]').onclick=()=>renderCards(pane,entries,opts);return}
     const c=deck[pos],known=(prog(c.sid,c.t.id).k||[]).includes(c.n),s=subj(c.sid);
     pane.innerHTML=`<div class="study-count">${pos+1} / ${deck.length} · ${esc(s?.short||'')} · ${esc(shortTitle(c.t))}${known?' · ✓ dominada':''}</div>
-      <button class="study-card ${flipped?'flipped':''}" data-flip aria-label="Girar tarjeta"><span class="study-card-side">${flipped?'Respuesta':'Pregunta'}</span><span class="study-card-text">${esc(flipped?c.a:c.q)}</span><span class="study-card-hint">${flipped?'':'Toca para ver la respuesta'}</span></button>
+      <button class="study-card ${flipped?'flipped':''}" data-flip aria-label="Girar tarjeta"><span class="study-card-side">${flipped?'Respuesta':'Pregunta'}</span><span class="study-card-text">${inline(flipped?c.a:c.q)}</span><span class="study-card-hint">${flipped?'':'Toca para ver la respuesta'}</span></button>
       <div class="study-card-actions">${flipped?`<button class="btn" data-again-card>Repasar</button><button class="btn primary" data-know>Lo sé</button>`:'<button class="btn" data-skip>Saltar</button>'}</div>`;
     pane.querySelector('[data-flip]').onclick=()=>{flipped=!flipped;draw()};
     pane.querySelector('[data-skip]')?.addEventListener('click',()=>{pos++;flipped=false;draw()});
@@ -341,7 +378,19 @@ function renderCards(pane,entries,opts={}){
 }
 function renderQuiz(pane,entries,limit){
   let qs=shuffle(entries.flatMap(({sid,t})=>t.quiz.map(q=>({sid,t,...q}))));if(limit)qs=qs.slice(0,limit);
-  let pos=0;const score={};
+  let pos=0,ord=null;const score={};
+  const mark=(q,ok)=>{const k=q.sid+'/'+q.t.id,sc=score[k]||(score[k]={sid:q.sid,tid:q.t.id,ok:0,n:0});sc.n++;if(ok)sc.ok++};
+  const drawOrder=(q,checked)=>{
+    if(!ord){ord=q.items.map((_,n)=>n);do{ord=shuffle(ord)}while(ord.length>1&&ord.every((x,n)=>x===n))}
+    const ok=ord.every((x,n)=>x===n);
+    pane.innerHTML=`<div class="study-count">Pregunta ${pos+1} / ${qs.length} · ${esc(subj(q.sid)?.short||'')} · ${esc(shortTitle(q.t))}</div><div class="study-q">${esc(q.q)}</div><p class="sp-muted">Ordena con las flechas y pulsa Comprobar.</p>
+      <ol class="study-order">${ord.map((x,n)=>`<li class="${checked?(x===n?'right':'wrong'):''}"><span>${inline(q.items[x])}</span>${checked?'':`<span class="so-btns"><button data-up="${n}" ${n===0?'disabled':''} aria-label="Subir">↑</button><button data-down="${n}" ${n===ord.length-1?'disabled':''} aria-label="Bajar">↓</button></span>`}</li>`).join('')}</ol>
+      ${checked?`<div class="study-explain ${ok?'ok':'ko'}"><b>${ok?'Correcto.':'Orden correcto:'}</b> ${ok?esc(q.e||''):`<ol>${q.items.map(i=>`<li>${inline(i)}</li>`).join('')}</ol>${esc(q.e||'')}`}</div><div class="study-card-actions"><button class="btn primary" data-next>${pos+1<qs.length?'Siguiente':'Ver resultado'}</button></div>`:'<div class="study-card-actions"><button class="btn primary" data-check>Comprobar</button></div>'}`;
+    pane.querySelectorAll('[data-up]').forEach(b=>b.onclick=()=>{const n=+b.dataset.up;[ord[n-1],ord[n]]=[ord[n],ord[n-1]];drawOrder(q)});
+    pane.querySelectorAll('[data-down]').forEach(b=>b.onclick=()=>{const n=+b.dataset.down;[ord[n+1],ord[n]]=[ord[n],ord[n+1]];drawOrder(q)});
+    pane.querySelector('[data-check]')?.addEventListener('click',()=>{mark(q,ord.every((x,n)=>x===n));drawOrder(q,true)});
+    pane.querySelector('[data-next]')?.addEventListener('click',()=>{pos++;ord=null;draw()});
+  };
   const draw=answered=>{
     if(pos>=qs.length){
       const total=qs.length,good=Object.values(score).reduce((a,x)=>a+x.ok,0);
@@ -350,10 +399,70 @@ function renderQuiz(pane,entries,limit){
       pane.querySelector('[data-again]').onclick=()=>renderQuiz(pane,entries,limit);return;
     }
     const q=qs[pos],s=subj(q.sid);
-    pane.innerHTML=`<div class="study-count">Pregunta ${pos+1} / ${qs.length} · ${esc(s?.short||'')} · ${esc(shortTitle(q.t))}</div><div class="study-q">${esc(q.q)}</div>
-      <div class="study-options">${q.o.map((o,n)=>`<button data-opt="${n}" class="${answered!==undefined?(n===q.a?'right':n===answered?'wrong':''):''}" ${answered!==undefined?'disabled':''}>${esc(o)}</button>`).join('')}</div>
+    if(q.type==='order')return drawOrder(q);
+    pane.innerHTML=`<div class="study-count">Pregunta ${pos+1} / ${qs.length} · ${esc(s?.short||'')} · ${esc(shortTitle(q.t))}</div><div class="study-q">${inline(q.q)}</div>${q.code?`<pre class="sn-code"><code>${esc(q.code)}</code></pre>`:''}
+      <div class="study-options">${q.o.map((o,n)=>`<button data-opt="${n}" class="${answered!==undefined?(n===q.a?'right':n===answered?'wrong':''):''}" ${answered!==undefined?'disabled':''}>${inline(o)}</button>`).join('')}</div>
       ${answered!==undefined?`<div class="study-explain ${answered===q.a?'ok':'ko'}"><b>${answered===q.a?'Correcto.':'Incorrecto.'}</b> ${esc(q.e||'')}</div><div class="study-card-actions"><button class="btn primary" data-next>${pos+1<qs.length?'Siguiente':'Ver resultado'}</button></div>`:''}`;
-    pane.querySelectorAll('[data-opt]').forEach(b=>b.onclick=()=>{const n=Number(b.dataset.opt),k=q.sid+'/'+q.t.id,sc=score[k]||(score[k]={sid:q.sid,tid:q.t.id,ok:0,n:0});sc.n++;if(n===q.a)sc.ok++;draw(n)});
+    pane.querySelectorAll('[data-opt]').forEach(b=>b.onclick=()=>{const n=Number(b.dataset.opt);mark(q,n===q.a);draw(n)});
+    pane.querySelector('[data-next]')?.addEventListener('click',()=>{pos++;draw()});
+  };draw();
+}
+
+/* ---------- Apuntes enriquecidos, widgets y retos de terminal ---------- */
+function inline(t){return esc(t).replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>')}
+function renderNotes(blocks){return blocks.map(b=>{
+  if(b.h)return `<h4 class="sn-h">${inline(b.h)}</h4>`;
+  if(b.p)return `<p>${inline(b.p)}</p>`;
+  if(b.list)return `<ul class="sn-list">${b.list.map(x=>`<li>${inline(x)}</li>`).join('')}</ul>`;
+  if(b.code!==undefined)return `${b.cap?`<div class="sn-cap">${inline(b.cap)}</div>`:''}<pre class="sn-code"><code>${esc(b.code)}</code></pre>`;
+  if(b.table)return `<div class="sn-tw"><table class="sn-table">${b.table.head?`<thead><tr>${b.table.head.map(h=>`<th>${inline(h)}</th>`).join('')}</tr></thead>`:''}<tbody>${b.table.rows.map(r=>`<tr>${r.map(c=>`<td>${inline(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  if(b.tip)return `<div class="sn-box tip"><b>Clave</b>${inline(b.tip)}</div>`;
+  if(b.warn)return `<div class="sn-box warn"><b>Ojo</b>${inline(b.warn)}</div>`;
+  if(b.steps)return `<div class="sn-steps" data-steps><div class="sn-steps-head"><b>${inline(b.steps.title)}</b><span data-steps-count></span></div>${b.steps.items.map((x,n)=>`<div class="sn-step" data-step="${n}"><div class="sn-step-n">${n+1}</div><div><b>${inline(x.t)}</b><p>${inline(x.d)}</p>${x.code?`<pre class="sn-code"><code>${esc(x.code)}</code></pre>`:''}</div></div>`).join('')}<div class="sn-steps-nav"><button class="btn" data-step-prev>← Anterior</button><button class="btn" data-step-all>Ver todos</button><button class="btn primary" data-step-next>Siguiente →</button></div></div>`;
+  if(b.widget==='perm')return `<div class="sn-widget" data-perm><div class="sn-steps-head"><b>Calculadora de permisos y umask</b></div>
+    <label>Permisos <input data-perm-in value="754" spellcheck="false" autocomplete="off" placeholder="754 o rwxr-xr--"></label><div class="sn-out" data-perm-out></div>
+    <label>umask <input data-umask-in value="022" spellcheck="false" autocomplete="off" placeholder="022"></label><div class="sn-out" data-umask-out></div></div>`;
+  return '';
+}).join('')}
+const RWX=n=>['r','w','x'].map((c,i)=>n&(4>>i)?c:'-').join('');
+function permInfo(v){v=v.trim();let oct;
+  if(/^[0-7]{3,4}$/.test(v))oct=v.slice(-3).split('').map(Number);
+  else if(/^[-dl]?[r-][w-][xsS-][r-][w-][xsS-][r-][w-][xtT-]$/.test(v)){const t=v.length===10?v.slice(1):v;oct=[0,1,2].map(g=>(t[g*3]==='r'?4:0)+(t[g*3+1]==='w'?2:0)+(/[xst]/.test(t[g*3+2])?1:0))}
+  else return null;
+  return {oct:oct.join(''),rwx:oct.map(RWX).join(''),who:oct.map((n,i)=>`${['Propietario','Grupo','Otros'][i]}: ${RWX(n)} (${n})`)}}
+function initWidgets(root){
+  root.querySelectorAll('[data-steps]').forEach(w=>{const steps=[...w.querySelectorAll('[data-step]')];let cur=0,all=false;
+    const show=()=>{steps.forEach((s,n)=>{s.hidden=!all&&n!==cur;s.classList.toggle('done',!all&&n<cur)});w.querySelector('[data-steps-count]').textContent=all?`${steps.length} pasos`:`Paso ${cur+1} de ${steps.length}`;w.querySelector('[data-step-prev]').disabled=all||cur===0;w.querySelector('[data-step-next]').disabled=all||cur===steps.length-1;w.querySelector('[data-step-all]').textContent=all?'Paso a paso':'Ver todos'};
+    w.querySelector('[data-step-prev]').onclick=()=>{cur--;show()};w.querySelector('[data-step-next]').onclick=()=>{cur++;show()};w.querySelector('[data-step-all]').onclick=()=>{all=!all;show()};show()});
+  root.querySelectorAll('[data-perm]').forEach(w=>{
+    const pin=w.querySelector('[data-perm-in]'),pout=w.querySelector('[data-perm-out]'),uin=w.querySelector('[data-umask-in]'),uout=w.querySelector('[data-umask-out]');
+    const up=()=>{const i=permInfo(pin.value);pout.innerHTML=i?`<code>${i.oct}</code> = <code>${i.rwx}</code><br>${i.who.join('<br>')}`:'Escribe 3 cifras octales (p. ej. 640) o 9 letras (rw-r-----).';
+      const u=uin.value.trim();if(/^0?[0-7]{3}$/.test(u)){const m=parseInt(u,8),f=0o666&~m,d=0o777&~m,o=n=>n.toString(8).padStart(3,'0');uout.innerHTML=`Archivo nuevo: 666 & ~${o(m)} = <code>${o(f)}</code> (<code>${RWX(f>>6)}${RWX(f>>3&7)}${RWX(f&7)}</code>)<br>Directorio nuevo: 777 & ~${o(m)} = <code>${o(d)}</code> (<code>${RWX(d>>6)}${RWX(d>>3&7)}${RWX(d&7)}</code>)`}else uout.textContent='Escribe una umask octal, p. ej. 022, 002 o 077.'};
+    pin.oninput=uin.oninput=up;up()});
+}
+const normCmd=c=>c.trim().replace(/\s+/g,' ').replace(/\s*;\s*$/,'');
+function renderLabs(pane,entries,limit){
+  let items=entries.flatMap(({sid,t})=>(t.labs||[]).map(l=>({sid,t,...l})));if(limit)items=shuffle(items).slice(0,limit);
+  if(!items.length){pane.innerHTML='<div class="empty">No hay retos de terminal en estos temas.</div>';return}
+  let pos=0;const score={};
+  const mark=(x,ok)=>{const k=x.sid+'/'+x.t.id,sc=score[k]||(score[k]={sid:x.sid,tid:x.t.id,ok:0,n:0});sc.n++;if(ok)sc.ok++};
+  const draw=(state)=>{
+    if(pos>=items.length){const total=items.length,good=Object.values(score).reduce((a,x)=>a+x.ok,0);
+      Promise.all(Object.values(score).map(x=>{const p=Math.round(x.ok/x.n*100),best=prog(x.sid,x.tid).l||0;return p>best?saveProgress(x.sid,x.tid,{l:p}):null}));
+      pane.innerHTML=`<div class="study-done"><div class="study-big">${good}/${total}</div><p>retos resueltos. ${good===total?'Listo para la prueba de laboratorio.':'Repasa las soluciones de los que fallaste y vuelve a intentarlo.'}</p><button class="btn primary" data-again>Otra ronda</button></div>`;
+      pane.querySelector('[data-again]').onclick=()=>renderLabs(pane,entries,limit);return}
+    const x=items[pos],st=state||{};
+    pane.innerHTML=`<div class="study-count">Reto ${pos+1} / ${items.length} · ${esc(shortTitle(x.t))}</div>
+      <div class="lab-q">${inline(x.q)}</div>${x.ctx?`<pre class="sn-code lab-ctx"><code>${esc(x.ctx)}</code></pre>`:''}
+      <div class="lab-term ${st.res||''}"><span class="lab-prompt">${esc(x.prompt||'$')}</span><input data-lab-in value="${esc(st.val||'')}" ${st.res?'readonly':''} spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" aria-label="Escribe la orden"></div>
+      ${st.res?`<div class="study-explain ${st.res==='ok'?'ok':'ko'}"><b>${st.res==='ok'?'Correcto.':'No coincide con lo esperado.'}</b> ${x.e?inline(x.e):''}<div class="lab-sol">Solución: <code>${esc(x.sol)}</code>${x.alt?` · también: ${x.alt.map(a=>`<code>${esc(a)}</code>`).join(' ')}`:''}</div></div>
+        <div class="study-card-actions">${st.res==='ko'?'<button class="btn" data-lab-retry>Reintentar</button><button class="btn" data-lab-mine>La mía también vale</button>':''}<button class="btn primary" data-next>${pos+1<items.length?'Siguiente':'Ver resultado'}</button></div>`
+      :`<div class="study-card-actions"><button class="btn" data-lab-show>Ver solución</button><button class="btn primary" data-lab-check>Comprobar</button></div>`}`;
+    const inp=pane.querySelector('[data-lab-in]');
+    const check=()=>{const v=normCmd(inp.value);if(!v)return inp.focus();const ok=(x.accept||[]).some(a=>new RegExp(a).test(v));mark(x,ok);draw({val:inp.value,res:ok?'ok':'ko'})};
+    if(!st.res){inp.focus();inp.onkeydown=ev=>{if(ev.key==='Enter')check()};pane.querySelector('[data-lab-check]').onclick=check;pane.querySelector('[data-lab-show]').onclick=()=>{mark(x,false);draw({val:inp.value,res:'ko'})}}
+    pane.querySelector('[data-lab-retry]')?.addEventListener('click',()=>{const k=x.sid+'/'+x.t.id;score[k].n--;draw({val:st.val})});
+    pane.querySelector('[data-lab-mine]')?.addEventListener('click',()=>{score[x.sid+'/'+x.t.id].ok++;draw({val:st.val,res:'ok'})});
     pane.querySelector('[data-next]')?.addEventListener('click',()=>{pos++;draw()});
   };draw();
 }
@@ -365,8 +474,8 @@ function route(){
   let m;
   if(h==='#estudio'||h==='#estudio/')return renderHome();
   if((m=h.match(/^#estudio\/asignaturas(?:\/(1|2|all))?$/)))return renderSubjects(m[1]);
-  if((m=h.match(/^#estudio\/repaso(?:\/([\w-]+)\/(tarjetas|test))?$/)))return renderReview(m[1],m[2]);
-  if((m=h.match(/^#estudio\/([\w-]+)(?:\/(ordinary|extraordinary)(?:\/(\d+)(?:\/(resumen|tarjetas|test)(?:\/([\w-]+))?)?)?)?$/))){
+  if((m=h.match(/^#estudio\/repaso(?:\/([\w-]+)\/(tarjetas|test|practica))?$/)))return renderReview(m[1],m[2]);
+  if((m=h.match(/^#estudio\/([\w-]+)(?:\/(ordinary|extraordinary)(?:\/(\d+)(?:\/(resumen|tarjetas|test|practica)(?:\/([\w-]+))?)?)?)?$/))){
     const [,sid,conv=state.activeConv,i,mode='resumen',topic]=m;
     return i===undefined?renderLobby(sid,conv):renderExam(sid,conv,Number(i),mode,topic);
   }

@@ -1,241 +1,4295 @@
 {
-  "sid": "ssoo",
-  "source": "Guía docente UAH 2026/27 · Sistemas Operativos (780007)",
-  "topics": [
+ "sid": "ssoo",
+ "source": "Guía docente UAH 2026/27 · Sistemas Operativos (780007), diapositivas de los Temas 1–2 y documentos de la Práctica 1",
+ "topics": [
+  {
+   "id": "t1a",
+   "title": "Tema 1 · El SO y la arquitectura del computador",
+   "source": "Diapositivas «Introducción» (SSOO-GII T1 26-27), Dpto. de Automática UAH",
+   "guide": [
+    "Definición de computador y de sistema operativo",
+    "Máquina desnuda: arquitectura Von Neumann; CPU, memoria, buses y E/S",
+    "Concepto de interrupción",
+    "DMA"
+   ],
+   "summary": [],
+   "notes": [
     {
-      "id": "p1",
-      "title": "Parte 1 · Introducción y arquitectura de computadores",
-      "guide": ["Definición de computador y de sistema operativo", "Máquina desnuda: arquitectura Von Neumann; CPU, memoria, buses y E/S", "Monitor residente: monoprogramación, protección del monitor, llamadas al monitor, concepto de interrupción", "Procesamiento por lotes: solapamiento CPU/E/S, buffering", "Sistemas multiprogramados: E/S por interrupciones, protección de memoria, modo dual (traps e interrupciones), MMU", "Tiempo compartido: protección frente al monopolio de CPU, expulsión, necesidad de planificación", "Técnicas de diseño: vista funcional y estructural, mecanismos vs políticas, representación jerárquica"],
-      "summary": [
-        "El sistema operativo es el software que gestiona los recursos del computador (CPU, memoria, E/S) y ofrece una máquina extendida más cómoda que la máquina desnuda.",
-        "Arquitectura Von Neumann: programa y datos comparten memoria; la CPU ejecuta el ciclo captar–decodificar–ejecutar y se comunica por buses con memoria y periféricos.",
-        "El monitor residente fue el primer SO: permanece en memoria, encadena trabajos y ofrece servicios mediante llamadas; necesita protegerse de los programas de usuario.",
-        "Una interrupción es una señal asíncrona (hardware) que hace que la CPU salte a una rutina del SO; un trap o excepción es síncrono y lo provoca la propia instrucción (p. ej. llamada al sistema, división por cero).",
-        "Lotes → multiprogramación: mientras un trabajo espera E/S, la CPU ejecuta otro. Requiere E/S por interrupciones, protección de memoria y modo dual (usuario/núcleo).",
-        "La MMU traduce direcciones lógicas a físicas y aísla los espacios de direcciones de cada proceso.",
-        "Tiempo compartido: el temporizador interrumpe periódicamente para expulsar al proceso en ejecución y evitar que monopolice la CPU; aparece la necesidad de planificar.",
-        "Principio de diseño clave: separar mecanismos (cómo se hace) de políticas (qué se decide)."
-      ],
-      "cards": [
-        ["¿Qué diferencia una interrupción de un trap?", "La interrupción es asíncrona y la genera el hardware externo (E/S, reloj); el trap es síncrono, lo provoca la instrucción en ejecución (llamada al sistema, fallo, excepción)."],
-        ["¿Para qué sirve el modo dual de ejecución?", "Para que solo el núcleo (modo privilegiado) pueda ejecutar instrucciones peligrosas (E/S, gestión de memoria, interrupciones); el usuario ejecuta en modo restringido."],
-        ["¿Qué hace la MMU?", "Traduce direcciones lógicas a físicas en cada acceso y comprueba que el proceso solo accede a su propio espacio de direcciones."],
-        ["¿Qué aporta la multiprogramación?", "Aprovechar la CPU mientras un trabajo espera E/S, ejecutando otro trabajo cargado en memoria."],
-        ["¿Qué añade el tiempo compartido sobre la multiprogramación?", "Un temporizador que expulsa periódicamente al proceso (rodaja de tiempo) para dar respuesta interactiva a varios usuarios."],
-        ["Mecanismo vs política", "El mecanismo es cómo se hace algo (p. ej. cambio de contexto); la política decide qué/cuándo (p. ej. qué proceso entra en CPU). Separarlos da flexibilidad."],
-        ["¿Qué es el buffering?", "Usar memoria intermedia para solapar la E/S de un dispositivo con el cómputo de la CPU."]
-      ],
-      "quiz": [
-        {"q": "¿Qué elemento hardware permite al SO recuperar el control de la CPU en un sistema de tiempo compartido?", "o": ["La MMU", "El temporizador (reloj) que genera interrupciones", "El bus de datos", "La caché"], "a": 1, "e": "El reloj interrumpe periódicamente y el SO puede expulsar al proceso en ejecución."},
-        {"q": "Una llamada al sistema se implementa normalmente mediante…", "o": ["Una interrupción hardware del reloj", "Una instrucción de trap que cambia a modo núcleo", "Un acceso directo a memoria (DMA)", "Una función de biblioteca sin cambio de modo"], "a": 1, "e": "La biblioteca prepara los parámetros y ejecuta un trap; la CPU pasa a modo privilegiado y salta al núcleo."},
-        {"q": "¿Qué problema resuelve la protección de memoria en multiprogramación?", "o": ["Que la CPU vaya más rápido", "Que un programa pueda leer o escribir la memoria de otro o del SO", "La fragmentación externa", "El retardo de la E/S"], "a": 1, "e": "Con varios programas cargados a la vez hay que aislarlos entre sí y del SO."},
-        {"q": "En la arquitectura Von Neumann…", "o": ["Datos e instrucciones están en memorias separadas", "Datos e instrucciones comparten la misma memoria", "No existe unidad de control", "La E/S no usa buses"], "a": 1, "e": "Es la característica que la distingue de la arquitectura Harvard."},
-        {"q": "¿Cuál es un ejemplo de política y no de mecanismo?", "o": ["Guardar los registros en el cambio de contexto", "Decidir qué proceso listo se ejecuta a continuación", "Programar el temporizador", "Cambiar el bit de modo"], "a": 1, "e": "Elegir el siguiente proceso es una decisión (política de planificación)."}
-      ]
+     "h": "¿Por qué un sistema operativo?"
     },
     {
-      "id": "p2",
-      "title": "Parte 2 · Estructura del sistema operativo",
-      "guide": ["Vista restringida y amplia del SO", "Funciones del SO", "Interfaces: con el usuario (shell, entornos gráficos) y con las aplicaciones (llamadas al sistema)", "Descomposición en capas", "El núcleo: descripción y funciones básicas", "Casos de diseño: Linux, Windows, Mach", "Mecanismo de llamadas al sistema y tipos"],
-      "summary": [
-        "Vista restringida: el SO es solo el núcleo. Vista amplia: núcleo + intérprete de órdenes, bibliotecas y utilidades del sistema.",
-        "Funciones: gestión de procesos, memoria, E/S y archivos, protección/seguridad e interfaz con usuarios y aplicaciones.",
-        "Interfaz de usuario: shell (intérprete de órdenes) o entorno gráfico. Interfaz de aplicaciones: llamadas al sistema (p. ej. API POSIX).",
-        "Diseño en capas: cada capa usa solo servicios de la inferior; facilita depuración pero penaliza el rendimiento.",
-        "Núcleo monolítico (Linux): todo el núcleo en un único espacio privilegiado, rápido; módulos cargables. Micronúcleo (Mach): núcleo mínimo (IPC, planificación básica, memoria) y servicios en espacio de usuario, más robusto pero con más paso de mensajes. Windows: núcleo híbrido.",
-        "Llamada al sistema: el programa invoca una función de biblioteca → parámetros en registros/pila → trap → el núcleo identifica el servicio por su número, lo ejecuta y vuelve a modo usuario.",
-        "Tipos de llamadas: control de procesos, gestión de archivos, gestión de dispositivos, información del sistema y comunicaciones."
-      ],
-      "cards": [
-        ["Núcleo monolítico vs micronúcleo", "Monolítico: todos los servicios en modo núcleo, eficiente pero un fallo afecta a todo. Micronúcleo: mínimo en núcleo y servicios como procesos de usuario; más modular y robusto, más coste de comunicación."],
-        ["¿Qué es el shell?", "El intérprete de órdenes: programa de usuario que lee órdenes y las ejecuta creando procesos mediante llamadas al sistema."],
-        ["Pasos de una llamada al sistema", "Función de biblioteca → parámetros + número de llamada → trap → modo núcleo → tabla de llamadas → servicio → retorno a modo usuario con el resultado."],
-        ["Ventaja e inconveniente del diseño por capas", "Ventaja: modularidad y depuración por niveles. Inconveniente: sobrecoste al atravesar capas y dificultad para definirlas."],
-        ["Cita tres tipos de llamadas al sistema", "Control de procesos (fork, exit), archivos (open, read), dispositivos (ioctl), información (getpid), comunicaciones (pipe)."],
-        ["Vista amplia del SO", "Incluye además del núcleo el shell, las bibliotecas del sistema y las utilidades."]
-      ],
-      "quiz": [
-        {"q": "¿Qué diseño de núcleo usa Linux principalmente?", "o": ["Micronúcleo puro", "Monolítico con módulos cargables", "Exonúcleo", "Máquina virtual"], "a": 1, "e": "Linux es monolítico pero permite cargar módulos en tiempo de ejecución."},
-        {"q": "¿Qué SO se cita como ejemplo clásico de micronúcleo?", "o": ["MS-DOS", "Mach", "Linux", "Unix V6"], "a": 1, "e": "Mach separa los servicios en servidores de usuario comunicados por mensajes."},
-        {"q": "La interfaz del SO con las aplicaciones es…", "o": ["El shell", "El conjunto de llamadas al sistema", "El gestor de ventanas", "El BIOS"], "a": 1, "e": "Las aplicaciones piden servicios al núcleo mediante llamadas al sistema."},
-        {"q": "¿Por qué una llamada al sistema es más costosa que una llamada a función normal?", "o": ["Porque usa más memoria de pila", "Porque implica un cambio de modo usuario→núcleo y vuelta", "Porque siempre hace E/S", "Porque crea un proceso"], "a": 1, "e": "El trap y el cambio de modo (y comprobaciones) tienen coste."},
-        {"q": "En la vista restringida, el sistema operativo es…", "o": ["Todo el software instalado", "Solo el núcleo", "El shell y las utilidades", "El firmware"], "a": 1, "e": "La vista restringida identifica el SO con el núcleo."}
-      ]
+     "p": "Usar el hardware directamente es inviable: cada dispositivo es distinto y complejo, los recursos son limitados y hay que repartirlos entre usuarios, resolver conflictos y garantizar la privacidad. El SO lo resuelve **mediante abstracciones**."
     },
     {
-      "id": "p3",
-      "title": "Parte 3 · Procesos e hilos",
-      "guide": ["Programas vs procesos; estructura de un programa", "Concepto de proceso; proyección del programa en memoria (contexto de usuario)", "Creación de procesos y ciclo de vida básico", "Llamadas al sistema de procesos", "Contexto del núcleo: estructuras de datos internas (BCP)", "Hilos: justificación, características, procesos vs hilos, ejemplo con hilos POSIX"],
-      "summary": [
-        "Un programa es un archivo pasivo; un proceso es un programa en ejecución con su estado (registros, pila, memoria, recursos).",
-        "Imagen en memoria: código (texto), datos (inicializados y no inicializados/BSS), montículo (heap, crece hacia arriba) y pila (crece hacia abajo).",
-        "El núcleo representa cada proceso con un BCP (bloque de control de proceso): PID, estado, registros, información de memoria, archivos abiertos, prioridad…",
-        "Estados básicos: nuevo → listo → ejecución → (bloqueado ↔ listo) → terminado. Un proceso bloqueado espera un evento; uno listo solo espera CPU.",
-        "En UNIX/POSIX: fork() duplica el proceso (devuelve 0 al hijo y el PID del hijo al padre); exec() sustituye la imagen por otro programa; wait()/waitpid() espera a un hijo; exit() termina.",
-        "Proceso zombi: hijo terminado cuyo padre aún no ha hecho wait. Huérfano: hijo cuyo padre terminó (lo adopta init/systemd).",
-        "Un hilo es un flujo de ejecución dentro de un proceso: comparte código, datos, heap y archivos, pero tiene pila, registros y contador de programa propios.",
-        "Hilos POSIX: pthread_create(&id, attr, funcion, arg) y pthread_join(id, &ret). Crear y cambiar entre hilos es más barato que entre procesos."
+     "table": {
+      "head": [
+       "Autor",
+       "Definición de SO"
       ],
-      "cards": [
-        ["¿Qué devuelve fork()?", "0 en el hijo, el PID del hijo en el padre y -1 si hay error."],
-        ["¿Qué hace exec()?", "Sustituye la imagen de memoria del proceso por un nuevo programa; el PID se mantiene y, si tiene éxito, no retorna."],
-        ["¿Qué es un proceso zombi?", "Un proceso terminado cuya entrada sigue en la tabla de procesos porque el padre no ha recogido su estado con wait()."],
-        ["¿Qué comparten los hilos de un proceso?", "Código, datos globales, heap y archivos abiertos. Cada hilo tiene su pila, registros y PC."],
-        ["Estados de un proceso", "Nuevo, listo, en ejecución, bloqueado y terminado."],
-        ["¿Qué es el BCP?", "Bloque de control de proceso: estructura del núcleo con la información de cada proceso (PID, estado, registros, memoria, archivos, planificación)."],
-        ["¿Cuántos procesos hay tras ejecutar fork(); fork(); en un proceso?", "4 procesos (2^n con n llamadas encadenadas)."],
-        ["Ventaja de los hilos frente a procesos", "Creación y cambio de contexto más baratos y comunicación directa por memoria compartida."]
-      ],
-      "quiz": [
-        {"q": "Tras fork(), ¿qué valor ve el proceso hijo como retorno?", "o": ["Su propio PID", "El PID del padre", "0", "-1"], "a": 2, "e": "El hijo recibe 0; el padre recibe el PID del hijo."},
-        {"q": "¿Cuántas veces se imprime \"hola\"? fork(); fork(); printf(\"hola\\n\");", "o": ["2", "3", "4", "8"], "a": 2, "e": "Dos fork encadenados generan 4 procesos y cada uno imprime una vez."},
-        {"q": "¿Qué NO comparten dos hilos del mismo proceso?", "o": ["Variables globales", "Archivos abiertos", "La pila", "El heap"], "a": 2, "e": "Cada hilo tiene su propia pila y registros."},
-        {"q": "Un proceso pasa de ejecución a listo cuando…", "o": ["Pide una operación de E/S", "Se le acaba la rodaja de tiempo (expulsión)", "Termina", "Hace wait()"], "a": 1, "e": "Si pide E/S pasa a bloqueado; si es expulsado vuelve a listo."},
-        {"q": "Si exec() tiene éxito…", "o": ["Devuelve 0", "Devuelve el PID del nuevo programa", "No retorna, el código antiguo desaparece", "Crea un proceso hijo"], "a": 2, "e": "La imagen se reemplaza; solo retorna (-1) si falla."},
-        {"q": "¿Qué llamada evita que un hijo terminado quede zombi?", "o": ["kill()", "wait()/waitpid() en el padre", "exec()", "sleep()"], "a": 1, "e": "El padre recoge el estado de terminación y el núcleo libera la entrada."}
+      "rows": [
+       [
+        "S. Sánchez",
+        "Conjunto de programas que, por medio de **abstracciones**, ponen el hardware del ordenador, de modo **seguro**, a disposición del usuario."
+       ],
+       [
+        "H. Deitel",
+        "Programa que actúa como **interfaz** entre el usuario y el HW, ofreciendo el entorno necesario para ejecutar programas."
+       ],
+       [
+        "Katzan",
+        "Conjunto de programas y datos que ayudan a **crear otros programas** y a controlar su ejecución."
+       ],
+       [
+        "Madnik y Donovan",
+        "Conjunto de programas que **gestionan los recursos**, optimizan su uso y resuelven conflictos."
+       ]
       ]
+     }
     },
     {
-      "id": "p4",
-      "title": "Parte 4 · Sincronización de procesos e hilos",
-      "guide": ["Necesidad de comunicación y sincronización; escenarios concurrentes típicos", "Condiciones de carrera, atomicidad", "Problema de la sección crítica: exclusión mutua, progreso y espera limitada", "Tuberías (pipes): tipos, operaciones, llamadas y problemas clásicos", "Semáforos: operaciones, llamadas y problemas clásicos", "Mutex y variables condición: operaciones, llamadas y problemas clásicos"],
-      "summary": [
-        "Condición de carrera: el resultado depende del orden de ejecución de procesos/hilos que acceden a datos compartidos sin coordinarse (p. ej. contador++ no es atómico).",
-        "Sección crítica: fragmento que accede a recursos compartidos. Una solución debe garantizar exclusión mutua, progreso y espera limitada.",
-        "Pipes: canal unidireccional FIFO de bytes. pipe(fd) crea fd[0] (lectura) y fd[1] (escritura). Leer de un pipe vacío bloquea; si no quedan escritores, read devuelve 0 (EOF). Hay que cerrar los extremos que no se usan. Con nombre: mkfifo.",
-        "Semáforo: entero con wait/P (decrementa; si queda negativo bloquea) y signal/V (incrementa; despierta a uno). Inicializado a 1 → exclusión mutua; a 0 → sincronización (esperar un evento); a N → N recursos.",
-        "POSIX: sem_init/sem_open, sem_wait, sem_post, sem_destroy.",
-        "Mutex: cerrojo binario con dueño (pthread_mutex_lock/unlock). Variables condición: pthread_cond_wait(&c,&m) libera el mutex y bloquea de forma atómica; pthread_cond_signal/broadcast despiertan. Se usa siempre while(condición) wait.",
-        "Problemas clásicos: productor-consumidor (búfer acotado: semáforos huecos=N, llenos=0, mutex=1), lectores-escritores y filósofos comensales.",
-        "Interbloqueo: espera circular entre procesos que retienen recursos; puede aparecer si se ordenan mal los wait."
-      ],
-      "cards": [
-        ["Tres requisitos de la sección crítica", "Exclusión mutua, progreso y espera limitada."],
-        ["¿Qué hace sem_wait / P?", "Decrementa el semáforo; si el valor no permite continuar, bloquea al proceso hasta un sem_post."],
-        ["Semáforos del productor-consumidor con búfer de N", "huecos = N, llenos = 0, mutex = 1. Productor: wait(huecos), wait(mutex), insertar, signal(mutex), signal(llenos). Consumidor simétrico."],
-        ["¿Por qué cond_wait va en un while?", "Por despertares espurios y porque otro hilo puede cambiar la condición antes de recuperar el mutex: hay que volver a comprobarla."],
-        ["¿Qué devuelve read() en un pipe vacío sin escritores?", "0 (fin de archivo). Si aún hay escritores abiertos, se bloquea."],
-        ["Condición de carrera", "Resultado incorrecto que depende del entrelazado de accesos concurrentes no sincronizados a datos compartidos."],
-        ["Mutex vs semáforo", "El mutex es binario y lo libera quien lo cerró (exclusión mutua). El semáforo es un contador y cualquiera puede hacer signal (sirve también para sincronizar eventos)."],
-        ["Semáforo inicializado a 0", "Sirve para que un proceso espere a que otro señale un evento (sincronización de orden)."]
-      ]
-      ,
-      "quiz": [
-        {"q": "Dos hilos hacen 1000 veces contador++ sin sincronizar. El resultado final…", "o": ["Siempre es 2000", "Puede ser menor que 2000", "Siempre es 1000", "Provoca interbloqueo"], "a": 1, "e": "contador++ es leer-sumar-escribir; los entrelazados pierden actualizaciones."},
-        {"q": "En productor-consumidor, ¿cuál es el orden correcto en el productor?", "o": ["wait(mutex); wait(huecos)", "wait(huecos); wait(mutex)", "signal(llenos); wait(huecos)", "wait(llenos); wait(mutex)"], "a": 1, "e": "Si se coge primero el mutex y no hay huecos, el productor bloquea con el mutex y hay interbloqueo."},
-        {"q": "¿Qué ocurre si un proceso escribe en un pipe sin lectores?", "o": ["Se bloquea para siempre", "Recibe SIGPIPE / error EPIPE", "Los datos se guardan en disco", "read devuelve 0"], "a": 1, "e": "Escribir en un pipe sin lectores genera SIGPIPE."},
-        {"q": "pthread_cond_wait(&c, &m)…", "o": ["Necesita que el mutex esté libre", "Libera el mutex y bloquea de forma atómica, y lo recupera al despertar", "Despierta a todos los hilos", "Equivale a sem_post"], "a": 1, "e": "Esa atomicidad evita perder la señal."},
-        {"q": "¿Con qué valor inicial se usa un semáforo para exclusión mutua?", "o": ["0", "1", "N", "-1"], "a": 1, "e": "Valor 1: solo uno entra en la sección crítica."},
-        {"q": "En un pipe, fd[0] es…", "o": ["El extremo de escritura", "El extremo de lectura", "El PID del lector", "Un semáforo"], "a": 1, "e": "fd[0] lectura, fd[1] escritura."}
-      ]
+     "h": "Arquitectura: lo que el programador ve"
     },
     {
-      "id": "p5",
-      "title": "Parte 5 · Planificación de la CPU",
-      "guide": ["Mecanismo de cambio de CPU (cambio de contexto)", "Concepto de planificación: justificación, objetivos, parámetros de evaluación", "Tipos de planificadores", "Políticas básicas: FCFS, SJF", "Prioridad y expulsión (requisa)", "Políticas avanzadas: prioridades puras, Round Robin, colas multinivel con y sin realimentación", "Casos reales: Linux y Windows"],
-      "summary": [
-        "Cambio de contexto: guardar el estado (registros, PC) del proceso saliente en su BCP y cargar el del entrante. Es sobrecoste puro.",
-        "Planificador a largo plazo (admisión), a medio plazo (suspensión/swapping) y a corto plazo (qué proceso listo usa la CPU).",
-        "Métricas: tiempo de retorno = fin − llegada; tiempo de espera = retorno − ráfaga de CPU; tiempo de respuesta = primer uso de CPU − llegada; además utilización y productividad.",
-        "FCFS: por orden de llegada, no expulsivo; sufre efecto convoy.",
-        "SJF: primero la ráfaga más corta; minimiza el tiempo medio de espera. Su versión expulsiva es SRTF. Puede provocar inanición de los largos.",
-        "Prioridades: se ejecuta el de mayor prioridad (expulsiva o no); riesgo de inanición, se corrige con envejecimiento (aging).",
-        "Round Robin: FCFS con expulsión al agotar el quantum q. q muy grande → FCFS; q muy pequeño → demasiados cambios de contexto.",
-        "Colas multinivel: varias colas con políticas distintas; con realimentación los procesos cambian de cola según su comportamiento (los que gastan el quantum bajan de prioridad).",
-        "Linux usa CFS/EEVDF (reparto justo por tiempo virtual); Windows usa prioridades con 32 niveles y expulsión."
-      ],
-      "cards": [
-        ["Fórmula del tiempo de retorno", "Tiempo de finalización − tiempo de llegada."],
-        ["Fórmula del tiempo de espera", "Tiempo de retorno − tiempo de ráfaga de CPU (si no hay E/S)."],
-        ["¿Qué política minimiza el tiempo medio de espera?", "SJF (y su versión expulsiva SRTF), si se conocen las ráfagas."],
-        ["Efecto convoy", "En FCFS, procesos cortos esperan detrás de uno largo de CPU, aumentando la espera media."],
-        ["¿Cómo se evita la inanición en prioridades?", "Con envejecimiento: aumentar la prioridad de los procesos según el tiempo que llevan esperando."],
-        ["Efecto del tamaño del quantum en RR", "Grande: tiende a FCFS. Pequeño: mejor respuesta pero más sobrecoste por cambios de contexto."],
-        ["Colas multinivel con realimentación", "Varias colas de distinta prioridad; un proceso que agota su quantum baja de cola y uno que espera mucho puede subir."]
-      ],
-      "quiz": [
-        {"q": "Procesos A(ráfaga 8), B(4), C(2) llegan en t=0 en ese orden. Tiempo medio de espera con FCFS:", "o": ["4", "6.67", "2.67", "8"], "a": 1, "e": "Esperas: A=0, B=8, C=12 → 20/3 ≈ 6.67."},
-        {"q": "Mismos procesos A(8), B(4), C(2) con SJF no expulsivo, todos en t=0. Espera media:", "o": ["2.67", "6.67", "4", "3.33"], "a": 0, "e": "Orden C, B, A: esperas 0, 2, 6 → 8/3 ≈ 2.67."},
-        {"q": "¿Qué política es intrínsecamente expulsiva?", "o": ["FCFS", "SJF no expulsivo", "Round Robin", "Prioridades no expulsivas"], "a": 2, "e": "RR expulsa al agotar el quantum."},
-        {"q": "Con Round Robin y un quantum enorme, el comportamiento se parece a…", "o": ["SJF", "FCFS", "Prioridades", "SRTF"], "a": 1, "e": "Si nadie agota el quantum, no hay expulsiones: FCFS."},
-        {"q": "¿Qué planificador decide qué proceso listo pasa a la CPU?", "o": ["Largo plazo", "Medio plazo", "Corto plazo", "De disco"], "a": 2, "e": "El planificador a corto plazo (dispatcher incluido)."},
-        {"q": "El tiempo de respuesta se mide como…", "o": ["Fin − llegada", "Primer acceso a CPU − llegada", "Ráfaga − espera", "Fin − inicio"], "a": 1, "e": "Es lo que tarda en empezar a ejecutarse por primera vez."}
-      ]
+     "p": "**Arquitectura** = atributos del sistema visibles al programador (los que afectan directamente a la ejecución de un programa). Elementos fundamentales: **memoria, CPU, buses y E/S**."
     },
     {
-      "id": "lab1",
-      "title": "Laboratorio 1 · Shell y comandos de Linux (PRL1)",
-      "guide": ["Configuración y operación del sistema", "Órdenes del intérprete y primeras prácticas (según Aula Virtual)"],
-      "summary": [
-        "Navegación: pwd, ls -l (permisos, propietario, tamaño), cd, mkdir, rmdir, cp, mv, rm -r, touch.",
-        "Contenido de ficheros: cat, less, head/tail -n, wc -l, grep patrón fichero (-i, -v, -r, -c), sort, uniq, cut -d -f.",
-        "Redirecciones: > (sobrescribe), >> (añade), < (entrada), 2> (errores), 2>&1. Tuberías: orden1 | orden2.",
-        "Permisos rwx para usuario, grupo y otros; chmod 755 fichero (7=rwx, 5=r-x, 4=r--) o chmod u+x; chown cambia propietario.",
-        "Procesos: ps aux, top, kill PID / kill -9, & para segundo plano, jobs, fg, bg, Ctrl+Z suspende, Ctrl+C interrumpe.",
-        "Búsqueda: find ruta -name \"*.c\" -type f; which, man orden para la ayuda.",
-        "Variables y scripts: VAR=valor, echo $VAR, $? (código de salida del último comando), #!/bin/bash, chmod +x script.sh."
-      ],
-      "cards": [
-        ["Diferencia entre > y >>", "> sobrescribe el fichero destino; >> añade al final."],
-        ["¿Qué significa chmod 754 f?", "Usuario rwx (7), grupo r-x (5), otros r-- (4)."],
-        ["¿Cómo cuento las líneas que contienen \"error\" en log.txt?", "grep -c error log.txt (o grep error log.txt | wc -l)."],
-        ["¿Qué contiene $?", "El código de salida del último comando (0 = éxito)."],
-        ["¿Cómo envío una orden a segundo plano?", "Añadiendo & al final; jobs las lista, fg la trae al primer plano."],
-        ["Redirigir salida y errores al mismo fichero", "orden > salida.txt 2>&1"],
-        ["Buscar todos los .c bajo el directorio actual", "find . -name \"*.c\" -type f"]
-      ],
-      "quiz": [
-        {"q": "¿Qué hace: ls -l | grep \"^d\" | wc -l ?", "o": ["Cuenta ficheros ocultos", "Cuenta los directorios del directorio actual", "Borra directorios", "Lista permisos"], "a": 1, "e": "En ls -l las líneas de directorios empiezan por d."},
-        {"q": "chmod u+x script.sh…", "o": ["Quita la ejecución a todos", "Da permiso de ejecución al propietario", "Cambia el propietario", "Lo hace oculto"], "a": 1, "e": "u = usuario propietario, +x añade ejecución."},
-        {"q": "¿Qué señal envía kill -9?", "o": ["SIGTERM", "SIGKILL", "SIGINT", "SIGSTOP"], "a": 1, "e": "SIGKILL no se puede capturar ni ignorar."},
-        {"q": "orden 2> err.txt redirige…", "o": ["La salida estándar", "La salida de errores", "La entrada estándar", "Ambas salidas"], "a": 1, "e": "El descriptor 2 es stderr."},
-        {"q": "¿Qué orden muestra las 5 últimas líneas de un fichero?", "o": ["head -5 f", "tail -n 5 f", "cat -5 f", "less -5 f"], "a": 1, "e": "tail muestra el final; head el principio."}
-      ]
+     "list": [
+      "**Memoria**: posiciones identificadas por direcciones; cada dirección es una unidad direccionable. Capacidad = nº de posiciones direccionables (bus de direcciones de 16 líneas → 2¹⁶ = 64 K posiciones; bus de datos de 8 líneas → palabras de 8 bits). Para ejecutar un programa, **sus instrucciones y datos deben estar en memoria**.",
+      "**CPU** = ALU (operaciones aritméticas y lógicas) + Unidad de Control (interpreta las instrucciones y controla al resto).",
+      "**Modelo de programación**: lo que la CPU ofrece al programador → registros (generales, PC, PSW, puntero de pila), mapa de memoria y de E/S, juego de instrucciones y modos de direccionamiento, y la secuencia de funcionamiento."
+     ]
     },
     {
-      "id": "lab2",
-      "title": "Laboratorio 2 · Programación con la API POSIX (EL2 + PRL2)",
-      "guide": ["Programación con la API del sistema operativo: procesos, hilos y ejercicios prácticos asociados"],
-      "summary": [
-        "Patrón básico: pid_t pid = fork(); if (pid == 0) { /* hijo */ execlp(\"ls\",\"ls\",\"-l\",NULL); perror(\"exec\"); exit(1);} else if (pid > 0) { waitpid(pid,&st,0); } else perror(\"fork\");",
-        "Estado de terminación: WIFEXITED(st) y WEXITSTATUS(st) para leer el exit del hijo.",
-        "Familia exec: execl/execlp (lista de argumentos), execv/execvp (vector); la 'p' busca en el PATH. El último argumento siempre es NULL.",
-        "Comunicar padre e hijo con pipe: crear el pipe ANTES del fork, cada proceso cierra el extremo que no usa; dup2(fd[1], STDOUT_FILENO) para redirigir la salida (como hace el shell con |).",
-        "Hilos: #include <pthread.h>, compilar con -pthread. pthread_create(&t, NULL, func, &arg); la función es void *func(void *arg); pthread_join(t, &ret).",
-        "Pasar argumentos distintos a cada hilo: usar un array de estructuras, no la dirección de una variable de bucle que cambia.",
-        "Comprobar siempre los errores de las llamadas (-1 / errno) y usar perror."
+     "table": {
+      "head": [
+       "Registro",
+       "Función"
       ],
-      "cards": [
-        ["¿Por qué se crea el pipe antes del fork?", "Para que el hijo herede los descriptores y ambos compartan el mismo pipe."],
-        ["¿Qué hace dup2(fd[1], 1)?", "Duplica fd[1] sobre la salida estándar: lo que el proceso escriba en stdout va al pipe."],
-        ["Firma de la función de un hilo POSIX", "void *funcion(void *arg)"],
-        ["¿Cómo obtengo el código de salida de un hijo?", "waitpid(pid, &st, 0); if (WIFEXITED(st)) WEXITSTATUS(st)."],
-        ["Diferencia execlp vs execv", "execlp recibe los argumentos como lista y busca en PATH; execv recibe un vector y necesita la ruta."],
-        ["Error típico al pasar &i a varios hilos", "Todos reciben la misma dirección y leen el valor cambiado de i; hay que usar memoria distinta por hilo."]
-      ],
-      "quiz": [
-        {"q": "En la orden \"ls | wc -l\" implementada con fork y pipe, el proceso de ls debe…", "o": ["dup2(fd[0], 0)", "dup2(fd[1], 1) y cerrar fd[0]", "No usar dup2", "Cerrar fd[1]"], "a": 1, "e": "ls escribe en el pipe: su stdout pasa a ser fd[1]."},
-        {"q": "Si execvp falla, la ejecución…", "o": ["Termina el proceso automáticamente", "Continúa en la línea siguiente al exec", "Vuelve al padre", "Reinicia el programa"], "a": 1, "e": "Por eso tras exec se pone perror y exit."},
-        {"q": "¿Qué opción de compilación necesita un programa con pthreads en gcc?", "o": ["-lm", "-pthread", "-O3", "-static"], "a": 1, "e": "-pthread enlaza la biblioteca y define las macros necesarias."},
-        {"q": "Un lector del pipe nunca termina de leer. Causa más probable:", "o": ["El pipe es demasiado pequeño", "Algún proceso (incluido él mismo) no cerró el extremo de escritura", "Falta un sleep", "fork devolvió 0"], "a": 1, "e": "read solo devuelve 0 (EOF) cuando no queda ningún escritor abierto."},
-        {"q": "pthread_join sirve para…", "o": ["Crear un hilo", "Esperar a que termine un hilo y recoger su valor de retorno", "Sincronizar con un mutex", "Matar un hilo"], "a": 1, "e": "Es el equivalente a wait para hilos."}
+      "rows": [
+       [
+        "Contador de programa (PC)",
+        "Dirección de la **siguiente** instrucción a ejecutar"
+       ],
+       [
+        "PSW (palabra de estado)",
+        "Flags fijados por el hardware: acarreo, desbordamiento, cero…"
+       ],
+       [
+        "Puntero de pila (SP)",
+        "Apunta a la cabecera de la pila (push/pop)"
+       ],
+       [
+        "Generales / datos / direcciones",
+        "Almacenamiento rápido dentro de la CPU"
+       ]
       ]
+     }
+    },
+    {
+     "table": {
+      "head": [
+       "Tipo de instrucción",
+       "Ejemplos"
+      ],
+      "rows": [
+       [
+        "Aritméticas",
+        "SUMAR, RESTAR"
+       ],
+       [
+        "Lógicas",
+        "Y, O, NEGAR"
+       ],
+       [
+        "Transferencia de datos",
+        "MOVER, CARGAR, ALMACENAR, APILAR, EXTRAER"
+       ],
+       [
+        "Control / salto",
+        "LLAMADA A RUTINA, RETORNO, SALTO, SALTO SI NO IGUAL"
+       ],
+       [
+        "E/S",
+        "ENTRADA, SALIDA"
+       ]
+      ]
+     }
+    },
+    {
+     "p": "**Modos de direccionamiento** (cómo se indica un operando): **implícito** (lo indica el propio código de operación) y explícitos: **inmediato** (el operando va en la instrucción), **directo** (se da su dirección de memoria), indirecto, por registro… \"No todo el mundo puede ejecutar todas las instrucciones\": hay instrucciones privilegiadas."
+    },
+    {
+     "steps": {
+      "title": "Ciclo de ejecución de una instrucción",
+      "items": [
+       {
+        "t": "Búsqueda",
+        "d": "La CPU trae de memoria la instrucción a la que apunta el PC."
+       },
+       {
+        "t": "Interpretación",
+        "d": "La unidad de control decodifica la instrucción leída."
+       },
+       {
+        "t": "Lectura de operandos",
+        "d": "Lee de memoria los datos referenciados en la instrucción."
+       },
+       {
+        "t": "Ejecución",
+        "d": "La ALU (o la unidad correspondiente) realiza la operación."
+       },
+       {
+        "t": "Almacenamiento",
+        "d": "Guarda el resultado de la ejecución (registro o memoria)."
+       }
+      ]
+     }
+    },
+    {
+     "h": "Buses y entrada/salida"
+    },
+    {
+     "p": "Los **buses** conectan los componentes (hoy son elementos complejos, no simples cables). Se definen por sus conectores y características físicas, su topología (serie, paralelo, estrella…) y sus señales y protocolos. Un bus paralelo típico tiene bus de datos, bus de direcciones y bus de control (señales como Read o «dirección válida»)."
+    },
+    {
+     "p": "**E/S**: comunicación con el exterior (cargar programas y datos, hablar con personas y máquinas). Como cada dispositivo es distinto, se usa una arquitectura común: parte específica + **controlador** (hardware conectado a los buses que ofrece **registro de datos, de control y de estado**)."
+    },
+    {
+     "table": {
+      "head": [
+       "Técnica",
+       "Cómo funciona",
+       "Pros / contras"
+      ],
+      "rows": [
+       [
+        "Consulta (sondeo)",
+        "La CPU pregunta periódicamente al dispositivo",
+        "Sencilla, sin HW extra · carga la CPU y ocupa buses innecesariamente; ¿con qué frecuencia?"
+       ],
+       [
+        "Interrupciones",
+        "El dispositivo avisa a la CPU cuando la necesita",
+        "Eficiente · necesita HW adicional y que la CPU tenga mecanismo de interrupciones"
+       ],
+       [
+        "DMA",
+        "El controlador DMA transfiere bloques entre dispositivo y memoria sin la CPU; avisa al terminar con una interrupción",
+        "Permite E/S eficiente y solapar E/S con CPU (base de la multiprogramación)"
+       ]
+      ]
+     }
+    },
+    {
+     "steps": {
+      "title": "Mecanismo general de interrupciones",
+      "items": [
+       {
+        "t": "Petición",
+        "d": "Un dispositivo requiere atención y solicita una interrupción a la CPU."
+       },
+       {
+        "t": "Salto a la ISR",
+        "d": "La CPU deja de ejecutar el programa y pasa a ejecutar la **rutina de servicio de interrupción (ISR)**."
+       },
+       {
+        "t": "Atención",
+        "d": "La ISR atiende al dispositivo y da por finalizada la interrupción."
+       },
+       {
+        "t": "Reanudación",
+        "d": "La CPU reanuda el programa en el punto exacto en que fue interrumpido."
+       }
+      ]
+     }
+    },
+    {
+     "h": "Idea clave: el SO se apoya en el hardware"
+    },
+    {
+     "table": {
+      "head": [
+       "Arquitectura de computadores",
+       "Sistema operativo"
+      ],
+      "rows": [
+       [
+        "CPU y registros",
+        "Ejecución de programas"
+       ],
+       [
+        "Memoria",
+        "Gestión de programas y datos"
+       ],
+       [
+        "E/S y controladores",
+        "Gestión de dispositivos"
+       ],
+       [
+        "Interrupciones",
+        "Atención de eventos"
+       ],
+       [
+        "DMA",
+        "E/S eficiente"
+       ]
+      ]
+     }
     }
-  ],
-  "exams": {
-    "ordinary": [
-      {"topics": ["p1", "p2", "p3", "p4", "p5"], "note": "TC1 (5-nov) cubre aproximadamente las partes 1–3 y TC2 las partes 4–5, según el cronograma de la guía (evaluaciones en las semanas 6–9 y 12–15). El corte exacto lo fija el profesor."},
-      {"topics": ["lab1"], "note": "Prueba individual de laboratorio sobre configuración, órdenes del sistema y primeras prácticas."},
-      {"topics": ["lab2", "p3"], "note": "Entrega + prueba sobre programación con la API del SO: procesos e hilos."},
-      {"topics": ["p4", "p5"], "note": "Prácticas restantes: concurrencia y planificación (detalle en el Aula Virtual)."},
-      {"topics": ["p3", "p4", "p5", "p1", "p2"], "note": "Prueba final de problemas sobre el conjunto de la asignatura; los problemas suelen centrarse en procesos, sincronización y planificación."}
+   ],
+   "cards": [
+    [
+     "Definición de SO según S. Sánchez",
+     "Conjunto de programas que, mediante abstracciones, ponen el hardware a disposición del usuario de modo seguro."
     ],
-    "extraordinary": [
-      {"topics": ["p1", "p2", "p3", "p4", "p5"], "note": "Test/ensayo final de toda la teoría."},
-      {"topics": ["lab1"]},
-      {"topics": ["lab2", "p3"]},
-      {"topics": ["p4", "p5"]},
-      {"topics": ["p3", "p4", "p5", "p1", "p2"]}
+    [
+     "Definición de SO según Madnik y Donovan",
+     "Conjunto de programas que gestionan los recursos del sistema, optimizan su uso y resuelven conflictos."
+    ],
+    [
+     "¿Qué es la arquitectura de un computador?",
+     "Los atributos del sistema visibles al programador, que afectan directamente a la ejecución de un programa."
+    ],
+    [
+     "Elementos fundamentales de la arquitectura",
+     "Memoria, CPU, buses y entrada/salida."
+    ],
+    [
+     "Bus de direcciones de 16 líneas: ¿cuántas posiciones?",
+     "2¹⁶ = 65 536 (64 K) posiciones."
+    ],
+    [
+     "Partes de la CPU",
+     "ALU (aritmética y lógica) y Unidad de Control (interpreta instrucciones y controla al resto)."
+    ],
+    [
+     "¿Qué contiene el contador de programa?",
+     "La dirección de la siguiente instrucción a ejecutar."
+    ],
+    [
+     "¿Qué es la PSW?",
+     "Palabra de estado del programa: flags (acarreo, desbordamiento…) que fija el hardware de la CPU."
+    ],
+    [
+     "Direccionamiento inmediato vs directo",
+     "Inmediato: el operando va en la instrucción. Directo: la instrucción lleva la dirección de memoria del operando."
+    ],
+    [
+     "Fases del ciclo de instrucción",
+     "Búsqueda, interpretación, lectura de datos, ejecución y almacenamiento del resultado."
+    ],
+    [
+     "Registros de un controlador de E/S",
+     "Registro de datos, de control y de estado."
+    ],
+    [
+     "Sondeo vs interrupciones",
+     "Sondeo: la CPU pregunta (sencillo, desperdicia CPU y bus). Interrupciones: el dispositivo avisa (necesita HW y mecanismo en la CPU)."
+    ],
+    [
+     "¿Qué es una ISR?",
+     "La rutina de servicio de interrupción que ejecuta la CPU para atender al dispositivo."
+    ],
+    [
+     "¿Para qué sirve el DMA?",
+     "Transferir datos entre dispositivo y memoria sin intervención de la CPU, que puede seguir ejecutando otro programa."
     ]
+   ],
+   "quiz": [
+    {
+     "q": "Una memoria con bus de direcciones de 16 bits y bus de datos de 8 bits tiene capacidad de…",
+     "o": [
+      "16 KB",
+      "64 KB",
+      "128 KB",
+      "8 KB"
+     ],
+     "a": 1,
+     "e": "2¹⁶ posiciones × 1 byte = 64 KB."
+    },
+    {
+     "q": "En `CARGAR R1, 0x0003`, el operando se especifica con direccionamiento…",
+     "o": [
+      "Inmediato",
+      "Directo",
+      "Implícito",
+      "Indirecto"
+     ],
+     "a": 1,
+     "e": "Se da la dirección de memoria del dato."
+    },
+    {
+     "q": "En `COMPARAR #4, $2030`, `#4` es un operando…",
+     "o": [
+      "Directo",
+      "Inmediato",
+      "Por registro",
+      "Implícito"
+     ],
+     "a": 1,
+     "e": "El valor 4 va dentro de la propia instrucción."
+    },
+    {
+     "q": "¿Qué registro indica la dirección de la siguiente instrucción?",
+     "o": [
+      "PSW",
+      "Contador de programa",
+      "Puntero de pila",
+      "Registro de estado del controlador"
+     ],
+     "a": 1,
+     "e": "PC = program counter."
+    },
+    {
+     "q": "¿Cuál es un inconveniente de la E/S por consulta (sondeo)?",
+     "o": [
+      "Necesita hardware adicional",
+      "Ocupa la CPU y los buses innecesariamente",
+      "Requiere DMA",
+      "Solo vale para discos"
+     ],
+     "a": 1,
+     "e": "La CPU pierde tiempo preguntando."
+    },
+    {
+     "q": "¿Qué necesita la E/S por interrupciones que el sondeo no necesita?",
+     "o": [
+      "Un bus serie",
+      "Hardware adicional y mecanismo de interrupciones en la CPU",
+      "Memoria virtual",
+      "Un monitor residente"
+     ],
+     "a": 1,
+     "e": "Lo indican las diapositivas."
+    },
+    {
+     "q": "Tras ejecutar la ISR, la CPU…",
+     "o": [
+      "Reinicia el programa",
+      "Reanuda el programa en el punto en que fue interrumpido",
+      "Pasa al siguiente programa de la cola",
+      "Se detiene"
+     ],
+     "a": 1,
+     "e": "Paso 4 del mecanismo general."
+    },
+    {
+     "q": "¿Qué componente del SO se apoya directamente en el mecanismo de interrupciones?",
+     "o": [
+      "Gestión de archivos",
+      "Atención de eventos",
+      "Compilación",
+      "Interfaz gráfica"
+     ],
+     "a": 1,
+     "e": "Tabla arquitectura ↔ SO."
+    },
+    {
+     "type": "order",
+     "q": "Ordena las fases del ciclo de ejecución de una instrucción:",
+     "items": [
+      "Búsqueda de la instrucción máquina",
+      "Interpretación de la instrucción",
+      "Lectura de los datos referenciados",
+      "Ejecución",
+      "Almacenamiento del resultado"
+     ]
+    },
+    {
+     "type": "order",
+     "q": "Ordena el mecanismo general de interrupciones:",
+     "items": [
+      "El dispositivo solicita una interrupción",
+      "La CPU deja el programa y salta a la ISR",
+      "La ISR atiende al dispositivo y finaliza la interrupción",
+      "La CPU reanuda el programa donde lo dejó"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "t1b",
+   "title": "Tema 1 · Evolución histórica de los sistemas operativos",
+   "source": "Diapositivas «Introducción» (SSOO-GII T1 26-27), Dpto. de Automática UAH",
+   "guide": [
+    "Monitor residente",
+    "Procesamiento por lotes",
+    "Sistemas multiprogramados",
+    "Tiempo compartido"
+   ],
+   "summary": [],
+   "notes": [
+    {
+     "p": "Cada etapa nace para resolver **el problema de la anterior**. Es la forma más fácil de recordarla (y de responder en el examen):"
+    },
+    {
+     "table": {
+      "head": [
+       "Etapa",
+       "Objetivo",
+       "Cómo",
+       "Problema que deja"
+      ],
+      "rows": [
+       [
+        "Máquina desnuda",
+        "Ejecutar programas almacenados en memoria",
+        "Se programa directamente sobre el HW; código máquina mediante interruptores; no hay SO",
+        "Hay que conocer todo el HW; un mínimo cambio invalida el programa; se repite código"
+       ],
+       [
+        "Monitor simple residente",
+        "**Reutilizar código**",
+        "Agrupa el código común (sobre todo rutinas de E/S) → es esencialmente un **driver**; primer germen de SO",
+        "Se pierde mucho tiempo entre que acaba un programa y empieza el siguiente"
+       ],
+       [
+        "Procesamiento por lotes (batch)",
+        "Reducir esperas de E/S en la carga de programas",
+        "Ordenadores baratos para E/S (tarjetas → cinta) y uno caro solo ejecuta; otro imprime",
+        "Hace falta un **operario humano**"
+       ],
+       [
+        "Multiprogramación",
+        "**Solapar E/S y CPU** en la misma máquina",
+        "Varios programas en memoria a la vez: mientras uno espera E/S, la CPU ejecuta otro. Necesita **interrupciones y DMA**",
+        "Un programa puede **monopolizar la CPU**; poco adecuado para uso interactivo"
+       ],
+       [
+        "Tiempo compartido",
+        "Acceso **equitativo** a la CPU",
+        "Interrupciones de reloj; el tiempo se divide en **quantum**; al agotarlo se pasa a otro (round-robin)",
+        "Son los SO habituales hoy en informática de consumo"
+       ],
+       [
+        "Tiempo real",
+        "Ejecutar dentro de un **plazo acotado**",
+        "No basta con HW más potente; **tiempo real ≠ rápido**; típicos en sistemas empotrados",
+        "Aplicaciones **duras** (incumplir el plazo es un fallo) y **blandas** (degrada la calidad)"
+       ],
+       [
+        "Distribuidos",
+        "Repartir funciones entre varias máquinas como si fueran **una sola**",
+        "Varios elementos cooperan para dar un servicio único; aparece el **middleware**",
+        "No es un sistema simplemente replicado: hay «mentalidad de grupo»"
+       ]
+      ]
+     }
+    },
+    {
+     "h": "Multiprogramación: el gran salto"
+    },
+    {
+     "p": "Tener más de un programa cargado en memoria a la vez hace aparecer **casi todos los problemas clásicos de los SO**:"
+    },
+    {
+     "list": [
+      "Gestión de la memoria",
+      "Planificación del procesador",
+      "Planificación de los dispositivos",
+      "Protección entre la ejecución de distintos programas",
+      "Control de la concurrencia"
+     ]
+    },
+    {
+     "tip": "Prueba del sistema distribuido: si puedes decir qué máquinas estás usando, dónde corren los programas o dónde están los archivos, **NO** es un sistema operativo distribuido."
+    },
+    {
+     "p": "**Middleware**: capa de servicios del sistema distribuido situada entre las aplicaciones (que usan sus APIs) y las plataformas (HW + SO) de cada máquina."
+    }
+   ],
+   "cards": [
+    [
+     "Máquina desnuda: ¿cómo se programaba?",
+     "Directamente sobre el hardware, introduciendo código máquina con interruptores; no había SO."
+    ],
+    [
+     "¿Qué era el monitor simple residente?",
+     "El primer germen de SO: código común (sobre todo E/S) residente en memoria; esencialmente un driver."
+    ],
+    [
+     "Problema del monitor residente",
+     "Se perdía mucho tiempo entre el fin de un programa y el lanzamiento del siguiente."
+    ],
+    [
+     "Problema de los sistemas por lotes",
+     "Necesitaban la intervención de un operario humano."
+    ],
+    [
+     "Objetivo de la multiprogramación",
+     "Solapar la E/S con el uso de la CPU en la misma máquina, con varios programas en memoria."
+    ],
+    [
+     "¿Qué hardware exige la multiprogramación?",
+     "Interrupciones y acceso directo a memoria (DMA)."
+    ],
+    [
+     "Problemas de SO que aparecen con la multiprogramación",
+     "Gestión de memoria, planificación de CPU y dispositivos, protección y control de concurrencia."
+    ],
+    [
+     "Problema de la multiprogramación pura",
+     "Un programa puede monopolizar la CPU; poco adecuado para sistemas interactivos."
+    ],
+    [
+     "¿Cómo evita el tiempo compartido la monopolización?",
+     "Con interrupciones de reloj: cada programa recibe un quantum y al agotarlo se pasa a otro (round-robin)."
+    ],
+    [
+     "¿Tiempo real significa rápido?",
+     "No: significa garantizar que se cumple un plazo acotado."
+    ],
+    [
+     "Tiempo real duro vs blando",
+     "Duro: incumplir un plazo es un fallo del sistema. Blando: solo degrada la calidad del servicio."
+    ],
+    [
+     "¿Qué introduce un sistema distribuido?",
+     "El middleware: servicios comunes entre las aplicaciones y las plataformas HW+SO."
+    ]
+   ],
+   "quiz": [
+    {
+     "q": "¿Qué etapa introduce por primera vez código reutilizable de E/S?",
+     "o": [
+      "Máquina desnuda",
+      "Monitor simple residente",
+      "Tiempo compartido",
+      "Sistemas distribuidos"
+     ],
+     "a": 1,
+     "e": "El monitor agrupa las rutinas de E/S."
+    },
+    {
+     "q": "¿Qué problema resuelven los sistemas de tiempo compartido?",
+     "o": [
+      "La intervención del operario",
+      "Que un programa monopolice la CPU",
+      "La falta de drivers",
+      "La fragmentación"
+     ],
+     "a": 1,
+     "e": "Quantum + interrupciones de reloj."
+    },
+    {
+     "q": "¿Cuál de estos mecanismos hardware es imprescindible para la multiprogramación?",
+     "o": [
+      "GPU",
+      "DMA e interrupciones",
+      "Memoria caché L3",
+      "Bus serie"
+     ],
+     "a": 1,
+     "e": "Para solapar E/S y CPU."
+    },
+    {
+     "q": "Un sistema que controla el airbag de un coche es…",
+     "o": [
+      "De tiempo compartido",
+      "De tiempo real duro",
+      "Por lotes",
+      "Distribuido"
+     ],
+     "a": 1,
+     "e": "Incumplir el plazo es un fallo grave."
+    },
+    {
+     "q": "Usas un sistema donde eliges en qué servidor se ejecuta tu programa. ¿Es un SO distribuido?",
+     "o": [
+      "Sí, porque hay varias máquinas",
+      "No: si puedes saber dónde corren los programas, no es distribuido",
+      "Sí, si tiene middleware",
+      "Depende del número de máquinas"
+     ],
+     "a": 1,
+     "e": "Debe parecer una única máquina."
+    },
+    {
+     "q": "En el procesamiento por lotes, ¿qué hacía el ordenador caro?",
+     "o": [
+      "Leer tarjetas",
+      "Solo ejecutar los programas de la cinta",
+      "Imprimir",
+      "Todo"
+     ],
+     "a": 1,
+     "e": "La E/S lenta se delegaba en ordenadores baratos."
+    },
+    {
+     "type": "order",
+     "q": "Ordena cronológicamente la evolución de los SO:",
+     "items": [
+      "Máquina desnuda",
+      "Monitor simple residente",
+      "Procesamiento por lotes",
+      "Multiprogramación",
+      "Tiempo compartido"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "t2a",
+   "title": "Tema 2 · Descripción del SO, soporte hardware y diseño por capas",
+   "source": "Diapositivas «Estructura del Sistema Operativo» (SSOO-GII T2 26-27), Dpto. de Automática UAH",
+   "guide": [
+    "Vista restringida y amplia del SO",
+    "Funciones del SO",
+    "Interfaces con el usuario y con las aplicaciones",
+    "Descomposición en capas"
+   ],
+   "summary": [],
+   "notes": [
+    {
+     "p": "Para reducir la complejidad, el computador se estudia por **niveles**: lógica digital → microarquitectura → arquitectura → **sistema operativo** → ensamblador → lenguaje de alto nivel. Cada nivel admite tres descripciones: **funcional** (qué hace), **estructural** (cómo se organiza) y de implementación."
+    },
+    {
+     "h": "Descripción funcional: visión amplia y restringida"
+    },
+    {
+     "table": {
+      "head": [
+       "",
+       "Visión amplia",
+       "Visión restringida"
+      ],
+      "rows": [
+       [
+        "De quién",
+        "Usuarios",
+        "Desarrolladores del SO"
+       ],
+       [
+        "Qué es el SO",
+        "Entorno de soporte al programador, interfaz con el usuario (GUI/JCL) y gestión de recursos",
+        "Estructuras de datos y funciones del **núcleo** para gestionar recursos; administrador de recursos e interfaz entre programas, usuarios y HW"
+       ]
+      ]
+     }
+    },
+    {
+     "list": [
+      "Funciones (visión restringida): manipular y compartir el HW entre usuarios, facilitar la E/S, planificar recursos, definir la «interfaz de usuario» (servicios del SO = **system calls**), permitir compartir datos y **recuperarse de errores**.",
+      "Recursos clave que administra: **microprocesador, memoria principal, dispositivos de E/S y almacenamiento/datos**."
+     ]
+    },
+    {
+     "p": "**Descripción estructural**: buscar una organización interna que aumente la **portabilidad** y la **extensibilidad** y facilite la comprensión y el mantenimiento (¿cómo abordar un programa de millones de líneas?)."
+    },
+    {
+     "h": "Lo que el SO pide al hardware"
+    },
+    {
+     "p": "El SO debe ser **seguro, robusto, estable y eficiente**. Para ello el diseñador pide al arquitecto:"
+    },
+    {
+     "table": {
+      "head": [
+       "Mecanismo",
+       "Para qué"
+      ],
+      "rows": [
+       [
+        "**Modo dual** de ejecución (usuario / privilegiado)",
+        "Las instrucciones peligrosas solo en modo privilegiado. Se pasa de usuario a supervisor pidiendo un servicio al SO mediante una **SVC** (llamada al sistema)."
+       ],
+       [
+        "Protección de **memoria**",
+        "Hardware de protección: un programa no accede a lo de otro ni al SO"
+       ],
+       [
+        "Protección de **dispositivos**",
+        "Hardware de protección e **instrucciones privilegiadas**"
+       ],
+       [
+        "Protección del **procesador**",
+        "**Interrupciones** (de reloj): el SO recupera el control"
+       ],
+       [
+        "Maximizar rendimiento",
+        "Solapar E/S con CPU mediante **DMA**"
+       ]
+      ]
+     }
+    },
+    {
+     "h": "Diseño por capas"
+    },
+    {
+     "p": "Objetivo: disminuir la complejidad observable. Una **capa** es un conjunto de funciones claramente definidas hacia un objetivo común; la capa N ofrece servicios usando solo los de la N-1."
+    },
+    {
+     "list": [
+      "Las estructuras y algoritmos de una capa no son visibles a las demás.",
+      "El sistema evoluciona fácilmente si se mantienen las interfaces.",
+      "Puede haber implementaciones alternativas de una capa (distintos equipos).",
+      "Algunas capas pueden ser transparentes si no se necesitan.",
+      "Cada capa se codifica y prueba de forma **independiente**."
+     ]
+    },
+    {
+     "table": {
+      "head": [
+       "Nivel",
+       "Objetivo",
+       "Funciones principales"
+      ],
+      "rows": [
+       [
+        "5 · Gestión de la información",
+        "Espacio de nombres lógicos y protección de la información",
+        "Crear/destruir archivos y directorios, abrir/cerrar, leer/escribir, protección de acceso"
+       ],
+       [
+        "4 · Gestión de dispositivos",
+        "E/S según los dispositivos del sistema",
+        "Crear procesos de E/S, asignar/liberar dispositivos, planificar la E/S"
+       ],
+       [
+        "3 · Gestión de procesos",
+        "Manejo de procesos a alto nivel",
+        "Crear/destruir procesos, intercambio de mensajes, detener/arrancar procesos"
+       ],
+       [
+        "2 · Gestión de memoria",
+        "Repartir la memoria entre procesos",
+        "Asignar/liberar memoria, controlar violaciones de acceso"
+       ],
+       [
+        "1 · Gestión del procesador",
+        "Compartir la CPU entre procesos",
+        "Sincronización entre procesos, conmutación de CPU, gestión de interrupciones"
+       ]
+      ]
+     }
+    },
+    {
+     "tip": "Regla para recordarlo de abajo arriba: **procesador → memoria → procesos → dispositivos → información** (P-M-P-D-I)."
+    }
+   ],
+   "cards": [
+    [
+     "Tres tipos de descripción de un nivel del computador",
+     "Funcional, estructural y de implementación."
+    ],
+    [
+     "Visión amplia del SO",
+     "La de los usuarios: entorno de soporte al programador, interfaz de usuario (GUI/JCL) y gestión de recursos."
+    ],
+    [
+     "Visión restringida del SO",
+     "La de los desarrolladores: estructuras de datos y funciones del núcleo para gestionar recursos."
+    ],
+    [
+     "Recursos clave que administra el SO",
+     "Microprocesador, memoria principal, dispositivos de E/S y almacenamiento/datos."
+    ],
+    [
+     "Objetivo de la descripción estructural",
+     "Una organización interna que aumente portabilidad y extensibilidad y facilite comprensión y mantenimiento."
+    ],
+    [
+     "¿Cómo se pasa de modo usuario a supervisor?",
+     "Pidiendo un servicio al SO con una llamada al sistema (SVC), que provoca un trap."
+    ],
+    [
+     "¿Cómo se protege el procesador?",
+     "Con interrupciones (de reloj), para que el SO recupere el control."
+    ],
+    [
+     "¿Cómo se protegen los dispositivos?",
+     "Con hardware de protección e instrucciones privilegiadas."
+    ],
+    [
+     "Niveles del diseño por capas (de 1 a 5)",
+     "1 Procesador, 2 Memoria, 3 Procesos, 4 Dispositivos, 5 Información."
+    ],
+    [
+     "¿En qué nivel está la conmutación de la CPU y la gestión de interrupciones?",
+     "Nivel 1: gestión del procesador."
+    ],
+    [
+     "¿En qué nivel se controla la violación de acceso a memoria?",
+     "Nivel 2: gestión de memoria."
+    ],
+    [
+     "Ventajas del diseño por capas",
+     "Ocultación interna, evolución manteniendo interfaces, implementaciones alternativas, capas transparentes y desarrollo/prueba independientes."
+    ]
+   ],
+   "quiz": [
+    {
+     "q": "«Abrir y cerrar archivos» pertenece al nivel…",
+     "o": [
+      "2 · Memoria",
+      "4 · Dispositivos",
+      "5 · Información",
+      "3 · Procesos"
+     ],
+     "a": 2,
+     "e": "Gestión de la información."
+    },
+    {
+     "q": "«Planificación de la E/S» pertenece al nivel…",
+     "o": [
+      "1 · Procesador",
+      "4 · Dispositivos",
+      "5 · Información",
+      "2 · Memoria"
+     ],
+     "a": 1,
+     "e": "Gestión de dispositivos."
+    },
+    {
+     "q": "«Intercambio de mensajes» entre procesos es del nivel…",
+     "o": [
+      "1",
+      "2",
+      "3",
+      "5"
+     ],
+     "a": 2,
+     "e": "Gestión de procesos (alto nivel)."
+    },
+    {
+     "q": "La visión amplia del SO es propia de…",
+     "o": [
+      "Los desarrolladores del núcleo",
+      "Los usuarios",
+      "Los fabricantes de hardware",
+      "Los compiladores"
+     ],
+     "a": 1,
+     "e": "La restringida es la de los desarrolladores."
+    },
+    {
+     "q": "¿Qué mecanismo hardware protege al procesador frente a un programa que no lo suelta?",
+     "o": [
+      "La MMU",
+      "Las interrupciones",
+      "El DMA",
+      "La caché"
+     ],
+     "a": 1,
+     "e": "La interrupción de reloj devuelve el control al SO."
+    },
+    {
+     "q": "¿Cuál NO es una ventaja del diseño por capas?",
+     "o": [
+      "Cada capa se prueba de forma independiente",
+      "Se puede cambiar una capa manteniendo su interfaz",
+      "Máximo rendimiento al no haber sobrecoste entre capas",
+      "Las estructuras internas de una capa quedan ocultas"
+     ],
+     "a": 2,
+     "e": "Atravesar capas añade sobrecoste."
+    },
+    {
+     "type": "order",
+     "q": "Ordena los niveles del diseño por capas de abajo (1) a arriba (5):",
+     "items": [
+      "Gestión del procesador",
+      "Gestión de memoria",
+      "Gestión de procesos",
+      "Gestión de dispositivos",
+      "Gestión de la información"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "t2b",
+   "title": "Tema 2 · Núcleo, eventos y llamadas al sistema (Linux y xv6)",
+   "source": "Diapositivas «Estructura del Sistema Operativo» (SSOO-GII T2 26-27): núcleo, gestión de eventos, xv6-RISC-V",
+   "guide": [
+    "El núcleo: descripción y funciones básicas",
+    "Mecanismo de llamadas al sistema",
+    "Tipos de llamadas al sistema"
+   ],
+   "summary": [],
+   "notes": [
+    {
+     "h": "El núcleo"
+    },
+    {
+     "list": [
+      "Es el **primer nivel** del diseño jerárquico y la parte **más dependiente del HW**.",
+      "Suele permanecer en el almacenamiento primario (memoria) porque se usa continuamente y debe responder siempre (p. ej. a las interrupciones).",
+      "Parte escrita en ensamblador y, a veces, con dispositivos cableados.",
+      "Se ejecuta **siempre en modo privilegiado** (supervisor)."
+     ]
+    },
+    {
+     "p": "**Funciones básicas**: proporcionar el entorno para que existan procesos → **gestión de eventos**, **conmutación del procesador** entre procesos (soporte al diagrama de estados), mecanismos básicos de **comunicación** entre procesos, y **carga inicial** y activación de la configuración."
+    },
+    {
+     "h": "Tipos de eventos"
+    },
+    {
+     "table": {
+      "head": [
+       "Tipo",
+       "Origen",
+       "Ejemplos",
+       "Lo atiende"
+      ],
+      "rows": [
+       [
+        "**Síncronos** · TRAPs (llamadas al sistema)",
+        "La propia instrucción del programa, a propósito",
+        "`ecall` (RISC-V), `syscall` (x86-64)",
+        "Manejadores de TRAP"
+       ],
+       [
+        "**Síncronos** · Excepciones",
+        "Un error o situación especial al ejecutar una instrucción",
+        "División por cero, fallo de página (recuperable), instrucción ilegal, violación de privilegios",
+        "Manejadores de excepción"
+       ],
+       [
+        "**Asíncronos** · Interrupciones",
+        "El hardware externo, en cualquier momento",
+        "Reloj, fin de E/S, teclado",
+        "Manejadores de interrupción"
+       ]
+      ]
+     }
+    },
+    {
+     "tip": "En los tres casos **la CPU conmuta a modo supervisor** y salta al SO."
+    },
+    {
+     "h": "Llamadas al sistema"
+    },
+    {
+     "p": "Son el mecanismo **controlado** de acceso de los procesos a los recursos del SO. Un usuario no ejecuta instrucciones privilegiadas: pide el servicio con una **SVC (SuperVisor Call)** → modo usuario ⇒ **TRAP** ⇒ modo supervisor, mediante una instrucción máquina específica de cada arquitectura."
+    },
+    {
+     "p": "**Tipos**: comunicación y sincronización de procesos · ejecución de programas · operaciones de E/S · sistema de archivos · detección y control de errores · comunicaciones en red · funciones de tiempo · personalización de la interfaz."
+    },
+    {
+     "p": "Las aplicaciones no suelen invocarlas directamente: usan una **API** y funciones de biblioteca (**wrappers**, p. ej. glibc). **POSIX** es el estándar de interfaces para SO portables basados en UNIX: define una interfaz común para facilitar la portabilidad."
+    },
+    {
+     "steps": {
+      "title": "write() en Linux (x86-64): de tu programa al disco",
+      "items": [
+       {
+        "t": "Programa de usuario",
+        "d": "Llama a la función POSIX `write(fd, buf, count)`.",
+        "code": "#include <unistd.h>\nssize_t n = write(fd, buf, count);"
+       },
+       {
+        "t": "Wrapper de la biblioteca (glibc)",
+        "d": "Prepara el nº de syscall y los argumentos según la ABI y ejecuta la instrucción `syscall`.",
+        "code": "rax = 1 (__NR_write); rdi = fd; rsi = buf; rdx = count\nsyscall"
+       },
+       {
+        "t": "Entrada al kernel: entry_SYSCALL_64",
+        "d": "Transición a modo núcleo (cambio de privilegio), guarda el contexto del proceso en el kernel y pasa el control al dispatcher."
+       },
+       {
+        "t": "Dispatcher: do_syscall_64",
+        "d": "Obtiene el nº de syscall (en RAX), consulta la tabla `sys_call_table[nr]` y salta a la función correspondiente (`__x64_sys_write`)."
+       },
+       {
+        "t": "Rutina de servicio: ksys_write → vfs_write",
+        "d": "Escribe los datos en el fichero a través del VFS y el sistema de ficheros, y devuelve el nº de bytes escritos (o un código de error). El valor vuelve en RAX y glibc lo devuelve como `ssize_t` (si es error, pone `errno` y devuelve -1)."
+       }
+      ]
+     }
+    },
+    {
+     "steps": {
+      "title": "Una llamada al sistema en xv6-RISC-V (versión actual)",
+      "items": [
+       {
+        "t": "user/programa.c",
+        "d": "El programa llama a `write(1, msg, 5)`."
+       },
+       {
+        "t": "user/usys.S (stub generado por usys.pl)",
+        "d": "Carga el nº de llamada en **a7** y ejecuta `ecall`. Los argumentos ya están en a0 (fd), a1 (buf), a2 (count).",
+        "code": "write:\n  li a7, SYS_write\n  ecall\n  ret"
+       },
+       {
+        "t": "kernel/trampoline.S · uservec()",
+        "d": "Entrada al trap: guarda los registros de usuario en **p->trapframe**, cambia a la pila del kernel y salta a `usertrap()`."
+       },
+       {
+        "t": "kernel/trap.c · usertrap()",
+        "d": "Detecta que es un `ecall` (`r_scause() == 8`), avanza **sepc += 4** (para volver a la instrucción siguiente) y llama a `syscall()`."
+       },
+       {
+        "t": "kernel/syscall.c · syscall()",
+        "d": "Lee el nº de llamada `num = p->trapframe->a7`, consulta la tabla `syscalls[num]`, llama a la función y guarda el valor de retorno en **p->trapframe->a0**."
+       },
+       {
+        "t": "kernel/sysfile.c · sys_write()",
+        "d": "Recupera los argumentos con `argint(0,&fd)`, `argaddr(1,&p)`, `argint(2,&n)`, realiza `filewrite(f, p, n)` y devuelve n o -1."
+       },
+       {
+        "t": "kernel/trap.c · prepare_return()",
+        "d": "Prepara el retorno: `stvec = uservec`, trapframe del kernel, limpia **SPP** (volver a modo usuario), habilita SPIE y `sepc = p->trapframe->epc`."
+       },
+       {
+        "t": "kernel/trampoline.S · userret()",
+        "d": "Restaura los registros de usuario desde p->trapframe y ejecuta `sret`."
+       },
+       {
+        "t": "Vuelta a modo usuario",
+        "d": "`sret` vuelve a user/usys.S (tras el `ecall`), que hace `ret` al programa con el resultado en **a0**."
+       }
+      ]
+     }
+    },
+    {
+     "table": {
+      "head": [
+       "Registro (trapframe)",
+       "Papel"
+      ],
+      "rows": [
+       [
+        "`a7`",
+        "Número de la syscall"
+       ],
+       [
+        "`a0`, `a1`, `a2`…",
+        "Argumentos; `a0` también el **valor de retorno**"
+       ],
+       [
+        "`epc` / `sepc`",
+        "PC de usuario donde se reanuda (después del `ecall`)"
+       ]
+      ]
+     }
+    },
+    {
+     "steps": {
+      "title": "Añadir una llamada al sistema `sum(a,b)` a xv6",
+      "items": [
+       {
+        "t": "user/user.h",
+        "d": "Declarar la función para los programas de usuario.",
+        "code": "int sum(int, int);"
+       },
+       {
+        "t": "user/usys.pl",
+        "d": "Añadir la entrada del stub; `make` genera user/usys.S automáticamente.",
+        "code": "entry(\"sum\");"
+       },
+       {
+        "t": "kernel/syscall.h",
+        "d": "Asignar un número único a la nueva llamada.",
+        "code": "#define SYS_sum 22"
+       },
+       {
+        "t": "kernel/syscall.c",
+        "d": "Declarar la función y registrarla en la tabla.",
+        "code": "extern uint64 sys_sum(void);\n[SYS_sum] sys_sum,"
+       },
+       {
+        "t": "kernel/sysproc.c",
+        "d": "Implementarla en el kernel: obtener argumentos y devolver el resultado.",
+        "code": "uint64 sys_sum(void){\n  int a, b;\n  argint(0, &a);\n  argint(1, &b);\n  return a + b;\n}"
+       },
+       {
+        "t": "user/sumtest.c y Makefile",
+        "d": "Programa de prueba y añadirlo a `UPROGS += $U/_sumtest`; compilar con `make qemu` y ejecutar `sumtest` → `sum(3,4) = 7`."
+       }
+      ]
+     }
+    },
+    {
+     "h": "De xv6 a Linux (misma idea, distinta escala)"
+    },
+    {
+     "table": {
+      "head": [
+       "",
+       "xv6-RISC-V (educativo)",
+       "Linux (real)"
+      ],
+      "rows": [
+       [
+        "Entorno de usuario",
+        "Stub `usys.S` generado",
+        "Funciones de glibc (`write()`) o `syscall()` directo"
+       ],
+       [
+        "Entrada al kernel",
+        "`ecall`",
+        "`syscall` (x86-64) / `ecall` (RISC-V)"
+       ],
+       [
+        "Despacho",
+        "`syscall()` lee a7 y usa `syscalls[]`",
+        "Código de entrada de la arquitectura + `sys_call_table`"
+       ],
+       [
+        "Implementación",
+        "`sys_write()` sencilla",
+        "Varios subsistemas (VFS, sistema de ficheros…)"
+       ],
+       [
+        "Retorno",
+        "Valor en a0",
+        "Valor en rax (x86-64) / a0 (RISC-V)"
+       ]
+      ]
+     }
+    },
+    {
+     "code": "# Linux x86-64\nmov $1, %eax        # __NR_write\nmov $1, %edi        # descriptor: stdout\nlea msg(%rip), %rsi # dirección del búfer\nmov $6, %edx        # número de bytes\nsyscall             # entrada al kernel\n\n# Linux RISC-V\nli a7, __NR_write\nli a0, 1\nla a1, msg\nli a2, 6\necall",
+     "cap": "La misma syscall en dos arquitecturas"
+    },
+    {
+     "h": "Soporte al diagrama de estados"
+    },
+    {
+     "table": {
+      "head": [
+       "Transición",
+       "De → a",
+       "Causa"
+      ],
+      "rows": [
+       [
+        "**Despachar**",
+        "Listo → Ejecución",
+        "El planificador le asigna la CPU"
+       ],
+       [
+        "**Desalojar**",
+        "Ejecución → Listo",
+        "Se le quita la CPU (p. ej. fin del quantum)"
+       ],
+       [
+        "**Dormir**",
+        "Ejecución → Espera",
+        "Espera un evento (E/S, recurso)"
+       ],
+       [
+        "**Despertar**",
+        "Espera → Listo",
+        "Ocurre el evento que esperaba"
+       ]
+      ]
+     }
+    },
+    {
+     "warn": "Desde Espera nunca se pasa directamente a Ejecución: primero se despierta (a Listo) y luego hay que despacharlo."
+    }
+   ],
+   "cards": [
+    [
+     "Características del núcleo",
+     "Primer nivel del diseño, el más dependiente del HW, residente en memoria, parte en ensamblador y siempre en modo privilegiado."
+    ],
+    [
+     "Funciones básicas del núcleo",
+     "Gestión de eventos, conmutación del procesador (diagrama de estados), comunicación básica entre procesos y carga inicial."
+    ],
+    [
+     "Eventos síncronos vs asíncronos",
+     "Síncronos: los provoca la instrucción en ejecución (traps/llamadas y excepciones). Asíncronos: interrupciones del hardware externo."
+    ],
+    [
+     "Ejemplos de excepciones",
+     "División por cero, fallo de página, instrucción ilegal, violación de privilegios."
+    ],
+    [
+     "¿Qué es una SVC?",
+     "SuperVisor Call: la petición de servicio al SO mediante una instrucción que provoca un trap y pasa a modo supervisor."
+    ],
+    [
+     "¿Qué es POSIX?",
+     "Estándar de interfaces para SO portables basado en UNIX; define una API común para facilitar la portabilidad."
+    ],
+    [
+     "¿Qué es un wrapper de biblioteca?",
+     "Una función (p. ej. de glibc) que prepara los argumentos y ejecuta la instrucción de trap para invocar la llamada al sistema."
+    ],
+    [
+     "Instrucción de entrada al kernel en x86-64 y en RISC-V",
+     "`syscall` y `ecall`."
+    ],
+    [
+     "En xv6, ¿dónde va el número de syscall?",
+     "En el registro a7."
+    ],
+    [
+     "En xv6, ¿dónde va el valor de retorno?",
+     "En a0 (p->trapframe->a0)."
+    ],
+    [
+     "¿Por qué usertrap() hace sepc += 4?",
+     "Para que al volver se ejecute la instrucción siguiente al `ecall` y no se repita la llamada."
+    ],
+    [
+     "¿Qué hace syscall() en xv6?",
+     "Lee num = p->trapframe->a7, llama a syscalls[num]() y guarda el resultado en p->trapframe->a0."
+    ],
+    [
+     "Archivos a tocar para añadir una syscall en xv6",
+     "user/user.h, user/usys.pl, kernel/syscall.h, kernel/syscall.c, kernel/sysproc.c (y el Makefile para el programa de prueba)."
+    ],
+    [
+     "En Linux x86-64, ¿en qué registro va el nº de syscall?",
+     "En RAX (write = 1); el valor de retorno también vuelve en RAX."
+    ],
+    [
+     "Transiciones del diagrama de estados",
+     "Despachar (Listo→Ejecución), Desalojar (Ejecución→Listo), Dormir (Ejecución→Espera), Despertar (Espera→Listo)."
+    ]
+   ],
+   "quiz": [
+    {
+     "q": "Un fallo de página es un evento…",
+     "o": [
+      "Asíncrono (interrupción)",
+      "Síncrono (excepción) recuperable",
+      "Una llamada al sistema",
+      "Asíncrono irrecuperable"
+     ],
+     "a": 1,
+     "e": "Lo provoca la instrucción y el SO puede resolverlo."
+    },
+    {
+     "q": "La pulsación de una tecla genera un evento…",
+     "o": [
+      "Síncrono",
+      "Asíncrono (interrupción)",
+      "Una excepción",
+      "Un trap"
+     ],
+     "a": 1,
+     "e": "Viene del HW externo en cualquier momento."
+    },
+    {
+     "q": "En xv6, el número de la llamada al sistema se pasa en…",
+     "o": [
+      "a0",
+      "a7",
+      "sepc",
+      "ra"
+     ],
+     "a": 1,
+     "e": "`li a7, SYS_write` en usys.S."
+    },
+    {
+     "q": "¿Qué función de xv6 detecta que el trap es un `ecall`?",
+     "o": [
+      "uservec()",
+      "usertrap()",
+      "sys_write()",
+      "userret()"
+     ],
+     "a": 1,
+     "e": "Comprueba r_scause() == 8."
+    },
+    {
+     "q": "¿Qué instrucción devuelve a modo usuario en xv6-RISC-V?",
+     "o": [
+      "ecall",
+      "ret",
+      "sret",
+      "syscall"
+     ],
+     "a": 2,
+     "e": "userret() restaura registros y ejecuta sret."
+    },
+    {
+     "q": "Para añadir `sum` a xv6, el número SYS_sum se define en…",
+     "o": [
+      "user/user.h",
+      "kernel/syscall.h",
+      "kernel/sysproc.c",
+      "user/usys.pl"
+     ],
+     "a": 1,
+     "e": "user.h declara, usys.pl genera el stub, syscall.c registra, sysproc.c implementa."
+    },
+    {
+     "q": "En Linux x86-64, para `write` el registro RAX contiene…",
+     "o": [
+      "El descriptor",
+      "El número de syscall (1)",
+      "La dirección del búfer",
+      "Los bytes a escribir"
+     ],
+     "a": 1,
+     "e": "rdi = fd, rsi = búfer, rdx = nº de bytes."
+    },
+    {
+     "q": "Un proceso en Espera recibe el evento que esperaba. ¿A qué estado pasa?",
+     "o": [
+      "Ejecución",
+      "Listo",
+      "Terminado",
+      "Sigue en Espera"
+     ],
+     "a": 1,
+     "e": "Despertar: Espera → Listo."
+    },
+    {
+     "q": "¿Por qué el núcleo se ejecuta siempre en modo privilegiado?",
+     "o": [
+      "Para ir más rápido",
+      "Porque necesita ejecutar instrucciones privilegiadas para gestionar HW y protección",
+      "Porque está en ensamblador",
+      "No es cierto"
+     ],
+     "a": 1,
+     "e": "Gestiona recursos y protección."
+    },
+    {
+     "type": "order",
+     "q": "Ordena el recorrido de `write()` en xv6-RISC-V:",
+     "items": [
+      "`user/usys.S`: li a7, SYS_write; ecall",
+      "`trampoline.S` uservec(): guarda registros en el trapframe",
+      "`trap.c` usertrap(): detecta ecall y sepc += 4",
+      "`syscall.c` syscall(): syscalls[a7]",
+      "`sysfile.c` sys_write(): argumentos y filewrite",
+      "`trap.c` prepare_return()",
+      "`trampoline.S` userret(): restaura registros y sret"
+     ]
+    },
+    {
+     "type": "order",
+     "q": "Ordena el recorrido de `write()` en Linux x86-64:",
+     "items": [
+      "El programa llama a write()",
+      "El wrapper de glibc carga rax/rdi/rsi/rdx y ejecuta `syscall`",
+      "`entry_SYSCALL_64`: modo núcleo y guarda el contexto",
+      "`do_syscall_64`: sys_call_table[nr]",
+      "`ksys_write` / `vfs_write` realizan la escritura",
+      "El resultado vuelve en RAX al programa"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "t2c",
+   "title": "Tema 2 · Monolítico vs micronúcleo y SO reales",
+   "source": "Diapositivas «Estructura del Sistema Operativo» (SSOO-GII T2 26-27): enfoques de diseño y ejemplos",
+   "guide": [
+    "Descomposición en capas",
+    "El núcleo: casos de diseño Linux, Windows, Mach"
+   ],
+   "summary": [],
+   "notes": [
+    {
+     "table": {
+      "head": [
+       "Monitor monolítico",
+       "Micronúcleo"
+      ],
+      "rows": [
+       [
+        "Toda la funcionalidad del SO está en el núcleo",
+        "Parte del SO la realizan **procesos de sistema** sobre una funcionalidad mínima del micronúcleo"
+       ],
+       [
+        "Todo el SO en modo supervisor",
+        "Solo el micronúcleo en modo supervisor"
+       ],
+       [
+        "Menos robusto",
+        "**Más robusto**"
+       ],
+       [
+        "El SO es ininterrumpible*",
+        "El SO es interrumpible"
+       ],
+       [
+        "**Mayor rendimiento**",
+        "Menor rendimiento (sobrecarga de comunicaciones)"
+       ],
+       [
+        "Muy adecuado para sistemas **pequeños**",
+        "Muy adecuado para sistemas **grandes**"
+       ],
+       [
+        "Difícil de modificar en tiempo de ejecución",
+        "Fácil de modificar en tiempo de ejecución"
+       ],
+       [
+        "Menos adaptable",
+        "Más adaptable"
+       ],
+       [
+        "MS-DOS, Linux",
+        "Mach, L4, Chorus"
+       ]
+      ]
+     }
+    },
+    {
+     "steps": {
+      "title": "Una lectura de disco en cada enfoque",
+      "items": [
+       {
+        "t": "Monolítico",
+        "d": "El proceso hace una SVC → el intérprete de la SVC en el monitor inicia la E/S → el dispositivo interrumpe al acabar → el monitor atiende la interrupción y **desbloquea** al proceso. Todo ocurre dentro del monitor."
+       },
+       {
+        "t": "Micronúcleo",
+        "d": "El proceso de usuario envía un mensaje al **proceso gestionador del dispositivo** (en espacio de usuario), que inicia la E/S → la interrupción llega al micronúcleo, que **determina qué proceso solicitó la E/S** y se lo notifica → el gestionador **devuelve los datos** al proceso de usuario mediante mensajes."
+       }
+      ]
+     }
+    },
+    {
+     "h": "Ejemplos de estructuración"
+    },
+    {
+     "list": [
+      "**Linux**: monolítico (con módulos). Bajo un interfaz de llamadas de alto nivel y validación de argumentos están el conmutador de sistemas de archivos, manejadores de archivos, procesos, memoria, terminales, sockets/streams y pila de red; y en bajo nivel, los manejadores de dispositivo, de interrupciones, de traps y excepciones, el cambio de contexto y el dispatch.",
+      "**Mach**: micronúcleo. En el kernel: manejo de hilos y manejadores de dispositivo; en nivel de usuario, servidores de procesos, de memoria, de archivos y de gráficos.",
+      "**Windows**: híbrido. En modo usuario, procesos de sistema, servicios, aplicaciones y subsistemas de entorno sobre DLLs y NTDLL.DLL; en modo kernel, el dispatcher de servicios, gestores (E/S, caché, objetos, PnP, memoria, procesos, configuración, LPC, monitor de referencias de seguridad), USER/GDI, el kernel y la **HAL** (capa de abstracción del hardware).",
+      "**macOS / iOS**: núcleo XNU, que combina Mach con partes de BSD. **Android**: núcleo Linux con capas de bibliotecas, runtime (ART) y framework de aplicaciones."
+     ]
+    },
+    {
+     "tip": "¿Dónde se clasifica Windows? Ni monolítico puro ni micronúcleo: **híbrido** (mucho código en modo kernel, pero estructurado en gestores y con subsistemas en modo usuario)."
+    }
+   ],
+   "cards": [
+    [
+     "Monolítico: ¿qué se ejecuta en modo supervisor?",
+     "Todo el sistema operativo."
+    ],
+    [
+     "Micronúcleo: ¿qué se ejecuta en modo supervisor?",
+     "Solo el micronúcleo; el resto del SO son procesos de sistema."
+    ],
+    [
+     "¿Cuál es más robusto?",
+     "El micronúcleo."
+    ],
+    [
+     "¿Cuál tiene mayor rendimiento y por qué?",
+     "El monolítico: el micronúcleo sufre sobrecarga de comunicaciones (mensajes entre procesos)."
+    ],
+    [
+     "¿Cuál es más fácil de modificar en tiempo de ejecución?",
+     "El micronúcleo."
+    ],
+    [
+     "¿Qué SO son monolíticos?",
+     "MS-DOS y Linux."
+    ],
+    [
+     "¿Qué SO son micronúcleo?",
+     "Mach, L4 y Chorus."
+    ],
+    [
+     "¿Qué es la HAL de Windows?",
+     "Hardware Abstraction Layer: capa que aísla el kernel de los detalles del hardware."
+    ],
+    [
+     "Clasificación de Windows",
+     "Híbrido."
+    ],
+    [
+     "En Mach, ¿dónde está el servidor de archivos?",
+     "En nivel de usuario (como el de procesos, memoria y gráficos)."
+    ]
+   ],
+   "quiz": [
+    {
+     "q": "«El SO es interrumpible» es característica de…",
+     "o": [
+      "Monitor monolítico",
+      "Micronúcleo",
+      "Ambos",
+      "Ninguno"
+     ],
+     "a": 1,
+     "e": "Según la comparativa de las diapositivas."
+    },
+    {
+     "q": "«Muy adecuado para sistemas pequeños» corresponde a…",
+     "o": [
+      "Micronúcleo",
+      "Monitor monolítico",
+      "Sistemas distribuidos",
+      "Tiempo real"
+     ],
+     "a": 1,
+     "e": "El micronúcleo, a sistemas grandes."
+    },
+    {
+     "q": "¿Por qué el micronúcleo tiene menor rendimiento?",
+     "o": [
+      "Está escrito en Java",
+      "Por la sobrecarga de comunicación entre procesos de sistema",
+      "No usa interrupciones",
+      "Ocupa más disco"
+     ],
+     "a": 1,
+     "e": "Los servicios se comunican con mensajes."
+    },
+    {
+     "q": "Linux se clasifica como…",
+     "o": [
+      "Micronúcleo",
+      "Monolítico",
+      "Exonúcleo",
+      "Distribuido"
+     ],
+     "a": 1,
+     "e": "Monolítico con módulos cargables."
+    },
+    {
+     "q": "En un micronúcleo, una petición de lectura de disco va del proceso de usuario a…",
+     "o": [
+      "El intérprete de SVC del monitor",
+      "El proceso gestionador del dispositivo, mediante mensajes",
+      "La HAL",
+      "Directamente al disco"
+     ],
+     "a": 1,
+     "e": "Los drivers son procesos de sistema."
+    },
+    {
+     "q": "¿Qué ventaja tiene el micronúcleo si falla un driver?",
+     "o": [
+      "Ninguna",
+      "Al ser un proceso aparte, el fallo no tumba necesariamente todo el SO",
+      "Se ejecuta más rápido",
+      "No necesita reiniciar el hardware"
+     ],
+     "a": 1,
+     "e": "Por eso es más robusto."
+    }
+   ]
+  },
+  {
+   "id": "l1",
+   "title": "P1 · Incidencia 01 · Sistema de archivos, rutas y navegación",
+   "source": "Documento 1 · Incidencia 01 (ATLAS) y tu informe de la incidencia",
+   "guide": [
+    "Configuración y operación del sistema",
+    "Órdenes del intérprete y primeras prácticas"
+   ],
+   "summary": [],
+   "notes": [
+    {
+     "h": "¿Dónde estoy? Rutas absolutas y relativas"
+    },
+    {
+     "p": "Linux tiene **una única jerarquía** que empieza en `/`. Tu directorio personal (`~`, p. ej. `/home/marcos`) NO es la raíz."
+    },
+    {
+     "table": {
+      "head": [
+       "Símbolo",
+       "Significado",
+       "Ejemplo"
+      ],
+      "rows": [
+       [
+        "`/`",
+        "Raíz del sistema. Una ruta que empieza por `/` es **absoluta**: no depende de dónde estés.",
+        "`/home/marcos/atlas_workspace/config`"
+       ],
+       [
+        "`.`",
+        "El directorio actual.",
+        "`cp ../docs/notas.md .`"
+       ],
+       [
+        "`..`",
+        "El directorio padre.",
+        "`cd ../..`"
+       ],
+       [
+        "`~`",
+        "Tu directorio personal (`$HOME`).",
+        "`cd ~/atlas_workspace`"
+       ],
+       [
+        "sin `/` inicial",
+        "Ruta **relativa**: se interpreta desde el directorio actual (`pwd`).",
+        "`mv tmp/sensor_0910.csv data/incoming/`"
+       ]
+      ]
+     }
+    },
+    {
+     "tip": "Antes de ejecutar una orden con ruta relativa hazte dos preguntas: ¿desde dónde se interpreta? (`pwd`) y ¿a qué objeto acaba apuntando?"
+    },
+    {
+     "h": "Chuleta de la incidencia"
+    },
+    {
+     "table": {
+      "head": [
+       "Orden",
+       "Para qué",
+       "Opciones que conviene saber"
+      ],
+      "rows": [
+       [
+        "`pwd`",
+        "Ruta absoluta del directorio actual",
+        "—"
+       ],
+       [
+        "`cd`",
+        "Cambiar de directorio",
+        "`cd` o `cd ~` (home), `cd ..`, `cd -` (el anterior)"
+       ],
+       [
+        "`ls`",
+        "Listar",
+        "`-l` largo, `-a` incluye ocultos (empiezan por `.`), `-h` tamaños legibles, `-R` recursivo, `-d` el directorio en sí"
+       ],
+       [
+        "`tree`",
+        "Ver la jerarquía en árbol",
+        "`-a` ocultos, `-L 2` profundidad, `-d` solo directorios"
+       ],
+       [
+        "`touch`",
+        "Crear archivo vacío (o actualizar fecha)",
+        "—"
+       ],
+       [
+        "`mkdir` / `rmdir`",
+        "Crear / borrar directorio **vacío**",
+        "`mkdir -p a/b/c` crea los intermedios"
+       ],
+       [
+        "`cp`",
+        "Copiar",
+        "`-r` directorios, `-i` pregunta antes de sobrescribir"
+       ],
+       [
+        "`mv`",
+        "Mover **o renombrar** (misma orden)",
+        "`-i` pregunta antes de sobrescribir"
+       ],
+       [
+        "`rm`",
+        "Borrar (¡sin papelera!)",
+        "`-r` directorios con contenido, `-i` confirma"
+       ],
+       [
+        "`cat` / `less`",
+        "Ver contenido entero / paginado",
+        "en `less`: `/texto` busca, `q` sale"
+       ],
+       [
+        "`head` / `tail`",
+        "Principio / final de un archivo",
+        "`-n 20`; `tail -f` sigue el archivo en vivo"
+       ],
+       [
+        "`file`",
+        "Tipo REAL del archivo según su contenido",
+        "no se fía de la extensión"
+       ],
+       [
+        "`du`",
+        "Espacio que **ocupan** archivos y directorios",
+        "`-h` legible, `-s` solo total, `du -sh *`"
+       ],
+       [
+        "`df`",
+        "Espacio total/usado/**libre** del sistema de archivos",
+        "`-h`; `df -h .` el FS que contiene `.`"
+       ],
+       [
+        "`tar`",
+        "Empaquetar / desempaquetar",
+        "`-tzf` listar, `-xzf` extraer, `-C dir` destino"
+       ],
+       [
+        "`man`, `--help`, `whatis`, `apropos`",
+        "Documentación",
+        "ver tabla de abajo"
+       ],
+       [
+        "`;`",
+        "Ejecutar órdenes una detrás de otra en la misma línea",
+        "`pwd; ls`"
+       ]
+      ]
+     }
+    },
+    {
+     "h": "du frente a df (pregunta típica)"
+    },
+    {
+     "p": "`du` responde a **cuánto ocupan** unos archivos o directorios concretos (en tu informe: ATLAS 132 KB). `df` responde a **cuánto espacio queda libre** en el sistema de archivos (partición) donde están (27 GB disponibles). No es lo mismo: un directorio puede ocupar poco en un disco casi lleno."
+    },
+    {
+     "h": "Buscar ayuda sin saber la orden"
+    },
+    {
+     "table": {
+      "head": [
+       "Herramienta",
+       "Cuándo usarla"
+      ],
+      "rows": [
+       [
+        "`man orden`",
+        "Manual completo. Dentro: `/palabra` busca, `n` siguiente, `q` salir."
+       ],
+       [
+        "`orden --help`",
+        "Resumen rápido de opciones (p. ej. `rmdir --help` confirmó que solo borra vacíos)."
+       ],
+       [
+        "`whatis orden`",
+        "Una línea describiendo qué hace una orden que ya conoces de nombre."
+       ],
+       [
+        "`apropos palabra`",
+        "Buscar órdenes por tema cuando NO sabes el nombre (equivale a `man -k`)."
+       ]
+      ]
+     }
+    },
+    {
+     "h": "Resolución de ATLAS (tu caso, paso a paso)"
+    },
+    {
+     "code": "tar -tzf material/atlas_workspace01.tar.gz      # inspeccionar ANTES de extraer\ntar -xzf material/atlas_workspace01.tar.gz -C ~\ncd ~/atlas_workspace; pwd                        # dos órdenes con ;\nls -la; tree -a                                  # aparece .project-info (oculto)\nfile tmp/sensor_0910.csv; head tmp/sensor_0910.csv\nhead logs/atlas.log; tail logs/atlas.log          # principio y final del registro\nmv tmp/sensor_0910.csv data/incoming/             # ruta RELATIVA, sin entrar en tmp\nmv /home/marcos/atlas_workspace/config/atlas.conf.bak /home/marcos/atlas_workspace/archive/   # ABSOLUTA\nrm tmp/import.tmp\ndu -h .; df -h .",
+     "cap": "Lo que hiciste en la incidencia"
+    },
+    {
+     "warn": "`rm` no se deshace. Antes de borrar comprueba `pwd` y la ruta. `rmdir` solo borra directorios vacíos; para uno con contenido hace falta `rm -r` (con mucho cuidado)."
+    },
+    {
+     "h": "Para la prueba individual"
+    },
+    {
+     "list": [
+      "Te pondrán situaciones **nuevas**: practica traducir \"quiero X\" a orden + ruta correcta desde un directorio dado.",
+      "Saber justificar: por qué un archivo existe aunque `ls` no lo muestre (oculto → `ls -a`).",
+      "Diferenciar mover, copiar, renombrar (`mv`) y eliminar.",
+      "Crear y retirar un espacio temporal: `mkdir`, `touch`, `cp`, `rm`, `rmdir`."
+     ]
+    }
+   ],
+   "cards": [
+    [
+     "¿Qué diferencia una ruta absoluta de una relativa?",
+     "La absoluta empieza en `/` y no depende del directorio actual; la relativa se interpreta desde el directorio de trabajo (`pwd`)."
+    ],
+    [
+     "¿Qué representan `.`, `..` y `~`?",
+     "`.` el directorio actual, `..` el padre y `~` tu directorio personal."
+    ],
+    [
+     "¿Por qué `ls` no muestra `.project-info`?",
+     "Porque los archivos cuyo nombre empieza por `.` son ocultos; se ven con `ls -a`."
+    ],
+    [
+     "`mv` sirve para…",
+     "Mover y también renombrar archivos y directorios."
+    ],
+    [
+     "Diferencia entre `rmdir` y `rm -r`",
+     "`rmdir` solo elimina directorios vacíos; `rm -r` borra un directorio con todo su contenido."
+    ],
+    [
+     "`du` vs `df`",
+     "`du` mide lo que ocupan archivos/directorios; `df` muestra el espacio total, usado y libre del sistema de archivos."
+    ],
+    [
+     "¿Qué hace `file`?",
+     "Identifica el tipo real de un archivo por su contenido (p. ej. «CSV ASCII text»), no por la extensión."
+    ],
+    [
+     "`head` y `tail` por defecto…",
+     "Muestran las 10 primeras / últimas líneas; `-n N` cambia la cantidad."
+    ],
+    [
+     "¿Cómo listas un `.tar.gz` sin extraerlo?",
+     "`tar -tzf paquete.tar.gz`"
+    ],
+    [
+     "`whatis` vs `apropos`",
+     "`whatis` describe en una línea una orden que conoces; `apropos` busca órdenes por palabra clave cuando no sabes el nombre."
+    ],
+    [
+     "¿Para qué sirve `;` en una línea?",
+     "Para ejecutar varias órdenes una detrás de otra (`pwd; ls`), independientemente de si la primera falla."
+    ],
+    [
+     "¿Qué hace `mkdir -p a/b/c`?",
+     "Crea `a/b/c` y los directorios intermedios que falten, sin error si ya existen."
+    ]
+   ],
+   "quiz": [
+    {
+     "q": "Estás en `/home/ana/atlas/logs`. ¿Qué muestra `cd ../..; pwd`?",
+     "o": [
+      "/home/ana/atlas",
+      "/home/ana",
+      "/home",
+      "/"
+     ],
+     "a": 1,
+     "e": "Subes dos niveles: logs → atlas → ana."
+    },
+    {
+     "q": "Estás en `/home/ana/atlas`. ¿A qué apunta `../atlas/./docs/../tmp`?",
+     "o": [
+      "/home/ana/atlas/docs",
+      "/home/ana/atlas/tmp",
+      "/home/ana/tmp",
+      "Es una ruta inválida"
+     ],
+     "a": 1,
+     "e": "../atlas vuelve a atlas, ./ no cambia, docs/.. se anula: queda atlas/tmp."
+    },
+    {
+     "q": "¿Qué orden muestra el espacio LIBRE del disco donde está tu home?",
+     "o": [
+      "`du -sh ~`",
+      "`df -h ~`",
+      "`ls -lh ~`",
+      "`free -h`"
+     ],
+     "a": 1,
+     "e": "`df` informa del sistema de archivos; `du` de lo que ocupa un directorio; `free` es memoria RAM."
+    },
+    {
+     "q": "`rmdir tmp` falla con «Directory not empty». ¿Qué significa?",
+     "o": [
+      "No tienes permisos",
+      "`tmp` contiene archivos; `rmdir` solo borra directorios vacíos",
+      "`tmp` es un archivo",
+      "Falta la opción -f"
+     ],
+     "a": 1,
+     "e": "Hay que vaciarlo antes o usar `rm -r` con cuidado."
+    },
+    {
+     "q": "`mv informe.txt informe_final.txt` (mismo directorio)…",
+     "o": [
+      "Copia el archivo",
+      "Renombra el archivo",
+      "Da error porque falta un directorio destino",
+      "Crea un enlace"
+     ],
+     "a": 1,
+     "e": "Mover dentro del mismo directorio equivale a renombrar."
+    },
+    {
+     "q": "Un archivo se llama `datos.txt` pero `file` dice «gzip compressed data». ¿Qué es?",
+     "o": [
+      "Texto plano",
+      "Un archivo comprimido con gzip con extensión engañosa",
+      "Un directorio",
+      "Un enlace"
+     ],
+     "a": 1,
+     "e": "`file` mira el contenido, no la extensión."
+    },
+    {
+     "q": "¿Qué orden usarías para buscar qué orden sirve para «disk usage» si no sabes su nombre?",
+     "o": [
+      "`whatis disk`",
+      "`apropos disk`",
+      "`man disk`",
+      "`disk --help`"
+     ],
+     "a": 1,
+     "e": "`apropos` (o `man -k`) busca en las descripciones de los manuales."
+    },
+    {
+     "q": "Estás en `/home/ana/atlas`. ¿Cuál mueve el lote SIN cambiar de directorio y con ruta relativa?",
+     "o": [
+      "`cd tmp; mv lote.csv ../data/incoming`",
+      "`mv tmp/lote.csv data/incoming/`",
+      "`mv /tmp/lote.csv data/incoming/`",
+      "`mv lote.csv data/incoming/`"
+     ],
+     "a": 1,
+     "e": "La C usaría /tmp del sistema (absoluta, otro sitio) y la D buscaría lote.csv en atlas."
+    },
+    {
+     "type": "order",
+     "q": "Ordena el procedimiento seguro para recuperar el lote perdido de ATLAS:",
+     "items": [
+      "Listar el paquete con `tar -tzf` antes de extraer",
+      "Extraer en tu directorio personal con `tar -xzf ... -C ~`",
+      "Localizar el lote y comprobar su tipo con `file`",
+      "Revisar su contenido con `head` para confirmar que es el correcto",
+      "Moverlo a `data/incoming` con `mv`",
+      "Verificar el estado final con `tree` o `ls`"
+     ],
+     "e": "Inspeccionar antes de modificar y comprobar después de cada cambio."
+    }
+   ],
+   "labs": [
+    {
+     "q": "¿En qué directorio estás? Muestra su ruta absoluta.",
+     "ctx": "/home/ana/atlas\n├── .project-info\n├── config/\n│   ├── atlas.conf\n│   └── atlas.conf.bak\n├── data/\n│   └── incoming/\n├── docs/\n│   └── notas.md\n├── logs/\n│   └── atlas.log\n└── tmp/\n    ├── lote_1015.csv\n    └── vacio/",
+     "prompt": "ana@ubuntu:~/atlas/tmp$",
+     "accept": [
+      "^pwd$"
+     ],
+     "sol": "pwd",
+     "e": "Debe mostrar /home/ana/atlas/tmp."
+    },
+    {
+     "q": "Lista **todo** el contenido del directorio actual, incluidos ocultos, en formato largo.",
+     "prompt": "ana@ubuntu:~/atlas$",
+     "accept": [
+      "^ls (-la|-al|-a -l|-l -a|-lA|-Al|-lah|-lha|-alh|-ahl|-hla|-hal)( \\.)?$"
+     ],
+     "sol": "ls -la",
+     "alt": [
+      "ls -l -a"
+     ],
+     "e": "`-a` incluye los que empiezan por punto, como .project-info."
+    },
+    {
+     "q": "Mueve `tmp/lote_1015.csv` a `data/incoming` **sin cambiar de directorio** y con ruta relativa.",
+     "ctx": "/home/ana/atlas\n├── .project-info\n├── config/\n│   ├── atlas.conf\n│   └── atlas.conf.bak\n├── data/\n│   └── incoming/\n├── docs/\n│   └── notas.md\n├── logs/\n│   └── atlas.log\n└── tmp/\n    ├── lote_1015.csv\n    └── vacio/",
+     "prompt": "ana@ubuntu:~/atlas$",
+     "accept": [
+      "^mv (\\./)?tmp/lote_1015\\.csv (\\./)?data/incoming(/|/lote_1015\\.csv)?$"
+     ],
+     "sol": "mv tmp/lote_1015.csv data/incoming/",
+     "e": "Ambas rutas se interpretan desde /home/ana/atlas."
+    },
+    {
+     "q": "Copia `docs/notas.md` al directorio actual usando una ruta relativa.",
+     "ctx": "/home/ana/atlas\n├── .project-info\n├── config/\n│   ├── atlas.conf\n│   └── atlas.conf.bak\n├── data/\n│   └── incoming/\n├── docs/\n│   └── notas.md\n├── logs/\n│   └── atlas.log\n└── tmp/\n    ├── lote_1015.csv\n    └── vacio/",
+     "prompt": "ana@ubuntu:~/atlas/logs$",
+     "accept": [
+      "^cp \\.\\./docs/notas\\.md \\.(/|/notas\\.md)?$"
+     ],
+     "sol": "cp ../docs/notas.md .",
+     "e": "`..` sube a atlas y `.` es el destino (logs)."
+    },
+    {
+     "q": "Haz lo mismo pero con rutas **absolutas** (origen y destino).",
+     "prompt": "ana@ubuntu:~/atlas/logs$",
+     "accept": [
+      "^cp /home/ana/atlas/docs/notas\\.md /home/ana/atlas/logs/?$",
+      "^cp ~/atlas/docs/notas\\.md ~/atlas/logs/?$"
+     ],
+     "sol": "cp /home/ana/atlas/docs/notas.md /home/ana/atlas/logs/",
+     "e": "Una ruta absoluta funciona igual estés donde estés."
+    },
+    {
+     "q": "Muestra las **20 últimas líneas** del registro principal.",
+     "ctx": "/home/ana/atlas\n├── .project-info\n├── config/\n│   ├── atlas.conf\n│   └── atlas.conf.bak\n├── data/\n│   └── incoming/\n├── docs/\n│   └── notas.md\n├── logs/\n│   └── atlas.log\n└── tmp/\n    ├── lote_1015.csv\n    └── vacio/",
+     "prompt": "ana@ubuntu:~/atlas$",
+     "accept": [
+      "^tail (-n ?20|-20|--lines=20) (\\./)?logs/atlas\\.log$"
+     ],
+     "sol": "tail -n 20 logs/atlas.log"
+    },
+    {
+     "q": "Averigua el **tipo real** de `tmp/lote_1015.csv`.",
+     "prompt": "ana@ubuntu:~/atlas$",
+     "accept": [
+      "^file (\\./)?tmp/lote_1015\\.csv$"
+     ],
+     "sol": "file tmp/lote_1015.csv"
+    },
+    {
+     "q": "Muestra en **una sola línea** cuánto ocupa en total el directorio actual, en formato legible.",
+     "prompt": "ana@ubuntu:~/atlas$",
+     "accept": [
+      "^du (-sh|-hs|-s -h|-h -s)( \\.)?$"
+     ],
+     "sol": "du -sh .",
+     "e": "`-s` resume en un total; `-h` usa K, M, G."
+    },
+    {
+     "q": "Muestra el espacio **libre** del sistema de archivos que contiene tu directorio personal, en formato legible.",
+     "prompt": "ana@ubuntu:~/atlas$",
+     "accept": [
+      "^df -h( ~| \\$HOME| /home/ana| \\.| ~/atlas)?$"
+     ],
+     "sol": "df -h ~"
+    },
+    {
+     "q": "Crea de una vez la ruta `tmp/prueba/a/b`, incluidos los directorios intermedios.",
+     "prompt": "ana@ubuntu:~/atlas$",
+     "accept": [
+      "^mkdir -p (\\./)?tmp/prueba/a/b/?$"
+     ],
+     "sol": "mkdir -p tmp/prueba/a/b"
+    },
+    {
+     "q": "Elimina el directorio vacío `tmp/vacio` con la orden específica para directorios vacíos.",
+     "ctx": "/home/ana/atlas\n├── .project-info\n├── config/\n│   ├── atlas.conf\n│   └── atlas.conf.bak\n├── data/\n│   └── incoming/\n├── docs/\n│   └── notas.md\n├── logs/\n│   └── atlas.log\n└── tmp/\n    ├── lote_1015.csv\n    └── vacio/",
+     "prompt": "ana@ubuntu:~/atlas$",
+     "accept": [
+      "^rmdir (\\./)?tmp/vacio/?$"
+     ],
+     "sol": "rmdir tmp/vacio"
+    },
+    {
+     "q": "Lista el contenido de `backup.tar.gz` **sin extraerlo**.",
+     "prompt": "ana@ubuntu:~$",
+     "accept": [
+      "^tar -?[ztv]*t[ztv]*f backup\\.tar\\.gz$",
+      "^tar -t -?z? ?-f backup\\.tar\\.gz$"
+     ],
+     "sol": "tar -tzf backup.tar.gz"
+    },
+    {
+     "q": "Extrae `backup.tar.gz` dentro del directorio `restaurado/` (ya existe).",
+     "prompt": "ana@ubuntu:~$",
+     "accept": [
+      "^tar -?[xzv]*x[xzv]*f backup\\.tar\\.gz -C (\\./)?restaurado/?$",
+      "^tar -C (\\./)?restaurado/? -?[xzv]*x[xzv]*f backup\\.tar\\.gz$"
+     ],
+     "sol": "tar -xzf backup.tar.gz -C restaurado"
+    },
+    {
+     "q": "No sabes qué orden copia archivos. Busca órdenes relacionadas con la palabra *copy*.",
+     "prompt": "ana@ubuntu:~$",
+     "accept": [
+      "^(apropos|man -k) copy$"
+     ],
+     "sol": "apropos copy",
+     "alt": [
+      "man -k copy"
+     ]
+    },
+    {
+     "q": "Muestra una descripción de **una línea** de la orden `du`.",
+     "prompt": "ana@ubuntu:~$",
+     "accept": [
+      "^whatis du$"
+     ],
+     "sol": "whatis du"
+    },
+    {
+     "q": "En una sola línea, muestra el directorio actual y **después** su contenido (dos órdenes secuenciales).",
+     "prompt": "ana@ubuntu:~/atlas$",
+     "accept": [
+      "^pwd ?; ?ls( -[a-zA-Z]+)?$"
+     ],
+     "sol": "pwd; ls"
+    }
+   ]
+  },
+  {
+   "id": "l2",
+   "title": "P1 · Incidencia 02 · Permisos, umask, enlaces, patrones y find",
+   "source": "Documento 2 · Incidencia 02 (ripgrep 15.2.0)",
+   "guide": [
+    "Configuración y operación del sistema",
+    "Órdenes del intérprete y primeras prácticas"
+   ],
+   "summary": [],
+   "notes": [
+    {
+     "h": "Leer un `ls -l`"
+    },
+    {
+     "code": "-rwxr-xr--  2  ana  dev  1234  oct 10 12:00  script.sh\n│└┬┘└┬┘└┬┘  │   │    │     │        │            └ nombre\n│ │  │  │   │   │    │     │        └ fecha de modificación\n│ │  │  │   │   │    │     └ tamaño en bytes\n│ │  │  │   │   │    └ grupo\n│ │  │  │   │   └ propietario\n│ │  │  │   └ nº de enlaces FÍSICOS (nombres que apuntan al inodo)\n│ │  │  └ otros (o)\n│ │  └ grupo (g)\n│ └ propietario (u)\n└ tipo: - archivo · d directorio · l enlace simbólico"
+    },
+    {
+     "p": "`stat archivo` da lo mismo y más: inodo, permisos en octal (`Access: (0644/-rw-r--r--)`) y número de enlaces."
+    },
+    {
+     "h": "El mismo permiso NO significa lo mismo en archivo y directorio"
+    },
+    {
+     "table": {
+      "head": [
+       "Permiso",
+       "En un archivo",
+       "En un directorio"
+      ],
+      "rows": [
+       [
+        "`r` (4)",
+        "Leer su contenido",
+        "Listar los nombres que contiene (`ls`)"
+       ],
+       [
+        "`w` (2)",
+        "Modificar su contenido",
+        "Crear, borrar y renombrar entradas dentro"
+       ],
+       [
+        "`x` (1)",
+        "Ejecutarlo (programa o script)",
+        "Atravesarlo: `cd` y acceder a lo que hay dentro por su ruta"
+       ]
+      ]
+     }
+    },
+    {
+     "tip": "Poder borrar un archivo depende del permiso `w` del **directorio** que lo contiene, no del archivo."
+    },
+    {
+     "h": "chmod: octal y simbólico"
+    },
+    {
+     "table": {
+      "head": [
+       "Octal",
+       "rwx",
+       "Uso típico"
+      ],
+      "rows": [
+       [
+        "755",
+        "rwxr-xr-x",
+        "Scripts y directorios compartidos"
+       ],
+       [
+        "644",
+        "rw-r--r--",
+        "Archivos de texto normales"
+       ],
+       [
+        "700",
+        "rwx------",
+        "Directorio privado"
+       ],
+       [
+        "600",
+        "rw-------",
+        "Archivo privado (claves)"
+       ],
+       [
+        "640",
+        "rw-r-----",
+        "Lectura para el grupo"
+       ]
+      ]
+     }
+    },
+    {
+     "code": "chmod u+x script.sh        # añade ejecución al propietario\nchmod go-w datos.txt       # quita escritura a grupo y otros\nchmod a+rx scripts/copy-examples   # lectura+ejecución para todos (incidencia 4)\nchmod u=rw,go=r notas.txt  # fija exactamente rw-r--r--\nchmod 640 informe.txt      # octal"
+    },
+    {
+     "warn": "Dar más permisos de los necesarios también es un error (incidencia 4: restaurar **solo** lectura y ejecución, sin `chmod 777`)."
+    },
+    {
+     "h": "umask: la máscara que QUITA permisos al crear"
+    },
+    {
+     "p": "Base: archivos **666** (rw-rw-rw-), directorios **777**. El resultado es `base & ~umask` (bit a bit; NO es una resta). Con `umask 022`: archivos 644 y directorios 755. Con `002`: 664/775. Con `077`: 600/700. Ojo: con `033`, un archivo queda 644, no 633."
+    },
+    {
+     "code": "umask        # 0002 (octal)\numask -S     # u=rwx,g=rwx,o=rx (simbólico)\ntouch prueba.txt; mkdir prueba.d; ls -ld prueba.txt prueba.d   # comprobar la predicción"
+    },
+    {
+     "widget": "perm"
+    },
+    {
+     "h": "Enlaces físicos y simbólicos"
+    },
+    {
+     "table": {
+      "head": [
+       "",
+       "Físico (`ln origen nombre`)",
+       "Simbólico (`ln -s destino nombre`)"
+      ],
+      "rows": [
+       [
+        "Qué es",
+        "Otro **nombre** para el MISMO inodo",
+        "Un archivo especial que guarda una **ruta**"
+       ],
+       [
+        "`ls -l`",
+        "Archivo normal; sube el nº de enlaces",
+        "Tipo `l`, `lrwxrwxrwx`, muestra `-> destino`"
+       ],
+       [
+        "Inodo (`ls -i`)",
+        "El mismo que el original",
+        "Uno propio, distinto"
+       ],
+       [
+        "Si borras el original",
+        "El contenido sigue accesible por el otro nombre",
+        "Queda **roto** (apunta a algo que no existe)"
+       ],
+       [
+        "Directorios / otro disco",
+        "No",
+        "Sí"
+       ]
+      ]
+     }
+    },
+    {
+     "code": "cmp LICENSE-MIT crates/cli/LICENSE-MIT          # ¿iguales? (sin salida = sí)\nrm crates/cli/LICENSE-MIT\nln LICENSE-MIT crates/cli/LICENSE-MIT            # enlace FÍSICO (incidencia 8)\nls -li LICENSE-MIT crates/cli/LICENSE-MIT        # mismo inodo, 2 enlaces\nln -s ../../README.md pkg/windows/PROJECT-README.md   # SIMBÓLICO relativo (incidencia 9)\nreadlink pkg/windows/PROJECT-README.md          # muestra ../../README.md\nln -s ../tests scripts/tests                     # incidencia 10",
+     "cap": "Las incidencias 8–10"
+    },
+    {
+     "tip": "La ruta relativa de un enlace simbólico se interpreta desde el directorio **donde está el enlace**, no desde donde ejecutas `ln`. Por eso es `../../README.md` para un enlace dentro de `pkg/windows`."
+    },
+    {
+     "p": "`HomebrewFormula` (incidencia 5) es un enlace simbólico: sus permisos `rwxrwxrwx` no significan nada (cuentan los del destino). Lo correcto es no tocarlo."
+    },
+    {
+     "h": "Patrones del shell (globbing) frente a find"
+    },
+    {
+     "table": {
+      "head": [
+       "Patrón",
+       "Casa con",
+       "Ejemplo"
+      ],
+      "rows": [
+       [
+        "`*`",
+        "Cualquier secuencia de caracteres (también vacía)",
+        "`*.md`"
+       ],
+       [
+        "`?`",
+        "Exactamente UN carácter",
+        "`sherlock.?`"
+       ],
+       [
+        "`[abc]`, `[A-Z]`",
+        "Un carácter del conjunto o rango",
+        "`[A-Z]*` (empieza por mayúscula)"
+       ],
+       [
+        "`[!...]`",
+        "Un carácter que NO esté en el conjunto",
+        "`sherlock.[!Z]*`"
+       ]
+      ]
+     }
+    },
+    {
+     "p": "El **shell** expande el patrón ANTES de ejecutar la orden, solo en el directorio indicado (no es recursivo) y `*` no incluye ocultos. Comprueba siempre la selección antes de operar: `printf '%s\\n' *.md` o `ls -d *.md`."
+    },
+    {
+     "p": "`find` recorre TODA la jerarquía: `find . -type f -name '*.md'`. Las comillas evitan que el shell expanda `*.md` antes de que lo reciba find. Criterios: `-type f|d|l`, `-name`, `-iname` (sin distinguir mayúsculas), `-maxdepth N`."
+    },
+    {
+     "warn": "Los patrones del shell NO son expresiones regulares: en un patrón, `*` ya significa «cualquier cosa»; en una regex, `.*`."
+    }
+   ],
+   "cards": [
+    [
+     "¿Qué significa `x` en un directorio?",
+     "Poder atravesarlo: entrar con `cd` y acceder a sus elementos por su ruta."
+    ],
+    [
+     "¿Qué significa `w` en un directorio?",
+     "Crear, borrar y renombrar archivos dentro de él."
+    ],
+    [
+     "Convierte `rwxr-x---` a octal",
+     "750"
+    ],
+    [
+     "Convierte `644` a rwx",
+     "`rw-r--r--`"
+    ],
+    [
+     "Con `umask 022`, ¿qué permisos tiene un archivo nuevo? ¿Y un directorio?",
+     "Archivo 644 (`rw-r--r--`); directorio 755 (`rwxr-xr-x`)."
+    ],
+    [
+     "Con `umask 077`…",
+     "Archivos 600 y directorios 700: nada para grupo y otros."
+    ],
+    [
+     "¿Cómo se calcula el permiso inicial con umask?",
+     "Base (666 archivos, 777 directorios) AND NOT umask; quita bits, no es una resta."
+    ],
+    [
+     "Enlace físico vs simbólico al borrar el original",
+     "El físico sigue dando acceso al contenido; el simbólico queda roto."
+    ],
+    [
+     "¿Cómo compruebas que dos nombres son el mismo archivo físico?",
+     "`ls -i` (o `stat`): mismo número de inodo."
+    ],
+    [
+     "¿Qué muestra el segundo campo de `ls -l`?",
+     "El número de enlaces físicos al inodo."
+    ],
+    [
+     "Diferencia entre `*` y `?` en el shell",
+     "`*` cualquier secuencia (incluso vacía); `?` exactamente un carácter."
+    ],
+    [
+     "¿Por qué se entrecomilla el patrón en `find . -name '*.md'`?",
+     "Para que el shell no lo expanda antes de que llegue a find."
+    ],
+    [
+     "¿Es recursivo `ls *.md`?",
+     "No: el shell solo expande nombres del directorio actual. Para todo el árbol, `find`."
+    ],
+    [
+     "¿Cómo previsualizas qué selecciona un patrón?",
+     "`printf '%s\\n' patrón` o `ls -d patrón` antes de usarlo en una operación."
+    ]
+   ],
+   "quiz": [
+    {
+     "q": "Con `umask 027`, ¿qué permisos recibe un archivo nuevo?",
+     "o": [
+      "`rw-r-----` (640)",
+      "`rwxr-x---` (750)",
+      "`rw-r--r--` (644)",
+      "`rw-rw----` (660)"
+     ],
+     "a": 0,
+     "e": "666 & ~027 = 640. El directorio sería 750."
+    },
+    {
+     "q": "Con `umask 033`, ¿qué permisos recibe un archivo nuevo?",
+     "o": [
+      "633",
+      "644",
+      "600",
+      "744"
+     ],
+     "a": 1,
+     "e": "666 & ~033: a grupo y otros se les quitan w y x; como el archivo no tenía x, quedan r-- → 644."
+    },
+    {
+     "q": "`-rw-r--r-- 3 ana dev 120 ...  datos.txt`. ¿Qué indica el 3?",
+     "o": [
+      "El tamaño en KB",
+      "Que hay 3 nombres (enlaces físicos) para ese inodo",
+      "La versión",
+      "El nº de usuarios conectados"
+     ],
+     "a": 1,
+     "e": "Es el contador de enlaces físicos."
+    },
+    {
+     "q": "Un directorio tiene `r--` para ti, sin `x`. ¿Qué puedes hacer?",
+     "o": [
+      "Entrar con cd y leer los archivos",
+      "Ver los nombres con ls, pero no entrar ni acceder a su contenido",
+      "Nada en absoluto",
+      "Borrar archivos"
+     ],
+     "a": 1,
+     "e": "`r` permite listar nombres; para acceder a ellos hace falta `x`."
+    },
+    {
+     "q": "Creas `ln -s datos.txt acceso` y después borras `datos.txt`. `cat acceso`…",
+     "o": [
+      "Muestra el contenido",
+      "Falla: el enlace está roto",
+      "Muestra la ruta",
+      "Recrea datos.txt"
+     ],
+     "a": 1,
+     "e": "El simbólico solo guarda el nombre del destino."
+    },
+    {
+     "q": "Creas `ln datos.txt copia` y después borras `datos.txt`. `cat copia`…",
+     "o": [
+      "Muestra el contenido",
+      "Falla",
+      "Muestra vacío",
+      "Pide confirmación"
+     ],
+     "a": 0,
+     "e": "Los datos se liberan cuando el contador de enlaces llega a 0."
+    },
+    {
+     "q": "En `tests/data` hay `sherlock.lz4`, `sherlock.Z`, `sherlock.gz`, `sherlock.x`. ¿Qué selecciona `sherlock.?`?",
+     "o": [
+      "Todos",
+      "`sherlock.Z` y `sherlock.x`",
+      "Solo `sherlock.x`",
+      "`sherlock.gz` y `sherlock.lz4`"
+     ],
+     "a": 1,
+     "e": "`?` es exactamente un carácter tras el punto."
+    },
+    {
+     "q": "¿Y `sherlock.[!Z]*` con esos mismos archivos?",
+     "o": [
+      "`sherlock.lz4`, `sherlock.gz`, `sherlock.x`",
+      "Solo `sherlock.Z`",
+      "Todos",
+      "Ninguno"
+     ],
+     "a": 0,
+     "e": "La extensión no puede empezar por Z."
+    },
+    {
+     "q": "¿Qué orden restaura SOLO lectura y ejecución para todos en un script que tenía `rw-r--r--`?",
+     "o": [
+      "`chmod 777 script`",
+      "`chmod a+rx script`",
+      "`chmod u+x script`",
+      "`chmod 000 script`"
+     ],
+     "a": 1,
+     "e": "Queda rwxr-xr-x sin añadir escritura a grupo y otros."
+    },
+    {
+     "q": "Diferencia entre `ls *.md` y `find . -name '*.md'`:",
+     "o": [
+      "Ninguna",
+      "El primero solo mira el directorio actual; find recorre todo el árbol",
+      "find no admite comodines",
+      "ls es recursivo"
+     ],
+     "a": 1,
+     "e": "Patrón del shell vs búsqueda en la jerarquía."
+    }
+   ],
+   "labs": [
+    {
+     "q": "Muestra permisos, propietario, grupo y número de enlaces de `script.sh`.",
+     "prompt": "ana@ubuntu:~/ripgrep$",
+     "accept": [
+      "^ls -l (\\./)?script\\.sh$",
+      "^stat (\\./)?script\\.sh$"
+     ],
+     "sol": "ls -l script.sh",
+     "alt": [
+      "stat script.sh"
+     ]
+    },
+    {
+     "q": "Da permiso de ejecución **solo al propietario** de `deploy.sh`, sin tocar lo demás.",
+     "prompt": "ana@ubuntu:~/ripgrep$",
+     "accept": [
+      "^chmod u\\+x (\\./)?deploy\\.sh$"
+     ],
+     "sol": "chmod u+x deploy.sh"
+    },
+    {
+     "q": "Deja `informe.txt` con permisos `rw-r-----` usando notación **octal**.",
+     "prompt": "ana@ubuntu:~$",
+     "accept": [
+      "^chmod 0?640 informe\\.txt$"
+     ],
+     "sol": "chmod 640 informe.txt"
+    },
+    {
+     "q": "`scripts/copy-examples` perdió la ejecución (`rw-r--r--`). Restaura lectura y ejecución para propietario, grupo y otros **sin añadir escritura**.",
+     "prompt": "ana@ubuntu:~/ripgrep$",
+     "accept": [
+      "^chmod (a\\+rx|a\\+xr|ugo\\+rx|ugo\\+xr|\\+rx|\\+xr|a\\+x|ugo\\+x|\\+x|0?755) (\\./)?scripts/copy-examples$"
+     ],
+     "sol": "chmod a+rx scripts/copy-examples",
+     "alt": [
+      "chmod 755 scripts/copy-examples"
+     ],
+     "e": "Como ya tenían lectura, `a+x` también vale; 755 deja exactamente rwxr-xr-x."
+    },
+    {
+     "q": "Quita **todos** los permisos a grupo y otros sobre `secreto.txt`.",
+     "prompt": "ana@ubuntu:~$",
+     "accept": [
+      "^chmod (go-rwx|og-rwx|go-wrx|go=|og=|g-rwx,o-rwx|go-rw|0?600|0?700) secreto\\.txt$"
+     ],
+     "sol": "chmod go-rwx secreto.txt",
+     "alt": [
+      "chmod 600 secreto.txt"
+     ]
+    },
+    {
+     "q": "Muestra la umask actual en formato **simbólico**.",
+     "prompt": "ana@ubuntu:~$",
+     "accept": [
+      "^umask -S$"
+     ],
+     "sol": "umask -S"
+    },
+    {
+     "q": "Crea un enlace **físico** llamado `copia.txt` al archivo `original.txt`.",
+     "prompt": "ana@ubuntu:~$",
+     "accept": [
+      "^ln (\\./)?original\\.txt (\\./)?copia\\.txt$"
+     ],
+     "sol": "ln original.txt copia.txt"
+    },
+    {
+     "q": "Desde la raíz del proyecto, crea en `pkg/windows` un enlace **simbólico** llamado `PROJECT-README.md` al `README.md` de la raíz, con ruta **relativa**.",
+     "prompt": "ana@ubuntu:~/ripgrep$",
+     "accept": [
+      "^ln -s \\.\\./\\.\\./README\\.md (\\./)?pkg/windows/PROJECT-README\\.md$",
+      "^cd pkg/windows ?(&&|;) ?ln -s \\.\\./\\.\\./README\\.md PROJECT-README\\.md$"
+     ],
+     "sol": "ln -s ../../README.md pkg/windows/PROJECT-README.md",
+     "e": "La ruta se interpreta desde pkg/windows (donde vive el enlace): dos niveles arriba está README.md."
+    },
+    {
+     "q": "Comprueba si `a.txt` y `b.txt` son el mismo archivo físico mostrando sus **inodos**.",
+     "prompt": "ana@ubuntu:~$",
+     "accept": [
+      "^ls -[a-zA-Z]*i[a-zA-Z]* (\\./)?a\\.txt (\\./)?b\\.txt$",
+      "^stat a\\.txt b\\.txt$"
+     ],
+     "sol": "ls -li a.txt b.txt"
+    },
+    {
+     "q": "Muestra a dónde apunta el enlace simbólico `HomebrewFormula`.",
+     "prompt": "ana@ubuntu:~/ripgrep$",
+     "accept": [
+      "^readlink( -f)? HomebrewFormula$",
+      "^ls -l HomebrewFormula$"
+     ],
+     "sol": "readlink HomebrewFormula",
+     "alt": [
+      "ls -l HomebrewFormula"
+     ]
+    },
+    {
+     "q": "Muestra, uno por línea, qué archivos `.md` del directorio actual selecciona el patrón (sin operar sobre ellos).",
+     "prompt": "ana@ubuntu:~/ripgrep$",
+     "accept": [
+      "^printf ['\\\"]%s\\\\n['\\\"] \\*\\.md$",
+      "^ls( -d| -1| -1d| -d1)? \\*\\.md$",
+      "^echo \\*\\.md$"
+     ],
+     "sol": "printf '%s\\n' *.md",
+     "alt": [
+      "ls -d *.md"
+     ]
+    },
+    {
+     "q": "En `tests/data`, lista los archivos `sherlock` cuya extensión tiene **exactamente un carácter**.",
+     "prompt": "ana@ubuntu:~/ripgrep$",
+     "accept": [
+      "^(ls( -d)?|printf ['\\\"]%s\\\\n['\\\"]|echo) tests/data/sherlock\\.\\?$",
+      "^cd tests/data ?(&&|;) ?(ls|echo) sherlock\\.\\?$"
+     ],
+     "sol": "ls tests/data/sherlock.?"
+    },
+    {
+     "q": "Lista los elementos del directorio actual cuyo nombre **empieza por mayúscula**.",
+     "prompt": "ana@ubuntu:~/ripgrep$",
+     "accept": [
+      "^(ls( -d)?|printf ['\\\"]%s\\\\n['\\\"]|echo) \\[A-Z\\]\\*$"
+     ],
+     "sol": "ls -d [A-Z]*"
+    },
+    {
+     "q": "En `tests/data`, selecciona los `sherlock.*` cuya extensión **no empieza por Z**.",
+     "prompt": "ana@ubuntu:~/ripgrep$",
+     "accept": [
+      "^(ls( -d)?|printf ['\\\"]%s\\\\n['\\\"]|echo) tests/data/sherlock\\.\\[[!^]Z\\]\\*$"
+     ],
+     "sol": "ls tests/data/sherlock.[!Z]*"
+    },
+    {
+     "q": "Busca en **todo** el árbol, desde aquí, los archivos regulares `.md`.",
+     "prompt": "ana@ubuntu:~/ripgrep$",
+     "accept": [
+      "^find \\. -type f -name ['\\\"]\\*\\.md['\\\"]$",
+      "^find \\. -name ['\\\"]\\*\\.md['\\\"] -type f$"
+     ],
+     "sol": "find . -type f -name '*.md'"
+    },
+    {
+     "q": "Busca solo **directorios** llamados `tests` en todo el proyecto.",
+     "prompt": "ana@ubuntu:~/ripgrep$",
+     "accept": [
+      "^find \\. -type d -name ['\\\"]?tests['\\\"]?$",
+      "^find \\. -name ['\\\"]?tests['\\\"]? -type d$"
+     ],
+     "sol": "find . -type d -name tests"
+    }
+   ]
+  },
+  {
+   "id": "l3",
+   "title": "P1 · Incidencia 03 · Entorno del shell y control de procesos",
+   "source": "Documento 3 · Incidencia 03 y resumen de conceptos P1 (sesiones 3–4)",
+   "guide": [
+    "Configuración y operación del sistema",
+    "Órdenes del intérprete y primeras prácticas"
+   ],
+   "summary": [],
+   "notes": [
+    {
+     "h": "Variables del shell vs variables de entorno"
+    },
+    {
+     "p": "Una **variable del shell** vive solo en el shell actual. Al **exportarla** pasa al **entorno**, que es lo que reciben (como copia) los procesos hijos creados después. Los cambios del hijo nunca modifican al padre."
+    },
+    {
+     "code": "SALUDO=hola                 # sin espacios alrededor de =\nexport DESPEDIDA=adios      # crear y exportar a la vez\necho \"$SALUDO\"\nbash -c 'echo \"SALUDO=${SALUDO-no heredada}\"; echo \"DESPEDIDA=$DESPEDIDA\"'\n# -> SALUDO=no heredada   DESPEDIDA=adios\nunset SALUDO                # eliminarla\nset     # variables del shell (y funciones)\nenv     # solo el entorno exportado (también printenv)",
+     "cap": "El experimento de la incidencia 3"
+    },
+    {
+     "table": {
+      "head": [
+       "Variable",
+       "Contiene"
+      ],
+      "rows": [
+       [
+        "`HOME`",
+        "Directorio personal"
+       ],
+       [
+        "`PWD` / `OLDPWD`",
+        "Directorio actual / anterior (`cd -`)"
+       ],
+       [
+        "`PATH`",
+        "Directorios (separados por `:`) donde se buscan los ejecutables"
+       ],
+       [
+        "`USER`",
+        "Usuario de la sesión"
+       ],
+       [
+        "`SHELL`",
+        "Shell de inicio del usuario"
+       ],
+       [
+        "`PS1` / `PS2`",
+        "Indicador principal / de continuación"
+       ],
+       [
+        "`$?`",
+        "Código de salida de la última orden (0 = éxito)"
+       ],
+       [
+        "`$$`",
+        "PID del shell actual"
+       ],
+       [
+        "`$!`",
+        "PID del último proceso lanzado en segundo plano"
+       ]
+      ]
+     }
+    },
+    {
+     "p": "¿Cómo encuentra el shell una orden? `type ls` o `command -v ls` (alias, orden interna o ruta del ejecutable). `echo $PATH | tr ':' '\\n'` muestra los directorios uno por línea."
+    },
+    {
+     "h": "Configurar el shell: .bashrc, alias, PS1, source"
+    },
+    {
+     "list": [
+      "`~/.bashrc` se lee al abrir cada **shell interactivo** de Bash de ese usuario (la configuración queda limitada a tu cuenta; la global es `/etc/bash.bashrc`).",
+      "Probar en la sesión ≠ hacerlo persistente ≠ recargarlo: tras editar `.bashrc`, `source ~/.bashrc` (o `. ~/.bashrc`) lo aplica en la sesión actual; las terminales nuevas ya lo cargan solas.",
+      "Alias: `alias ll='ls -la'`, `alias rm='rm -i'` (evita borrados accidentales). `alias` los lista; `unalias ll` lo quita.",
+      "Indicador: `PS1='\\u@\\h:\\w\\$ '` (`\\u` usuario, `\\h` máquina, `\\w` directorio, `\\t` hora)."
+     ]
+    },
+    {
+     "h": "Procesos: identificarlos y supervisarlos"
+    },
+    {
+     "p": "Un **programa** es un archivo; un **proceso** es una ejecución concreta de ese programa, con su PID. El mismo programa puede tener varios procesos."
+    },
+    {
+     "table": {
+      "head": [
+       "Orden",
+       "Uso"
+      ],
+      "rows": [
+       [
+        "`ps`",
+        "Procesos del terminal actual"
+       ],
+       [
+        "`ps aux` / `ps -ef`",
+        "Todos los procesos (usuario, PID, %CPU, %MEM, STAT, orden)"
+       ],
+       [
+        "`ps -u ana`",
+        "Procesos de un usuario"
+       ],
+       [
+        "`pgrep -l sleep` / `pgrep -a sleep`",
+        "PID de los procesos por nombre"
+       ],
+       [
+        "`top` / `htop`",
+        "Supervisión en tiempo real (`q` salir, `k` enviar señal, `P`/`M` ordenar por CPU/memoria)"
+       ]
+      ]
+     }
+    },
+    {
+     "table": {
+      "head": [
+       "STAT",
+       "Estado"
+      ],
+      "rows": [
+       [
+        "R",
+        "En ejecución o listo"
+       ],
+       [
+        "S",
+        "Durmiendo (esperando un evento)"
+       ],
+       [
+        "D",
+        "Esperando E/S (no interrumpible)"
+       ],
+       [
+        "T",
+        "Detenido (p. ej. tras Ctrl+Z)"
+       ],
+       [
+        "Z",
+        "Zombi (terminó y el padre no ha recogido su estado)"
+       ]
+      ]
+     }
+    },
+    {
+     "h": "Trabajos del shell: primer y segundo plano"
+    },
+    {
+     "code": "sleep 300 &        # en segundo plano: [1] 4321\njobs -l            # trabajos con su PID\nsleep 600          # en primer plano… pulsa Ctrl+Z → [2]+ Stopped\nbg %2              # continúa en segundo plano\nfg %1              # lo traes a primer plano\n# Ctrl+C → interrumpe (SIGINT) el trabajo en primer plano"
+    },
+    {
+     "tip": "Un **trabajo** (`%1`) es una noción del shell que lo lanzó; el **proceso** (PID) es del sistema operativo. `kill %1` y `kill 4321` pueden referirse a lo mismo."
+    },
+    {
+     "h": "Señales"
+    },
+    {
+     "table": {
+      "head": [
+       "Señal",
+       "Nº",
+       "Cuándo"
+      ],
+      "rows": [
+       [
+        "SIGTERM",
+        "15",
+        "Por defecto de `kill`: pide terminar de forma ordenada (el proceso puede limpiar)"
+       ],
+       [
+        "SIGKILL",
+        "9",
+        "Terminar a la fuerza. No se puede capturar ni ignorar: último recurso"
+       ],
+       [
+        "SIGINT",
+        "2",
+        "Ctrl+C: interrupción desde el teclado"
+       ],
+       [
+        "SIGTSTP",
+        "20",
+        "Ctrl+Z: suspensión desde el teclado (capturable)"
+       ],
+       [
+        "SIGSTOP / SIGCONT",
+        "19 / 18",
+        "Detener / reanudar un proceso (STOP no se puede capturar)"
+       ],
+       [
+        "SIGHUP",
+        "1",
+        "Se cerró el terminal; muchos demonios la usan para recargar configuración"
+       ]
+      ]
+     }
+    },
+    {
+     "code": "kill -l                 # lista de señales\nkill 4321               # SIGTERM\nkill -STOP 4321; kill -CONT 4321\nkill -9 4321            # solo si no responde a SIGTERM\npkill sleep             # por nombre"
+    },
+    {
+     "h": "trap: responder a una señal en un script"
+    },
+    {
+     "code": "#!/bin/bash\ntrap 'echo \"Interrupción recibida: limpiando...\"; rm -f /tmp/revision.$$; exit 1' INT TERM\necho \"Iniciando revision de ripgrep...\"\ntouch /tmp/revision.$$\nwhile true\ndo\n    echo \"Revisando el proyecto ripgrep...\"\n    sleep 5\ndone",
+     "cap": "Esqueleto de la incidencia 11 completado"
+    },
+    {
+     "warn": "`trap` no puede capturar SIGKILL ni SIGSTOP. `trap - INT` restaura el comportamiento por defecto."
+    }
+   ],
+   "cards": [
+    [
+     "Variable del shell vs variable de entorno",
+     "La del shell solo existe en ese shell; la de entorno (exportada con `export`) la heredan como copia los procesos hijos."
+    ],
+    [
+     "¿Puede un proceso hijo cambiar una variable del padre?",
+     "No. Recibe una copia del entorno; sus cambios no afectan al padre."
+    ],
+    [
+     "¿Qué contiene `$?`?",
+     "El código de salida de la última orden (0 indica éxito)."
+    ],
+    [
+     "¿Qué contienen `$$` y `$!`?",
+     "`$$` el PID del shell actual; `$!` el PID del último proceso en segundo plano."
+    ],
+    [
+     "`set` vs `env`",
+     "`set` muestra todas las variables del shell (y funciones); `env`/`printenv` solo las exportadas al entorno."
+    ],
+    [
+     "¿Cómo aplicas cambios de `.bashrc` sin abrir otra terminal?",
+     "`source ~/.bashrc` (o `. ~/.bashrc`)."
+    ],
+    [
+     "¿Cuándo se lee `~/.bashrc`?",
+     "Al iniciar cada shell interactivo de Bash de ese usuario."
+    ],
+    [
+     "Programa vs proceso",
+     "El programa es el archivo ejecutable; el proceso es una ejecución concreta con su PID, estado y recursos."
+    ],
+    [
+     "¿Qué hace Ctrl+Z?",
+     "Envía SIGTSTP: suspende el trabajo en primer plano (queda detenido, estado T)."
+    ],
+    [
+     "`bg` y `fg`",
+     "`bg %n` reanuda el trabajo en segundo plano; `fg %n` lo trae a primer plano."
+    ],
+    [
+     "SIGTERM vs SIGKILL",
+     "SIGTERM (15, por defecto) pide terminar y permite limpiar; SIGKILL (9) mata sin posibilidad de captura."
+    ],
+    [
+     "¿Qué señales no puede capturar `trap`?",
+     "SIGKILL y SIGSTOP."
+    ],
+    [
+     "Estado Z en `ps`",
+     "Zombi: el proceso terminó pero el padre aún no ha recogido su estado."
+    ],
+    [
+     "¿Cómo ves cómo resuelve el shell una orden?",
+     "`type orden` o `command -v orden`."
+    ]
+   ],
+   "quiz": [
+    {
+     "q": "Ejecutas `A=1; export B=2; bash -c 'echo \"$A-$B\"'`. ¿Qué se imprime?",
+     "o": [
+      "1-2",
+      "-2",
+      "1-",
+      "-"
+     ],
+     "a": 1,
+     "e": "Solo B está en el entorno del hijo."
+    },
+    {
+     "q": "Tras editar `~/.bashrc` añadiendo un alias, en la MISMA terminal el alias no funciona. ¿Por qué?",
+     "o": [
+      "Hay que reiniciar el sistema",
+      "El archivo solo se lee al iniciar el shell; falta `source ~/.bashrc`",
+      "Los alias no se pueden guardar",
+      "Hay que exportarlo"
+     ],
+     "a": 1,
+     "e": "Recargar con source o abrir una terminal nueva."
+    },
+    {
+     "q": "Un proceso no hace caso a `kill 4321`. ¿Qué es lo razonable?",
+     "o": [
+      "Reiniciar",
+      "Comprobar el PID y, si sigue, `kill -9 4321`",
+      "`kill -STOP 4321`",
+      "`fg 4321`"
+     ],
+     "a": 1,
+     "e": "SIGKILL como último recurso, tras verificar que es el proceso correcto."
+    },
+    {
+     "q": "Lanzas `sleep 600`, pulsas Ctrl+Z y escribes `jobs`. ¿Qué estado verás?",
+     "o": [
+      "Running",
+      "Stopped",
+      "Done",
+      "Zombie"
+     ],
+     "a": 1,
+     "e": "Ctrl+Z lo suspende."
+    },
+    {
+     "q": "¿Qué orden reanuda el trabajo suspendido %1 SIN ocupar el terminal?",
+     "o": [
+      "`fg %1`",
+      "`bg %1`",
+      "`kill -CONT %1 &`",
+      "`jobs %1`"
+     ],
+     "a": 1,
+     "e": "bg lo continúa en segundo plano."
+    },
+    {
+     "q": "¿Qué muestra `echo $?` justo después de `ls archivo_que_no_existe`?",
+     "o": [
+      "0",
+      "Un valor distinto de 0",
+      "El PID de ls",
+      "Nada"
+     ],
+     "a": 1,
+     "e": "ls falla y devuelve un código de error (2 en GNU ls)."
+    },
+    {
+     "q": "En `ps aux` un proceso aparece con STAT `S`. ¿Qué significa?",
+     "o": [
+      "Se está ejecutando",
+      "Durmiendo, esperando un evento",
+      "Detenido",
+      "Zombi"
+     ],
+     "a": 1,
+     "e": "S = sleeping (interrumpible)."
+    },
+    {
+     "q": "¿Dónde pondrías un alias para que sea persistente SOLO para tu usuario?",
+     "o": [
+      "`/etc/bash.bashrc`",
+      "`~/.bashrc`",
+      "`/etc/passwd`",
+      "En una variable exportada"
+     ],
+     "a": 1,
+     "e": "La configuración del usuario va en su home."
+    },
+    {
+     "type": "order",
+     "q": "Ordena la gestión de una tarea larga para seguir usando el terminal:",
+     "items": [
+      "Lanzar la tarea en primer plano",
+      "Suspenderla con Ctrl+Z",
+      "Comprobar su número con `jobs`",
+      "Reanudarla en segundo plano con `bg %1`",
+      "Recuperarla con `fg %1` cuando haga falta"
+     ],
+     "e": "Así no hay que volver a lanzarla."
+    }
+   ],
+   "labs": [
+    {
+     "q": "Crea la variable del shell `PROYECTO` con valor `ripgrep-15.2.0` (sin exportarla).",
+     "accept": [
+      "^PROYECTO=['\\\"]?ripgrep-15\\.2\\.0['\\\"]?$"
+     ],
+     "sol": "PROYECTO=ripgrep-15.2.0",
+     "e": "Sin espacios alrededor de =."
+    },
+    {
+     "q": "Muestra el valor de `PROYECTO`.",
+     "accept": [
+      "^echo ['\\\"]?\\$\\{?PROYECTO\\}?['\\\"]?$",
+      "^printf ['\\\"]%s\\\\n['\\\"] ['\\\"]?\\$\\{?PROYECTO\\}?['\\\"]?$"
+     ],
+     "sol": "echo \"$PROYECTO\""
+    },
+    {
+     "q": "Haz que `EDITOR=nano` esté disponible para los procesos hijos, en una sola orden.",
+     "accept": [
+      "^export EDITOR=['\\\"]?nano['\\\"]?$"
+     ],
+     "sol": "export EDITOR=nano"
+    },
+    {
+     "q": "Elimina la variable `PROYECTO`.",
+     "accept": [
+      "^unset PROYECTO$"
+     ],
+     "sol": "unset PROYECTO"
+    },
+    {
+     "q": "Muestra solo las variables de **entorno** (exportadas).",
+     "accept": [
+      "^(env|printenv)$"
+     ],
+     "sol": "env",
+     "alt": [
+      "printenv"
+     ]
+    },
+    {
+     "q": "Muestra el **PID del shell** actual.",
+     "accept": [
+      "^echo ['\\\"]?\\$\\$['\\\"]?$"
+     ],
+     "sol": "echo $$"
+    },
+    {
+     "q": "Comprueba el **código de salida** de la última orden.",
+     "accept": [
+      "^echo ['\\\"]?\\$\\?['\\\"]?$"
+     ],
+     "sol": "echo $?"
+    },
+    {
+     "q": "Comprueba cómo resuelve el shell la orden `ll` (alias, interna o ejecutable).",
+     "accept": [
+      "^(type( -a)?|command -v) ll$"
+     ],
+     "sol": "type ll"
+    },
+    {
+     "q": "Crea el alias `ll` que ejecute `ls -la`.",
+     "accept": [
+      "^alias ll=(['\\\"])ls (-la|-al|-l -a)\\1$"
+     ],
+     "sol": "alias ll='ls -la'"
+    },
+    {
+     "q": "Aplica los cambios de `~/.bashrc` en la sesión actual sin abrir otra terminal.",
+     "accept": [
+      "^(source|\\.) (~/\\.bashrc|\\$HOME/\\.bashrc|/home/\\w+/\\.bashrc)$"
+     ],
+     "sol": "source ~/.bashrc",
+     "alt": [
+      ". ~/.bashrc"
+     ]
+    },
+    {
+     "q": "Lanza `sleep 300` en **segundo plano**.",
+     "accept": [
+      "^sleep 300 ?&$"
+     ],
+     "sol": "sleep 300 &"
+    },
+    {
+     "q": "Lista los trabajos del shell **con sus PID**.",
+     "accept": [
+      "^jobs -l$"
+     ],
+     "sol": "jobs -l"
+    },
+    {
+     "q": "El trabajo 2 está suspendido. Reanúdalo en **segundo plano**.",
+     "accept": [
+      "^bg %?2$"
+     ],
+     "sol": "bg %2"
+    },
+    {
+     "q": "Trae el trabajo 1 a **primer plano**.",
+     "accept": [
+      "^fg %?1$"
+     ],
+     "sol": "fg %1"
+    },
+    {
+     "q": "Muestra **todos** los procesos del sistema con el usuario que los ejecuta.",
+     "accept": [
+      "^ps (aux|-aux|axu|-ef|-e -f|-eF|-efl|-elf)$"
+     ],
+     "sol": "ps aux",
+     "alt": [
+      "ps -ef"
+     ]
+    },
+    {
+     "q": "Obtén el PID y el nombre de los procesos llamados `sleep`.",
+     "accept": [
+      "^pgrep -[la] sleep$",
+      "^ps (aux|-ef) \\| grep sleep$"
+     ],
+     "sol": "pgrep -l sleep"
+    },
+    {
+     "q": "Pide al proceso 4321 que termine **de forma ordenada**.",
+     "accept": [
+      "^kill( -15| -TERM| -SIGTERM| -s TERM| -s SIGTERM)? 4321$"
+     ],
+     "sol": "kill 4321",
+     "e": "Por defecto envía SIGTERM."
+    },
+    {
+     "q": "El 4321 no responde a SIGTERM. **Fuérzalo** a terminar.",
+     "accept": [
+      "^kill -(9|KILL|SIGKILL|s KILL|s SIGKILL) 4321$"
+     ],
+     "sol": "kill -9 4321"
+    },
+    {
+     "q": "**Pausa** el proceso 4321 sin terminarlo.",
+     "accept": [
+      "^kill -(STOP|SIGSTOP|19|s STOP|TSTP|SIGTSTP) 4321$"
+     ],
+     "sol": "kill -STOP 4321",
+     "e": "Se reanuda con `kill -CONT 4321`."
+    },
+    {
+     "q": "Lista los nombres de todas las señales disponibles.",
+     "accept": [
+      "^kill -l$",
+      "^trap -l$"
+     ],
+     "sol": "kill -l"
+    },
+    {
+     "q": "Escribe la línea de un script que ejecute `echo Interrumpido; exit 1` cuando el usuario pulse **Ctrl+C**.",
+     "accept": [
+      "^trap (['\\\"])echo ['\\\"]?Interrumpido['\\\"]? ?; ?exit 1\\1 (INT|SIGINT|2)( TERM| SIGTERM)?$"
+     ],
+     "sol": "trap 'echo Interrumpido; exit 1' INT"
+    }
+   ]
+  },
+  {
+   "id": "l4",
+   "title": "P1 · Incidencia 04 · Redirecciones, filtros, tuberías, búsquedas y tar",
+   "source": "Documento 4 · Incidencia 04 y resumen de conceptos P1 (sesiones 3–4)",
+   "guide": [
+    "Configuración y operación del sistema",
+    "Órdenes del intérprete y primeras prácticas"
+   ],
+   "summary": [],
+   "notes": [
+    {
+     "h": "Los tres flujos y las redirecciones"
+    },
+    {
+     "table": {
+      "head": [
+       "Descriptor",
+       "Flujo",
+       "Por defecto"
+      ],
+      "rows": [
+       [
+        "0",
+        "stdin (entrada)",
+        "teclado"
+       ],
+       [
+        "1",
+        "stdout (salida normal)",
+        "pantalla"
+       ],
+       [
+        "2",
+        "stderr (errores)",
+        "pantalla — es un flujo distinto aunque se vea igual"
+       ]
+      ]
+     }
+    },
+    {
+     "table": {
+      "head": [
+       "Operador",
+       "Efecto"
+      ],
+      "rows": [
+       [
+        "`orden < f`",
+        "Lee la entrada desde f"
+       ],
+       [
+        "`orden > f`",
+        "Crea o **sobrescribe** f con stdout"
+       ],
+       [
+        "`orden >> f`",
+        "**Añade** stdout al final de f"
+       ],
+       [
+        "`orden 2> f`",
+        "Errores a f (sobrescribe)"
+       ],
+       [
+        "`orden 2>> f`",
+        "Errores al final de f"
+       ],
+       [
+        "`orden > f 2>&1`",
+        "Salida y errores juntos en f"
+       ],
+       [
+        "`orden 2> /dev/null`",
+        "Descarta los errores (no se pueden recuperar)"
+       ]
+      ]
+     }
+    },
+    {
+     "warn": "El orden importa: se aplican de izquierda a derecha. `orden > f 2>&1` manda ambos a f; `orden 2>&1 > f` deja stderr en la pantalla (2 copia el destino que tenía 1 en ese momento)."
+    },
+    {
+     "p": "Qué hace el SO: el shell, antes de ejecutar la orden, abre el archivo con `open()`, lo coloca en el descriptor 0, 1 o 2 con `dup2()` y cierra lo que sobra con `close()`."
+    },
+    {
+     "h": "Tuberías y filtros"
+    },
+    {
+     "p": "`orden1 | orden2` conecta stdout de la primera con stdin de la segunda (stderr NO entra en la tubería). Un **filtro** lee, transforma y escribe: se encadenan etapas simples."
+    },
+    {
+     "table": {
+      "head": [
+       "Filtro",
+       "Para qué",
+       "Opciones"
+      ],
+      "rows": [
+       [
+        "`head` / `tail`",
+        "Primeras / últimas líneas",
+        "`-n N`"
+       ],
+       [
+        "`wc`",
+        "Contar",
+        "`-l` líneas, `-w` palabras, `-c` bytes, `-m` caracteres; `wc -l < f` solo el número"
+       ],
+       [
+        "`sort`",
+        "Ordenar líneas",
+        "`-n` numérico, `-r` inverso, `-u` sin repetidos, `-o f` guardar"
+       ],
+       [
+        "`uniq`",
+        "Quitar repetidos **consecutivos** (ordena antes)",
+        "`-c` cuenta, `-d` solo repetidos"
+       ],
+       [
+        "`cut`",
+        "Columnas",
+        "`-d':'` separador, `-f1,3` campos, `-c1-3` caracteres"
+       ],
+       [
+        "`tee`",
+        "Muestra Y guarda a la vez",
+        "`-a` añade"
+       ],
+       [
+        "`tr`",
+        "Traducir caracteres",
+        "`tr ':' '\\n'`, `tr a-z A-Z`"
+       ],
+       [
+        "`grep`",
+        "Líneas que casan con un patrón",
+        "`-i -v -n -c -r -l -o -w -E`"
+       ]
+      ]
+     }
+    },
+    {
+     "code": "ls crates | sort | tee componentes.txt          # muestra y guarda\ngrep -o 'crates/[a-z_-]*' Cargo.toml | cut -d/ -f2 | sort -u   # nombres de componentes\nwc -l < CHANGELOG.md                             # solo el número\ngrep -i 'error' registro.txt | sort | tee errores_ordenados.txt",
+     "cap": "Ejemplos de la incidencia"
+    },
+    {
+     "h": "Localizar archivos (find) vs buscar contenido (grep / rg)"
+    },
+    {
+     "table": {
+      "head": [
+       "Necesito…",
+       "Herramienta",
+       "Ejemplo"
+      ],
+      "rows": [
+       [
+        "Archivos por nombre o tipo",
+        "`find`",
+        "`find crates -type f -name '*.rs' > archivos_rust.txt`"
+       ],
+       [
+        "Un nombre exacto",
+        "`find`",
+        "`find . -name Cargo.toml`"
+       ],
+       [
+        "Texto dentro de un archivo concreto",
+        "`grep`",
+        "`grep 'crates/' Cargo.toml > componentes_config.txt`"
+       ],
+       [
+        "Texto en todo el proyecto",
+        "`rg` o `grep -rn`",
+        "`rg 'TODO|FIXME' > pendientes.txt`"
+       ]
+      ]
+     }
+    },
+    {
+     "p": "`rg` (ripgrep) es recursivo por defecto, muestra nº de línea y respeta `.gitignore`. Útiles: `-i`, `-l` (solo nombres de archivo), `-c` (cuenta), `-g '*.md'` (filtrar archivos), `-t rust`."
+    },
+    {
+     "h": "Patrones del shell ≠ expresiones regulares"
+    },
+    {
+     "table": {
+      "head": [
+       "",
+       "Patrón del shell (glob)",
+       "Expresión regular (grep/rg)"
+      ],
+      "rows": [
+       [
+        "Sirve para",
+        "Nombres de archivo",
+        "Texto dentro de archivos"
+       ],
+       [
+        "Cualquier cosa",
+        "`*`",
+        "`.*`"
+       ],
+       [
+        "Un carácter",
+        "`?`",
+        "`.`"
+       ],
+       [
+        "Ejemplo",
+        "`*.rs`",
+        "`\\.rs$`"
+       ]
+      ]
+     }
+    },
+    {
+     "table": {
+      "head": [
+       "Regex básica",
+       "Significa"
+      ],
+      "rows": [
+       [
+        "`^` / `$`",
+        "Ancla al **inicio** / **final** de línea"
+       ],
+       [
+        "`.`",
+        "Cualquier carácter"
+       ],
+       [
+        "`*`",
+        "El anterior 0 o más veces"
+       ],
+       [
+        "`[0-9]`, `[^x]`",
+        "Un carácter del conjunto / que no sea x"
+       ],
+       [
+        "`\\.`",
+        "Un punto literal"
+       ],
+       [
+        "`+`, `?`, `|`, `()`",
+        "Extendidas: necesitan `grep -E` (en `rg` funcionan siempre)"
+       ]
+      ]
+     }
+    },
+    {
+     "code": "head -n 20 CHANGELOG.md                       # mira primero cómo son los encabezados\ngrep -E '^[0-9]+\\.[0-9]+\\.[0-9]+' CHANGELOG.md > versiones_regex.txt\nhead versiones_regex.txt                      # compruébalo",
+     "cap": "Encabezados de versión (incidencia 6)"
+    },
+    {
+     "warn": "Una regex demasiado general cuela líneas que no son versiones; demasiado estricta deja fuera versiones válidas. Compruébala con un trozo pequeño."
+    },
+    {
+     "h": "Empaquetar y comprimir"
+    },
+    {
+     "code": "tar -cf resultados.tar resultados/     # c = crear, f = archivo\ngzip resultados.tar                    # -> resultados.tar.gz (gzip -k conserva el original)\ntar -czf resultados.tar.gz resultados/ # las dos cosas en un paso\ntar -tzf resultados.tar.gz             # t = listar SIN extraer\nmkdir prueba && tar -xzf resultados.tar.gz -C prueba   # x = extraer, -C destino"
+    },
+    {
+     "tip": "Letras de tar: **c** crear · **x** extraer · **t** listar · **z** gzip · **f** el archivo va a continuación · **v** detalle · **-C** directorio."
+    }
+   ],
+   "cards": [
+    [
+     "`>` vs `>>`",
+     "`>` crea o sobrescribe; `>>` añade al final."
+    ],
+    [
+     "¿Cómo guardas solo los errores?",
+     "`orden 2> errores.txt`"
+    ],
+    [
+     "Salida y errores al mismo archivo",
+     "`orden > todo.txt 2>&1` (o `&> todo.txt` en Bash)."
+    ],
+    [
+     "¿Qué es `/dev/null`?",
+     "Un «sumidero»: lo que se escribe ahí se descarta."
+    ],
+    [
+     "¿Entra stderr en una tubería?",
+     "No, solo stdout (salvo que redirijas `2>&1` antes del `|`)."
+    ],
+    [
+     "¿Por qué `sort` antes de `uniq`?",
+     "Porque `uniq` solo elimina repetidos consecutivos."
+    ],
+    [
+     "¿Qué hace `tee`?",
+     "Copia su entrada a la pantalla y a uno o varios archivos (`-a` añade)."
+    ],
+    [
+     "Diferencia entre redirección, filtro y tubería",
+     "Redirección: cambia origen/destino de un flujo. Filtro: transforma o selecciona datos. Tubería: conecta la salida de una orden con la entrada de otra."
+    ],
+    [
+     "`find` vs `grep`",
+     "`find` localiza archivos por nombre/tipo; `grep`/`rg` buscan contenido dentro de archivos."
+    ],
+    [
+     "¿Qué significan `^` y `$` en una regex?",
+     "Inicio y final de línea."
+    ],
+    [
+     "`*.rs` ¿es una regex?",
+     "No, es un patrón del shell; la regex equivalente sería `\\.rs$`."
+    ],
+    [
+     "Opciones de grep: -v, -c, -n, -i",
+     "-v invierte (las que NO casan), -c cuenta, -n número de línea, -i ignora mayúsculas."
+    ],
+    [
+     "Listar un .tar.gz sin extraer",
+     "`tar -tzf paquete.tar.gz`"
+    ],
+    [
+     "Crear un .tar.gz de un directorio en un paso",
+     "`tar -czf paquete.tar.gz directorio/`"
+    ]
+   ],
+   "quiz": [
+    {
+     "q": "¿Qué deja en pantalla `ls noexiste . > out.txt`?",
+     "o": [
+      "Nada",
+      "Solo el mensaje de error",
+      "Solo el listado",
+      "Ambos"
+     ],
+     "a": 1,
+     "e": "stdout va al archivo; stderr sigue en la pantalla."
+    },
+    {
+     "q": "¿Qué hace `orden 2>&1 > f`?",
+     "o": [
+      "Ambos flujos a f",
+      "stdout a f; stderr sigue a la pantalla",
+      "stderr a f",
+      "Error de sintaxis"
+     ],
+     "a": 1,
+     "e": "2 copia el destino que tenía 1 en ese momento (la pantalla)."
+    },
+    {
+     "q": "`printf 'hi\\nbye\\n' | cut -c 2` produce…",
+     "o": [
+      "h y b",
+      "i y y",
+      "hi",
+      "bye"
+     ],
+     "a": 1,
+     "e": "Segundo carácter de cada línea (el material tenía una errata)."
+    },
+    {
+     "q": "`printf 'b\\na\\nb\\n' | uniq` produce…",
+     "o": [
+      "a y b",
+      "b, a, b",
+      "b y a",
+      "a"
+     ],
+     "a": 1,
+     "e": "No hay repetidos consecutivos; habría que ordenar antes."
+    },
+    {
+     "q": "¿Qué cuenta `grep -c error log.txt`?",
+     "o": [
+      "Las apariciones de la palabra",
+      "Las líneas que contienen error",
+      "Los archivos",
+      "Los caracteres"
+     ],
+     "a": 1,
+     "e": "-c cuenta líneas coincidentes."
+    },
+    {
+     "q": "Quieres contar archivos `.rs` en todo `crates`. ¿Cuál es correcta?",
+     "o": [
+      "`ls crates/*.rs | wc -l`",
+      "`find crates -type f -name '*.rs' | wc -l`",
+      "`grep -c '.rs' crates`",
+      "`wc -l crates/*.rs`"
+     ],
+     "a": 1,
+     "e": "find es recursivo; el patrón del shell no."
+    },
+    {
+     "q": "¿Qué regex selecciona solo líneas que empiezan por un número tipo 14.1.0?",
+     "o": [
+      "`[0-9].[0-9].[0-9]`",
+      "`^[0-9]+\\.[0-9]+\\.[0-9]+` con grep -E",
+      "`*.*.*`",
+      "`$[0-9]`"
+     ],
+     "a": 1,
+     "e": "Ancla ^ y puntos escapados."
+    },
+    {
+     "q": "`sort -n` frente a `sort` con las líneas 10, 9, 100:",
+     "o": [
+      "Iguales",
+      "sort: 10, 100, 9 · sort -n: 9, 10, 100",
+      "sort: 9, 10, 100 · sort -n: 100, 10, 9",
+      "sort -n da error"
+     ],
+     "a": 1,
+     "e": "sort compara texto; -n compara números."
+    },
+    {
+     "q": "En `tar -czf r.tar.gz dir/`, ¿qué indica la f?",
+     "o": [
+      "force",
+      "que el nombre del archivo tar va a continuación",
+      "formato",
+      "filtro"
+     ],
+     "a": 1,
+     "e": "Por eso f va la última del grupo de opciones."
+    },
+    {
+     "type": "order",
+     "q": "Ordena las etapas para obtener los 5 errores más frecuentes de `app.log`:",
+     "items": [
+      "`grep -i error app.log`",
+      "`sort`",
+      "`uniq -c`",
+      "`sort -nr`",
+      "`head -n 5`"
+     ],
+     "e": "Seleccionar, agrupar (ordenar + contar) y quedarse con los primeros."
+    }
+   ],
+   "labs": [
+    {
+     "q": "Guarda el listado del directorio en `revision.txt`, **sobrescribiendo** lo que hubiera.",
+     "accept": [
+      "^ls( -[a-zA-Z]+)?( \\.)? ?> ?revision\\.txt$"
+     ],
+     "sol": "ls > revision.txt"
+    },
+    {
+     "q": "Añade de nuevo el listado **al final** de `revision.txt`.",
+     "accept": [
+      "^ls( -[a-zA-Z]+)?( \\.)? ?>> ?revision\\.txt$"
+     ],
+     "sol": "ls >> revision.txt"
+    },
+    {
+     "q": "Ejecuta `ls noexiste` guardando **solo el error** en `errores.txt`.",
+     "accept": [
+      "^ls noexiste 2> ?errores\\.txt$"
+     ],
+     "sol": "ls noexiste 2> errores.txt"
+    },
+    {
+     "q": "Ejecuta `ls . noexiste` guardando **salida y errores juntos** en `resultado.txt`.",
+     "accept": [
+      "^ls \\. noexiste (> ?resultado\\.txt 2>&1|&> ?resultado\\.txt)$",
+      "^ls noexiste \\. (> ?resultado\\.txt 2>&1|&> ?resultado\\.txt)$"
+     ],
+     "sol": "ls . noexiste > resultado.txt 2>&1"
+    },
+    {
+     "q": "Busca archivos llamados `passwd` desde `/` **descartando** los mensajes de error.",
+     "accept": [
+      "^find / -name ['\\\"]?passwd['\\\"]? 2> ?/dev/null$"
+     ],
+     "sol": "find / -name passwd 2> /dev/null"
+    },
+    {
+     "q": "Muestra **solo el número** de líneas de `CHANGELOG.md` (sin el nombre del archivo).",
+     "accept": [
+      "^wc -l ?< ?CHANGELOG\\.md$",
+      "^cat CHANGELOG\\.md \\| wc -l$"
+     ],
+     "sol": "wc -l < CHANGELOG.md"
+    },
+    {
+     "q": "Lista los directorios de `crates` ordenados alfabéticamente, **mostrándolos y guardándolos** a la vez en `componentes.txt`.",
+     "accept": [
+      "^ls (\\./)?crates/? \\| sort \\| tee componentes\\.txt$",
+      "^ls (\\./)?crates/? \\| tee componentes\\.txt$"
+     ],
+     "sol": "ls crates | sort | tee componentes.txt"
+    },
+    {
+     "q": "De `/etc/passwd` extrae solo los **nombres de usuario** (campo 1, separador `:`).",
+     "accept": [
+      "^cut -d ?['\\\"]?:['\\\"]? -f ?1 /etc/passwd$",
+      "^cut -f ?1 -d ?['\\\"]?:['\\\"]? /etc/passwd$"
+     ],
+     "sol": "cut -d ':' -f 1 /etc/passwd"
+    },
+    {
+     "q": "Muestra cuántas veces aparece cada línea de `lista.txt`.",
+     "accept": [
+      "^sort lista\\.txt \\| uniq -c$",
+      "^cat lista\\.txt \\| sort \\| uniq -c$"
+     ],
+     "sol": "sort lista.txt | uniq -c"
+    },
+    {
+     "q": "Busca `error` en `registro.txt` **ignorando mayúsculas** y con **número de línea**.",
+     "accept": [
+      "^grep (-in|-ni|-i -n|-n -i) ['\\\"]?error['\\\"]? registro\\.txt$"
+     ],
+     "sol": "grep -in error registro.txt"
+    },
+    {
+     "q": "Cuenta las líneas de `registro.txt` que **NO** contienen `DEBUG`.",
+     "accept": [
+      "^grep (-vc|-cv|-v -c|-c -v) ['\\\"]?DEBUG['\\\"]? registro\\.txt$",
+      "^grep -v ['\\\"]?DEBUG['\\\"]? registro\\.txt \\| wc -l$"
+     ],
+     "sol": "grep -vc DEBUG registro.txt"
+    },
+    {
+     "q": "Busca `TODO` o `FIXME` en todo el proyecto con **ripgrep** y guarda el resultado en `pendientes.txt`.",
+     "accept": [
+      "^rg (['\\\"])(TODO\\|FIXME|FIXME\\|TODO)\\1( \\.)? ?> ?pendientes\\.txt$",
+      "^rg -e TODO -e FIXME( \\.)? ?> ?pendientes\\.txt$",
+      "^grep -(rnE|rEn|nrE|nEr|Ern|Enr|rE|Er|r -E|E -r|r -n -E) (['\\\"])(TODO\\|FIXME|FIXME\\|TODO)\\2 \\.? ?> ?pendientes\\.txt$"
+     ],
+     "sol": "rg 'TODO|FIXME' > pendientes.txt",
+     "alt": [
+      "grep -rnE 'TODO|FIXME' . > pendientes.txt"
+     ]
+    },
+    {
+     "q": "Lista las líneas de `CHANGELOG.md` que **empiezan** por un número de versión (tipo `14.1.0`).",
+     "accept": [
+      "^(grep -E|egrep|rg) (['\\\"])\\^\\[0-9\\]\\+?\\\\?\\.\\[0-9\\]\\+?\\\\?\\.\\[0-9\\]\\+?.*\\2 CHANGELOG\\.md$",
+      "^grep (['\\\"])\\^\\[0-9\\].*\\1 CHANGELOG\\.md$"
+     ],
+     "sol": "grep -E '^[0-9]+\\.[0-9]+\\.[0-9]+' CHANGELOG.md",
+     "e": "Hay varias regex válidas; si la tuya selecciona lo mismo, márcala como válida."
+    },
+    {
+     "q": "Localiza todos los `.rs` dentro de `crates` (recursivo) y guarda la lista en `archivos_rust.txt`.",
+     "accept": [
+      "^find (\\./)?crates/? -type f -name ['\\\"]\\*\\.rs['\\\"] ?> ?archivos_rust\\.txt$",
+      "^find (\\./)?crates/? -name ['\\\"]\\*\\.rs['\\\"] (-type f )?> ?archivos_rust\\.txt$"
+     ],
+     "sol": "find crates -type f -name '*.rs' > archivos_rust.txt"
+    },
+    {
+     "q": "Crea `resultados.tar.gz` con el directorio `resultados/` (empaquetar y comprimir en un paso).",
+     "accept": [
+      "^tar -?(?=[czv]*z)[czv]*c[czv]*f resultados\\.tar\\.gz (\\./)?resultados/?$"
+     ],
+     "sol": "tar -czf resultados.tar.gz resultados/"
+    },
+    {
+     "q": "Comprime con gzip el archivo `resultados.tar`.",
+     "accept": [
+      "^gzip( -k)? resultados\\.tar$"
+     ],
+     "sol": "gzip resultados.tar"
+    },
+    {
+     "q": "Extrae `resultados.tar.gz` en el directorio `prueba/` (ya existe) para comprobarlo.",
+     "accept": [
+      "^tar -?[xzv]*x[xzv]*f resultados\\.tar\\.gz -C (\\./)?prueba/?$"
+     ],
+     "sol": "tar -xzf resultados.tar.gz -C prueba"
+    }
+   ]
+  },
+  {
+   "id": "p3",
+   "title": "Parte 3 · Procesos e hilos (aún no visto en clase)",
+   "guide": [
+    "Programas vs procesos; estructura de un programa",
+    "Concepto de proceso; proyección del programa en memoria (contexto de usuario)",
+    "Creación de procesos y ciclo de vida básico",
+    "Llamadas al sistema de procesos",
+    "Contexto del núcleo: estructuras de datos internas (BCP)",
+    "Hilos: justificación, características, procesos vs hilos, ejemplo con hilos POSIX"
+   ],
+   "summary": [
+    "Un programa es un archivo pasivo; un proceso es un programa en ejecución con su estado (registros, pila, memoria, recursos).",
+    "Imagen en memoria: código (texto), datos (inicializados y no inicializados/BSS), montículo (heap, crece hacia arriba) y pila (crece hacia abajo).",
+    "El núcleo representa cada proceso con un BCP (bloque de control de proceso): PID, estado, registros, información de memoria, archivos abiertos, prioridad…",
+    "Estados básicos: nuevo → listo → ejecución → (bloqueado ↔ listo) → terminado. Un proceso bloqueado espera un evento; uno listo solo espera CPU.",
+    "En UNIX/POSIX: fork() duplica el proceso (devuelve 0 al hijo y el PID del hijo al padre); exec() sustituye la imagen por otro programa; wait()/waitpid() espera a un hijo; exit() termina.",
+    "Proceso zombi: hijo terminado cuyo padre aún no ha hecho wait. Huérfano: hijo cuyo padre terminó (lo adopta init/systemd).",
+    "Un hilo es un flujo de ejecución dentro de un proceso: comparte código, datos, heap y archivos, pero tiene pila, registros y contador de programa propios.",
+    "Hilos POSIX: pthread_create(&id, attr, funcion, arg) y pthread_join(id, &ret). Crear y cambiar entre hilos es más barato que entre procesos."
+   ],
+   "cards": [
+    [
+     "¿Qué devuelve fork()?",
+     "0 en el hijo, el PID del hijo en el padre y -1 si hay error."
+    ],
+    [
+     "¿Qué hace exec()?",
+     "Sustituye la imagen de memoria del proceso por un nuevo programa; el PID se mantiene y, si tiene éxito, no retorna."
+    ],
+    [
+     "¿Qué es un proceso zombi?",
+     "Un proceso terminado cuya entrada sigue en la tabla de procesos porque el padre no ha recogido su estado con wait()."
+    ],
+    [
+     "¿Qué comparten los hilos de un proceso?",
+     "Código, datos globales, heap y archivos abiertos. Cada hilo tiene su pila, registros y PC."
+    ],
+    [
+     "Estados de un proceso",
+     "Nuevo, listo, en ejecución, bloqueado y terminado."
+    ],
+    [
+     "¿Qué es el BCP?",
+     "Bloque de control de proceso: estructura del núcleo con la información de cada proceso (PID, estado, registros, memoria, archivos, planificación)."
+    ],
+    [
+     "¿Cuántos procesos hay tras ejecutar fork(); fork(); en un proceso?",
+     "4 procesos (2^n con n llamadas encadenadas)."
+    ],
+    [
+     "Ventaja de los hilos frente a procesos",
+     "Creación y cambio de contexto más baratos y comunicación directa por memoria compartida."
+    ]
+   ],
+   "quiz": [
+    {
+     "q": "Tras fork(), ¿qué valor ve el proceso hijo como retorno?",
+     "o": [
+      "Su propio PID",
+      "El PID del padre",
+      "0",
+      "-1"
+     ],
+     "a": 2,
+     "e": "El hijo recibe 0; el padre recibe el PID del hijo."
+    },
+    {
+     "q": "¿Cuántas veces se imprime \"hola\"? fork(); fork(); printf(\"hola\\n\");",
+     "o": [
+      "2",
+      "3",
+      "4",
+      "8"
+     ],
+     "a": 2,
+     "e": "Dos fork encadenados generan 4 procesos y cada uno imprime una vez."
+    },
+    {
+     "q": "¿Qué NO comparten dos hilos del mismo proceso?",
+     "o": [
+      "Variables globales",
+      "Archivos abiertos",
+      "La pila",
+      "El heap"
+     ],
+     "a": 2,
+     "e": "Cada hilo tiene su propia pila y registros."
+    },
+    {
+     "q": "Un proceso pasa de ejecución a listo cuando…",
+     "o": [
+      "Pide una operación de E/S",
+      "Se le acaba la rodaja de tiempo (expulsión)",
+      "Termina",
+      "Hace wait()"
+     ],
+     "a": 1,
+     "e": "Si pide E/S pasa a bloqueado; si es expulsado vuelve a listo."
+    },
+    {
+     "q": "Si exec() tiene éxito…",
+     "o": [
+      "Devuelve 0",
+      "Devuelve el PID del nuevo programa",
+      "No retorna, el código antiguo desaparece",
+      "Crea un proceso hijo"
+     ],
+     "a": 2,
+     "e": "La imagen se reemplaza; solo retorna (-1) si falla."
+    },
+    {
+     "q": "¿Qué llamada evita que un hijo terminado quede zombi?",
+     "o": [
+      "kill()",
+      "wait()/waitpid() en el padre",
+      "exec()",
+      "sleep()"
+     ],
+     "a": 1,
+     "e": "El padre recoge el estado de terminación y el núcleo libera la entrada."
+    }
+   ]
+  },
+  {
+   "id": "p4",
+   "title": "Parte 4 · Sincronización (aún no visto en clase)",
+   "guide": [
+    "Necesidad de comunicación y sincronización; escenarios concurrentes típicos",
+    "Condiciones de carrera, atomicidad",
+    "Problema de la sección crítica: exclusión mutua, progreso y espera limitada",
+    "Tuberías (pipes): tipos, operaciones, llamadas y problemas clásicos",
+    "Semáforos: operaciones, llamadas y problemas clásicos",
+    "Mutex y variables condición: operaciones, llamadas y problemas clásicos"
+   ],
+   "summary": [
+    "Condición de carrera: el resultado depende del orden de ejecución de procesos/hilos que acceden a datos compartidos sin coordinarse (p. ej. contador++ no es atómico).",
+    "Sección crítica: fragmento que accede a recursos compartidos. Una solución debe garantizar exclusión mutua, progreso y espera limitada.",
+    "Pipes: canal unidireccional FIFO de bytes. pipe(fd) crea fd[0] (lectura) y fd[1] (escritura). Leer de un pipe vacío bloquea; si no quedan escritores, read devuelve 0 (EOF). Hay que cerrar los extremos que no se usan. Con nombre: mkfifo.",
+    "Semáforo: entero con wait/P (decrementa; si queda negativo bloquea) y signal/V (incrementa; despierta a uno). Inicializado a 1 → exclusión mutua; a 0 → sincronización (esperar un evento); a N → N recursos.",
+    "POSIX: sem_init/sem_open, sem_wait, sem_post, sem_destroy.",
+    "Mutex: cerrojo binario con dueño (pthread_mutex_lock/unlock). Variables condición: pthread_cond_wait(&c,&m) libera el mutex y bloquea de forma atómica; pthread_cond_signal/broadcast despiertan. Se usa siempre while(condición) wait.",
+    "Problemas clásicos: productor-consumidor (búfer acotado: semáforos huecos=N, llenos=0, mutex=1), lectores-escritores y filósofos comensales.",
+    "Interbloqueo: espera circular entre procesos que retienen recursos; puede aparecer si se ordenan mal los wait."
+   ],
+   "cards": [
+    [
+     "Tres requisitos de la sección crítica",
+     "Exclusión mutua, progreso y espera limitada."
+    ],
+    [
+     "¿Qué hace sem_wait / P?",
+     "Decrementa el semáforo; si el valor no permite continuar, bloquea al proceso hasta un sem_post."
+    ],
+    [
+     "Semáforos del productor-consumidor con búfer de N",
+     "huecos = N, llenos = 0, mutex = 1. Productor: wait(huecos), wait(mutex), insertar, signal(mutex), signal(llenos). Consumidor simétrico."
+    ],
+    [
+     "¿Por qué cond_wait va en un while?",
+     "Por despertares espurios y porque otro hilo puede cambiar la condición antes de recuperar el mutex: hay que volver a comprobarla."
+    ],
+    [
+     "¿Qué devuelve read() en un pipe vacío sin escritores?",
+     "0 (fin de archivo). Si aún hay escritores abiertos, se bloquea."
+    ],
+    [
+     "Condición de carrera",
+     "Resultado incorrecto que depende del entrelazado de accesos concurrentes no sincronizados a datos compartidos."
+    ],
+    [
+     "Mutex vs semáforo",
+     "El mutex es binario y lo libera quien lo cerró (exclusión mutua). El semáforo es un contador y cualquiera puede hacer signal (sirve también para sincronizar eventos)."
+    ],
+    [
+     "Semáforo inicializado a 0",
+     "Sirve para que un proceso espere a que otro señale un evento (sincronización de orden)."
+    ]
+   ],
+   "quiz": [
+    {
+     "q": "Dos hilos hacen 1000 veces contador++ sin sincronizar. El resultado final…",
+     "o": [
+      "Siempre es 2000",
+      "Puede ser menor que 2000",
+      "Siempre es 1000",
+      "Provoca interbloqueo"
+     ],
+     "a": 1,
+     "e": "contador++ es leer-sumar-escribir; los entrelazados pierden actualizaciones."
+    },
+    {
+     "q": "En productor-consumidor, ¿cuál es el orden correcto en el productor?",
+     "o": [
+      "wait(mutex); wait(huecos)",
+      "wait(huecos); wait(mutex)",
+      "signal(llenos); wait(huecos)",
+      "wait(llenos); wait(mutex)"
+     ],
+     "a": 1,
+     "e": "Si se coge primero el mutex y no hay huecos, el productor bloquea con el mutex y hay interbloqueo."
+    },
+    {
+     "q": "¿Qué ocurre si un proceso escribe en un pipe sin lectores?",
+     "o": [
+      "Se bloquea para siempre",
+      "Recibe SIGPIPE / error EPIPE",
+      "Los datos se guardan en disco",
+      "read devuelve 0"
+     ],
+     "a": 1,
+     "e": "Escribir en un pipe sin lectores genera SIGPIPE."
+    },
+    {
+     "q": "pthread_cond_wait(&c, &m)…",
+     "o": [
+      "Necesita que el mutex esté libre",
+      "Libera el mutex y bloquea de forma atómica, y lo recupera al despertar",
+      "Despierta a todos los hilos",
+      "Equivale a sem_post"
+     ],
+     "a": 1,
+     "e": "Esa atomicidad evita perder la señal."
+    },
+    {
+     "q": "¿Con qué valor inicial se usa un semáforo para exclusión mutua?",
+     "o": [
+      "0",
+      "1",
+      "N",
+      "-1"
+     ],
+     "a": 1,
+     "e": "Valor 1: solo uno entra en la sección crítica."
+    },
+    {
+     "q": "En un pipe, fd[0] es…",
+     "o": [
+      "El extremo de escritura",
+      "El extremo de lectura",
+      "El PID del lector",
+      "Un semáforo"
+     ],
+     "a": 1,
+     "e": "fd[0] lectura, fd[1] escritura."
+    }
+   ]
+  },
+  {
+   "id": "p5",
+   "title": "Parte 5 · Planificación de la CPU (aún no visto en clase)",
+   "guide": [
+    "Mecanismo de cambio de CPU (cambio de contexto)",
+    "Concepto de planificación: justificación, objetivos, parámetros de evaluación",
+    "Tipos de planificadores",
+    "Políticas básicas: FCFS, SJF",
+    "Prioridad y expulsión (requisa)",
+    "Políticas avanzadas: prioridades puras, Round Robin, colas multinivel con y sin realimentación",
+    "Casos reales: Linux y Windows"
+   ],
+   "summary": [
+    "Cambio de contexto: guardar el estado (registros, PC) del proceso saliente en su BCP y cargar el del entrante. Es sobrecoste puro.",
+    "Planificador a largo plazo (admisión), a medio plazo (suspensión/swapping) y a corto plazo (qué proceso listo usa la CPU).",
+    "Métricas: tiempo de retorno = fin − llegada; tiempo de espera = retorno − ráfaga de CPU; tiempo de respuesta = primer uso de CPU − llegada; además utilización y productividad.",
+    "FCFS: por orden de llegada, no expulsivo; sufre efecto convoy.",
+    "SJF: primero la ráfaga más corta; minimiza el tiempo medio de espera. Su versión expulsiva es SRTF. Puede provocar inanición de los largos.",
+    "Prioridades: se ejecuta el de mayor prioridad (expulsiva o no); riesgo de inanición, se corrige con envejecimiento (aging).",
+    "Round Robin: FCFS con expulsión al agotar el quantum q. q muy grande → FCFS; q muy pequeño → demasiados cambios de contexto.",
+    "Colas multinivel: varias colas con políticas distintas; con realimentación los procesos cambian de cola según su comportamiento (los que gastan el quantum bajan de prioridad).",
+    "Linux usa CFS/EEVDF (reparto justo por tiempo virtual); Windows usa prioridades con 32 niveles y expulsión."
+   ],
+   "cards": [
+    [
+     "Fórmula del tiempo de retorno",
+     "Tiempo de finalización − tiempo de llegada."
+    ],
+    [
+     "Fórmula del tiempo de espera",
+     "Tiempo de retorno − tiempo de ráfaga de CPU (si no hay E/S)."
+    ],
+    [
+     "¿Qué política minimiza el tiempo medio de espera?",
+     "SJF (y su versión expulsiva SRTF), si se conocen las ráfagas."
+    ],
+    [
+     "Efecto convoy",
+     "En FCFS, procesos cortos esperan detrás de uno largo de CPU, aumentando la espera media."
+    ],
+    [
+     "¿Cómo se evita la inanición en prioridades?",
+     "Con envejecimiento: aumentar la prioridad de los procesos según el tiempo que llevan esperando."
+    ],
+    [
+     "Efecto del tamaño del quantum en RR",
+     "Grande: tiende a FCFS. Pequeño: mejor respuesta pero más sobrecoste por cambios de contexto."
+    ],
+    [
+     "Colas multinivel con realimentación",
+     "Varias colas de distinta prioridad; un proceso que agota su quantum baja de cola y uno que espera mucho puede subir."
+    ]
+   ],
+   "quiz": [
+    {
+     "q": "Procesos A(ráfaga 8), B(4), C(2) llegan en t=0 en ese orden. Tiempo medio de espera con FCFS:",
+     "o": [
+      "4",
+      "6.67",
+      "2.67",
+      "8"
+     ],
+     "a": 1,
+     "e": "Esperas: A=0, B=8, C=12 → 20/3 ≈ 6.67."
+    },
+    {
+     "q": "Mismos procesos A(8), B(4), C(2) con SJF no expulsivo, todos en t=0. Espera media:",
+     "o": [
+      "2.67",
+      "6.67",
+      "4",
+      "3.33"
+     ],
+     "a": 0,
+     "e": "Orden C, B, A: esperas 0, 2, 6 → 8/3 ≈ 2.67."
+    },
+    {
+     "q": "¿Qué política es intrínsecamente expulsiva?",
+     "o": [
+      "FCFS",
+      "SJF no expulsivo",
+      "Round Robin",
+      "Prioridades no expulsivas"
+     ],
+     "a": 2,
+     "e": "RR expulsa al agotar el quantum."
+    },
+    {
+     "q": "Con Round Robin y un quantum enorme, el comportamiento se parece a…",
+     "o": [
+      "SJF",
+      "FCFS",
+      "Prioridades",
+      "SRTF"
+     ],
+     "a": 1,
+     "e": "Si nadie agota el quantum, no hay expulsiones: FCFS."
+    },
+    {
+     "q": "¿Qué planificador decide qué proceso listo pasa a la CPU?",
+     "o": [
+      "Largo plazo",
+      "Medio plazo",
+      "Corto plazo",
+      "De disco"
+     ],
+     "a": 2,
+     "e": "El planificador a corto plazo (dispatcher incluido)."
+    },
+    {
+     "q": "El tiempo de respuesta se mide como…",
+     "o": [
+      "Fin − llegada",
+      "Primer acceso a CPU − llegada",
+      "Ráfaga − espera",
+      "Fin − inicio"
+     ],
+     "a": 1,
+     "e": "Es lo que tarda en empezar a ejecutarse por primera vez."
+    }
+   ]
+  },
+  {
+   "id": "lab2",
+   "title": "Práctica 2 · API POSIX: procesos e hilos (aún no vista)",
+   "guide": [
+    "Programación con la API del sistema operativo: procesos, hilos y ejercicios prácticos asociados"
+   ],
+   "summary": [
+    "Patrón básico: pid_t pid = fork(); if (pid == 0) { /* hijo */ execlp(\"ls\",\"ls\",\"-l\",NULL); perror(\"exec\"); exit(1);} else if (pid > 0) { waitpid(pid,&st,0); } else perror(\"fork\");",
+    "Estado de terminación: WIFEXITED(st) y WEXITSTATUS(st) para leer el exit del hijo.",
+    "Familia exec: execl/execlp (lista de argumentos), execv/execvp (vector); la 'p' busca en el PATH. El último argumento siempre es NULL.",
+    "Comunicar padre e hijo con pipe: crear el pipe ANTES del fork, cada proceso cierra el extremo que no usa; dup2(fd[1], STDOUT_FILENO) para redirigir la salida (como hace el shell con |).",
+    "Hilos: #include <pthread.h>, compilar con -pthread. pthread_create(&t, NULL, func, &arg); la función es void *func(void *arg); pthread_join(t, &ret).",
+    "Pasar argumentos distintos a cada hilo: usar un array de estructuras, no la dirección de una variable de bucle que cambia.",
+    "Comprobar siempre los errores de las llamadas (-1 / errno) y usar perror."
+   ],
+   "cards": [
+    [
+     "¿Por qué se crea el pipe antes del fork?",
+     "Para que el hijo herede los descriptores y ambos compartan el mismo pipe."
+    ],
+    [
+     "¿Qué hace dup2(fd[1], 1)?",
+     "Duplica fd[1] sobre la salida estándar: lo que el proceso escriba en stdout va al pipe."
+    ],
+    [
+     "Firma de la función de un hilo POSIX",
+     "void *funcion(void *arg)"
+    ],
+    [
+     "¿Cómo obtengo el código de salida de un hijo?",
+     "waitpid(pid, &st, 0); if (WIFEXITED(st)) WEXITSTATUS(st)."
+    ],
+    [
+     "Diferencia execlp vs execv",
+     "execlp recibe los argumentos como lista y busca en PATH; execv recibe un vector y necesita la ruta."
+    ],
+    [
+     "Error típico al pasar &i a varios hilos",
+     "Todos reciben la misma dirección y leen el valor cambiado de i; hay que usar memoria distinta por hilo."
+    ]
+   ],
+   "quiz": [
+    {
+     "q": "En la orden \"ls | wc -l\" implementada con fork y pipe, el proceso de ls debe…",
+     "o": [
+      "dup2(fd[0], 0)",
+      "dup2(fd[1], 1) y cerrar fd[0]",
+      "No usar dup2",
+      "Cerrar fd[1]"
+     ],
+     "a": 1,
+     "e": "ls escribe en el pipe: su stdout pasa a ser fd[1]."
+    },
+    {
+     "q": "Si execvp falla, la ejecución…",
+     "o": [
+      "Termina el proceso automáticamente",
+      "Continúa en la línea siguiente al exec",
+      "Vuelve al padre",
+      "Reinicia el programa"
+     ],
+     "a": 1,
+     "e": "Por eso tras exec se pone perror y exit."
+    },
+    {
+     "q": "¿Qué opción de compilación necesita un programa con pthreads en gcc?",
+     "o": [
+      "-lm",
+      "-pthread",
+      "-O3",
+      "-static"
+     ],
+     "a": 1,
+     "e": "-pthread enlaza la biblioteca y define las macros necesarias."
+    },
+    {
+     "q": "Un lector del pipe nunca termina de leer. Causa más probable:",
+     "o": [
+      "El pipe es demasiado pequeño",
+      "Algún proceso (incluido él mismo) no cerró el extremo de escritura",
+      "Falta un sleep",
+      "fork devolvió 0"
+     ],
+     "a": 1,
+     "e": "read solo devuelve 0 (EOF) cuando no queda ningún escritor abierto."
+    },
+    {
+     "q": "pthread_join sirve para…",
+     "o": [
+      "Crear un hilo",
+      "Esperar a que termine un hilo y recoger su valor de retorno",
+      "Sincronizar con un mutex",
+      "Matar un hilo"
+     ],
+     "a": 1,
+     "e": "Es el equivalente a wait para hilos."
+    }
+   ]
   }
+ ],
+ "exams": {
+  "ordinary": [
+   {
+    "topics": [
+     "t1a",
+     "t1b",
+     "t2a",
+     "t2b",
+     "t2c",
+     "p3",
+     "p4",
+     "p5"
+    ],
+    "note": "TC1 (5-nov): Temas 1 y 2 (lo visto en clase). Lo marcado como «aún no visto» entrará en TC2 cuando se imparta. Filtra por tema para centrarte en TC1."
+   },
+   {
+    "topics": [
+     "l1",
+     "l2",
+     "l3",
+     "l4"
+    ],
+    "note": "Prueba individual de la Práctica 1: aplicar en situaciones nuevas lo trabajado en las incidencias 01–04. Usa el modo Terminal para practicar órdenes."
+   },
+   {
+    "topics": [
+     "lab2",
+     "p3"
+    ],
+    "note": "Entrega + prueba de la Práctica 2 (API del SO: procesos e hilos). Material provisional hasta tener los enunciados."
+   },
+   {
+    "topics": [
+     "p4",
+     "p5"
+    ],
+    "note": "Prácticas restantes: concurrencia y planificación (provisional)."
+   },
+   {
+    "topics": [
+     "t1a",
+     "t1b",
+     "t2a",
+     "t2b",
+     "t2c",
+     "p3",
+     "p4",
+     "p5"
+    ],
+    "note": "Prueba final de problemas sobre toda la asignatura."
+   }
+  ],
+  "extraordinary": [
+   {
+    "topics": [
+     "t1a",
+     "t1b",
+     "t2a",
+     "t2b",
+     "t2c",
+     "p3",
+     "p4",
+     "p5"
+    ],
+    "note": "Test/ensayo final de toda la teoría (TC3)."
+   },
+   {
+    "topics": [
+     "l1",
+     "l2",
+     "l3",
+     "l4"
+    ]
+   },
+   {
+    "topics": [
+     "lab2",
+     "p3"
+    ]
+   },
+   {
+    "topics": [
+     "p4",
+     "p5"
+    ]
+   },
+   {
+    "topics": [
+     "t1a",
+     "t1b",
+     "t2a",
+     "t2b",
+     "t2c",
+     "p3",
+     "p4",
+     "p5"
+    ]
+   }
+  ]
+ }
 }
