@@ -1,5 +1,5 @@
-const CACHE = 'atlas-infoade-v19';
-const CORE = ['./', './index.html', './manifest.webmanifest', './chart.umd.min.js', './study.js', './atlas-icon-192.png', './atlas-icon-512.png', './dm-sans-400.ttf', './dm-sans-500.ttf', './dm-sans-600.ttf', './dm-sans-700.ttf', './dm-serif-400.ttf', './dm-serif-italic.ttf'];
+const CACHE = 'atlas-infoade-v20';
+const CORE = ['./', './index.html', './manifest.webmanifest', './chart.umd.min.js', './study.js', './personal.js', './atlas-icon-192.png', './atlas-icon-512.png', './dm-sans-400.ttf', './dm-sans-500.ttf', './dm-sans-600.ttf', './dm-sans-700.ttf', './dm-serif-400.ttf', './dm-serif-italic.ttf'];
 self.addEventListener('install', event => event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(CORE)).then(() => self.skipWaiting())));
 self.addEventListener('activate', event => event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key)))).then(() => self.clients.claim())));
 self.addEventListener('message', event => { if (event.data === 'SKIP_WAITING') self.skipWaiting(); });

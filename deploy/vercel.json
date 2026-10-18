@@ -24,6 +24,10 @@
     {
       "source": "/estudio",
       "destination": "/"
+    },
+    {
+      "source": "/personal",
+      "destination": "/"
     }
   ]
 }

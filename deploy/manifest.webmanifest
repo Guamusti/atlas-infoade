@@ -35,6 +35,19 @@
           "type": "image/png"
         }
       ]
+    },
+    {
+      "name": "Personal",
+      "short_name": "Personal",
+      "description": "Tareas personales",
+      "url": "./personal",
+      "icons": [
+        {
+          "src": "./atlas-icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     }
   ]
 }
