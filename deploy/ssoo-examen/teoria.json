@@ -1,0 +1,3028 @@
+{
+ "temas": [
+  {
+   "id": "t1",
+   "titulo": "Tema 1 · Introducción",
+   "fuente": "T1",
+   "resumen": "Por qué existe el SO, qué se necesita saber del computador (arquitectura) y cómo evolucionaron los sistemas operativos.",
+   "subtemas": [
+    {
+     "id": "t1a",
+     "titulo": "1. Introducción a la asignatura",
+     "epigrafes": [
+      "Una nueva máquina",
+      "¿Cómo utilizar la máquina de la mejor forma posible?",
+      "El Sistema Operativo"
+     ],
+     "conceptos": [
+      {
+       "id": "t1a-1",
+       "t": "Una nueva máquina: problemas de usar el hardware directamente",
+       "md": "La diapositiva plantea tres problemas:\n- **Cada elemento hardware es diferente y su uso es complicado.** ¿Hay que aprender cada dispositivo? ¿Y si el fabricante cambia el modelo?\n- **Varios usuarios pueden compartir el mismo hardware.** Los recursos son limitados: ¿quién los reparte?, ¿qué pasa si dos quieren el mismo?, ¿cómo se asegura la privacidad?\n- **¿Podrá usar la máquina alguien que no sepa de hardware ni de software?**",
+       "src": [
+        {
+         "s": "T1",
+         "p": "3–4",
+         "e": "Una nueva máquina"
+        }
+       ],
+       "o": "a",
+       "rel": "Estos tres problemas son la justificación de las definiciones de SO: abstraer, repartir recursos con seguridad y ofrecer un entorno usable."
+      },
+      {
+       "id": "t1a-2",
+       "t": "Abstracciones: cómo se usa mejor la máquina",
+       "md": "El SO ofrece **abstracciones** que ocultan la complejidad del hardware. Ejemplos de las diapositivas: un **disco duro** se usa mediante un **explorador de archivos**; una **tarjeta de red**, mediante un monitor de red; una **tarjeta de sonido**, mediante un mezclador de audio. Antes, las diapositivas 5 y 6 plantean «¿qué quiere el usuario?»: una ventana de órdenes (`dir /?`) frente a un escritorio gráfico.",
+       "src": [
+        {
+         "s": "T1",
+         "p": "5–8",
+         "e": "Mediante abstracciones / Más abstracciones"
+        }
+       ],
+       "o": "a",
+       "rel": "La abstracción es la idea central de la asignatura y vuelve en el Tema 2 (niveles y capas)."
+      },
+      {
+       "id": "t1a-3",
+       "t": "Definiciones de sistema operativo",
+       "md": "- **S. Sánchez:** conjunto de programas que, por medio de **abstracciones**, ponen el hardware del ordenador, de modo **seguro**, a disposición del usuario.\n- **H. Deitel:** programa que actúa como **interfaz** entre el usuario y el hardware, ofreciendo el entorno necesario para ejecutar programas.\n- **Katzan:** conjunto de programas y datos que **ayudan a crear otros programas y a controlar su ejecución**.\n- **Madnik y Donovan:** conjunto de programas que **gestionan los recursos** del sistema, **optimizan su uso** y **resuelven conflictos**.",
+       "src": [
+        {
+         "s": "T1",
+         "p": "9",
+         "e": "Algunas definiciones"
+        }
+       ],
+       "o": "a",
+       "rel": "Cada autor pone el foco en algo distinto: abstracción y seguridad (Sánchez), interfaz (Deitel), apoyo a programas (Katzan), gestión de recursos (Madnik y Donovan)."
+      }
+     ]
+    },
+    {
+     "id": "t1b",
+     "titulo": "2. Los SSOO dentro de la Ingeniería Informática (arquitectura de computadores)",
+     "epigrafes": [
+      "Esquema general",
+      "Arquitectura de Computadores: conceptos básicos",
+      "Arquitectura y Sistema Operativo"
+     ],
+     "conceptos": [
+      {
+       "id": "t1b-1",
+       "t": "Esquema general y definición de arquitectura",
+       "md": "El esquema general sitúa la **Arquitectura de Computadores** (CPU, memoria, E/S y buses) junto a **Compiladores** y **Sistemas Operativos**.\n**Arquitectura:** atributos de un sistema que son **visibles a un programador**; es decir, los que tienen un **impacto directo en la ejecución de un programa**.\n**Elementos fundamentales:** memoria, CPU, buses y entrada/salida.",
+       "src": [
+        {
+         "s": "T1",
+         "p": "10–11",
+         "e": "Esquema general / Definición y elementos fundamentales"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t1b-2",
+       "t": "Memoria",
+       "md": "Almacena **instrucciones y datos** usados durante la ejecución. Está formada por **posiciones de almacenamiento identificadas por direcciones**; cada dirección identifica una **unidad direccionable**. La **capacidad** depende del número de posiciones que pueden direccionarse y la organización depende de la arquitectura. **Para ejecutar un programa, sus instrucciones y datos deben estar en memoria.**\nEjemplo de la diapositiva: bus de direcciones de **16 líneas** y bus de datos de **8 líneas**, direcciones 0x0000–0xFFFF; programa `CARGAR R1, 0x0003` / `INCREMENTAR R1` / `GUARDAR R1, 0x0005`.\n*Observación:* la diapositiva escribe «65535 posiciones»; con 16 líneas hay 2¹⁶ = 65 536 direcciones (0x0000–0xFFFF) y rotula la capacidad como «64 Kb».",
+       "src": [
+        {
+         "s": "T1",
+         "p": "12–13",
+         "e": "Memoria (1/2) y (2/2)"
+        }
+       ],
+       "o": "a",
+       "rel": "Capacidad = nº de posiciones direccionables; el ancho del bus de direcciones determina cuántas posiciones hay y el de datos, cuántos bits tiene cada una."
+      },
+      {
+       "id": "t1b-3",
+       "t": "CPU: ALU, unidad de control y modelo de programación",
+       "md": "**CPU = procesador = microprocesador** (en un chip). Consta de **ALU** (funciones aritméticas y lógicas) y **unidad de control** (interpreta las instrucciones). Controla el resto de componentes y ejecuta las instrucciones.\n**Modelo de programación:** elementos de almacenamiento (registros generales, contador de programa, registro de estado, puntero de pila, mapa de memoria y mapa de E/S), juego de instrucciones y modos de direccionamiento, y secuencia de funcionamiento (modo de ejecución).",
+       "src": [
+        {
+         "s": "T1",
+         "p": "14–15",
+         "e": "Unidad Central de Procesos (CPU)"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t1b-4",
+       "t": "Registros de la CPU",
+       "md": "Elementos de almacenamiento **dentro de la CPU**. Tipos: propósito general y coma flotante; de datos; de direcciones (**puntero de pila**: apunta a la cabecera de la pila, operaciones push y pop); de control y estado.\nLos **registros de control** determinan el funcionamiento de la CPU: **contador de programa** (dirección de la siguiente instrucción a ejecutar) y **palabra de estado del programa (PSW)** (flags como acarreo o desbordamiento, fijados por el hardware).",
+       "src": [
+        {
+         "s": "T1",
+         "p": "16–17",
+         "e": "Registros de la CPU (1/2) y (2/2)"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t1b-5",
+       "t": "Juego de instrucciones, tipos y modos de direccionamiento",
+       "md": "Una **instrucción máquina** es una secuencia de bits que representa una operación (**código de operación**) y dónde están los operandos. Cada código tiene un **mnemónico**. Pueden necesitar un número variable de operandos. **No todo el mundo puede ejecutar todas las instrucciones.**\n**Tipos:** aritméticas, lógicas, transferencia de datos, control/salto y E/S (ejemplo: `MOVER $2030, R3`, `COMPARAR #4, $2030`, `SALTO_SI_NO_IGUAL $1000`).\n**Direccionamiento:** implícito (el código de operación indica el operando) o explícito: **inmediato** (el operando va en la instrucción), **directo** (se da su dirección de memoria), otros (indirecto, por registro…).",
+       "src": [
+        {
+         "s": "T1",
+         "p": "18–21",
+         "e": "Juego de instrucciones / Tipos / Modos de direccionamiento"
+        }
+       ],
+       "o": "a",
+       "rel": "«No todo el mundo puede ejecutar todas las instrucciones» anticipa el modo privilegiado y las instrucciones privilegiadas del Tema 2."
+      },
+      {
+       "id": "t1b-6",
+       "t": "Ciclo de ejecución de una instrucción",
+       "md": "1. Búsqueda de la instrucción máquina.\n2. Interpretar la instrucción leída.\n3. Leer los datos de memoria referenciados en la instrucción.\n4. Ejecutar la instrucción.\n5. Almacenar los resultados de la ejecución.",
+       "src": [
+        {
+         "s": "T1",
+         "p": "22",
+         "e": "Ciclos de ejecución de una instrucción"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t1b-7",
+       "t": "Buses",
+       "md": "Conectan entre sí los componentes del sistema. Inicialmente eran pasivos (cables); hoy son elementos complejos. Un bus se define por: **conectores y características físicas**, **topología** (serie, paralelo, estrella…) y **señales y protocolos**. Un bus paralelo tiene **bus de datos, de direcciones y de control**.",
+       "src": [
+        {
+         "s": "T1",
+         "p": "23–24",
+         "e": "Buses"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t1b-8",
+       "t": "Entrada/salida y controladores",
+       "md": "**Objetivo:** comunicar con el exterior para obtener los programas (y colocarlos en memoria), obtener los datos y comunicar con usuarios y otras máquinas. Los dispositivos son muy distintos, así que se necesita una arquitectura común con **parte específica y parte común (controlador)**.\nLos **controladores** son hardware, se conectan a los buses y ofrecen **registro de datos, de control y de estado**.",
+       "src": [
+        {
+         "s": "T1",
+         "p": "25–26",
+         "e": "Entrada y salida"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t1b-9",
+       "t": "Técnicas de E/S: sondeo e interrupciones",
+       "md": "Los dispositivos necesitan atención. Dos aproximaciones:\n- **La CPU pregunta al dispositivo** (sondeo): ¿con qué frecuencia?, carga de trabajo adicional para la CPU, ocupa buses y dispositivos de forma innecesaria; es **sencillo y no necesita hardware adicional**.\n- **El dispositivo interrumpe a la CPU** cuando lo necesita: necesita hardware adicional y que la CPU tenga el **mecanismo de interrupciones**.",
+       "src": [
+        {
+         "s": "T1",
+         "p": "27",
+         "e": "Técnicas de E/S"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t1b-10",
+       "t": "Mecanismo de interrupciones",
+       "md": "**Mecanismo general:** (1) un dispositivo solicita una interrupción; (2) la CPU deja de ejecutar el programa y ejecuta otro programa, la **ISR**; (3) la ISR atiende al dispositivo y da por finalizada la interrupción; (4) la CPU reanuda el programa en el punto en que fue interrumpida.\n**Ejemplo (II) de la diapositiva 29:** el proceso P1 se ejecuta; el disco completa una E/S pedida antes por PA (bloqueado en la cola de espera por disco) y genera una interrupción; P1 se detiene (su estado se conserva); en modo kernel la **ISR** atiende al dispositivo, transfiere los datos a memoria, pasa PA de bloqueado a **listo** y finaliza; después el **planificador** elige de la cola de listos el proceso a ejecutar, **no necesariamente PA ni P1** (en el ejemplo, P3).",
+       "src": [
+        {
+         "s": "T1",
+         "p": "28–29",
+         "e": "Mecanismo de interrupciones (I) y (II)"
+        }
+       ],
+       "o": "a",
+       "rel": "Conecta con el diagrama de estados del Tema 2 (despertar, despachar, desalojar) y con la multiprogramación."
+      },
+      {
+       "id": "t1b-11",
+       "t": "De la arquitectura al Sistema Operativo",
+       "md": "**Idea clave:** el SO se apoya en los mecanismos del hardware para gestionar los recursos y ofrecer servicios a los programas.\n| Arquitectura | Sistema operativo |\n| CPU y registros | Ejecución de programas |\n| Memoria | Gestión de programas y datos |\n| E/S y controladores | Gestión de dispositivos |\n| Interrupciones | Atención de eventos |\n| DMA | E/S eficiente |",
+       "src": [
+        {
+         "s": "T1",
+         "p": "30",
+         "e": "De la arquitectura al Sistema Operativo"
+        }
+       ],
+       "o": "a"
+      }
+     ]
+    },
+    {
+     "id": "t1c",
+     "titulo": "3. Evolución histórica de los SSOO",
+     "epigrafes": [
+      "Modelo de máquina desnuda",
+      "Monitor simple residente",
+      "Sistemas de procesamiento por lotes",
+      "Multiprogramación",
+      "Sistemas de tiempo compartido",
+      "Sistemas de tiempo real",
+      "Sistemas distribuidos"
+     ],
+     "conceptos": [
+      {
+       "id": "t1c-1",
+       "t": "Máquina desnuda",
+       "md": "**Objetivo:** ejecutar programas almacenados en memoria. Se programaba directamente sobre el hardware; **no existía nada similar al SO**; el código máquina se introducía mediante interruptores.\n**Problemas:** el usuario debía conocer todo el hardware, un cambio mínimo del hardware invalidaba el programa y el trabajo se repetía entre programas.",
+       "src": [
+        {
+         "s": "T1",
+         "p": "31",
+         "e": "Modelo de máquina desnuda"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t1c-2",
+       "t": "Monitor simple residente",
+       "md": "**Objetivo:** reutilizar código. El código común (sobre todo **rutinas de E/S**) se agrupa en un monitor residente: es el **primer germen de SO** y es, esencialmente, un **manejador de dispositivo (driver)**. Permite, por ejemplo, cambiar el lector de tarjetas sin cambiar los programas.\n**Problema:** se pierde mucho tiempo entre la finalización de un proceso y el lanzamiento del siguiente.",
+       "src": [
+        {
+         "s": "T1",
+         "p": "32",
+         "e": "Monitor simple residente"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t1c-3",
+       "t": "Procesamiento por lotes (batch)",
+       "md": "**Objetivo:** reducir los tiempos de espera de E/S en la carga de programas. La E/S se hace con **ordenadores de bajo coste** dedicados y la ejecución con un ordenador de altas prestaciones y alto coste.\n**Modo de operación:** un operario introduce tarjetas perforadas en el ordenador barato; se obtiene una cinta que se carga en el principal, que ejecuta los programas mientras el operario introduce otros; al terminar, la cinta se lleva a un tercer ordenador que imprime.\n**Problema:** hace falta la intervención de un operario humano.",
+       "src": [
+        {
+         "s": "T1",
+         "p": "33–34",
+         "e": "Sistemas de procesamiento por lotes"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t1c-4",
+       "t": "Multiprogramación",
+       "md": "**Objetivo:** **solapar la E/S con el uso de la CPU** en la misma máquina. Supone tener **más de un programa en memoria a la vez**; mientras uno hace E/S la CPU ejecuta otro. **Necesidades hardware:** interrupciones y **acceso directo a memoria (DMA)**.\n**DMA (diapositiva 36):** (1) la CPU programa el controlador DMA (dirección, contador, control); (2) el DMA solicita la transferencia a memoria; (3) el dato se transfiere; (4) confirmación (ack); (5) interrupción al finalizar la transferencia.\n**Requerimientos del SO:** gestión de memoria, planificación del procesador, planificación de dispositivos, protección entre programas y control de la concurrencia.\n**Problemas:** un programa puede **monopolizar la CPU**; es poco adecuado para sistemas interactivos.",
+       "src": [
+        {
+         "s": "T1",
+         "p": "35–37",
+         "e": "Multiprogramación"
+        }
+       ],
+       "o": "a",
+       "rel": "El monopolio de la CPU lleva al tiempo compartido; interrupciones y DMA son los dos mecanismos hardware que lo hacen posible."
+      },
+      {
+       "id": "t1c-5",
+       "t": "Sistemas de tiempo compartido",
+       "md": "**Objetivo:** garantizar a los procesos un **acceso equitativo a la CPU**. La protección contra la monopolización se basa en **interrupciones**. El tiempo de ejecución de cada programa se divide en **quantum**; si un programa agota el suyo, la CPU pasa a otro (**round-robin**). Son los habituales hoy en la informática de consumo.",
+       "src": [
+        {
+         "s": "T1",
+         "p": "38",
+         "e": "Sistemas de tiempo compartido"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t1c-6",
+       "t": "Sistemas de tiempo real",
+       "md": "**Objetivo:** garantizar que los programas se ejecutan **dentro de un plazo de tiempo acotado**. No basta con un hardware más potente: **tiempo real no es sinónimo de rápido**. Suelen encontrarse en sistemas empotrados. Hay dos tipos de aplicaciones: **duras** y **blandas** (la diapositiva solo las nombra).",
+       "src": [
+        {
+         "s": "T1",
+         "p": "39",
+         "e": "Sistemas de tiempo real"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t1c-7",
+       "t": "Sistemas distribuidos y middleware",
+       "md": "**Objetivo:** repartir las funciones entre varias máquinas, dando la impresión de ser **una única máquina**. Está formado por varios elementos que cooperan para dar un servicio único; **no es un sistema simplemente replicado** (hay «mentalidad de grupo»). Si puedes decir qué máquinas usas, dónde corren los programas o dónde están los archivos, **no es** un sistema distribuido. Introducen el concepto de **middleware** (servicios del sistema distribuido entre las aplicaciones y las plataformas hardware+SO).",
+       "src": [
+        {
+         "s": "T1",
+         "p": "40–41",
+         "e": "Sistemas distribuidos / Middleware"
+        }
+       ],
+       "o": "a"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "t2",
+   "titulo": "Tema 2 · Estructura del Sistema Operativo",
+   "fuente": "T2",
+   "resumen": "Cómo se describe un SO, cómo se organiza por capas, qué hace el núcleo (eventos, llamadas al sistema), enfoques de diseño y ejemplos reales.",
+   "subtemas": [
+    {
+     "id": "t2a",
+     "titulo": "1. Descripción de un sistema",
+     "epigrafes": [
+      "Planteamiento",
+      "Descripción funcional de un SO",
+      "Descripción estructural de un sistema operativo",
+      "El SO y el hardware"
+     ],
+     "conceptos": [
+      {
+       "id": "t2a-1",
+       "t": "Abstracción y estructuración del computador",
+       "md": "Para **disminuir la complejidad** del estudio y diseño de un sistema, el computador se describe por niveles: lenguaje de alto nivel, lenguaje ensamblador, **sistema operativo**, arquitectura, microarquitectura y lógica digital. Para cada nivel hay distintos tipos de descripción: **funcional, estructural y de la implementación**.",
+       "src": [
+        {
+         "s": "T2",
+         "p": "3–4",
+         "e": "Planteamiento"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t2a-2",
+       "t": "Descripción funcional: visión amplia y visión restringida",
+       "md": "Considera solo **qué obtiene el usuario** del SO: es básicamente una **caja negra**.\n- **Visión amplia** (propia de los usuarios): entorno de soporte al programador, interfaz de usuario (GUI/JCLs) y gestión de recursos.\n- **Visión restringida** (propia de los desarrolladores): estructuras de datos y funciones del núcleo para la gestión de recursos.\nEn la visión restringida el SO es un **administrador de recursos** y una **interfaz** entre programas, usuarios y hardware. Funciones: manipular y compartir el hardware entre usuarios, facilitar la E/S, planificar recursos, definir la interfaz de usuario (servicios del SO, *system calls*), permitir compartir datos y recuperarse de errores. Recursos clave: **microprocesador, memoria principal, dispositivos de E/S, almacenamiento y datos**.",
+       "src": [
+        {
+         "s": "T2",
+         "p": "5–6",
+         "e": "Descripción funcional"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t2a-3",
+       "t": "Descripción estructural",
+       "md": "**Objetivo:** buscar una organización interna que **incremente la portabilidad y la extensibilidad** y facilite la **comprensión y el mantenimiento**. La diapositiva lo plantea como respuesta a: ¿cómo desarrollar un programa de millones de líneas?",
+       "src": [
+        {
+         "s": "T2",
+         "p": "7",
+         "e": "Descripción estructural"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t2a-4",
+       "t": "El SO y el hardware: modo dual y protección",
+       "md": "El SO debe ser **seguro, robusto, estable y eficiente**. El diseñador del SO pide al arquitecto de computadores:\n- **Modo dual de ejecución:** modo usuario y modo privilegiado (supervisor). El paso de usuario a supervisor se hace con una **petición de servicio al SO mediante interrupciones**, es decir, eventos de tipo **llamadas al sistema** (implementadas con **SVCs**).\n- **Protección del hardware:** de **memoria** (hardware de protección), de **dispositivos** (hardware de protección e instrucciones privilegiadas) y del **procesador** (interrupciones).\n- **Maximizar el rendimiento:** solapar la E/S con el uso de la CPU (**DMA**).",
+       "src": [
+        {
+         "s": "T2",
+         "p": "8",
+         "e": "El SO y el hardware"
+        }
+       ],
+       "o": "a",
+       "rel": "Cierra el círculo con el Tema 1: las interrupciones y el DMA, introducidos como hardware, son los mecanismos en que se apoya el SO."
+      }
+     ]
+    },
+    {
+     "id": "t2b",
+     "titulo": "2. Estructura jerárquica: diseño por capas",
+     "epigrafes": [
+      "Diseño por capas"
+     ],
+     "conceptos": [
+      {
+       "id": "t2b-1",
+       "t": "Diseño por capas: objetivo, concepto y ventajas",
+       "md": "**Objetivo:** disminuir la complejidad observable de un sistema en su diseño. **Capa:** conjunto de funciones claramente definidas hacia un objetivo común; ofrece servicios a la capa superior mediante entidades.\n**Ventajas:** las estructuras internas y algoritmos de una capa **no son visibles** a las demás; el sistema puede **evolucionar** manteniendo las interfaces; pueden existir **realizaciones alternativas**; algunas capas pueden ser **transparentes** si sus servicios no son necesarios; cada capa se **codifica y prueba de forma independiente**.",
+       "src": [
+        {
+         "s": "T2",
+         "p": "9–10",
+         "e": "Diseño por capas / Ventajas"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t2b-2",
+       "t": "Niveles clásicos del diseño por capas de un SO",
+       "md": "De abajo arriba:\n- **Nivel 1 · Gestión del procesador** (compartir la CPU entre procesos): sincronización entre procesos, conmutación de la CPU, gestión de interrupciones.\n- **Nivel 2 · Gestión de memoria** (repartir la memoria entre los procesos): asignación y liberación de memoria, control de violación de acceso.\n- **Nivel 3 · Gestión de procesos** (manejo de procesos a alto nivel): creación y destrucción de procesos, intercambio de mensajes, detención y arranque.\n- **Nivel 4 · Gestión de dispositivos** (E/S en función de los dispositivos del sistema): creación de procesos de E/S, asignación y liberación de dispositivos, planificación de E/S.\n- **Nivel 5 · Gestión de la información** (espacio de nombres lógicos y protección): creación y destrucción de archivos/directorios, apertura y cierre, lectura/escritura, protección de acceso.",
+       "src": [
+        {
+         "s": "T2",
+         "p": "11",
+         "e": "Niveles clásicos en el diseño por capas de un SO"
+        }
+       ],
+       "o": "a"
+      }
+     ]
+    },
+    {
+     "id": "t2c",
+     "titulo": "3. El núcleo del SO",
+     "epigrafes": [
+      "Características generales",
+      "Funciones básicas",
+      "Gestión de eventos",
+      "Soporte al diagrama de estados"
+     ],
+     "conceptos": [
+      {
+       "id": "t2c-1",
+       "t": "Características generales y funciones básicas del núcleo",
+       "md": "Es el **primer nivel** del diseño jerárquico y la parte **más dependiente del hardware**. Suele permanecer en el almacenamiento primario (la diapositiva pregunta «¿por qué?» sin responderlo). Parte en **ensamblador** y a veces con dispositivos cableados. **Se ejecuta siempre en modo privilegiado (supervisor).**\n**Funciones básicas:** proporcionar el entorno para la existencia de procesos, **gestión de eventos**, **conmutación del procesador entre procesos** (soporte al diagrama de estados), mecanismos básicos de **comunicación entre procesos** y **carga inicial** y activación de la configuración del sistema.",
+       "src": [
+        {
+         "s": "T2",
+         "p": "12–13",
+         "e": "Características generales / Funciones básicas"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t2c-2",
+       "t": "Gestión de eventos: síncronos y asíncronos",
+       "md": "- **Síncronos (TRAPs):** *excepciones* (recuperables o irrecuperables: división por cero, fallo de página, instrucción ilegal, violación de privilegios…) y *llamadas al sistema*. Los atienden manejadores de TRAP / de excepción.\n- **Asíncronos:** *interrupciones* de hardware, atendidas por **manejadores de interrupción**.\nEn todos los casos **la CPU conmuta a modo supervisor**.",
+       "src": [
+        {
+         "s": "T2",
+         "p": "14",
+         "e": "Tipos de eventos"
+        }
+       ],
+       "o": "a",
+       "rel": "Mismo concepto de interrupción que el mecanismo de la ISR del Tema 1, ahora clasificado junto a las excepciones y llamadas al sistema."
+      },
+      {
+       "id": "t2c-3",
+       "t": "Llamadas al sistema (SVC / TRAP)",
+       "md": "¿Cómo ejecuta el usuario una instrucción privilegiada? Con una **petición de servicio al SO: SVC (SuperVisor Call)**: modo usuario ⇒ TRAP ⇒ modo supervisor, mediante una instrucción máquina específica de la arquitectura; al ejecutarla toma el control el SO. Las llamadas al sistema son **el mecanismo controlado de acceso de los procesos a los recursos del SO**.\n**Tipos:** comunicación y sincronización de procesos, ejecución de programas, operaciones de E/S, manipulación del sistema de archivos, detección y control de errores en tiempo de ejecución, comunicaciones en red, funciones de tiempo y personalización de la interfaz.",
+       "src": [
+        {
+         "s": "T2",
+         "p": "15–16",
+         "e": "TRAPs - llamadas al sistema / Tipos de llamadas al sistema"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t2c-4",
+       "t": "Programación con llamadas al sistema: API, wrappers y POSIX",
+       "md": "Las aplicaciones acceden a los servicios del SO mediante una **API** y **funciones de biblioteca (wrappers)**. **POSIX** es un estándar de interfaces para SSOO portables basado en UNIX: una API orientada a la **portabilidad** que define una interfaz común para un conjunto de servicios. En Unix/Linux las funciones de biblioteca actúan habitualmente como interfaz de programación para esos servicios.",
+       "src": [
+        {
+         "s": "T2",
+         "p": "17",
+         "e": "Programación con llamadas al sistema"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t2c-5",
+       "t": "Llamada al sistema: mecanismo general",
+       "md": "1. El **programa de usuario** (modo usuario) llama a una función.\n2. La **rutina wrapper** (biblioteca de usuario) prepara los parámetros y ejecuta la **instrucción de llamada al sistema**.\n3. En **modo supervisor**, el **manejador de la llamada al sistema** (dependiente de la arquitectura) identifica el número de llamada, comprueba los parámetros, localiza la rutina de servicio y le pasa el control (llamada interna).\n4. La **rutina de servicio** (código del kernel) realiza el servicio y prepara el resultado.\n5. Retorno del resultado por el camino inverso hasta el programa de usuario.",
+       "src": [
+        {
+         "s": "T2",
+         "p": "18",
+         "e": "Llamada al sistema: mecanismo general"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t2c-6",
+       "t": "Ejemplo en Linux: write() y la ABI",
+       "md": "`write(fd, buf, count)` en Linux: (1) el programa de usuario llama a `write()`; (2) el **wrapper de glibc** prepara el número de llamada y los argumentos según la ABI y ejecuta `syscall`; (3) **entrada al kernel** (`entry_SYSCALL_64`): transición a modo kernel, guarda el contexto y pasa el control al dispatcher; (4) el **dispatcher** (`do_syscall_64`) obtiene el número en RAX y consulta `sys_call_table[nr]`; (5) la **rutina de servicio** (`__x64_sys_write` → `ksys_write` → `vfs_write`) escribe en el fichero y devuelve el resultado (bytes escritos o error), que vuelve en RAX.\n**ABI x86-64:** `rax` = nº de llamada (1 = `__NR_write`), `rdi` = descriptor (1 = stdout), `rsi` = dirección del búfer, `rdx` = nº de bytes y la instrucción `syscall`. **RISC-V Linux:** `a7` = nº de llamada, `a0`, `a1`, `a2` = argumentos y la instrucción `ecall`.",
+       "src": [
+        {
+         "s": "T2",
+         "p": "19",
+         "e": "Ejecución de write() en Linux"
+        },
+        {
+         "s": "T2",
+         "p": "23",
+         "e": "Ejemplo de invocación de una system call"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t2c-7",
+       "t": "xv6-RISC-V: llamadas al sistema y diferencias con Linux",
+       "md": "En **xv6** (SO educativo): `user/programa.c` llama a `write()`; el stub `user/usys.S` carga en **a7** `SYS_write` y ejecuta **`ecall`**; en el kernel `uservec` guarda los registros en el *trapframe* y salta a `usertrap()`, que detecta `ecall` y llama a `syscall()`; esta lee el número en `a7`, consulta la tabla `syscalls[]` y llama a `sys_write()`; el valor de retorno se guarda en **a0** y se vuelve a modo usuario con `sret`.\n**Para añadir una llamada** hay que tocar, entre otros: `user/user.h`, `user/usys.pl`, `kernel/syscall.h`, `kernel/syscall.c` y `kernel/sysproc.c` (la diapositiva solo introduce los elementos; la práctica optativa se plantea después).\n**xv6 frente a Linux:** xv6 es un sistema sencillo con fines docentes; Linux es de propósito general, con muchas funcionalidades y soporte multiarquitectura, con una capa de entrada y despacho más compleja y una implementación a través de varios subsistemas y capas (VFS, ficheros…).",
+       "src": [
+        {
+         "s": "T2",
+         "p": "20–22",
+         "e": "Llamadas al sistema en xv6-RISC-V / Añadir una llamada / De xv6 a Linux"
+        }
+       ],
+       "o": "a",
+       "rel": "El mecanismo es el mismo que el de la diapositiva 18; cambian los nombres de los elementos y la complejidad."
+      },
+      {
+       "id": "t2c-8",
+       "t": "Soporte al diagrama de estados",
+       "md": "El núcleo da soporte a la conmutación entre procesos con tres estados y cuatro transiciones:\n- **Ejecución → Espera:** *dormir*.\n- **Espera → Listo:** *despertar*.\n- **Listo → Ejecución:** *despachar*.\n- **Ejecución → Listo:** *desalojar*.",
+       "src": [
+        {
+         "s": "T2",
+         "p": "24",
+         "e": "Soporte al diagrama de estados"
+        }
+       ],
+       "o": "a",
+       "rel": "En el ejemplo de interrupciones del Tema 1, la ISR «despierta» a PA (espera → listo) y el planificador «despacha» a otro proceso."
+      }
+     ]
+    },
+    {
+     "id": "t2d",
+     "titulo": "4. Enfoques de diseño: monolítico y micronúcleo",
+     "epigrafes": [
+      "Tipos de enfoques",
+      "Monitor monolítico",
+      "Micronúcleo",
+      "Comparativa"
+     ],
+     "conceptos": [
+      {
+       "id": "t2d-1",
+       "t": "Dos enfoques de diseño",
+       "md": "- **Monitor monolítico:** toda la funcionalidad del SO se incluye en el núcleo. Ejemplos: **MS-DOS, Linux**.\n- **Micronúcleo:** parte de la funcionalidad del SO la realizan **procesos de sistema** que se sirven de la funcionalidad mínima del micronúcleo. Ejemplos: **Mach, L4, Chorus**.\nLa diapositiva deja una pregunta abierta: «¿Dónde se clasificará Windows?».",
+       "src": [
+        {
+         "s": "T2",
+         "p": "25",
+         "e": "Tipos de enfoques"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t2d-2",
+       "t": "Esquema de operación: una E/S en cada enfoque",
+       "md": "- **Monolítico:** los procesos de usuario piden el servicio con una **SVC**; el *intérprete de la SVC* (dentro del monitor) lanza la **petición de E/S** al dispositivo; cuando termina, la **interrupción** la atiende el *proceso de la interrupción* del monitor, que **desbloquea** y **despierta** al proceso que esperaba.\n- **Micronúcleo:** el proceso de usuario pide la lectura a un **proceso gestionador de dispositivo** (proceso de sistema), que inicia la E/S; la interrupción llega al **micronúcleo**, cuyo proceso de interrupción **determina qué proceso solicitó la E/S** y lo **despierta**; el gestionador devuelve los datos al proceso de usuario.",
+       "src": [
+        {
+         "s": "T2",
+         "p": "26–27",
+         "e": "Esquema de operación (monolítico y micronúcleo)"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t2d-3",
+       "t": "Comparativa monolítico vs micronúcleo",
+       "md": "Ver la tabla comparativa de la sección *Comparativas*. Idea resumida: el monolítico gana en **rendimiento**; el micronúcleo, en **robustez, adaptabilidad y facilidad de modificación**.",
+       "src": [
+        {
+         "s": "T2",
+         "p": "28",
+         "e": "Comparativa"
+        }
+       ],
+       "o": "a"
+      }
+     ]
+    },
+    {
+     "id": "t2e",
+     "titulo": "5. Ejemplos de estructuración",
+     "epigrafes": [
+      "Sistema operativo Linux",
+      "Sistema operativo Mach",
+      "Sistema operativo Windows",
+      "Sistema operativo MacOS",
+      "Sistema operativo iOS",
+      "Sistema operativo Android"
+     ],
+     "conceptos": [
+      {
+       "id": "t2e-1",
+       "t": "Linux",
+       "md": "Esquema en capas: **modo usuario** (interfaz de llamadas de alto nivel), **alto nivel del núcleo** (validación de argumentos de las llamadas al sistema, conmutador de sistemas de archivo, manejadores de memoria, procesos, archivos, terminales, interfaz de sockets y streams, pila de red…), **manejadores de dispositivo** y **bajo nivel del núcleo** (manejador de interrupciones, de traps de llamadas al sistema, de excepciones, tabla de dispatch, manejador de procesos de bajo nivel, cambio de contexto) sobre el **hardware**.",
+       "src": [
+        {
+         "s": "T2",
+         "p": "29",
+         "e": "Sistema operativo Linux"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t2e-2",
+       "t": "Mach",
+       "md": "A **nivel de usuario**: programas de usuario y **servidores** de procesos, de memoria, de archivos y de gráficos. A **nivel kernel**: **manejo de hilos** y **manejadores de dispositivo**, sobre el hardware. Es el ejemplo de micronúcleo.",
+       "src": [
+        {
+         "s": "T2",
+         "p": "30",
+         "e": "Sistema operativo Mach"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t2e-3",
+       "t": "Windows",
+       "md": "**Modo usuario:** procesos de sistema, servicios, aplicaciones y subsistemas de entorno, todos sobre **NTDLL.DLL**. **Modo kernel:** **dispatcher de servicios del sistema** con sus gestores (E/S, caché, objetos, PnP, monitor de referencia de seguridad, memoria, procesos, configuraciones, LPCs), manejadores de dispositivos y sistema de archivos, el **Kernel** y la **HAL (Hardware Abstraction Layer)** sobre el hardware.",
+       "src": [
+        {
+         "s": "T2",
+         "p": "31",
+         "e": "Sistema operativo Windows"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t2e-4",
+       "t": "macOS",
+       "md": "Capas: aplicaciones, experiencia de usuario, *frameworks* de aplicación y *core frameworks* sobre el **entorno de kernel (Darwin)**, que se apoya en el **kernel Mach** (planificación, IPC, gestión de memoria, Mach traps) y las **llamadas al sistema BSD (POSIX)**, con IOKit y kexts.",
+       "src": [
+        {
+         "s": "T2",
+         "p": "32",
+         "e": "Sistema operativo MacOS"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t2e-5",
+       "t": "iOS",
+       "md": "Capas: **Cocoa Touch** (aplicación), **Media**, **Core Services**, **Core OS** y **Kernel and Device Drivers** (BSD, File System, Mach, Networking).",
+       "src": [
+        {
+         "s": "T2",
+         "p": "33",
+         "e": "Sistema operativo iOS"
+        }
+       ],
+       "o": "a"
+      },
+      {
+       "id": "t2e-6",
+       "t": "Android",
+       "md": "Capas: **Applications**, **Application framework** (gestores), **Libraries** y **Android runtime** (core libraries y máquina virtual) y **Linux kernel** con sus drivers (pantalla, cámara, memoria flash, *binder* (IPC), teclado, WiFi, audio, gestión de energía).",
+       "src": [
+        {
+         "s": "T2",
+         "p": "34",
+         "e": "Sistema operativo Android"
+        }
+       ],
+       "o": "a"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "glosario": [
+  {
+   "t": "Abstracción",
+   "d": "Forma de ocultar la complejidad del hardware: el disco se usa como archivos, la tarjeta de red mediante un monitor de red, etc.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "7–8"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "Sistema operativo (definición de S. Sánchez)",
+   "d": "Conjunto de programas que, por medio de abstracciones, ponen el hardware del ordenador, de modo seguro, a disposición del usuario.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "9"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "Arquitectura (de un computador)",
+   "d": "Atributos de un sistema visibles a un programador; los que tienen un impacto directo en la ejecución de un programa.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "11"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "Unidad direccionable",
+   "d": "Lo que identifica cada dirección de memoria. La capacidad de la memoria depende del número de posiciones que pueden direccionarse.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "12"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "Bus",
+   "d": "Elemento que conecta entre sí los componentes del sistema; se define por conectores y características físicas, topología, y señales y protocolos. El bus paralelo tiene datos, direcciones y control.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "23–24"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "CPU",
+   "d": "Procesador = microprocesador (en un chip). Consta de ALU y unidad de control; ejecuta las instrucciones de los programas.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "14"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "ALU",
+   "d": "Unidad Aritmético-Lógica: realiza funciones aritméticas y lógicas.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "14"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "Unidad de control",
+   "d": "Parte de la CPU que interpreta las instrucciones.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "14"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "Registro",
+   "d": "Elemento de almacenamiento que existe dentro de la CPU (de propósito general, datos, direcciones, control y estado).",
+   "src": [
+    {
+     "s": "T1",
+     "p": "16"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "Contador de programa",
+   "d": "Registro de control que contiene la dirección de la siguiente instrucción a ejecutar.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "17"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "PSW (palabra de estado del programa)",
+   "d": "Registro(s) con flags (acarreo, desbordamiento…) fijados por el hardware de la CPU.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "17"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "Puntero de pila",
+   "d": "Registro que apunta a la cabecera de la pila (operaciones push y pop).",
+   "src": [
+    {
+     "s": "T1",
+     "p": "16"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "Instrucción máquina",
+   "d": "Secuencia de bits que representa una operación (código de operación) y dónde están los operandos. A cada código se le asigna un mnemónico.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "18"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "Direccionamiento inmediato / directo",
+   "d": "Inmediato: el operando se incluye en la propia instrucción. Directo: el operando se referencia con su dirección en memoria.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "21"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "Controlador de E/S",
+   "d": "Elemento hardware conectado a los buses que ofrece registros de datos, de control y de estado; es la parte común de la arquitectura de un dispositivo.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "25–26"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "Interrupción",
+   "d": "Solicitud de atención de un dispositivo a la CPU: la CPU deja el programa en curso y ejecuta la ISR; después reanuda el programa.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "28"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "ISR",
+   "d": "Programa (rutina de servicio de la interrupción) que ejecuta la CPU para atender al dispositivo y dar por finalizada la interrupción.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "28–29"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "Planificador",
+   "d": "Parte del SO que decide qué proceso ejecutar a continuación de la cola de listos, según una política de planificación.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "29"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "DMA (acceso directo a memoria)",
+   "d": "Hardware que permite la E/S sin que la CPU transfiera cada dato; la CPU programa el controlador DMA y recibe una interrupción al finalizar.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "35–36"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "Monitor simple residente",
+   "d": "Primer germen de SO: agrupa rutinas comunes de E/S (esencialmente un driver) para reutilizar código.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "32"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "Procesamiento por lotes (batch)",
+   "d": "Reduce los tiempos de espera de E/S usando ordenadores baratos para la E/S y uno potente para ejecutar; requiere un operario.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "33–34"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "Multiprogramación",
+   "d": "Solapar E/S con uso de CPU manteniendo más de un programa en memoria.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "35"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "Quantum",
+   "d": "Fracción de tiempo de CPU asignada a cada programa en un sistema de tiempo compartido.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "38"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "Round-robin",
+   "d": "Política de tiempo compartido: si un programa agota su quantum, la CPU pasa a ejecutar otro.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "38"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "Sistema de tiempo real",
+   "d": "Garantiza que los programas se ejecutan dentro de un plazo de tiempo acotado; no es sinónimo de rápido.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "39"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "Sistema distribuido",
+   "d": "Varias máquinas que cooperan para dar un servicio único y parecer una sola máquina; no es un sistema simplemente replicado.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "40"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "Middleware",
+   "d": "Capa de servicios del sistema distribuido situada entre las aplicaciones y las plataformas (hardware y SO).",
+   "src": [
+    {
+     "s": "T1",
+     "p": "40–41"
+    }
+   ],
+   "tema": "t1"
+  },
+  {
+   "t": "Descripción funcional",
+   "d": "Describe qué funciones ofrece el SO desde el punto de vista del usuario (caja negra).",
+   "src": [
+    {
+     "s": "T2",
+     "p": "5"
+    }
+   ],
+   "tema": "t2"
+  },
+  {
+   "t": "Descripción estructural",
+   "d": "Busca una organización interna que aumente portabilidad y extensibilidad y facilite comprensión y mantenimiento.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "7"
+    }
+   ],
+   "tema": "t2"
+  },
+  {
+   "t": "Modo dual de ejecución",
+   "d": "Mecanismo hardware con modo usuario y modo privilegiado (supervisor).",
+   "src": [
+    {
+     "s": "T2",
+     "p": "8"
+    }
+   ],
+   "tema": "t2"
+  },
+  {
+   "t": "Capa",
+   "d": "Conjunto de funciones claramente definidas hacia un objetivo común; sus detalles internos no son visibles a otras capas.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "9–10"
+    }
+   ],
+   "tema": "t2"
+  },
+  {
+   "t": "Núcleo (kernel)",
+   "d": "Primer nivel del diseño jerárquico del SO; parte más dependiente del hardware; se ejecuta siempre en modo privilegiado.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "12"
+    }
+   ],
+   "tema": "t2"
+  },
+  {
+   "t": "Evento",
+   "d": "Suceso que gestiona el núcleo: síncronos (TRAPs: excepciones y llamadas al sistema) o asíncronos (interrupciones).",
+   "src": [
+    {
+     "s": "T2",
+     "p": "14"
+    }
+   ],
+   "tema": "t2"
+  },
+  {
+   "t": "Excepción",
+   "d": "Evento síncrono recuperable o irrecuperable: división por cero, fallo de página, instrucción ilegal, violación de privilegios.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "14"
+    }
+   ],
+   "tema": "t2"
+  },
+  {
+   "t": "TRAP",
+   "d": "Evento síncrono (excepciones y llamadas al sistema) atendido por manejadores de TRAP o de excepción.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "14–15"
+    }
+   ],
+   "tema": "t2"
+  },
+  {
+   "t": "Llamada al sistema",
+   "d": "Mecanismo controlado de acceso de los procesos a los recursos del SO.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "15"
+    }
+   ],
+   "tema": "t2"
+  },
+  {
+   "t": "SVC (SuperVisor Call)",
+   "d": "Petición de servicio al SO para ejecutar algo privilegiado: modo usuario ⇒ TRAP ⇒ modo supervisor.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "15"
+    }
+   ],
+   "tema": "t2"
+  },
+  {
+   "t": "API",
+   "d": "Application Programming Interface: interfaz mediante la que las aplicaciones acceden a los servicios del SO.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "17"
+    }
+   ],
+   "tema": "t2"
+  },
+  {
+   "t": "Wrapper",
+   "d": "Función de biblioteca que prepara los parámetros y ejecuta la instrucción de llamada al sistema.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "17–18"
+    }
+   ],
+   "tema": "t2"
+  },
+  {
+   "t": "POSIX",
+   "d": "Estándar de interfaces para sistemas operativos portables basado en UNIX.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "17"
+    }
+   ],
+   "tema": "t2"
+  },
+  {
+   "t": "Manejador (handler)",
+   "d": "Rutina que atiende un tipo de evento: de interrupción, de excepción, de TRAP o de llamada al sistema.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "14, 18"
+    }
+   ],
+   "tema": "t2"
+  },
+  {
+   "t": "Estados de un proceso (diagrama)",
+   "d": "Ejecución, Listo y Espera, con las transiciones dormir, despertar, despachar y desalojar.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "24"
+    }
+   ],
+   "tema": "t2"
+  },
+  {
+   "t": "Monitor monolítico",
+   "d": "Enfoque en el que toda la funcionalidad del SO está en el núcleo (MS-DOS, Linux).",
+   "src": [
+    {
+     "s": "T2",
+     "p": "25"
+    }
+   ],
+   "tema": "t2"
+  },
+  {
+   "t": "Micronúcleo",
+   "d": "Enfoque en el que parte del SO se realiza por procesos de sistema sobre una funcionalidad mínima del núcleo (Mach, L4, Chorus).",
+   "src": [
+    {
+     "s": "T2",
+     "p": "25"
+    }
+   ],
+   "tema": "t2"
+  },
+  {
+   "t": "HAL",
+   "d": "Hardware Abstraction Layer: capa de Windows situada entre el kernel y el hardware.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "31"
+    }
+   ],
+   "tema": "t2"
+  }
+ ],
+ "comparativas": [
+  {
+   "id": "c-mono",
+   "titulo": "Monitor monolítico vs micronúcleo",
+   "cols": [
+    "Aspecto",
+    "Monolítico",
+    "Micronúcleo"
+   ],
+   "filas": [
+    [
+     "Modo supervisor",
+     "Todo el SO se ejecuta en modo supervisor",
+     "Solo el micronúcleo se ejecuta en modo supervisor"
+    ],
+    [
+     "Robustez",
+     "Menos robusto",
+     "Más robusto"
+    ],
+    [
+     "Interrumpibilidad",
+     "El SO es ininterrumpible*",
+     "El SO es interrumpible"
+    ],
+    [
+     "Rendimiento",
+     "Mayor rendimiento",
+     "Menor rendimiento (sobrecarga de comunicaciones)"
+    ],
+    [
+     "Tamaño de sistema",
+     "Muy adecuado para sistemas pequeños",
+     "Muy adecuado para sistemas grandes"
+    ],
+    [
+     "Modificación en ejecución",
+     "Difícil de modificar en tiempo de ejecución",
+     "Fácil de modificar en tiempo de ejecución"
+    ],
+    [
+     "Adaptabilidad",
+     "Menos adaptable",
+     "Más adaptable"
+    ],
+    [
+     "Ejemplos (diap. 25)",
+     "MS-DOS, Linux",
+     "Mach, L4, Chorus"
+    ]
+   ],
+   "src": [
+    {
+     "s": "T2",
+     "p": "25"
+    },
+    {
+     "s": "T2",
+     "p": "28"
+    }
+   ],
+   "nota": "El asterisco de «ininterrumpible*» aparece en la diapositiva sin nota al pie visible."
+  },
+  {
+   "id": "c-eventos",
+   "titulo": "Eventos que gestiona el núcleo",
+   "cols": [
+    "Evento",
+    "Síncrono / asíncrono",
+    "Origen",
+    "Ejemplos"
+   ],
+   "filas": [
+    [
+     "Excepción",
+     "Síncrono (TRAP)",
+     "Programa en ejecución",
+     "División por cero, fallo de página, instrucción ilegal, violación de privilegios"
+    ],
+    [
+     "Llamada al sistema",
+     "Síncrono (TRAP)",
+     "Programa en ejecución (petición de servicio)",
+     "`write()` mediante SVC/`syscall`/`ecall`"
+    ],
+    [
+     "Interrupción",
+     "Asíncrono",
+     "Hardware",
+     "Un dispositivo avisa de que ha terminado una E/S"
+    ]
+   ],
+   "src": [
+    {
+     "s": "T2",
+     "p": "14",
+     "e": "Tipos de eventos"
+    },
+    {
+     "s": "T2",
+     "p": "15"
+    }
+   ],
+   "nota": "En los tres casos la CPU conmuta a modo supervisor."
+  },
+  {
+   "id": "c-es",
+   "titulo": "Técnicas de E/S: sondeo vs interrupciones",
+   "cols": [
+    "Aspecto",
+    "La CPU pregunta al dispositivo",
+    "El dispositivo interrumpe a la CPU"
+   ],
+   "filas": [
+    [
+     "Idea",
+     "La CPU consulta cada cierto tiempo",
+     "El dispositivo avisa cuando necesita atención"
+    ],
+    [
+     "Hardware",
+     "No necesita hardware adicional",
+     "Necesita hardware adicional y mecanismo de interrupciones en la CPU"
+    ],
+    [
+     "Coste",
+     "Carga de trabajo adicional para la CPU; ocupa buses y dispositivos innecesariamente",
+     "—"
+    ],
+    [
+     "Complejidad",
+     "Sencillo",
+     "Más complejo (la ISR, el planificador…)"
+    ]
+   ],
+   "src": [
+    {
+     "s": "T1",
+     "p": "27"
+    }
+   ],
+   "nota": "Las dos últimas celdas de la columna de interrupciones son contraste deducido de la diapositiva, no texto literal."
+  },
+  {
+   "id": "c-evol",
+   "titulo": "Evolución de los sistemas operativos",
+   "cols": [
+    "Etapa",
+    "Objetivo",
+    "Problema que deja"
+   ],
+   "filas": [
+    [
+     "Máquina desnuda",
+     "Ejecutar programas almacenados en memoria",
+     "El usuario debe conocer todo el hardware; un cambio mínimo invalida el programa; se repite trabajo"
+    ],
+    [
+     "Monitor simple residente",
+     "Reutilizar código (rutinas de E/S)",
+     "Se pierde mucho tiempo entre un proceso y el siguiente"
+    ],
+    [
+     "Procesamiento por lotes",
+     "Reducir esperas de E/S en la carga",
+     "Hace falta un operario humano"
+    ],
+    [
+     "Multiprogramación",
+     "Solapar E/S con uso de CPU",
+     "Un programa puede monopolizar la CPU; poco adecuada para sistemas interactivos"
+    ],
+    [
+     "Tiempo compartido",
+     "Acceso equitativo a la CPU (quantum, round-robin)",
+     "—"
+    ],
+    [
+     "Tiempo real",
+     "Plazo de tiempo acotado",
+     "—"
+    ],
+    [
+     "Distribuidos",
+     "Repartir funciones entre máquinas como si fuera una",
+     "—"
+    ]
+   ],
+   "src": [
+    {
+     "s": "T1",
+     "p": "31–41"
+    }
+   ]
+  },
+  {
+   "id": "c-mp-tc",
+   "titulo": "Multiprogramación vs tiempo compartido",
+   "cols": [
+    "Aspecto",
+    "Multiprogramación",
+    "Tiempo compartido"
+   ],
+   "filas": [
+    [
+     "Objetivo",
+     "Solapar E/S con uso de CPU",
+     "Garantizar acceso equitativo a la CPU"
+    ],
+    [
+     "Mecanismo",
+     "Varios programas en memoria; la CPU ejecuta otro mientras uno hace E/S",
+     "Quantum por programa y round-robin; protección con interrupciones"
+    ],
+    [
+     "Límite",
+     "Un programa puede monopolizar la CPU; poco adecuado para interactivos",
+     "Habituales en la informática de consumo"
+    ]
+   ],
+   "src": [
+    {
+     "s": "T1",
+     "p": "35–38"
+    }
+   ]
+  },
+  {
+   "id": "c-desc",
+   "titulo": "Descripción funcional vs estructural (y visión amplia vs restringida)",
+   "cols": [
+    "Aspecto",
+    "Funcional",
+    "Estructural"
+   ],
+   "filas": [
+    [
+     "Pregunta",
+     "¿Qué funciones da el SO?",
+     "¿Cómo se organiza por dentro?"
+    ],
+    [
+     "Punto de vista",
+     "Lo que obtiene el usuario (caja negra)",
+     "Organización interna: portabilidad, extensión, comprensión, mantenimiento"
+    ],
+    [
+     "Visión amplia (usuarios)",
+     "Soporte al programador, interfaz de usuario (GUI/JCLs), gestión de recursos",
+     "—"
+    ],
+    [
+     "Visión restringida (desarrolladores)",
+     "Estructuras de datos y funciones del núcleo para gestionar recursos",
+     "—"
+    ]
+   ],
+   "src": [
+    {
+     "s": "T2",
+     "p": "4–7"
+    }
+   ],
+   "nota": "La diapositiva 4 nombra una tercera descripción, la de la implementación, sin desarrollarla."
+  },
+  {
+   "id": "c-fun",
+   "titulo": "Visión amplia vs visión restringida del SO",
+   "cols": [
+    "Visión",
+    "Propia de",
+    "Qué incluye"
+   ],
+   "filas": [
+    [
+     "Amplia",
+     "Los usuarios",
+     "Entorno de soporte al programador, interfaz de usuario (GUI/JCLs) y gestión de recursos"
+    ],
+    [
+     "Restringida",
+     "Los desarrolladores del SO",
+     "Estructuras de datos y funciones del núcleo para la gestión de recursos"
+    ]
+   ],
+   "src": [
+    {
+     "s": "T2",
+     "p": "5"
+    }
+   ]
+  },
+  {
+   "id": "c-xv6",
+   "titulo": "xv6-RISC-V vs Linux (llamada write)",
+   "cols": [
+    "Paso",
+    "xv6-RISC-V (educativo)",
+    "Linux (propósito general)"
+   ],
+   "filas": [
+    [
+     "Entorno de usuario",
+     "Programa de usuario y stub generado (`usys.S`)",
+     "Programa de usuario y funciones de la libc (wrapper)"
+    ],
+    [
+     "Entrada al kernel",
+     "Instrucción `ecall`",
+     "Instrucción dependiente de la arquitectura (`syscall` en x86-64, `ecall` en RISC-V)"
+    ],
+    [
+     "Despacho",
+     "`syscall()` lee el nº en `a7` y usa la tabla `syscalls[]`",
+     "Código de entrada y despacho (`entry_SYSCALL_64`, `sys_call_table`), más complejo"
+    ],
+    [
+     "Implementación",
+     "`sys_write()`",
+     "`__x64_sys_write` → `ksys_write` → `vfs_write` (VFS, ficheros…)"
+    ],
+    [
+     "Retorno",
+     "Valor en `a0` y restauración del contexto",
+     "Valor en registro (`rax` en x86-64) y restauración del contexto"
+    ]
+   ],
+   "src": [
+    {
+     "s": "T2",
+     "p": "19–23"
+    }
+   ]
+  },
+  {
+   "id": "c-arq",
+   "titulo": "Arquitectura ↔ Sistema operativo",
+   "cols": [
+    "Arquitectura de computadores",
+    "Sistema operativo"
+   ],
+   "filas": [
+    [
+     "CPU y registros",
+     "Ejecución de programas"
+    ],
+    [
+     "Memoria",
+     "Gestión de programas y datos"
+    ],
+    [
+     "E/S y controladores",
+     "Gestión de dispositivos"
+    ],
+    [
+     "Interrupciones",
+     "Atención de eventos"
+    ],
+    [
+     "DMA",
+     "E/S eficiente"
+    ]
+   ],
+   "src": [
+    {
+     "s": "T1",
+     "p": "30"
+    }
+   ]
+  },
+  {
+   "id": "c-modo",
+   "titulo": "Modo usuario vs modo supervisor",
+   "cols": [
+    "Aspecto",
+    "Modo usuario",
+    "Modo supervisor (privilegiado)"
+   ],
+   "filas": [
+    [
+     "Quién se ejecuta",
+     "Programas de usuario (y wrappers de biblioteca)",
+     "El núcleo (siempre) y, en el monolítico, todo el SO"
+    ],
+    [
+     "Instrucciones privilegiadas",
+     "No pueden ejecutarse directamente",
+     "Se pueden ejecutar"
+    ],
+    [
+     "Cómo se pasa",
+     "— (usuario ⇒ TRAP ⇒ supervisor mediante SVC/`syscall`/`ecall`)",
+     "Las interrupciones y excepciones también hacen que la CPU conmute a supervisor"
+    ]
+   ],
+   "src": [
+    {
+     "s": "T2",
+     "p": "8"
+    },
+    {
+     "s": "T2",
+     "p": "12"
+    },
+    {
+     "s": "T2",
+     "p": "14–15"
+    }
+   ],
+   "nota": "La fila de instrucciones privilegiadas resume «no todo el mundo puede ejecutar todas las instrucciones» (T1 p.18) y la petición de SVC para ejecutarlas (T2 p.15)."
+  }
+ ],
+ "test": [
+  {
+   "id": "q01",
+   "tema": "t1",
+   "q": "Según la introducción, ¿cuál es uno de los problemas de utilizar el hardware directamente?",
+   "o": [
+    "Cada elemento hardware es diferente y su uso es complicado",
+    "El hardware no puede ejecutar programas sin un compilador",
+    "Los dispositivos de E/S nunca se comparten entre usuarios",
+    "El fabricante impide cambiar el modelo del dispositivo"
+   ],
+   "a": 0,
+   "e": "La diapositiva «Problemas para utilizar la máquina» parte de que cada elemento es distinto y complicado, y de que el fabricante puede cambiar el modelo (obligando a reaprender).",
+   "src": [
+    {
+     "s": "T1",
+     "p": "4"
+    }
+   ]
+  },
+  {
+   "id": "q02",
+   "tema": "t1",
+   "q": "«Conjunto de programas que, por medio de abstracciones, ponen el hardware del ordenador, de modo seguro, a disposición del usuario». ¿De qué autor es esta definición?",
+   "o": [
+    "H. Deitel",
+    "Katzan",
+    "S. Sánchez",
+    "Madnik y Donovan"
+   ],
+   "a": 2,
+   "e": "Es la de S. Sánchez. Deitel habla de interfaz; Katzan, de programas y datos que ayudan a crear otros programas; Madnik y Donovan, de gestionar recursos y resolver conflictos.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "9"
+    }
+   ]
+  },
+  {
+   "id": "q03",
+   "tema": "t1",
+   "q": "¿Qué definición de SO destaca que gestiona los recursos, optimiza su uso y resuelve conflictos?",
+   "o": [
+    "S. Sánchez",
+    "Madnik y Donovan",
+    "H. Deitel",
+    "Katzan"
+   ],
+   "a": 1,
+   "e": "Madnik y Donovan: conjunto de programas que gestionan los recursos del sistema, optimizan su uso y resuelven conflictos.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "9"
+    }
+   ]
+  },
+  {
+   "id": "q04",
+   "tema": "t1",
+   "q": "¿Qué ejemplo de abstracción aparece en las diapositivas?",
+   "o": [
+    "Un disco duro que se maneja mediante un explorador de archivos",
+    "Una CPU que se maneja con interruptores",
+    "Un bus que se maneja con una ALU",
+    "Una ISR que se maneja con un quantum"
+   ],
+   "a": 0,
+   "e": "Las diapositivas «Mediante abstracciones» y «Más abstracciones» muestran disco → explorador de archivos, tarjeta de red → monitor de red y tarjeta de sonido → mezclador de audio.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "7–8"
+    }
+   ]
+  },
+  {
+   "id": "q05",
+   "tema": "t1",
+   "q": "La arquitectura de un computador se refiere a…",
+   "o": [
+    "los atributos del sistema visibles a un programador, con impacto directo en la ejecución de un programa",
+    "la organización física de los cables de la placa",
+    "el conjunto de programas que gestiona los recursos",
+    "el modo en que el fabricante construye el chip"
+   ],
+   "a": 0,
+   "e": "Es la definición de la diapositiva «Definición y elementos fundamentales».",
+   "src": [
+    {
+     "s": "T1",
+     "p": "11"
+    }
+   ]
+  },
+  {
+   "id": "q06",
+   "tema": "t1",
+   "q": "¿Cuáles son los elementos fundamentales de la arquitectura según la diapositiva?",
+   "o": [
+    "Compilador, ensamblador, cargador y enlazador",
+    "Memoria, CPU, buses y entrada/salida",
+    "Procesos, hilos, archivos y usuarios",
+    "Núcleo, capas, servidores y drivers"
+   ],
+   "a": 1,
+   "e": "Elementos fundamentales: memoria, CPU, buses y entrada y salida.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "11"
+    }
+   ]
+  },
+  {
+   "id": "q07",
+   "tema": "t1",
+   "q": "Una memoria con bus de direcciones de 16 líneas y bus de datos de 8 líneas tiene una capacidad de…",
+   "o": [
+    "16 KB",
+    "64 KB",
+    "128 KB",
+    "8 KB"
+   ],
+   "a": 1,
+   "e": "Con 16 líneas hay 2¹⁶ = 65 536 posiciones; cada una guarda 8 bits (1 byte): 64 KB. Es el ejemplo de la diapositiva «Memoria (2/2)».",
+   "src": [
+    {
+     "s": "T1",
+     "p": "13"
+    }
+   ]
+  },
+  {
+   "id": "q08",
+   "tema": "t1",
+   "q": "Con la memoria de la diapositiva (0x0003 contiene 0xBE y 0x0005 contiene 0xCA), tras ejecutar CARGAR R1,0x0003; INCREMENTAR R1; GUARDAR R1,0x0005, ¿qué valor queda en la posición 0x0005?",
+   "o": [
+    "0xBE",
+    "0xCA",
+    "0xBF",
+    "0xC0"
+   ],
+   "a": 2,
+   "e": "R1 ← mem[0x0003] = 0xBE; INCREMENTAR R1 → 0xBF; GUARDAR R1 en 0x0005 sustituye el 0xCA anterior por 0xBF.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "13"
+    }
+   ]
+  },
+  {
+   "id": "q09",
+   "tema": "t1",
+   "q": "La CPU consta de…",
+   "o": [
+    "ALU y unidad de control",
+    "memoria y buses",
+    "controlador y registros de estado únicamente",
+    "bus de datos y bus de direcciones"
+   ],
+   "a": 0,
+   "e": "CPU = procesador = microprocesador: ALU (aritmética y lógica) y unidad de control (interpreta las instrucciones).",
+   "src": [
+    {
+     "s": "T1",
+     "p": "14"
+    }
+   ]
+  },
+  {
+   "id": "q10",
+   "tema": "t1",
+   "q": "¿Qué registro contiene la dirección de la siguiente instrucción a ejecutar?",
+   "o": [
+    "Puntero de pila",
+    "Palabra de estado del programa (PSW)",
+    "Contador de programa",
+    "Registro de datos"
+   ],
+   "a": 2,
+   "e": "El contador de programa es un registro de control con la dirección de la siguiente instrucción.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "17"
+    }
+   ]
+  },
+  {
+   "id": "q11",
+   "tema": "t1",
+   "q": "La palabra de estado del programa (PSW) contiene…",
+   "o": [
+    "la dirección de la cabecera de la pila",
+    "flags (acarreo, desbordamiento…) fijados por el hardware de la CPU",
+    "los operandos de la próxima instrucción",
+    "el número de la llamada al sistema"
+   ],
+   "a": 1,
+   "e": "PSW: registro(s) con flags como acarreo o desbordamiento, fijados por el hardware.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "17"
+    }
+   ]
+  },
+  {
+   "id": "q12",
+   "tema": "t1",
+   "q": "El puntero de pila es un registro que…",
+   "o": [
+    "apunta a la cabecera de la pila (operaciones push y pop)",
+    "guarda el resultado de la última operación aritmética",
+    "contiene el código de operación",
+    "indica el modo de ejecución"
+   ],
+   "a": 0,
+   "e": "Está en la clasificación de registros de direcciones: apunta a la cabecera de la pila.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "16"
+    }
+   ]
+  },
+  {
+   "id": "q13",
+   "tema": "t1",
+   "q": "¿Cuál es el orden correcto del ciclo de ejecución de una instrucción?",
+   "o": [
+    "Ejecutar → buscar → interpretar → leer datos → almacenar",
+    "Buscar → interpretar → leer datos de memoria → ejecutar → almacenar resultados",
+    "Interpretar → buscar → ejecutar → almacenar → leer datos",
+    "Buscar → ejecutar → interpretar → leer datos → almacenar"
+   ],
+   "a": 1,
+   "e": "Búsqueda de la instrucción, interpretarla, leer los datos de memoria, ejecutarla y almacenar los resultados.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "22"
+    }
+   ]
+  },
+  {
+   "id": "q14",
+   "tema": "t1",
+   "q": "En el direccionamiento inmediato…",
+   "o": [
+    "el operando se incluye en la propia instrucción",
+    "el operando se referencia con su dirección en memoria",
+    "el código de operación indica el operando",
+    "el operando está en un registro"
+   ],
+   "a": 0,
+   "e": "Inmediato: operando en la instrucción. Directo: se referencia con su dirección en memoria. Implícito: lo indica el código de operación.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "21"
+    }
+   ]
+  },
+  {
+   "id": "q15",
+   "tema": "t1",
+   "q": "La instrucción SALTO_SI_NO_IGUAL $1000 es de tipo…",
+   "o": [
+    "aritmético",
+    "lógico",
+    "transferencia de datos",
+    "control/salto"
+   ],
+   "a": 3,
+   "e": "Entre las de control/salto: llamada a rutina, retorno, salto incondicional, salto si no son iguales…",
+   "src": [
+    {
+     "s": "T1",
+     "p": "19"
+    }
+   ]
+  },
+  {
+   "id": "q16",
+   "tema": "t1",
+   "q": "¿Cuál NO es un parámetro que define un bus según las diapositivas?",
+   "o": [
+    "Sus conectores y características físicas",
+    "Su topología",
+    "Sus señales y protocolos",
+    "El número de procesos que se están ejecutando"
+   ],
+   "a": 3,
+   "e": "Un bus se define por conectores/características físicas, topología y señales/protocolos.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "23"
+    }
+   ]
+  },
+  {
+   "id": "q17",
+   "tema": "t1",
+   "q": "Un controlador de E/S ofrece…",
+   "o": [
+    "registro de datos, de control y de estado",
+    "registro de pila, de PSW y contador de programa",
+    "bus de datos, de direcciones y de control",
+    "quantum, ISR y planificador"
+   ],
+   "a": 0,
+   "e": "Los controladores son hardware conectado a los buses que ofrecen registros de datos, de control y de estado.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "26"
+    }
+   ]
+  },
+  {
+   "id": "q18",
+   "tema": "t1",
+   "q": "¿Qué ventaja tiene que la CPU pregunte periódicamente al dispositivo (sondeo) frente a las interrupciones?",
+   "o": [
+    "Es sencillo y no necesita hardware adicional",
+    "Libera por completo a la CPU",
+    "No ocupa los buses",
+    "Atiende antes las urgencias"
+   ],
+   "a": 0,
+   "e": "El sondeo es sencillo y no requiere hardware adicional, pero añade carga a la CPU y ocupa buses y dispositivos innecesariamente.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "27"
+    }
+   ]
+  },
+  {
+   "id": "q19",
+   "tema": "t1",
+   "q": "En el mecanismo general de interrupciones, cuando un dispositivo solicita atención la CPU…",
+   "o": [
+    "sigue con el programa y atiende al dispositivo al terminar",
+    "deja de ejecutar el programa y pasa a ejecutar la ISR",
+    "apaga el dispositivo",
+    "descarta la petición si el programa es urgente"
+   ],
+   "a": 1,
+   "e": "La CPU deja de ejecutar el programa y ejecuta la ISR, que atiende al dispositivo; después reanuda el programa.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "28"
+    }
+   ]
+  },
+  {
+   "id": "q20",
+   "tema": "t1",
+   "q": "En el ejemplo «Mecanismo de interrupciones (II)», tras la ISR, ¿qué proceso pasa a ejecutarse?",
+   "o": [
+    "Siempre PA, el que pidió la E/S",
+    "Siempre P1, el interrumpido",
+    "El que elija el planificador de la cola de listos (en el ejemplo, P3)",
+    "Ninguno, hasta que termine la E/S"
+   ],
+   "a": 2,
+   "e": "El planificador puede seleccionar cualquier proceso de la cola de listos, no necesariamente PA ni P1.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "29"
+    }
+   ]
+  },
+  {
+   "id": "q21",
+   "tema": "t1",
+   "q": "¿Qué mecanismo hardware se corresponde con «E/S eficiente» en la tabla arquitectura ↔ SO?",
+   "o": [
+    "Memoria",
+    "DMA",
+    "Registros de la CPU",
+    "Buses"
+   ],
+   "a": 1,
+   "e": "La tabla: CPU y registros → ejecución de programas; memoria → gestión de programas y datos; E/S y controladores → gestión de dispositivos; interrupciones → atención de eventos; DMA → E/S eficiente.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "30"
+    }
+   ]
+  },
+  {
+   "id": "q22",
+   "tema": "t1",
+   "q": "En el modelo de máquina desnuda, ¿qué problema aparece?",
+   "o": [
+    "El usuario debía conocer todo el hardware",
+    "Había demasiados procesos concurrentes",
+    "El monitor ocupaba demasiada memoria",
+    "Faltaban operarios"
+   ],
+   "a": 0,
+   "e": "Además, un cambio mínimo en el hardware invalidaba todo el programa y se repetía trabajo entre programas.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "31"
+    }
+   ]
+  },
+  {
+   "id": "q23",
+   "tema": "t1",
+   "q": "El monitor simple residente es esencialmente…",
+   "o": [
+    "un planificador de procesos",
+    "un manejador de dispositivo (driver) que agrupa rutinas de E/S",
+    "un sistema de tiempo real",
+    "un middleware"
+   ],
+   "a": 1,
+   "e": "Su objetivo es reutilizar código; agrupa sobre todo rutinas de E/S y es el primer germen de SO.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "32"
+    }
+   ]
+  },
+  {
+   "id": "q24",
+   "tema": "t1",
+   "q": "¿Cuál es el principal problema del procesamiento por lotes que señala la diapositiva?",
+   "o": [
+    "Hace falta la intervención de un operario humano",
+    "No permite usar tarjetas perforadas",
+    "Solo funciona con un único programa",
+    "No admite impresoras"
+   ],
+   "a": 0,
+   "e": "Los lotes usan ordenadores baratos para E/S y uno potente para ejecutar, pero requieren un operario que mueva tarjetas y cintas.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "34"
+    }
+   ]
+  },
+  {
+   "id": "q25",
+   "tema": "t1",
+   "q": "La multiprogramación tiene como objetivo…",
+   "o": [
+    "garantizar un plazo de tiempo acotado",
+    "solapar las operaciones de E/S con el uso de la CPU",
+    "repartir funciones entre varias máquinas",
+    "reducir el tamaño del núcleo"
+   ],
+   "a": 1,
+   "e": "Requiere más de un programa en memoria y nuevas necesidades hardware: interrupciones y DMA.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "35"
+    }
+   ]
+  },
+  {
+   "id": "q26",
+   "tema": "t1",
+   "q": "¿Qué problema deja la multiprogramación?",
+   "o": [
+    "Un programa en ejecución puede monopolizar la CPU",
+    "No necesita gestión de memoria",
+    "No admite E/S",
+    "Solo admite programas cortos"
+   ],
+   "a": 0,
+   "e": "También es poco adecuada para sistemas interactivos. Eso motiva el tiempo compartido.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "37"
+    }
+   ]
+  },
+  {
+   "id": "q27",
+   "tema": "t1",
+   "q": "En un sistema de tiempo compartido, si un programa agota su quantum…",
+   "o": [
+    "finaliza definitivamente",
+    "la CPU pasa a ejecutar otro programa (round-robin)",
+    "se le asigna más tiempo",
+    "pasa a modo supervisor"
+   ],
+   "a": 1,
+   "e": "El quantum evita la monopolización de la CPU gracias a las interrupciones.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "38"
+    }
+   ]
+  },
+  {
+   "id": "q28",
+   "tema": "t1",
+   "q": "Sobre los sistemas de tiempo real es cierto que…",
+   "o": [
+    "tiempo real es sinónimo de rápido",
+    "basta con un hardware más potente para cumplir las restricciones",
+    "garantizan la ejecución en un plazo de tiempo acotado",
+    "solo existen en ordenadores personales"
+   ],
+   "a": 2,
+   "e": "Tiempo real no es sinónimo de rápido; suele encontrarse en sistemas empotrados y distingue aplicaciones duras y blandas.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "39"
+    }
+   ]
+  },
+  {
+   "id": "q29",
+   "tema": "t1",
+   "q": "Según la diapositiva, ¿cuándo un sistema NO es distribuido?",
+   "o": [
+    "Cuando puedes decir qué máquinas estás usando, dónde corren los programas y dónde están los archivos",
+    "Cuando usa middleware",
+    "Cuando tiene varias máquinas cooperando",
+    "Cuando da la impresión de una sola máquina"
+   ],
+   "a": 0,
+   "e": "Un sistema distribuido no es un sistema simplemente replicado: debe dar la impresión de una única máquina.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "40"
+    }
+   ]
+  },
+  {
+   "id": "q30",
+   "tema": "t1",
+   "q": "En la E/S mediante DMA, el primer paso es que…",
+   "o": [
+    "el DMA interrumpe a la CPU",
+    "la CPU programa el controlador DMA (dirección, contador, control)",
+    "el controlador de disco envía un ack",
+    "el dato se transfiere a memoria"
+   ],
+   "a": 1,
+   "e": "Pasos: (1) la CPU programa el DMA; (2) el DMA solicita la transferencia a memoria; (3) dato transferido; (4) ack; (5) interrupción al finalizar.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "36"
+    }
+   ]
+  },
+  {
+   "id": "q31",
+   "tema": "t1",
+   "q": "¿Cuál NO figura entre los requerimientos del SO que surgen con la multiprogramación?",
+   "o": [
+    "Gestión de la memoria",
+    "Planificación del procesador",
+    "Control de la concurrencia",
+    "Diseño de la interfaz gráfica"
+   ],
+   "a": 3,
+   "e": "Figuran: gestión de memoria, planificación del procesador y de dispositivos, protección entre programas y control de la concurrencia.",
+   "src": [
+    {
+     "s": "T1",
+     "p": "37"
+    }
+   ]
+  },
+  {
+   "id": "q32",
+   "tema": "t2",
+   "q": "¿Entre qué niveles de la jerarquía de abstracción del computador se sitúa el sistema operativo?",
+   "o": [
+    "Entre lenguaje ensamblador y arquitectura",
+    "Entre lógica digital y microarquitectura",
+    "Por encima del lenguaje de alto nivel",
+    "Entre arquitectura y microarquitectura"
+   ],
+   "a": 0,
+   "e": "De arriba abajo: lenguaje de alto nivel, ensamblador, sistema operativo, arquitectura, microarquitectura, lógica digital.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "3"
+    }
+   ]
+  },
+  {
+   "id": "q33",
+   "tema": "t2",
+   "q": "¿Qué tipos de descripción se proponen para cada nivel del computador?",
+   "o": [
+    "Lógica, física y comercial",
+    "Funcional, estructural y de la implementación",
+    "Estática, dinámica y mixta",
+    "Amplia, restringida y global"
+   ],
+   "a": 1,
+   "e": "La diapositiva 4 nombra descripción funcional, estructural y de la implementación.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "4"
+    }
+   ]
+  },
+  {
+   "id": "q34",
+   "tema": "t2",
+   "q": "La descripción funcional de un SO…",
+   "o": [
+    "detalla los algoritmos internos de cada capa",
+    "considera solo qué obtiene el usuario: el SO es una caja negra",
+    "describe el código ensamblador del núcleo",
+    "se centra en la portabilidad"
+   ],
+   "a": 1,
+   "e": "La funcional considera solo qué obtiene el usuario; la estructural busca una organización interna.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "5"
+    }
+   ]
+  },
+  {
+   "id": "q35",
+   "tema": "t2",
+   "q": "La visión restringida del SO es propia de…",
+   "o": [
+    "los usuarios finales",
+    "los desarrolladores del SO: estructuras de datos y funciones del núcleo para gestionar recursos",
+    "los fabricantes de hardware",
+    "los administradores de red"
+   ],
+   "a": 1,
+   "e": "La visión amplia es la de los usuarios (soporte al programador, interfaz, gestión de recursos).",
+   "src": [
+    {
+     "s": "T2",
+     "p": "5"
+    }
+   ]
+  },
+  {
+   "id": "q36",
+   "tema": "t2",
+   "q": "¿Cuál NO es uno de los recursos clave que administra un SO según la diapositiva?",
+   "o": [
+    "El microprocesador",
+    "La memoria principal",
+    "Los dispositivos de E/S",
+    "El compilador"
+   ],
+   "a": 3,
+   "e": "Recursos clave: microprocesador, memoria principal, dispositivos de E/S, almacenamiento y datos.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "6"
+    }
+   ]
+  },
+  {
+   "id": "q37",
+   "tema": "t2",
+   "q": "El objetivo de la descripción estructural es…",
+   "o": [
+    "describir las funciones que ve el usuario",
+    "buscar una organización interna que aumente portabilidad y extensibilidad y facilite comprensión y mantenimiento",
+    "medir el rendimiento del hardware",
+    "definir la interfaz gráfica"
+   ],
+   "a": 1,
+   "e": "Lo plantea como respuesta a desarrollar un programa de millones de líneas de código.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "7"
+    }
+   ]
+  },
+  {
+   "id": "q38",
+   "tema": "t2",
+   "q": "En el modo dual de ejecución, el paso de modo usuario a modo supervisor se logra mediante…",
+   "o": [
+    "una petición de servicio al SO (llamada al sistema, implementada con SVCs)",
+    "cambiar el valor de una variable",
+    "reiniciar el procesador",
+    "apagar las interrupciones"
+   ],
+   "a": 0,
+   "e": "Petición de servicio mediante interrupciones ⇔ eventos de tipo llamadas al sistema.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "8"
+    }
+   ]
+  },
+  {
+   "id": "q39",
+   "tema": "t2",
+   "q": "¿Qué mecanismo hardware se solicita para proteger al procesador (que un programa no lo monopolice)?",
+   "o": [
+    "Las interrupciones",
+    "El hardware de protección de memoria",
+    "Las instrucciones privilegiadas de E/S",
+    "El DMA"
+   ],
+   "a": 0,
+   "e": "Protección de memoria: hardware de protección; de dispositivos: protección e instrucciones privilegiadas; del procesador: interrupciones.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "8"
+    }
+   ]
+  },
+  {
+   "id": "q40",
+   "tema": "t2",
+   "q": "Una ventaja del diseño por capas es que…",
+   "o": [
+    "las estructuras internas y los algoritmos de una capa no son visibles a las demás",
+    "todas las capas comparten sus estructuras de datos",
+    "no se pueden usar realizaciones alternativas",
+    "se evita definir interfaces"
+   ],
+   "a": 0,
+   "e": "Otras ventajas: el sistema evoluciona manteniendo interfaces, hay realizaciones alternativas, capas transparentes y codificación y pruebas independientes.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "10"
+    }
+   ]
+  },
+  {
+   "id": "q41",
+   "tema": "t2",
+   "q": "En los niveles clásicos del SO, ¿a qué nivel pertenece «creación y destrucción de archivos y directorios»?",
+   "o": [
+    "Nivel 1 · Gestión del procesador",
+    "Nivel 3 · Gestión de procesos",
+    "Nivel 4 · Gestión de dispositivos",
+    "Nivel 5 · Gestión de la información"
+   ],
+   "a": 3,
+   "e": "El nivel 5 gestiona el espacio de nombres lógicos y la protección de la información: archivos, directorios, apertura, lectura/escritura y protección de acceso.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "11"
+    }
+   ]
+  },
+  {
+   "id": "q42",
+   "tema": "t2",
+   "q": "¿Qué funciones corresponden al nivel 1 (gestión del procesador)?",
+   "o": [
+    "Asignación y liberación de memoria",
+    "Sincronización entre procesos, conmutación de la CPU y gestión de interrupciones",
+    "Planificación de E/S",
+    "Apertura y cierre de archivos"
+   ],
+   "a": 1,
+   "e": "Nivel 1: compartir la CPU entre procesos. Memoria es el nivel 2; dispositivos, el 4; información, el 5.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "11"
+    }
+   ]
+  },
+  {
+   "id": "q43",
+   "tema": "t2",
+   "q": "Sobre el núcleo es cierto que…",
+   "o": [
+    "es la parte menos dependiente del hardware",
+    "se ejecuta siempre en modo privilegiado (supervisor)",
+    "solo existe en SSOO monolíticos",
+    "nunca contiene código en ensamblador"
+   ],
+   "a": 1,
+   "e": "Es el primer nivel del diseño jerárquico, el más dependiente del hardware, parte en ensamblador y siempre en modo supervisor.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "12"
+    }
+   ]
+  },
+  {
+   "id": "q44",
+   "tema": "t2",
+   "q": "¿Cuál NO es una función básica del núcleo según la diapositiva?",
+   "o": [
+    "Gestión de eventos",
+    "Conmutación del procesador entre procesos",
+    "Mecanismos básicos de comunicación entre procesos",
+    "Diseño de la interfaz gráfica de usuario"
+   ],
+   "a": 3,
+   "e": "Funciones básicas: entorno para procesos, gestión de eventos, conmutación, comunicación entre procesos y carga inicial.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "13"
+    }
+   ]
+  },
+  {
+   "id": "q45",
+   "tema": "t2",
+   "q": "Una división por cero es un evento…",
+   "o": [
+    "asíncrono: una interrupción",
+    "síncrono: una excepción",
+    "síncrono: una llamada al sistema",
+    "que no gestiona el núcleo"
+   ],
+   "a": 1,
+   "e": "Las excepciones son eventos síncronos (TRAPs) recuperables o irrecuperables: división por cero, fallo de página, instrucción ilegal, violación de privilegios.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "14"
+    }
+   ]
+  },
+  {
+   "id": "q46",
+   "tema": "t2",
+   "q": "Una interrupción de hardware es, respecto a los eventos del núcleo…",
+   "o": [
+    "un evento síncrono",
+    "un evento asíncrono atendido por un manejador de interrupción",
+    "una llamada al sistema",
+    "una excepción irrecuperable"
+   ],
+   "a": 1,
+   "e": "Los asíncronos son las interrupciones; en todos los casos la CPU conmuta a modo supervisor.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "14"
+    }
+   ]
+  },
+  {
+   "id": "q47",
+   "tema": "t2",
+   "q": "¿Cómo puede un proceso de usuario ejecutar algo que requiere una instrucción privilegiada?",
+   "o": [
+    "Cambiando él mismo a modo supervisor",
+    "Mediante una petición de servicio al SO (SVC): modo usuario ⇒ TRAP ⇒ modo supervisor",
+    "Pidiendo permiso a otro proceso de usuario",
+    "No puede hacerlo nunca"
+   ],
+   "a": 1,
+   "e": "Las llamadas al sistema son el mecanismo controlado de acceso de los procesos a los recursos del SO.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "15"
+    }
+   ]
+  },
+  {
+   "id": "q48",
+   "tema": "t2",
+   "q": "¿Qué es POSIX según las diapositivas?",
+   "o": [
+    "Un compilador de C",
+    "Un estándar de interfaces para SSOO portables basado en UNIX",
+    "El nombre del núcleo de Linux",
+    "Un tipo de interrupción"
+   ],
+   "a": 1,
+   "e": "Es una API orientada a la portabilidad de las aplicaciones.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "17"
+    }
+   ]
+  },
+  {
+   "id": "q49",
+   "tema": "t2",
+   "q": "En el mecanismo general de una llamada al sistema, ¿qué hace el manejador de la llamada (dependiente de la arquitectura)?",
+   "o": [
+    "Identifica el número de llamada, comprueba los parámetros y localiza la rutina de servicio",
+    "Prepara los parámetros en modo usuario",
+    "Imprime el resultado por pantalla",
+    "Cambia el modo de la CPU a usuario"
+   ],
+   "a": 0,
+   "e": "La wrapper prepara parámetros y ejecuta la instrucción de llamada; el manejador identifica y valida; la rutina de servicio realiza el servicio.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "18"
+    }
+   ]
+  },
+  {
+   "id": "q50",
+   "tema": "t2",
+   "q": "En el ejemplo de Linux x86-64 de `write`, ¿qué se guarda en el registro `rax` antes de ejecutar `syscall`?",
+   "o": [
+    "El descriptor de fichero",
+    "La dirección del búfer",
+    "El número de la llamada al sistema (1 = __NR_write)",
+    "El número de bytes"
+   ],
+   "a": 2,
+   "e": "rdi = descriptor (1 = stdout), rsi = dirección del búfer, rdx = nº de bytes.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "23"
+    }
+   ]
+  },
+  {
+   "id": "q51",
+   "tema": "t2",
+   "q": "En xv6-RISC-V, ¿qué instrucción lleva al kernel y en qué registro se pasa el número de llamada?",
+   "o": [
+    "`syscall` y `rax`",
+    "`ecall` y `a7`",
+    "`sret` y `a0`",
+    "`trap` y `rdi`"
+   ],
+   "a": 1,
+   "e": "El stub `usys.S` hace `li a7, SYS_write` y `ecall`; el retorno vuelve en `a0` y se usa `sret` para volver a modo usuario.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "20"
+    }
+   ]
+  },
+  {
+   "id": "q52",
+   "tema": "t2",
+   "q": "En el diagrama de estados del núcleo, la transición «despachar» va de…",
+   "o": [
+    "Ejecución a Espera",
+    "Espera a Listo",
+    "Listo a Ejecución",
+    "Ejecución a Listo"
+   ],
+   "a": 2,
+   "e": "Dormir: ejecución → espera. Despertar: espera → listo. Despachar: listo → ejecución. Desalojar: ejecución → listo.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "24"
+    }
+   ]
+  },
+  {
+   "id": "q53",
+   "tema": "t2",
+   "q": "En el diagrama de estados, «desalojar» corresponde a…",
+   "o": [
+    "Ejecución → Listo",
+    "Espera → Ejecución",
+    "Listo → Espera",
+    "Ejecución → Espera"
+   ],
+   "a": 0,
+   "e": "Desalojar saca al proceso de ejecución sin que esté esperando: pasa a listo.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "24"
+    }
+   ]
+  },
+  {
+   "id": "q54",
+   "tema": "t2",
+   "q": "¿Qué sistemas aparecen como ejemplos de enfoque monolítico en la diapositiva 25?",
+   "o": [
+    "Mach, L4 y Chorus",
+    "MS-DOS y Linux",
+    "Android e iOS",
+    "Windows y macOS"
+   ],
+   "a": 1,
+   "e": "Mach, L4 y Chorus son ejemplos de micronúcleo. La diapositiva deja abierta la clasificación de Windows.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "25"
+    }
+   ]
+  },
+  {
+   "id": "q55",
+   "tema": "t2",
+   "q": "¿Qué afirmación es propia del micronúcleo (comparativa)?",
+   "o": [
+    "Todo el SO se ejecuta en modo supervisor",
+    "Solo el micronúcleo se ejecuta en modo supervisor",
+    "Mayor rendimiento",
+    "Muy adecuado para sistemas pequeños"
+   ],
+   "a": 1,
+   "e": "El micronúcleo es más robusto y adaptable, pero con menor rendimiento por la sobrecarga de comunicaciones.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "28"
+    }
+   ]
+  },
+  {
+   "id": "q56",
+   "tema": "t2",
+   "q": "¿Qué ventaja del monolítico recoge la comparativa?",
+   "o": [
+    "Más robusto",
+    "Más adaptable",
+    "Mayor rendimiento",
+    "Fácil de modificar en tiempo de ejecución"
+   ],
+   "a": 2,
+   "e": "El monolítico tiene mayor rendimiento; es menos robusto, menos adaptable y difícil de modificar en ejecución.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "28"
+    }
+   ]
+  },
+  {
+   "id": "q57",
+   "tema": "t2",
+   "q": "En el esquema de operación del micronúcleo, ¿quién inicia la E/S con el dispositivo?",
+   "o": [
+    "El proceso gestionador de dispositivo",
+    "El proceso de usuario directamente",
+    "El intérprete de la SVC del monitor",
+    "La ISR de usuario"
+   ],
+   "a": 0,
+   "e": "El proceso de usuario pide la lectura al gestionador de dispositivo; este inicia la E/S; la interrupción se atiende en el micronúcleo y despierta al proceso que la pidió.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "27"
+    }
+   ]
+  },
+  {
+   "id": "q58",
+   "tema": "t2",
+   "q": "En Mach, ¿qué componentes se ejecutan a nivel de usuario?",
+   "o": [
+    "Manejo de hilos y manejadores de dispositivo",
+    "Los servidores de procesos, memoria, archivos y gráficos",
+    "Solo el hardware",
+    "Todo el SO"
+   ],
+   "a": 1,
+   "e": "A nivel de kernel quedan el manejo de hilos y los manejadores de dispositivo.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "30"
+    }
+   ]
+  },
+  {
+   "id": "q59",
+   "tema": "t2",
+   "q": "En la estructura de Windows, ¿qué capa se sitúa entre el kernel y el hardware?",
+   "o": [
+    "NTDLL.DLL",
+    "HAL (Hardware Abstraction Layer)",
+    "El dispatcher de servicios del sistema",
+    "Los subsistemas de entorno"
+   ],
+   "a": 1,
+   "e": "NTDLL.DLL está entre el modo usuario y el modo kernel; la HAL, sobre el hardware.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "31"
+    }
+   ]
+  },
+  {
+   "id": "q60",
+   "tema": "t2",
+   "q": "En iOS, ¿qué capa incluye BSD, File System, Mach y Networking?",
+   "o": [
+    "Cocoa Touch",
+    "Media",
+    "Core Services",
+    "Kernel and Device Drivers"
+   ],
+   "a": 3,
+   "e": "Capas: Cocoa Touch, Media, Core Services, Core OS y Kernel and Device Drivers.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "33"
+    }
+   ]
+  },
+  {
+   "id": "q61",
+   "tema": "t2",
+   "q": "En Android, el núcleo del sistema es…",
+   "o": [
+    "el kernel Mach",
+    "un kernel Linux con sus drivers",
+    "NTDLL.DLL",
+    "BSD"
+   ],
+   "a": 1,
+   "e": "Linux kernel con drivers de pantalla, cámara, memoria flash, binder (IPC), teclado, WiFi, audio y energía.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "34"
+    }
+   ]
+  },
+  {
+   "id": "q62",
+   "tema": "t2",
+   "q": "¿Qué diferencia presenta xv6-RISC-V respecto a Linux en la diapositiva «De xv6 a Linux»?",
+   "o": [
+    "xv6 es un SO de propósito general con muchas funcionalidades",
+    "xv6 es un SO sencillo con fines docentes; Linux es de propósito general con soporte para múltiples arquitecturas",
+    "Linux no usa llamadas al sistema",
+    "xv6 no tiene núcleo"
+   ],
+   "a": 1,
+   "e": "xv6: enseñanza con implementación simple y compacta. Linux: propósito general, muchas funcionalidades y soporte multiarquitectura.",
+   "src": [
+    {
+     "s": "T2",
+     "p": "22"
+    }
+   ]
+  }
+ ],
+ "desarrollo": [
+  {
+   "id": "d01",
+   "tema": "t1",
+   "titulo": "Abstracción y definición de sistema operativo",
+   "enunciado": "Explica por qué es necesario un sistema operativo y cómo ayudan las abstracciones. Recoge al menos dos definiciones.",
+   "esquema": [
+    "Problema: hardware diverso y complicado; recursos limitados y compartidos; privacidad; usuarios no expertos (T1 p.4).",
+    "Solución: abstracciones (disco → archivos, tarjeta de red → monitor de red…) (T1 p.7–8).",
+    "Definiciones: Sánchez (abstracciones y seguridad), Deitel (interfaz), Katzan (apoyo a crear y controlar programas), Madnik y Donovan (gestión de recursos, optimización, conflictos) (T1 p.9).",
+    "Cierre: el SO se apoya en el hardware (T1 p.30)."
+   ],
+   "rubrica": [
+    "Menciona al menos dos problemas del uso directo del hardware.",
+    "Da un ejemplo concreto de abstracción.",
+    "Atribuye correctamente al menos dos definiciones.",
+    "Relaciona abstracción con seguridad y reparto de recursos.",
+    "Cierra con una idea propia o con la relación SO–hardware."
+   ],
+   "src": [
+    {
+     "s": "T1",
+     "p": "4–9"
+    },
+    {
+     "s": "T1",
+     "p": "30"
+    }
+   ]
+  },
+  {
+   "id": "d02",
+   "tema": "t1",
+   "titulo": "Evolución histórica de los sistemas operativos",
+   "enunciado": "Describe cómo se ha pasado de la máquina desnuda a los sistemas de tiempo compartido, indicando en cada etapa el objetivo y el problema que deja.",
+   "esquema": [
+    "Máquina desnuda → problema: conocer todo el hardware (T1 p.31).",
+    "Monitor residente → reutilizar código; pierde tiempo entre procesos (T1 p.32).",
+    "Lotes → reducir esperas de E/S; requiere operario (T1 p.33–34).",
+    "Multiprogramación → solapar E/S y CPU; necesita interrupciones y DMA; monopolización (T1 p.35–37).",
+    "Tiempo compartido → quantum y round-robin (T1 p.38). Menciona tiempo real y distribuidos (T1 p.39–41)."
+   ],
+   "rubrica": [
+    "Respeta el orden histórico.",
+    "Indica objetivo y problema de cada etapa.",
+    "Cita interrupciones y DMA como requisito de la multiprogramación.",
+    "Explica quantum y round-robin.",
+    "Distingue tiempo real y distribuido sin confundirlos."
+   ],
+   "src": [
+    {
+     "s": "T1",
+     "p": "31–41"
+    }
+   ]
+  },
+  {
+   "id": "d03",
+   "tema": "t1",
+   "titulo": "Entrada/salida e interrupciones",
+   "enunciado": "Compara el sondeo con las interrupciones y describe paso a paso cómo se atiende una interrupción de un dispositivo.",
+   "esquema": [
+    "Sondeo: sencillo, sin hardware adicional, pero carga a la CPU y ocupa buses (T1 p.27).",
+    "Interrupciones: necesitan hardware y mecanismo en la CPU (T1 p.27).",
+    "Pasos: solicitud → la CPU ejecuta la ISR → la ISR atiende al dispositivo y finaliza → se reanuda el programa (T1 p.28).",
+    "Ejemplo con procesos: PA bloqueado pasa a listo; el planificador decide el siguiente (T1 p.29)."
+   ],
+   "rubrica": [
+    "Define sondeo e interrupción con sus ventajas/inconvenientes.",
+    "Ordena los cuatro pasos.",
+    "Explica qué es la ISR.",
+    "Menciona el papel del planificador.",
+    "Cita un ejemplo."
+   ],
+   "src": [
+    {
+     "s": "T1",
+     "p": "27–29"
+    }
+   ]
+  },
+  {
+   "id": "d04",
+   "tema": "t2",
+   "titulo": "El núcleo y la gestión de eventos",
+   "enunciado": "Explica qué es el núcleo, cuáles son sus funciones básicas y cómo gestiona los distintos tipos de eventos.",
+   "esquema": [
+    "Núcleo: primer nivel, más dependiente del HW, siempre modo privilegiado (T2 p.12).",
+    "Funciones: entorno de procesos, eventos, conmutación, comunicación entre procesos, carga inicial (T2 p.13).",
+    "Eventos: síncronos (TRAPs: excepciones y llamadas al sistema) y asíncronos (interrupciones) (T2 p.14).",
+    "En todos la CPU conmuta a modo supervisor (T2 p.14)."
+   ],
+   "rubrica": [
+    "Define el núcleo y su modo de ejecución.",
+    "Enumera al menos cuatro funciones básicas.",
+    "Clasifica los eventos en síncronos y asíncronos.",
+    "Da ejemplos de excepciones.",
+    "Menciona la conmutación a modo supervisor."
+   ],
+   "src": [
+    {
+     "s": "T2",
+     "p": "12–15"
+    }
+   ]
+  },
+  {
+   "id": "d05",
+   "tema": "t2",
+   "titulo": "Una llamada al sistema paso a paso",
+   "enunciado": "Describe qué ocurre desde que un programa de usuario invoca una llamada al sistema hasta que recibe el resultado. Ilústralo con `write()`.",
+   "esquema": [
+    "Programa → función de biblioteca (wrapper) (T2 p.18).",
+    "Wrapper: prepara parámetros y ejecuta la instrucción de llamada (SVC/`syscall`/`ecall`) (T2 p.15, 18).",
+    "Modo supervisor: manejador identifica nº, comprueba parámetros, localiza la rutina (T2 p.18).",
+    "Rutina de servicio realiza la tarea; retorno del resultado (T2 p.18).",
+    "Ejemplo Linux: write → glibc → syscall → entry_SYSCALL_64 → do_syscall_64 → sys_call_table → __x64_sys_write (T2 p.19, 23)."
+   ],
+   "rubrica": [
+    "Distingue modo usuario y modo supervisor.",
+    "Nombra wrapper, manejador y rutina de servicio.",
+    "Explica por qué se necesita una instrucción especial.",
+    "Menciona el retorno del resultado.",
+    "Incluye el ejemplo `write()`."
+   ],
+   "src": [
+    {
+     "s": "T2",
+     "p": "15"
+    },
+    {
+     "s": "T2",
+     "p": "18–19"
+    },
+    {
+     "s": "T2",
+     "p": "23"
+    }
+   ]
+  },
+  {
+   "id": "d06",
+   "tema": "t2",
+   "titulo": "Monolítico frente a micronúcleo",
+   "enunciado": "Compara los enfoques de diseño monolítico y micronúcleo. Describe cómo se atiende una E/S en cada uno e indica ventajas e inconvenientes.",
+   "esquema": [
+    "Monolítico: todo el SO en el núcleo (MS-DOS, Linux) (T2 p.25).",
+    "Micronúcleo: procesos de sistema sobre un núcleo mínimo (Mach, L4, Chorus) (T2 p.25).",
+    "Esquemas de operación: SVC → intérprete → petición de E/S → interrupción → despertar; frente a proceso gestionador de dispositivo (T2 p.26–27).",
+    "Comparativa: rendimiento, robustez, adaptabilidad, tamaño de sistema, modificación en ejecución (T2 p.28)."
+   ],
+   "rubrica": [
+    "Define ambos enfoques con ejemplos.",
+    "Describe la E/S en al menos uno.",
+    "Da al menos tres criterios de comparación.",
+    "Asigna correctamente cada ventaja.",
+    "Evita afirmaciones no recogidas en los apuntes."
+   ],
+   "src": [
+    {
+     "s": "T2",
+     "p": "25–28"
+    }
+   ]
+  },
+  {
+   "id": "d07",
+   "tema": "t2",
+   "titulo": "Diseño por capas",
+   "enunciado": "Explica el diseño por capas de un sistema operativo: objetivo, ventajas y niveles clásicos.",
+   "esquema": [
+    "Objetivo: reducir la complejidad observable del diseño (T2 p.9).",
+    "Capa: funciones claramente definidas hacia un objetivo común (T2 p.9).",
+    "Ventajas: ocultación, evolución con interfaces, alternativas, capas transparentes, desarrollo independiente (T2 p.10).",
+    "Niveles: 1 procesador, 2 memoria, 3 procesos, 4 dispositivos, 5 información (T2 p.11)."
+   ],
+   "rubrica": [
+    "Define capa y objetivo.",
+    "Cita al menos tres ventajas.",
+    "Enumera los cinco niveles en orden.",
+    "Asigna funciones a niveles correctamente.",
+    "Relaciona con la descripción estructural."
+   ],
+   "src": [
+    {
+     "s": "T2",
+     "p": "9–11"
+    }
+   ]
+  },
+  {
+   "id": "d08",
+   "tema": "t2",
+   "titulo": "Modo dual y protección del hardware",
+   "enunciado": "Explica qué mecanismos pide el diseñador del SO al hardware para que sea seguro y eficiente, y cómo se relacionan con las llamadas al sistema.",
+   "esquema": [
+    "SO seguro, robusto, estable y eficiente (T2 p.8).",
+    "Modo dual: usuario y privilegiado; paso a supervisor mediante petición de servicio (T2 p.8).",
+    "Protección de memoria, dispositivos y procesador (T2 p.8).",
+    "Rendimiento: solapar E/S y CPU (DMA) (T2 p.8).",
+    "Llamadas al sistema: mecanismo controlado de acceso a los recursos (T2 p.15)."
+   ],
+   "rubrica": [
+    "Explica el modo dual.",
+    "Cita los tres tipos de protección.",
+    "Relaciona modo supervisor y llamadas al sistema.",
+    "Incluye el DMA como mecanismo de rendimiento.",
+    "Mantiene la estructura clara."
+   ],
+   "src": [
+    {
+     "s": "T2",
+     "p": "8"
+    },
+    {
+     "s": "T2",
+     "p": "15"
+    }
+   ]
+  }
+ ],
+ "estrategia": {
+  "aviso": "Esta sección son recomendaciones de estudio, no contenido de los apuntes.",
+  "pasos": [
+   "**Lee y marca** qué se pide: describir, comparar, explicar paso a paso o justificar. De eso depende la forma de la respuesta.",
+   "**Esquema en 2–3 minutos** en el borde de la hoja: 3 a 5 ideas con una palabra clave cada una. Ordena antes de escribir.",
+   "**Entrada de una frase:** define el concepto central con los términos de las diapositivas.",
+   "**Cuerpo:** una idea por párrafo corto o viñeta, siempre con un dato concreto (ejemplo, nombre, paso numerado). En comparaciones, usa una tabla pequeña.",
+   "**Relaciona** al menos dos conceptos (p. ej. interrupción → ISR → planificador → despachar).",
+   "**Cierre de una o dos líneas** con la idea clave; no repitas todo.",
+   "**Revisión de 1 minuto:** términos correctos, orden de los pasos, nada inventado.",
+   "Si dudas de un dato, escribe lo que sabes con claridad en lugar de rellenar: la información clara y correcta pesa más que la extensión."
+  ],
+  "plantilla": "1. Definición (1–2 líneas)\n2. Ideas clave (3–5 viñetas con ejemplo)\n3. Relación entre conceptos (1–2 líneas)\n4. Conclusión (1 línea)"
+ }
+}

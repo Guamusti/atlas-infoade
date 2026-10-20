@@ -48,6 +48,19 @@
           "type": "image/png"
         }
       ]
+    },
+    {
+      "name": "Examen SSOO",
+      "short_name": "SSOO",
+      "description": "Guía de estudio del examen de Sistemas Operativos",
+      "url": "./ssoo",
+      "icons": [
+        {
+          "src": "./atlas-icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     }
   ]
 }

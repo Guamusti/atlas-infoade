@@ -1,0 +1,327 @@
+{
+ "version": 1,
+ "asignatura": "Sistemas Operativos",
+ "formato": [
+  {
+   "parte": "Teoría",
+   "items": [
+    "Examen en papel.",
+    "Test: 8 puntos. El test no resta.",
+    "Una pregunta de desarrollo: 2 puntos."
+   ]
+  },
+  {
+   "parte": "Práctica",
+   "items": [
+    "Todo se responde en papel.",
+    "Dos preguntas tipo test que sí restan.",
+    "Ejercicios de incidencias.",
+    "Se esperan órdenes sencillas.",
+    "Evaluable hasta las cuatro incidencias de la Práctica 1. La práctica de minishell no entra."
+   ]
+  }
+ ],
+ "sinConfirmar": [
+  "Fecha",
+  "Duración",
+  "Fórmula exacta de penalización",
+  "Temario oficial detallado",
+  "Número de preguntas tipo test"
+ ],
+ "aviso": "El formato procede de información transmitida por un compañero: es orientativo y podría cambiar. No es una confirmación oficial.",
+ "fuentes": [
+  {
+   "id": "T1",
+   "tipo": "a",
+   "ruta": "Teoria/SSOO-GII_T1_26-27.pdf",
+   "titulo": "Tema 1 · Introducción (diapositivas)",
+   "paginas": 42,
+   "nota": "Apuntes oficiales. Citas por página del PDF (la diapositiva 20 repite la 19, así que a partir de ahí el número impreso va una unidad por detrás)."
+  },
+  {
+   "id": "T2",
+   "tipo": "a",
+   "ruta": "Teoria/SSOO-GII_T2_26-27_2.pdf",
+   "titulo": "Tema 2 · Estructura del Sistema Operativo (diapositivas)",
+   "paginas": 37,
+   "nota": "Apuntes oficiales. Citas por página del PDF (coincide con el número impreso)."
+  },
+  {
+   "id": "I1",
+   "tipo": "a",
+   "ruta": "Laboratorio/Incidencias/documento1_Incidencia01.pdf",
+   "titulo": "Práctica 1 · Documento 1 · Incidencia 01 · Un entorno desconocido",
+   "paginas": 9,
+   "nota": "Guía oficial. Exploración y organización del sistema de archivos."
+  },
+  {
+   "id": "I2",
+   "tipo": "a",
+   "ruta": "Laboratorio/Incidencias/documento2_incidencia02 (1).pdf",
+   "titulo": "Práctica 1 · Documento 2 · Incidencia 02 · Un espacio de trabajo compartido",
+   "paginas": 11,
+   "nota": "Guía oficial. Permisos, umask, enlaces, patrones del shell y find. Contiene 16 situaciones numeradas."
+  },
+  {
+   "id": "I3",
+   "tipo": "a",
+   "ruta": "Laboratorio/Incidencias/documento3_incidencia03 (1).pdf",
+   "titulo": "Práctica 1 · Documento 3 · Incidencia 03 · Preparando el entorno de desarrollo",
+   "paginas": 13,
+   "nota": "Guía oficial. Entorno del shell, personalización y control de procesos. Contiene 12 situaciones numeradas."
+  },
+  {
+   "id": "I4",
+   "tipo": "a",
+   "ruta": "Laboratorio/Incidencias/documento04_incidencia04.pdf",
+   "titulo": "Práctica 1 · Documento 4 · Incidencia 04 · Procesamiento de información",
+   "paginas": 10,
+   "nota": "Guía oficial. Redirecciones, filtros, tuberías, find, grep/rg y empaquetado. Contiene 8 situaciones numeradas."
+  },
+  {
+   "id": "R34",
+   "tipo": "r",
+   "ruta": "Teoria/Resumenes/Resumen_Conceptos_P1_Sesiones_3_4.pdf",
+   "titulo": "Resumen de conceptos P1 · Sesiones 3 y 4",
+   "paginas": 4,
+   "nota": "RESUMEN, no apunte oficial. Resume el documento «conceptosP1_sesiones3-4_2026 (1).pdf» (28 páginas), que no estaba en el material entregado. Señala una errata del original en un ejemplo de cut."
+  },
+  {
+   "id": "INF1",
+   "tipo": "r",
+   "ruta": "Teoria/Resumenes/Informe_Incidencia01_ATLAS.pdf",
+   "titulo": "Informe de trabajo propio · Incidencia 01",
+   "paginas": 2,
+   "nota": "Informe personal de la Incidencia 01, no es un apunte oficial. Solo se usa para contrastar ejemplos; no se reproducen sus datos personales."
+  }
+ ],
+ "distinciones": [
+  {
+   "t": "Rutas absolutas y relativas",
+   "inc": "i1",
+   "evidencia": [
+    {
+     "s": "I1",
+     "p": "6",
+     "e": "Píldora conceptual · ¿Dónde estoy realmente?"
+    },
+    {
+     "s": "I1",
+     "p": "3"
+    },
+    {
+     "s": "I1",
+     "p": "9"
+    }
+   ],
+   "nota": "Aparece en los resultados de aprendizaje y en la píldora conceptual."
+  },
+  {
+   "t": "`du` y `df`",
+   "inc": "i1",
+   "evidencia": [
+    {
+     "s": "I1",
+     "p": "4",
+     "e": "Tabla: Examinar almacenamiento"
+    },
+    {
+     "s": "I1",
+     "p": "6",
+     "e": "Pregunta 5"
+    },
+    {
+     "s": "I1",
+     "p": "8",
+     "e": "Evidencia 4"
+    },
+    {
+     "s": "I1",
+     "p": "9"
+    }
+   ],
+   "nota": "La guía exige saber cuándo usar uno y cuándo el otro."
+  },
+  {
+   "t": "Permisos de archivos y directorios, y efecto de `umask`",
+   "inc": "i2",
+   "evidencia": [
+    {
+     "s": "I2",
+     "p": "3"
+    },
+    {
+     "s": "I2",
+     "p": "6",
+     "e": "Incidencia 2"
+    },
+    {
+     "s": "I2",
+     "p": "7",
+     "e": "Incidencia 6"
+    }
+   ],
+   "nota": "Advierte que un permiso no tiene el mismo efecto en archivo y en directorio."
+  },
+  {
+   "t": "Enlaces físicos y simbólicos",
+   "inc": "i2",
+   "evidencia": [
+    {
+     "s": "I2",
+     "p": "3"
+    },
+    {
+     "s": "I2",
+     "p": "8",
+     "e": "Incidencias 8–11"
+    },
+    {
+     "s": "I2",
+     "p": "11"
+    }
+   ],
+   "nota": "Incluye comprobar el inodo y comparar qué ocurre al eliminar referencias."
+  },
+  {
+   "t": "Patrones del shell y `find`",
+   "inc": "i2",
+   "evidencia": [
+    {
+     "s": "I2",
+     "p": "9",
+     "e": "Píldora conceptual"
+    },
+    {
+     "s": "I2",
+     "p": "10",
+     "e": "Nota técnica"
+    },
+    {
+     "s": "I4",
+     "p": "4",
+     "e": "Nota técnica"
+    }
+   ],
+   "nota": "La guía los presenta como mecanismos distintos."
+  },
+  {
+   "t": "Variables del shell y variables exportadas al entorno",
+   "inc": "i3",
+   "evidencia": [
+    {
+     "s": "I3",
+     "p": "3"
+    },
+    {
+     "s": "I3",
+     "p": "7",
+     "e": "Incidencia 3"
+    },
+    {
+     "s": "I3",
+     "p": "12"
+    }
+   ],
+   "nota": "El resumen R34 (no oficial) detalla la herencia del entorno."
+  },
+  {
+   "t": "Procesos (`ps`) y trabajos del shell (`jobs`)",
+   "inc": "i3",
+   "evidencia": [
+    {
+     "s": "I3",
+     "p": "4"
+    },
+    {
+     "s": "I3",
+     "p": "8",
+     "e": "Píldora conceptual"
+    },
+    {
+     "s": "I3",
+     "p": "9",
+     "e": "Incidencia 9"
+    }
+   ],
+   "nota": "La guía pide explicar la diferencia entre un trabajo del shell y el proceso asociado."
+  },
+  {
+   "t": "Redirecciones de entrada, salida y error, y tuberías",
+   "inc": "i4",
+   "evidencia": [
+    {
+     "s": "I4",
+     "p": "4"
+    },
+    {
+     "s": "I4",
+     "p": "5–6",
+     "e": "Incidencia 1"
+    },
+    {
+     "s": "I4",
+     "p": "10"
+    },
+    {
+     "s": "R34",
+     "p": "2–3"
+    }
+   ],
+   "nota": "La guía pide explicar redirección vs filtro vs tubería."
+  },
+  {
+   "t": "`find` frente a `grep`/`rg`",
+   "inc": "i4",
+   "evidencia": [
+    {
+     "s": "I4",
+     "p": "3"
+    },
+    {
+     "s": "I4",
+     "p": "4",
+     "e": "Nota técnica"
+    },
+    {
+     "s": "I4",
+     "p": "10"
+    }
+   ],
+   "nota": "`find` localiza archivos; `grep`/`rg` buscan contenido."
+  }
+ ],
+ "limitaciones": [
+  "Las guías de las incidencias plantean el trabajo pero **no incluyen soluciones ni la sintaxis detallada de las órdenes**. Las explicaciones de opciones, las salidas de ejemplo y los ejercicios son **complemento estándar** (marcados como tal); contrástalos con `man` y con una máquina Linux.",
+  "No estaban en el material entregado: el documento «conceptosP1_sesiones3-4_2026 (1).pdf» (que resume el R34), las píldoras conceptuales de Blackboard (permisos, `umask`, enlaces, patrones) ni el Documento 0. Lo relativo a variables, redirecciones, filtros y `grep` se apoya en el resumen R34, que **no es un apunte oficial**.",
+  "En `Teoria/Resumenes` hay un informe personal de la Incidencia 01 (no un resumen de apuntes). Solo se usa para contrastar ejemplos y no se reproducen sus datos.",
+  "Varias diapositivas son imágenes o diagramas: se han leído visualmente. Las citas son por **página del PDF**.",
+  "Estos materiales no contienen soluciones oficiales de examen ni indican qué entra en el examen: el temario lo infieres de los apuntes y de las guías, no de una confirmación oficial."
+ ],
+ "discrepancias": [
+  {
+   "t": "Numeración de «incidencias»",
+   "md": "Cada documento se titula «Incidencia 0X» pero contiene varias situaciones numeradas que también se llaman «Incidencia 1, 2, 3…» (16 en el Documento 2, 12 en el 3 y 8 en el 4). En esta guía, «Incidencia N» es el documento y «situación» o el identificador del ejercicio, el apartado concreto."
+  },
+  {
+   "t": "Dato de la diapositiva sobre la memoria",
+   "md": "T1 p.13 escribe «65535 posiciones» y «64 Kb»; con 16 líneas de direcciones hay 2¹⁶ = 65 536 direcciones (0x0000–0xFFFF) y 64 KB. Es una imprecisión de la diapositiva, no cambia la idea."
+  },
+  {
+   "t": "Preguntas abiertas en las diapositivas",
+   "md": "T2 p.12 pregunta «¿Por qué?» (el núcleo suele permanecer en almacenamiento primario) y T2 p.25 «¿Dónde se clasificará Windows?» sin respuesta en el texto. T2 p.28 marca «ininterrumpible*» sin nota al pie visible. Esta guía no inventa las respuestas."
+  },
+  {
+   "t": "Errata señalada por el resumen",
+   "md": "R34 p.4 indica que el ejemplo `printf 'hi\\nbye\\n' | cut -c 2` produce `i` y `y` y que la salida `b` del material original es una errata. Se ha comprobado."
+  },
+  {
+   "t": "Contenido del Atlas que queda fuera de esta página",
+   "md": "El portal de estudio del Atlas ya incluye temas marcados como «aún no visto» (partes 3–5) y una Práctica 2 (API POSIX). Conforme a tus notas, **esta página no los trata como evaluables**; la minishell no se incluye."
+  },
+  {
+   "t": "Notas del compañero frente a los documentos",
+   "md": "No se ha encontrado ninguna contradicción en el contenido académico: los temas y las cuatro incidencias coinciden con tus notas. El formato (test de 8 puntos, desarrollo de 2, preguntas que restan, órdenes sencillas) **no aparece en los documentos**; se mantiene como información orientativa."
+  }
+ ]
+}

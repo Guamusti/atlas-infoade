@@ -1,0 +1,3608 @@
+{
+ "incidencias": [
+  {
+   "id": "i1",
+   "num": 1,
+   "doc": "I1",
+   "titulo": "Incidencia 01 · Un entorno desconocido",
+   "sub": "Exploración y organización del sistema de archivos",
+   "resultados": [
+    "Interpretar la organización jerárquica del sistema de archivos y determinar tu posición dentro de ella.",
+    "Construir y usar rutas absolutas y relativas, incluyendo `/`, `~`, `.` y `..`.",
+    "Navegar y operar sobre archivos y directorios desde el terminal: crear, copiar, mover, renombrar y eliminar con rutas adecuadas al contexto.",
+    "Interpretar listados, reconocer archivos ocultos e identificar distintos tipos de archivo.",
+    "Localizar archivos y directorios y examinar su contenido de forma adecuada.",
+    "Analizar el espacio ocupado por directorios y la disponibilidad del sistema de archivos.",
+    "Consultar la documentación del sistema para elegir órdenes, opciones y argumentos.",
+    "Comprobar el resultado de una operación y justificar el procedimiento."
+   ],
+   "resultadosSrc": [
+    {
+     "s": "I1",
+     "p": "3",
+     "e": "Resultados de aprendizaje"
+    }
+   ],
+   "examinables": [
+    {
+     "t": "Dónde se interpreta una ruta relativa",
+     "md": "Una **ruta absoluta** parte de `/` y no depende del directorio de trabajo. Una **ruta relativa** se interpreta **desde el directorio actual**; `.` es ese directorio, `..` su padre y `~` el directorio personal. La guía pide poder responder antes de ejecutar: *¿desde dónde se interpretará?* y *¿a qué objeto terminará apuntando?*",
+     "o": "a",
+     "src": [
+      {
+       "s": "I1",
+       "p": "6",
+       "e": "Píldora conceptual · ¿Dónde estoy realmente?"
+      },
+      {
+       "s": "I1",
+       "p": "9",
+       "e": "Antes de terminar"
+      }
+     ]
+    },
+    {
+     "t": "Archivos que `ls` no muestra",
+     "md": "Un archivo puede existir aunque un listado ordinario no lo muestre (archivos ocultos). La guía pregunta qué elementos no muestra un listado ordinario y pide poder explicar por qué un archivo puede existir aunque `ls` no lo muestre.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I1",
+       "p": "5",
+       "e": "Pregunta 2 de 5.2"
+      },
+      {
+       "s": "I1",
+       "p": "9",
+       "e": "Antes de terminar"
+      }
+     ]
+    },
+    {
+     "t": "Mover, copiar y eliminar",
+     "md": "La guía exige poder explicar la diferencia entre mover, copiar y eliminar y operar con rutas adecuadas al contexto, incluida al menos una operación **sin cambiar antes al directorio** que contiene el objeto.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I1",
+       "p": "7",
+       "e": "5.4 Preparar el espacio de trabajo"
+      },
+      {
+       "s": "I1",
+       "p": "9"
+      }
+     ]
+    },
+    {
+     "t": "`du` frente a `df`",
+     "md": "La guía pregunta si es lo mismo saber qué directorios ocupan más espacio que saber cuánto espacio libre queda en el sistema de archivos, y exige saber cuándo usar `du` y cuándo `df`.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I1",
+       "p": "6",
+       "e": "Pregunta 5"
+      },
+      {
+       "s": "I1",
+       "p": "8",
+       "e": "Evidencia 4"
+      },
+      {
+       "s": "I1",
+       "p": "9"
+      }
+     ]
+    },
+    {
+     "t": "Consultar documentación de una orden desconocida",
+     "md": "Herramientas: `man`, `--help`, `whatis`, `apropos`. La documentación local forma parte de las herramientas de trabajo.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I1",
+       "p": "4",
+       "e": "Tabla de herramientas"
+      },
+      {
+       "s": "I1",
+       "p": "5"
+      },
+      {
+       "s": "I1",
+       "p": "9"
+      }
+     ]
+    },
+    {
+     "t": "Espacio temporal de trabajo seguro",
+     "md": "Crear un directorio temporal, un archivo vacío, copiar un archivo con ruta que no exija cambiar de directorio, compararlo con el original, eliminar los archivos y retirar el directorio con la herramienta adecuada para un directorio **vacío**.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I1",
+       "p": "8",
+       "e": "6. Consolidación después de la sesión"
+      }
+     ]
+    },
+    {
+     "t": "Examinar archivos y tipos",
+     "md": "Herramientas `cat`, `less`, `head`, `tail`, `file`: ver el comienzo y el final de un registro, identificar el tipo de un archivo y examinar parte del contenido para confirmar que es el buscado.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I1",
+       "p": "4"
+      },
+      {
+       "s": "I1",
+       "p": "6",
+       "e": "5.3 Reconstruir qué ocurrió"
+      }
+     ]
+    },
+    {
+     "t": "Ejecución secuencial con `;`",
+     "md": "La guía pide al menos una comprobación ejecutando dos órdenes independientes de forma secuencial en una misma línea mediante `;`.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I1",
+       "p": "4"
+      },
+      {
+       "s": "I1",
+       "p": "6"
+      }
+     ]
+    }
+   ],
+   "ordenes": [
+    {
+     "cmd": "pwd",
+     "fn": "Muestra la ruta absoluta del directorio de trabajo actual.",
+     "lista": [
+      {
+       "s": "I1",
+       "p": "4",
+       "e": "Orientarse y navegar"
+      }
+     ]
+    },
+    {
+     "cmd": "cd ruta",
+     "fn": "Cambia el directorio de trabajo. `cd` sin argumentos y `cd ~` van al directorio personal; `cd ..` sube un nivel.",
+     "lista": [
+      {
+       "s": "I1",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "ls",
+     "fn": "Lista el contenido de un directorio. `ls -a` incluye los ocultos; `ls -l` es el listado largo; `ls -la` combina ambos.",
+     "lista": [
+      {
+       "s": "I1",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "touch archivo",
+     "fn": "Crea un archivo vacío si no existe (o actualiza su fecha).",
+     "lista": [
+      {
+       "s": "I1",
+       "p": "4",
+       "e": "Trabajar con archivos"
+      }
+     ]
+    },
+    {
+     "cmd": "cp origen destino",
+     "fn": "Copia archivos (el original se conserva). Con directorios necesita `-r`.",
+     "lista": [
+      {
+       "s": "I1",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "mv origen destino",
+     "fn": "Mueve o renombra: cambia la ubicación o el nombre sin duplicar.",
+     "lista": [
+      {
+       "s": "I1",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "rm archivo",
+     "fn": "Elimina archivos. No hay papelera: no se puede deshacer.",
+     "lista": [
+      {
+       "s": "I1",
+       "p": "4"
+      },
+      {
+       "s": "I1",
+       "p": "7",
+       "e": "Advertencia"
+      }
+     ]
+    },
+    {
+     "cmd": "mkdir directorio",
+     "fn": "Crea un directorio.",
+     "lista": [
+      {
+       "s": "I1",
+       "p": "4",
+       "e": "Trabajar con directorios"
+      }
+     ]
+    },
+    {
+     "cmd": "rmdir directorio",
+     "fn": "Elimina un directorio **solo si está vacío**.",
+     "lista": [
+      {
+       "s": "I1",
+       "p": "4"
+      },
+      {
+       "s": "I1",
+       "p": "8"
+      }
+     ]
+    },
+    {
+     "cmd": "cat archivo",
+     "fn": "Muestra el contenido completo de un archivo.",
+     "lista": [
+      {
+       "s": "I1",
+       "p": "4",
+       "e": "Examinar información"
+      }
+     ]
+    },
+    {
+     "cmd": "less archivo",
+     "fn": "Muestra un archivo largo página a página (`q` para salir).",
+     "lista": [
+      {
+       "s": "I1",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "head archivo",
+     "fn": "Muestra las primeras líneas (por defecto 10; `head -n 5` muestra 5).",
+     "lista": [
+      {
+       "s": "I1",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "tail archivo",
+     "fn": "Muestra las últimas líneas (por defecto 10; `tail -n 5` muestra 5).",
+     "lista": [
+      {
+       "s": "I1",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "file archivo",
+     "fn": "Indica el tipo de un archivo (texto ASCII, CSV, ejecutable…).",
+     "lista": [
+      {
+       "s": "I1",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "du -h .",
+     "fn": "Estima el espacio ocupado por un directorio y sus subdirectorios (`-h` legible; `-s` solo el total).",
+     "lista": [
+      {
+       "s": "I1",
+       "p": "4",
+       "e": "Examinar almacenamiento"
+      }
+     ]
+    },
+    {
+     "cmd": "df -h .",
+     "fn": "Muestra tamaño, uso y espacio libre del sistema de archivos que contiene la ruta indicada.",
+     "lista": [
+      {
+       "s": "I1",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "tree",
+     "fn": "Dibuja la jerarquía como árbol (puede no estar instalado: `command -v tree`).",
+     "lista": [
+      {
+       "s": "I1",
+       "p": "4",
+       "e": "Visualizar jerarquías"
+      },
+      {
+       "s": "I1",
+       "p": "5",
+       "e": "5.1"
+      }
+     ]
+    },
+    {
+     "cmd": "tar",
+     "fn": "Empaqueta/desempaqueta. `tar -tzf paquete.tar.gz` lista sin extraer; `tar -xzf paquete.tar.gz` extrae.",
+     "lista": [
+      {
+       "s": "I1",
+       "p": "4",
+       "e": "Extraer el paquete de trabajo"
+      }
+     ],
+     "nota": "Las opciones `-tzf` y `-xzf` son sintaxis estándar; la guía solo indica que `tar` extrae el paquete."
+    },
+    {
+     "cmd": "man orden / orden --help / whatis orden / apropos tema",
+     "fn": "Consultan la documentación: manual completo, ayuda breve, descripción de una línea y búsqueda por palabra clave.",
+     "lista": [
+      {
+       "s": "I1",
+       "p": "4",
+       "e": "Obtener ayuda"
+      }
+     ]
+    },
+    {
+     "cmd": "orden1 ; orden2",
+     "fn": "Ejecuta dos órdenes seguidas en la misma línea, independientemente del resultado de la primera.",
+     "lista": [
+      {
+       "s": "I1",
+       "p": "4",
+       "e": "Shell básico"
+      },
+      {
+       "s": "I1",
+       "p": "6"
+      }
+     ]
+    },
+    {
+     "cmd": "command -v tree",
+     "fn": "Indica si el shell encuentra una orden y dónde.",
+     "lista": [
+      {
+       "s": "I1",
+       "p": "5",
+       "e": "5.1"
+      }
+     ]
+    }
+   ],
+   "ordenesNota": "La guía indica qué herramientas usar para cada finalidad (columna «En la guía»). Las descripciones y opciones son explicaciones estándar de Linux; contrástalas con `man` o `--help`.",
+   "ejemplos": [
+    {
+     "id": "i1-e1",
+     "t": "Rutas absoluta y relativa para la misma operación",
+     "cmds": "# Desde /home/ana/atlas\nmv tmp/sensor_0910.csv data/incoming/\nmv /home/ana/atlas/tmp/sensor_0910.csv /home/ana/atlas/data/incoming/",
+     "md": "Hacen lo mismo. La primera es **relativa** y solo vale si el directorio actual es `/home/ana/atlas`; la segunda es **absoluta** y vale desde cualquier directorio. (Ejemplo con nombres ficticios inspirado en el escenario de la guía.)",
+     "src": [
+      {
+       "s": "I1",
+       "p": "5–7"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i1-e2",
+     "t": "Operar sin cambiar de directorio",
+     "cmds": "# Estando en /home/ana/atlas/config\nmv ../tmp/sensor_0910.csv ../data/incoming/",
+     "md": "`..` sube al padre (`/home/ana/atlas`), por lo que `../tmp/...` apunta a `/home/ana/atlas/tmp/...`. No hace falta hacer `cd` al directorio de origen.",
+     "src": [
+      {
+       "s": "I1",
+       "p": "6–7"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i1-e3",
+     "t": "Ocultos con `ls -a`",
+     "cmds": "$ ls\ndocs  README.md\n$ ls -a\n.  ..  docs  .project-info  README.md",
+     "md": "`.project-info` existe pero `ls` no lo muestra porque empieza por punto; `ls -a` lo incluye junto con `.` y `..`. (Salida ficticia; el orden puede variar según el idioma del sistema.)",
+     "src": [
+      {
+       "s": "I1",
+       "p": "6"
+      },
+      {
+       "s": "I1",
+       "p": "9"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i1-e4",
+     "t": "`du` y `df` responden preguntas distintas",
+     "cmds": "$ du -sh data\n36K  data\n$ df -h .\nS.ficheros  Tamaño  Usados  Disp  Uso%  Montado en\n/dev/sda1   50G     21G     27G   44%   /",
+     "md": "`du` mide lo que **ocupan** archivos o directorios concretos; `df` informa del espacio **total, usado y libre** del sistema de archivos que contiene la ruta. Que `data` ocupe 36K no dice nada sobre cuánto espacio libre queda. (Salidas ficticias.)",
+     "src": [
+      {
+       "s": "I1",
+       "p": "6",
+       "e": "Pregunta 5"
+      },
+      {
+       "s": "I1",
+       "p": "8"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i1-e5",
+     "t": "Espacio temporal de comprobación",
+     "cmds": "mkdir tmp/comprobacion\ntouch tmp/comprobacion/vacio.txt\ncp README.md tmp/comprobacion/\nrm tmp/comprobacion/vacio.txt tmp/comprobacion/README.md\nrmdir tmp/comprobacion",
+     "md": "Se crea el directorio, un archivo vacío y una copia (con ruta relativa, sin `cd`). Se eliminan los archivos y, **solo después**, `rmdir` retira el directorio porque ya está vacío.",
+     "src": [
+      {
+       "s": "I1",
+       "p": "8",
+       "e": "6"
+      }
+     ],
+     "o": "c"
+    }
+   ],
+   "ejercicios": [
+    {
+     "id": "i1-x1",
+     "tipo": "interpretacion",
+     "t": "Convertir rutas relativas en absolutas",
+     "enun": "Tu directorio actual es `/home/ana/atlas/data`. El árbol es:\n```\n/home/ana/atlas/\n├── archive/\n├── config/atlas.conf\n├── data/incoming/\n└── tmp/sensor_0910.csv\n```\nEscribe la ruta absoluta a la que apunta cada ruta relativa:\n1. `./incoming`\n2. `../tmp/sensor_0910.csv`\n3. `../../..`\n4. `~/atlas/config` (supón que tu directorio personal es `/home/ana`).",
+     "sol": "1. `./incoming` → `/home/ana/atlas/data/incoming` (`.` es el directorio actual).\n2. `../tmp/sensor_0910.csv` → `/home/ana/atlas/tmp/sensor_0910.csv` (`..` sube a `/home/ana/atlas`).\n3. `../../..` → `/home` (`..` = `/home/ana/atlas`; `../..` = `/home/ana`; `../../..` = `/home`).\n4. `~/atlas/config` → `/home/ana/atlas/config` (`~` es el directorio personal).",
+     "src": [
+      {
+       "s": "I1",
+       "p": "3"
+      },
+      {
+       "s": "I1",
+       "p": "6",
+       "e": "Píldora conceptual"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i1-x2",
+     "tipo": "seleccion",
+     "t": "Elegir la orden y la forma de la ruta",
+     "enun": "Directorio actual: `/home/ana/atlas`. Debes mover `tmp/sensor_0910.csv` a `data/incoming`.\na) Escribe la orden con rutas **relativas**.\nb) Escríbela con rutas **absolutas**.\nc) Si el directorio actual fuese `/home/ana/atlas/config`, escribe una orden relativa que funcione.",
+     "sol": "a) `mv tmp/sensor_0910.csv data/incoming/`\nb) `mv /home/ana/atlas/tmp/sensor_0910.csv /home/ana/atlas/data/incoming/`\nc) `mv ../tmp/sensor_0910.csv ../data/incoming/`\n\nRazonamiento: la ruta relativa se interpreta desde el directorio actual; desde `config` hay que subir un nivel (`..`) para llegar a `tmp` y a `data`. `mv` **mueve** (no deja copia en origen).",
+     "src": [
+      {
+       "s": "I1",
+       "p": "6",
+       "e": "5.3"
+      },
+      {
+       "s": "I1",
+       "p": "7",
+       "e": "5.4"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i1-x3",
+     "tipo": "prediccion",
+     "t": "Predecir `ls`, `ls -a` y `ls -A`",
+     "enun": "Un directorio contiene: `README.md`, `docs/` (directorio) y `.project-info`.\n¿Qué muestra cada orden y por qué existe `.project-info` aunque `ls` no lo muestre?\n1. `ls`\n2. `ls -a`\n3. `ls -l`",
+     "sol": "1. `ls` → `docs` y `README.md` (no muestra `.project-info`).\n2. `ls -a` → además `.`, `..` y `.project-info`.\n3. `ls -l` → listado largo (tipo y permisos, enlaces, propietario, tamaño, fecha, nombre) de los mismos elementos que `ls`; tampoco muestra el oculto.\nLos nombres que empiezan por punto se consideran **ocultos**: no se listan salvo con `-a`. `ls -A` (complemento estándar) muestra los ocultos pero no `.` ni `..`.",
+     "src": [
+      {
+       "s": "I1",
+       "p": "5",
+       "e": "Pregunta 2 de 5.2"
+      },
+      {
+       "s": "I1",
+       "p": "9"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i1-x4",
+     "tipo": "seleccion",
+     "t": "`du` o `df`",
+     "enun": "¿Qué orden usarías para cada pregunta?\n1. ¿Cuánto ocupa el directorio `data`?\n2. ¿Cuánto espacio libre queda en el sistema de archivos donde está tu proyecto?\n3. ¿Qué directorios del proyecto ocupan más espacio?",
+     "sol": "1. `du -sh data` (o `du -h data` para ver también los subdirectorios).\n2. `df -h .` (el sistema de archivos que contiene el directorio actual).\n3. `du -h .` y comparar los tamaños de los subdirectorios.\n`du` y `df` no son intercambiables: uno mide lo que ocupan archivos y directorios; el otro, el espacio del sistema de archivos.",
+     "src": [
+      {
+       "s": "I1",
+       "p": "6",
+       "e": "Pregunta 5"
+      },
+      {
+       "s": "I1",
+       "p": "8"
+      },
+      {
+       "s": "I1",
+       "p": "9"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i1-x5",
+     "tipo": "diagnostico",
+     "t": "`rm` que no encuentra el archivo",
+     "enun": "Estás en `/home/ana` y ejecutas:\n```\n$ rm tmp/import.tmp\nrm: cannot remove 'tmp/import.tmp': No such file or directory\n```\nEl archivo existe en `/home/ana/atlas/tmp/import.tmp`. ¿Por qué falla y cómo lo arreglas de tres maneras? ¿Qué debes hacer antes de usar `rm`?",
+     "sol": "Falla porque la ruta es **relativa** y se interpreta desde `/home/ana`: busca `/home/ana/tmp/import.tmp`, que no existe.\nSoluciones: `rm atlas/tmp/import.tmp` (relativa correcta), `rm /home/ana/atlas/tmp/import.tmp` (absoluta) o `cd atlas` seguido de `rm tmp/import.tmp`.\nAntes de `rm` conviene comprobar el directorio de trabajo (`pwd`) y la ruta construida: **eliminar no es «deshacer»**.",
+     "src": [
+      {
+       "s": "I1",
+       "p": "7",
+       "e": "Advertencia · Eliminar no es «deshacer»"
+      },
+      {
+       "s": "I1",
+       "p": "6"
+      }
+     ],
+     "o": "c",
+     "peligro": true
+    },
+    {
+     "id": "i1-x6",
+     "tipo": "prediccion",
+     "t": "Copiar, mover y eliminar",
+     "enun": "Estado inicial de `~/lab`: `a.txt` y el directorio `dir1` (vacío). Se ejecuta:\n```\ncp a.txt b.txt\nmv b.txt dir1/\nrm a.txt\nls . dir1\n```\n¿Qué muestra la última orden?",
+     "sol": "- `cp a.txt b.txt` duplica el archivo (existen `a.txt` y `b.txt`).\n- `mv b.txt dir1/` mueve `b.txt` dentro de `dir1` (ya no está en `~/lab`).\n- `rm a.txt` elimina `a.txt`.\nLa salida de `ls . dir1` es:\n```\n.:\ndir1\n\ndir1:\nb.txt\n```\nAl listar varios argumentos, `ls` pone un encabezado por cada uno. Copiar duplica, mover cambia de sitio y eliminar borra sin posibilidad de deshacer.",
+     "src": [
+      {
+       "s": "I1",
+       "p": "9",
+       "e": "Antes de terminar"
+      }
+     ],
+     "o": "c",
+     "peligro": true
+    },
+    {
+     "id": "i1-x7",
+     "tipo": "seleccion",
+     "t": "Elegir la herramienta adecuada",
+     "enun": "Empareja cada necesidad con una orden:\n1. Ver las 5 primeras líneas de `logs/atlas.log`.\n2. Ver las 5 últimas.\n3. Saber de qué tipo es `tmp/sensor_0910.csv`.\n4. Leer un archivo largo página a página.\n5. Retirar un directorio temporal ya vacío.\n6. Ejecutar `pwd` y después `ls` en la misma línea.",
+     "sol": "1. `head -n 5 logs/atlas.log`\n2. `tail -n 5 logs/atlas.log`\n3. `file tmp/sensor_0910.csv`\n4. `less archivo`\n5. `rmdir tmp/comprobacion` (falla si no está vacío)\n6. `pwd ; ls`\nLa guía pide examinar el comienzo y el final del registro con herramientas apropiadas y ejecutar dos órdenes en secuencia con `;`.",
+     "src": [
+      {
+       "s": "I1",
+       "p": "4"
+      },
+      {
+       "s": "I1",
+       "p": "6",
+       "e": "5.3"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i1-x8",
+     "tipo": "diagnostico",
+     "t": "`rmdir` sobre un directorio con archivos",
+     "enun": "```\n$ rmdir tmp/comprobacion\nrmdir: failed to remove 'tmp/comprobacion': Directory not empty\n```\n¿Qué significa y cómo se resuelve sin tocar nada más?",
+     "sol": "`rmdir` solo elimina directorios **vacíos**. El directorio todavía contiene archivos. Se eliminan primero los archivos de prueba (`rm tmp/comprobacion/archivo`) y después se ejecuta `rmdir tmp/comprobacion`. (El texto del error depende del idioma del sistema.) La guía pide usar «la herramienta adecuada para un directorio vacío».",
+     "src": [
+      {
+       "s": "I1",
+       "p": "8",
+       "e": "6"
+      },
+      {
+       "s": "INF1",
+       "p": "2",
+       "e": "Consulta rmdir --help"
+      }
+     ],
+     "o": "c",
+     "peligro": true
+    },
+    {
+     "id": "i1-x9",
+     "tipo": "seleccion",
+     "t": "Averiguar cómo funciona una orden",
+     "enun": "No recuerdas qué hace `rmdir` ni qué opciones tiene. Indica tres formas de averiguarlo y una para buscar órdenes relacionadas con «directory».",
+     "sol": "`man rmdir` (manual completo), `rmdir --help` (ayuda breve) y `whatis rmdir` (descripción de una línea). Para buscar por palabra clave: `apropos directory`. La guía incluye estas cuatro herramientas y pide una consulta real a la documentación como evidencia.",
+     "src": [
+      {
+       "s": "I1",
+       "p": "4",
+       "e": "Obtener ayuda"
+      },
+      {
+       "s": "I1",
+       "p": "8",
+       "e": "Evidencia 5"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i1-x10",
+     "tipo": "interpretacion",
+     "t": "Inspeccionar un paquete antes de extraerlo",
+     "enun": "Tienes `atlas_workspace01.tar.gz`. Escribe una orden que **liste** su contenido sin extraerlo y otra que lo extraiga. ¿Por qué conviene listar antes?",
+     "sol": "Listar: `tar -tzf atlas_workspace01.tar.gz`. Extraer: `tar -xzf atlas_workspace01.tar.gz`. Listar primero permite ver qué estructura traerá el paquete y dónde se extraerá. La guía pide **trabajar solo sobre la copia extraída en el directorio personal** y no modificar archivos del sistema. (Opciones `-tzf`/`-xzf`: sintaxis estándar de `tar`.)",
+     "src": [
+      {
+       "s": "I1",
+       "p": "4",
+       "e": "tar"
+      },
+      {
+       "s": "I1",
+       "p": "5",
+       "e": "5.2"
+      }
+     ],
+     "o": "c"
+    }
+   ],
+   "errores": [
+    {
+     "t": "Interpretar una ruta relativa desde donde no corresponde",
+     "md": "La ruta relativa se interpreta desde el directorio actual. Antes de ejecutar una orden con rutas relativas hay que saber desde dónde se interpretará y a qué objeto apuntará.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I1",
+       "p": "6",
+       "e": "Píldora conceptual"
+      }
+     ]
+    },
+    {
+     "t": "Creer que `ls` muestra todo",
+     "md": "Los archivos ocultos no aparecen en un listado ordinario. La guía pregunta por qué un archivo puede existir aunque `ls` no lo muestre.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I1",
+       "p": "5–6",
+       "e": "Preguntas de 5.2"
+      },
+      {
+       "s": "I1",
+       "p": "9"
+      }
+     ]
+    },
+    {
+     "t": "Usar `rm` sin comprobar directorio y ruta",
+     "md": "«Eliminar no es deshacer»: comprueba el directorio de trabajo y la ruta antes. Solo se eliminan los elementos indicados dentro de la copia de trabajo.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I1",
+       "p": "7",
+       "e": "Advertencia"
+      }
+     ]
+    },
+    {
+     "t": "Confundir `du` con `df`",
+     "md": "`du` no informa del espacio libre del sistema de archivos y `df` no informa de lo que ocupa cada directorio.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I1",
+       "p": "6",
+       "e": "Pregunta 5"
+      },
+      {
+       "s": "I1",
+       "p": "8"
+      },
+      {
+       "s": "I1",
+       "p": "9"
+      }
+     ]
+    },
+    {
+     "t": "Confundir copiar, mover y eliminar",
+     "md": "Copiar deja el original; mover cambia la ubicación; eliminar borra. La guía exige explicar la diferencia.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I1",
+       "p": "9"
+      }
+     ]
+    },
+    {
+     "t": "Trabajar fuera de la copia o modificar archivos del sistema",
+     "md": "Solo se trabaja sobre la copia extraída en el directorio personal. En `/etc` y `/var/log` solo se explora, sin modificar.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I1",
+       "p": "5"
+      },
+      {
+       "s": "I1",
+       "p": "7",
+       "e": "5.5"
+      }
+     ]
+    },
+    {
+     "t": "Intentar `rmdir` en un directorio con contenido",
+     "md": "`rmdir` solo retira directorios vacíos (confirmado con `rmdir --help` en el informe de ejemplo).",
+     "o": "r",
+     "src": [
+      {
+       "s": "INF1",
+       "p": "2"
+      },
+      {
+       "s": "I1",
+       "p": "8"
+      }
+     ]
+    },
+    {
+     "t": "Tratar la instalación de `tree` como parte del objetivo",
+     "md": "La instalación es una operación instrumental; no se pretende estudiar administración de paquetes.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I1",
+       "p": "5",
+       "e": "5.1"
+      }
+     ]
+    }
+   ],
+   "distinciones": [
+    {
+     "t": "Ruta absoluta vs relativa",
+     "md": "Absoluta: parte de `/`, no depende del directorio actual. Relativa: se interpreta desde el directorio actual (`.`, `..`, `~`).",
+     "src": [
+      {
+       "s": "I1",
+       "p": "3"
+      },
+      {
+       "s": "I1",
+       "p": "6"
+      }
+     ]
+    },
+    {
+     "t": "`du` vs `df`",
+     "md": "`du`: espacio que ocupan archivos/directorios. `df`: espacio total, usado y libre del sistema de archivos.",
+     "src": [
+      {
+       "s": "I1",
+       "p": "6"
+      },
+      {
+       "s": "I1",
+       "p": "8"
+      },
+      {
+       "s": "I1",
+       "p": "9"
+      }
+     ]
+    },
+    {
+     "t": "Mover vs copiar vs eliminar",
+     "md": "Mover cambia ubicación; copiar duplica; eliminar borra sin deshacer.",
+     "src": [
+      {
+       "s": "I1",
+       "p": "9"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "i2",
+   "num": 2,
+   "doc": "I2",
+   "titulo": "Incidencia 02 · Un espacio de trabajo compartido",
+   "sub": "Organización, protección y selección eficiente de archivos",
+   "resultados": [
+    "Interpretar y modificar los permisos de acceso de archivos y directorios.",
+    "Comprender el efecto de la máscara de creación de archivos (`umask`) sobre los permisos iniciales.",
+    "Distinguir entre enlaces físicos y simbólicos y los casos en que conviene cada uno; crear y comprobar enlaces.",
+    "Seleccionar archivos y directorios con los patrones de expansión del shell (`*`, `?`, `[]`, `[!...]`).",
+    "Distinguir un patrón de expansión del shell de una herramienta de búsqueda como `find` y usar `find` de forma introductoria (criterios `-type` y `-name`).",
+    "Comprobar qué elementos selecciona un patrón antes de usarlo en una operación que pueda modificar varios recursos.",
+    "Interpretar la información de los listados largos: permisos, propietarios y enlaces.",
+    "Consultar la documentación y justificar las decisiones adoptadas."
+   ],
+   "resultadosSrc": [
+    {
+     "s": "I2",
+     "p": "3",
+     "e": "Resultados de aprendizaje"
+    }
+   ],
+   "examinables": [
+    {
+     "t": "Permisos de archivos y directorios",
+     "md": "La guía pide interpretar y modificar permisos y advierte: **no asumáis que un mismo permiso tiene el mismo efecto sobre un archivo que sobre un directorio**. Se obtienen con `ls -l` y `stat`; se modifican con `chmod`.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I2",
+       "p": "6",
+       "e": "Incidencias 1–3"
+      },
+      {
+       "s": "I2",
+       "p": "3"
+      }
+     ]
+    },
+    {
+     "t": "Corregir permisos sin pasarse",
+     "md": "Restaurar **únicamente** los permisos necesarios (p. ej., ejecución de un script): «una configuración demasiado permisiva también es un error».",
+     "o": "a",
+     "src": [
+      {
+       "s": "I2",
+       "p": "7",
+       "e": "Incidencia 4 y Advertencia"
+      }
+     ]
+    },
+    {
+     "t": "`umask`: predecir y comprobar",
+     "md": "Consultar la `umask`, **predecir** los permisos de un archivo y de un directorio nuevos, comprobarlo con una prueba temporal y eliminarla. No se cambia la `umask` del sistema.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I2",
+       "p": "7",
+       "e": "Incidencia 6"
+      },
+      {
+       "s": "I2",
+       "p": "11"
+      }
+     ]
+    },
+    {
+     "t": "Enlace simbólico: interpretar `ls -l`",
+     "md": "`HomebrewFormula` parece un archivo ordinario en un listado largo pero es un **enlace**: hay que determinar su tipo, destino e interpretación, y no modificarlo.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I2",
+       "p": "7",
+       "e": "Incidencia 5"
+      }
+     ]
+    },
+    {
+     "t": "Enlaces físicos y simbólicos",
+     "md": "Sustituir una copia por un **enlace físico** y comprobar que ambos nombres comparten el **inodo**; crear **enlaces simbólicos con ruta relativa**; comparar qué ocurre al eliminar una referencia de un enlace físico o al desaparecer el destino de un simbólico.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I2",
+       "p": "8",
+       "e": "Incidencias 8–11"
+      },
+      {
+       "s": "I2",
+       "p": "11"
+      }
+     ]
+    },
+    {
+     "t": "Patrones del shell",
+     "md": "`*`, `?`, `[]` y `[!...]`. Hay que **comprobar la selección** antes de usarla (`printf`, `ls`) y explicar por qué `?` es más restrictivo que `*` y qué parte del patrón negado hace la exclusión.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I2",
+       "p": "9–10",
+       "e": "Incidencias 12–15"
+      }
+     ]
+    },
+    {
+     "t": "Patrón del shell vs `find`",
+     "md": "Un patrón como `*.md` no hace una búsqueda recursiva: lo expande el shell en el contexto en que se usa. `find` recorre una jerarquía y aplica criterios. Las comillas en `find . -type f -name '*.md'` evitan que el shell expanda el patrón antes de que `find` lo reciba.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I2",
+       "p": "9",
+       "e": "Píldora conceptual"
+      },
+      {
+       "s": "I2",
+       "p": "10",
+       "e": "Nota técnica"
+      }
+     ]
+    },
+    {
+     "t": "Patrones del shell ≠ expresiones regulares",
+     "md": "Los mecanismos `*`, `?`, `[]`, `[!...]` son patrones de expansión del shell y no deben confundirse con las expresiones regulares de otras herramientas de búsqueda de texto.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I2",
+       "p": "10",
+       "e": "Nota técnica"
+      }
+     ]
+    }
+   ],
+   "ordenes": [
+    {
+     "cmd": "ls -l",
+     "fn": "Listado largo: tipo y permisos, nº de enlaces, propietario, grupo, tamaño, fecha y nombre (si es enlace simbólico, `nombre -> destino`).",
+     "lista": [
+      {
+       "s": "I2",
+       "p": "4",
+       "e": "Permisos y propietarios"
+      }
+     ]
+    },
+    {
+     "cmd": "stat archivo",
+     "fn": "Muestra información detallada: permisos, propietario, grupo, inodo, nº de enlaces…",
+     "lista": [
+      {
+       "s": "I2",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "chmod",
+     "fn": "Cambia permisos. Forma simbólica: `chmod u+x,go+x archivo`; forma numérica: `chmod 755 archivo` (r=4, w=2, x=1).",
+     "lista": [
+      {
+       "s": "I2",
+       "p": "4"
+      }
+     ],
+     "nota": "La sintaxis de `chmod` es estándar; la guía solo lo lista como herramienta."
+    },
+    {
+     "cmd": "umask",
+     "fn": "Muestra (o fija) la máscara de creación de archivos: los bits de la máscara se **quitan** de los permisos iniciales (666 para archivos, 777 para directorios).",
+     "lista": [
+      {
+       "s": "I2",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "ln origen enlace",
+     "fn": "Crea un **enlace físico**: otro nombre para el mismo archivo (mismo inodo).",
+     "lista": [
+      {
+       "s": "I2",
+       "p": "4",
+       "e": "Enlaces"
+      }
+     ]
+    },
+    {
+     "cmd": "ln -s destino enlace",
+     "fn": "Crea un **enlace simbólico**: un archivo especial que contiene la ruta del destino.",
+     "lista": [
+      {
+       "s": "I2",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "printf '%s\\n' *.md",
+     "fn": "Muestra, una por línea, lo que el shell expande para el patrón `*.md`, para comprobar la selección antes de usarla.",
+     "lista": [
+      {
+       "s": "I2",
+       "p": "4",
+       "e": "Comprobar selecciones"
+      },
+      {
+       "s": "I2",
+       "p": "9"
+      }
+     ]
+    },
+    {
+     "cmd": "ls patrón",
+     "fn": "Con un patrón, comprueba qué nombres selecciona.",
+     "lista": [
+      {
+       "s": "I2",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "find . -type f -name '*.md'",
+     "fn": "Busca en toda la jerarquía a partir de `.` los archivos (`-type f`) cuyo nombre (`-name`) cumple el patrón entre comillas.",
+     "lista": [
+      {
+       "s": "I2",
+       "p": "4",
+       "e": "Buscar en una jerarquía"
+      },
+      {
+       "s": "I2",
+       "p": "9"
+      }
+     ]
+    },
+    {
+     "cmd": "man / whatis / apropos / --help",
+     "fn": "Consulta de documentación.",
+     "lista": [
+      {
+       "s": "I2",
+       "p": "4",
+       "e": "Consultar documentación"
+      }
+     ]
+    },
+    {
+     "cmd": "*   ?   [ ]   [! ]",
+     "fn": "Patrones de expansión del shell: `*` cualquier cadena; `?` exactamente un carácter; `[abc]` un carácter del conjunto; `[!abc]` un carácter que no esté en el conjunto.",
+     "lista": [
+      {
+       "s": "I2",
+       "p": "4",
+       "e": "Patrones del shell"
+      }
+     ]
+    }
+   ],
+   "ordenesNota": "Las descripciones de `chmod`, `umask`, `ln` y de los patrones son explicaciones estándar de Linux/Bash: las guías remiten a las píldoras de Blackboard (no incluidas en el material entregado). Contrástalas con `man`.",
+   "ejemplos": [
+    {
+     "id": "i2-e1",
+     "t": "Leer un listado largo",
+     "cmds": "$ ls -l\n-rw-r--r-- 1 ana ana  120 oct 14 10:00 notas.txt\ndrwxr-xr-x 2 ana ana 4096 oct 14 10:00 docs\nlrwxrwxrwx 1 ana ana   11 oct 14 10:00 enlace -> docs/leeme",
+     "md": "El primer carácter indica el **tipo** (`-` archivo, `d` directorio, `l` enlace simbólico). Siguen tres grupos `rwx`: **propietario**, **grupo** y **otros**. `notas.txt` es `rw-` (propietario), `r--` (grupo) y `r--` (otros). Después: nº de enlaces, propietario, grupo, tamaño, fecha y nombre. En `enlace -> docs/leeme`, la flecha indica el destino. (Salida ficticia.)",
+     "src": [
+      {
+       "s": "I2",
+       "p": "3"
+      },
+      {
+       "s": "I2",
+       "p": "7"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i2-e2",
+     "t": "Permisos distintos en archivo y directorio",
+     "cmds": "chmod u+x,go+x scripts/copy-examples   # añade ejecución\nchmod 755 scripts/copy-examples       # equivale si antes era 644",
+     "md": "Para un **archivo**, `x` significa poder ejecutarlo; para un **directorio**, `x` significa poder entrar y acceder a lo que contiene; `r` en un directorio permite listar nombres y `w` crear o borrar entradas. Solo se añade lo necesario (no `777`).",
+     "src": [
+      {
+       "s": "I2",
+       "p": "6–7"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i2-e3",
+     "t": "`umask` en acción",
+     "cmds": "$ umask 022\n$ touch f && mkdir d\n$ ls -ld f d\n-rw-r--r-- 1 ana ana 0 ... f\ndrwxr-xr-x 2 ana ana 4096 ... d",
+     "md": "Con máscara `022`: archivo = 666 − 022 = **644** (`rw-r--r--`); directorio = 777 − 022 = **755** (`rwxr-xr-x`). Los archivos nuevos no reciben `x` por defecto. Prueba solo en una sesión temporal y borra `f` y `d` al terminar.",
+     "src": [
+      {
+       "s": "I2",
+       "p": "7",
+       "e": "Incidencia 6"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i2-e4",
+     "t": "Enlace físico",
+     "cmds": "$ ln LICENSE-MIT crates/cli/LICENSE-MIT   # (tras eliminar la copia anterior)\n$ ls -li LICENSE-MIT crates/cli/LICENSE-MIT\n1048 -rw-r--r-- 2 ana ana 1056 ... LICENSE-MIT\n1048 -rw-r--r-- 2 ana ana 1056 ... crates/cli/LICENSE-MIT",
+     "md": "Mismo **inodo** (1048) y contador de enlaces 2: son dos nombres del mismo archivo. Si uno se edita, el otro refleja el cambio. (Números ficticios; `ls -i` muestra el inodo.)",
+     "src": [
+      {
+       "s": "I2",
+       "p": "8",
+       "e": "Incidencia 8"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i2-e5",
+     "t": "Enlace simbólico con ruta relativa",
+     "cmds": "# Estando en la raíz del proyecto\nln -s ../../README.md pkg/windows/PROJECT-README.md\nls -l pkg/windows/PROJECT-README.md",
+     "md": "La ruta relativa del destino se interpreta **desde el directorio donde está el enlace** (`pkg/windows`), por eso hay que subir dos niveles (`../../`) hasta `README.md`. `ls -l` mostrará `PROJECT-README.md -> ../../README.md`.",
+     "src": [
+      {
+       "s": "I2",
+       "p": "8",
+       "e": "Incidencia 9"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i2-e6",
+     "t": "Patrón del shell frente a `find`",
+     "cmds": "printf '%s\\n' *.md\nfind . -type f -name '*.md'",
+     "md": "La primera orden solo muestra los `.md` del **directorio actual** (el shell expande el patrón). La segunda recorre **todo el árbol** y las comillas evitan que el shell expanda `*.md` antes de que `find` lo reciba.",
+     "src": [
+      {
+       "s": "I2",
+       "p": "9",
+       "e": "Píldora conceptual"
+      }
+     ],
+     "o": "c"
+    }
+   ],
+   "ejercicios": [
+    {
+     "id": "i2-x1",
+     "tipo": "interpretacion",
+     "t": "Interpretar un listado largo",
+     "enun": "Dada esta línea de `ls -l`:\n```\n-rwxr-x--- 1 ana dev 2048 oct 14 10:00 build.sh\n```\n¿Qué tipo de objeto es? ¿Qué puede hacer cada categoría?",
+     "sol": "Es un **archivo ordinario** (`-`). Permisos `rwx` para el propietario (`ana`: leer, escribir y ejecutar), `r-x` para el grupo `dev` (leer y ejecutar, no modificar) y `---` para otros (nada). Numéricamente: **750**.",
+     "src": [
+      {
+       "s": "I2",
+       "p": "3"
+      },
+      {
+       "s": "I2",
+       "p": "6"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i2-x2",
+     "tipo": "prediccion",
+     "t": "Predecir permisos con `umask`",
+     "enun": "Con `umask 027`, ¿qué permisos tendrán un archivo nuevo y un directorio nuevo? Repite con `umask 077` y con `umask 002`.",
+     "sol": "Base: archivos 666, directorios 777; se quitan los bits de la máscara.\n- `027`: archivo **640** (`rw-r-----`), directorio **750** (`rwxr-x---`).\n- `077`: archivo **600**, directorio **700**.\n- `002`: archivo **664**, directorio **775**.\nLa `umask` solo afecta a lo que se **crea después**; no cambia los archivos existentes. La guía pide predecir, comprobar y eliminar los recursos temporales.",
+     "src": [
+      {
+       "s": "I2",
+       "p": "7",
+       "e": "Incidencia 6"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i2-x3",
+     "tipo": "diagnostico",
+     "t": "Un script que no se ejecuta",
+     "enun": "```\n$ ls -l scripts/copy-examples\n-rw-r--r-- 1 ana ana 310 oct 14 10:00 scripts/copy-examples\n$ scripts/copy-examples\nbash: scripts/copy-examples: Permission denied\n```\nLa tarea es que el propietario y el resto de usuarios puedan **leer y ejecutar** el script. ¿Qué orden usarías y por qué no `chmod 777`?",
+     "sol": "Falta el permiso de **ejecución**. Basta añadir `x`: `chmod u+x,go+x scripts/copy-examples` (o `chmod 755 scripts/copy-examples`), que deja `-rwxr-xr-x`.\nNo se usa `777` porque daría escritura a todos: la guía advierte que una configuración demasiado permisiva también es un error. Se modifica solo lo necesario.",
+     "src": [
+      {
+       "s": "I2",
+       "p": "7",
+       "e": "Incidencia 4 y Advertencia"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i2-x4",
+     "tipo": "diagnostico",
+     "t": "Un enlace que parece un archivo",
+     "enun": "```\n$ ls -l HomebrewFormula\nlrwxrwxrwx 1 ana ana 8 oct 14 10:00 HomebrewFormula -> pkg/brew\n```\n¿Qué tipo de recurso es? ¿A dónde apunta? ¿Por qué no se debe modificar sus permisos en este caso?",
+     "sol": "El primer carácter es `l`: es un **enlace simbólico** que apunta a `pkg/brew`. Los permisos `lrwxrwxrwx` de un enlace simbólico no controlan el acceso al destino (se aplican los del destino), por lo que cambiarlos no tendría el efecto esperado. La guía pide no cambiar ni sus permisos ni su destino y explicar por qué la actuación adecuada es no modificarlo. (Ejemplo ficticio.)",
+     "src": [
+      {
+       "s": "I2",
+       "p": "7",
+       "e": "Incidencia 5"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i2-x5",
+     "tipo": "seleccion",
+     "t": "Elegir el tipo de enlace",
+     "enun": "Elige enlace físico o simbólico y escribe la orden:\n1. Mantener `LICENSE-MIT` en la raíz y en `crates/cli` sin que puedan divergir.\n2. Acceder a `README.md` (en la raíz) desde `pkg/windows` con una ruta relativa.\n3. Acceder al directorio `tests` desde `scripts`.",
+     "sol": "1. **Enlace físico** (mismo archivo con dos nombres): `ln LICENSE-MIT crates/cli/LICENSE-MIT` tras comprobar que el contenido es idéntico y eliminar la segunda copia. Se verifica con `ls -i` o `stat` (mismo inodo).\n2. **Simbólico**: `ln -s ../../README.md pkg/windows/PROJECT-README.md`.\n3. **Simbólico** (un enlace físico a directorios no es lo habitual): `ln -s ../tests scripts/tests`; se comprueba que se puede recorrer y que **no hay copia** de los archivos.",
+     "src": [
+      {
+       "s": "I2",
+       "p": "8",
+       "e": "Incidencias 8–10"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i2-x6",
+     "tipo": "prediccion",
+     "t": "Eliminar el original",
+     "enun": "```\necho hola > a.txt\nln a.txt dura.txt\nln -s a.txt simb.txt\nrm a.txt\ncat dura.txt\ncat simb.txt\n```\n¿Qué muestra cada `cat`?",
+     "sol": "`cat dura.txt` → `hola`: el enlace físico es otro nombre del mismo archivo; al eliminar un nombre, los datos siguen mientras quede otro.\n`cat simb.txt` → error (`No such file or directory`): el enlace simbólico solo guarda la ruta `a.txt`, que ya no existe (enlace roto).\nEs la comparación experimental que pide la Incidencia 11.",
+     "src": [
+      {
+       "s": "I2",
+       "p": "8",
+       "e": "Incidencia 11"
+      }
+     ],
+     "o": "c",
+     "peligro": true
+    },
+    {
+     "id": "i2-x7",
+     "tipo": "prediccion",
+     "t": "Patrones del shell",
+     "enun": "En un directorio hay: `README.md`, `LICENSE-MIT`, `CHANGELOG.md`, `Cargo.toml`, `notas.txt`, `.hidden.md`.\n¿Qué selecciona cada patrón?\n1. `*.md`\n2. `[A-Z]*`\n3. `?????.txt`\n4. `[!C]*`",
+     "sol": "1. `*.md` → `CHANGELOG.md` y `README.md` (no incluye `.hidden.md`: un `*` inicial no coincide con nombres ocultos).\n2. `[A-Z]*` → `CHANGELOG.md`, `Cargo.toml`, `LICENSE-MIT`, `README.md` (nombres que empiezan por mayúscula; según el idioma del sistema `[A-Z]` puede comportarse distinto: `[[:upper:]]*` es más seguro).\n3. `?????.txt` → `notas.txt` (cinco caracteres exactos antes de `.txt`).\n4. `[!C]*` → `LICENSE-MIT`, `README.md`, `notas.txt` (los que **no** empiezan por `C`; no incluye ocultos).\nSe comprueba antes de operar con `printf '%s\\n' patrón`.",
+     "src": [
+      {
+       "s": "I2",
+       "p": "9–10",
+       "e": "Incidencias 12–15"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i2-x8",
+     "tipo": "escritura",
+     "t": "Escribir el patrón pedido",
+     "enun": "En `tests/data` hay `sherlock`, `sherlock.z`, `sherlock.Zip`, `sherlock.txt` y `sherlock.a`.\na) Selecciona los de **extensión de un único carácter**.\nb) Selecciona los de nombre `sherlock` cuya extensión **no empiece por la letra Z mayúscula** (usa `[!Z]`).",
+     "sol": "a) `sherlock.?` → `sherlock.z` y `sherlock.a` (`?` = exactamente un carácter; es más restrictivo que `*`, que aceptaría también `.Zip` y `.txt`).\nb) `sherlock.[!Z]*` → `sherlock.z`, `sherlock.txt` y `sherlock.a`: excluye `sherlock.Zip` porque su extensión empieza por `Z`. `sherlock` a secas tampoco entra (el patrón exige un punto). Sustituir `[!Z]` por `*` no excluiría nada: la parte que hace la exclusión es la negación `[!Z]`. Los patrones distinguen mayúsculas y minúsculas.",
+     "src": [
+      {
+       "s": "I2",
+       "p": "9",
+       "e": "Incidencias 13 y 15"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i2-x9",
+     "tipo": "diagnostico",
+     "t": "`*.md` no encuentra lo que esperabas",
+     "enun": "Quieres todos los `.md` del proyecto, incluidos los de subdirectorios, y ejecutas `printf '%s\\n' *.md`. Solo salen los de la raíz. ¿Por qué y qué usarías?",
+     "sol": "El patrón lo expande el shell **solo en el directorio actual**; no recorre subdirectorios. Para recorrer la jerarquía: `find . -type f -name '*.md'` (con comillas, para que el patrón llegue a `find` sin expandir).",
+     "src": [
+      {
+       "s": "I2",
+       "p": "9",
+       "e": "Píldora conceptual"
+      },
+      {
+       "s": "I2",
+       "p": "10",
+       "e": "Incidencia 16"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i2-x10",
+     "tipo": "diagnostico",
+     "t": "Patrón sin coincidencias",
+     "enun": "```\n$ ls *.xyz\nls: cannot access '*.xyz': No such file or directory\n```\n¿Qué ha ocurrido?",
+     "sol": "Ningún nombre coincide con el patrón, así que (en el comportamiento habitual de Bash) el shell deja `*.xyz` **tal cual** y `ls` lo busca como nombre literal, que no existe. Conviene comprobar la selección antes de usarla en una operación que modifique archivos (por ejemplo, con `printf` o `ls`).",
+     "src": [
+      {
+       "s": "I2",
+       "p": "9",
+       "e": "Incidencia 12"
+      },
+      {
+       "s": "I2",
+       "p": "3"
+      }
+     ],
+     "o": "c"
+    }
+   ],
+   "errores": [
+    {
+     "t": "Asumir que `rwx` significa lo mismo en archivos y directorios",
+     "md": "La guía lo advierte expresamente: el efecto de cada permiso depende del tipo de recurso.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I2",
+       "p": "6",
+       "e": "Incidencia 2"
+      }
+     ]
+    },
+    {
+     "t": "Dar más permisos de los necesarios",
+     "md": "Una configuración demasiado permisiva también es un error; se restauran únicamente los permisos necesarios.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I2",
+       "p": "7",
+       "e": "Advertencia"
+      }
+     ]
+    },
+    {
+     "t": "Cambiar permisos o destino de un enlace como `HomebrewFormula`",
+     "md": "Es un enlace, no un archivo ordinario; la actuación correcta es no modificarlo y saber explicarlo.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I2",
+       "p": "7",
+       "e": "Incidencia 5"
+      }
+     ]
+    },
+    {
+     "t": "Cambiar la `umask` del sistema al hacer la prueba",
+     "md": "La incidencia pide predecir y comprobar sin cambiar la `umask` del sistema y eliminar los recursos temporales.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I2",
+       "p": "7",
+       "e": "Incidencia 6"
+      }
+     ]
+    },
+    {
+     "t": "Esperar que la `umask` cambie archivos ya creados",
+     "md": "Solo afecta a los permisos iniciales de lo que se crea después.",
+     "o": "c",
+     "src": [
+      {
+       "s": "I2",
+       "p": "3",
+       "e": "Resultados de aprendizaje"
+      }
+     ]
+    },
+    {
+     "t": "Creer que `*.md` busca en todo el proyecto",
+     "md": "Un patrón del shell no hace búsqueda recursiva; `find` recorre la jerarquía.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I2",
+       "p": "9",
+       "e": "Píldora conceptual"
+      }
+     ]
+    },
+    {
+     "t": "Olvidar las comillas en `find -name '*.md'`",
+     "md": "Sin comillas el shell puede expandir el patrón antes de que `find` lo reciba.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I2",
+       "p": "9"
+      }
+     ]
+    },
+    {
+     "t": "Confundir patrones del shell y expresiones regulares",
+     "md": "Son mecanismos distintos con herramientas distintas.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I2",
+       "p": "10",
+       "e": "Nota técnica"
+      }
+     ]
+    },
+    {
+     "t": "Enlace simbólico relativo mal escrito",
+     "md": "La ruta relativa del destino se interpreta desde el directorio del enlace, no desde donde ejecutas `ln`.",
+     "o": "c",
+     "src": [
+      {
+       "s": "I2",
+       "p": "8",
+       "e": "Incidencia 9"
+      }
+     ]
+    },
+    {
+     "t": "Usar un patrón sin comprobarlo antes",
+     "md": "La guía pide mostrar la selección (`printf`, `ls`) antes de aplicar una operación que pueda modificar varios recursos.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I2",
+       "p": "9",
+       "e": "Incidencia 12"
+      }
+     ]
+    }
+   ],
+   "distinciones": [
+    {
+     "t": "Permisos en archivos vs directorios y `umask`",
+     "md": "`r`/`w`/`x` no significan lo mismo en archivos y directorios; la `umask` quita bits a los permisos iniciales de lo nuevo.",
+     "src": [
+      {
+       "s": "I2",
+       "p": "6"
+      },
+      {
+       "s": "I2",
+       "p": "7"
+      }
+     ]
+    },
+    {
+     "t": "Enlace físico vs simbólico",
+     "md": "Físico: mismo inodo, sobrevive a borrar el otro nombre. Simbólico: guarda una ruta; se rompe si desaparece el destino.",
+     "src": [
+      {
+       "s": "I2",
+       "p": "3"
+      },
+      {
+       "s": "I2",
+       "p": "8"
+      }
+     ]
+    },
+    {
+     "t": "Patrón del shell vs `find`",
+     "md": "El shell expande un patrón en el contexto actual; `find` recorre una jerarquía aplicando criterios.",
+     "src": [
+      {
+       "s": "I2",
+       "p": "9"
+      },
+      {
+       "s": "I2",
+       "p": "10"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "i3",
+   "num": 3,
+   "doc": "I3",
+   "titulo": "Incidencia 03 · Preparando el entorno de desarrollo",
+   "sub": "Entorno del shell, personalización del intérprete y control de procesos",
+   "resultados": [
+    "Identificar las principales características del entorno de ejecución de una sesión de GNU/Linux.",
+    "Crear, modificar y eliminar variables del shell y distinguirlas de las variables de entorno.",
+    "Exportar variables al entorno de los procesos y comprobar el efecto de la exportación.",
+    "Comprender el papel de los mecanismos de configuración del entorno de usuario y hacer personalizaciones sencillas y justificadas.",
+    "Aplicar y comprobar modificaciones de la configuración, tanto en la sesión actual como en nuevas sesiones.",
+    "Identificar, consultar y supervisar procesos interpretando la información del sistema.",
+    "Gestionar trabajos y procesos mediante suspensión, reanudación y señales, incluido su tratamiento básico desde scripts."
+   ],
+   "resultadosSrc": [
+    {
+     "s": "I3",
+     "p": "3",
+     "e": "Resultados de aprendizaje"
+    }
+   ],
+   "examinables": [
+    {
+     "t": "Variable del shell vs variable de entorno",
+     "md": "Una variable del shell vive en la instancia actual del intérprete; una variable **exportada** forma parte del entorno que reciben los **procesos hijos** creados después. La guía pide comprobar que el shell la usa, que un hijo **no** la ve sin `export` y que sí la ve tras exportarla.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I3",
+       "p": "3"
+      },
+      {
+       "s": "I3",
+       "p": "7",
+       "e": "Incidencia 3"
+      },
+      {
+       "s": "R34",
+       "p": "1",
+       "e": "Resumen (no oficial)"
+      }
+     ]
+    },
+    {
+     "t": "Crear, modificar, eliminar y usar variables",
+     "md": "Asignación, consulta, modificación y `unset`; comprobar qué pasa al usar una variable no definida; razonar por qué reutilizar un valor en una variable es útil.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I3",
+       "p": "4",
+       "e": "Herramientas"
+      },
+      {
+       "s": "I3",
+       "p": "7",
+       "e": "Incidencia 2"
+      }
+     ]
+    },
+    {
+     "t": "Reconocer variables habituales",
+     "md": "`HOME`, `PWD`, `OLDPWD`, `PATH`, `USER`, `SHELL`, `PS1`, `PS2` y los parámetros `$?`, `$$`, `$!`. No hace falta memorizar una lista exhaustiva, sí reconocerlas y saber consultar su valor.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I3",
+       "p": "4",
+       "e": "Variables del shell que conviene reconocer"
+      }
+     ]
+    },
+    {
+     "t": "`.bashrc`, `alias`, `source` y persistencia",
+     "md": "Analizar el papel de `.bashrc` y **cuándo se aplica**; personalizar con un `alias`, una variable o `PS1`; hacerlo persistente solo para el usuario; aplicarlo en la sesión actual sin iniciar otra y comprobar el comportamiento en una nueva sesión.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I3",
+       "p": "7",
+       "e": "Incidencias 4–6"
+      },
+      {
+       "s": "I3",
+       "p": "8",
+       "e": "Nota técnica"
+      }
+     ]
+    },
+    {
+     "t": "Probar ≠ recargar ≠ persistente",
+     "md": "«Una modificación que funciona una vez no implica que sea persistente.» Distinguir probar en la sesión actual, recargar la configuración y comprobar el comportamiento en una nueva sesión.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I3",
+       "p": "8",
+       "e": "Nota técnica"
+      },
+      {
+       "s": "I3",
+       "p": "12",
+       "e": "Antes de cerrar"
+      }
+     ]
+    },
+    {
+     "t": "Identificar procesos (`ps`, `pgrep`, `top`/`htop`)",
+     "md": "Distinguir un proceso de otro por su **identificador (PID)**, usuario, estado y orden asociada; explicar la relación entre el programa/orden y el **proceso concreto** que el sistema crea para ejecutarlo.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I3",
+       "p": "8",
+       "e": "Píldora y Incidencia 7"
+      },
+      {
+       "s": "I3",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "t": "Trabajos del shell vs procesos",
+     "md": "`jobs`, `bg`, `fg`, `Ctrl+Z` y `&` gestionan **trabajos del shell**; la guía pide explicar la diferencia entre un trabajo gestionado por el shell y el proceso asociado a su ejecución.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I3",
+       "p": "8–9",
+       "e": "Incidencia 9"
+      },
+      {
+       "s": "I3",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "t": "Señales con `kill` y criterios de intervención",
+     "md": "Identificar el proceso propio, comprobar su PID y usar señales adecuadas a cada situación (`kill`, `kill -l`). Antes de suspender, reanudar o finalizar: **identificar, comprender el estado y valorar las consecuencias**; después, comprobar el efecto.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I3",
+       "p": "9",
+       "e": "Incidencia 10"
+      },
+      {
+       "s": "I3",
+       "p": "10",
+       "e": "Píldora conceptual"
+      }
+     ]
+    },
+    {
+     "t": "`trap` en scripts",
+     "md": "Asociar una acción a una señal en un script (por ejemplo, avisar o limpiar al interrumpirlo) y comprobar experimentalmente que se ejecuta.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I3",
+       "p": "9",
+       "e": "Incidencia 11"
+      }
+     ]
+    }
+   ],
+   "ordenes": [
+    {
+     "cmd": "env / printenv",
+     "fn": "`env` lista las variables del entorno exportado; `printenv VAR` muestra el valor de una variable de entorno.",
+     "lista": [
+      {
+       "s": "I3",
+       "p": "4",
+       "e": "Consultar el entorno"
+      }
+     ]
+    },
+    {
+     "cmd": "echo \"$VAR\"",
+     "fn": "Muestra el valor de una variable (con `$` se consulta; entre comillas respeta espacios).",
+     "lista": [
+      {
+       "s": "I3",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "set",
+     "fn": "Muestra variables (y otros elementos) del shell, no solo las exportadas.",
+     "lista": [
+      {
+       "s": "I3",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "VAR=valor",
+     "fn": "Asigna una variable del shell **sin espacios** alrededor de `=`.",
+     "lista": [
+      {
+       "s": "I3",
+       "p": "4",
+       "e": "Trabajar con variables del shell"
+      }
+     ],
+     "nota": "Regla de asignación: R34 p.1 (resumen no oficial)."
+    },
+    {
+     "cmd": "export VAR",
+     "fn": "Marca la variable para que pase al entorno de los procesos hijos (también `export VAR=valor`).",
+     "lista": [
+      {
+       "s": "I3",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "unset VAR",
+     "fn": "Elimina la variable.",
+     "lista": [
+      {
+       "s": "I3",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "alias nombre='orden'",
+     "fn": "Define un atajo para la sesión actual.",
+     "lista": [
+      {
+       "s": "I3",
+       "p": "4",
+       "e": "Configurar el shell"
+      }
+     ]
+    },
+    {
+     "cmd": "~/.bashrc",
+     "fn": "Archivo de configuración de Bash del usuario; se lee al iniciar un shell interactivo nuevo.",
+     "lista": [
+      {
+       "s": "I3",
+       "p": "4"
+      },
+      {
+       "s": "I3",
+       "p": "7",
+       "e": "Incidencia 4"
+      }
+     ],
+     "nota": "La guía pide determinar «cuándo se aplica»; la respuesta (al iniciar un shell interactivo nuevo) es conocimiento estándar de Bash."
+    },
+    {
+     "cmd": "source ~/.bashrc",
+     "fn": "Recarga el archivo en la sesión actual sin abrir otra.",
+     "lista": [
+      {
+       "s": "I3",
+       "p": "4"
+      },
+      {
+       "s": "I3",
+       "p": "7",
+       "e": "Incidencia 6"
+      }
+     ]
+    },
+    {
+     "cmd": "ps",
+     "fn": "Lista procesos: PID, terminal, tiempo y orden. `ps aux` o `ps -ef` muestran todos con usuario y estado.",
+     "lista": [
+      {
+       "s": "I3",
+       "p": "4",
+       "e": "Consultar procesos"
+      }
+     ],
+     "nota": "Las opciones `aux`/`-ef` y el significado de las letras de estado son estándar."
+    },
+    {
+     "cmd": "pgrep nombre",
+     "fn": "Devuelve los PID de procesos cuyo nombre coincide (`pgrep -a` añade la orden completa).",
+     "lista": [
+      {
+       "s": "I3",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "top / htop",
+     "fn": "Vista interactiva y continua del estado de los procesos.",
+     "lista": [
+      {
+       "s": "I3",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "orden &",
+     "fn": "Lanza la orden en segundo plano.",
+     "lista": [
+      {
+       "s": "I3",
+       "p": "4",
+       "e": "Gestionar trabajos"
+      }
+     ]
+    },
+    {
+     "cmd": "Ctrl+Z",
+     "fn": "Suspende el trabajo en primer plano (queda *Stopped*).",
+     "lista": [
+      {
+       "s": "I3",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "jobs",
+     "fn": "Lista los trabajos del shell actual (numerados `[1]`, `[2]`…).",
+     "lista": [
+      {
+       "s": "I3",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "bg %n / fg %n",
+     "fn": "`bg` reanuda un trabajo suspendido en segundo plano; `fg` lo trae a primer plano.",
+     "lista": [
+      {
+       "s": "I3",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "kill PID / kill -l",
+     "fn": "`kill PID` envía una señal (por defecto SIGTERM) al proceso; `kill -l` lista las señales; `kill -9 PID` envía SIGKILL; `kill -STOP/-CONT` suspende/reanuda.",
+     "lista": [
+      {
+       "s": "I3",
+       "p": "4",
+       "e": "Enviar señales"
+      }
+     ]
+    },
+    {
+     "cmd": "trap 'acción' SEÑAL",
+     "fn": "En un script, ejecuta la acción cuando llegue la señal (p. ej. `INT` al pulsar Ctrl+C).",
+     "lista": [
+      {
+       "s": "I3",
+       "p": "4",
+       "e": "Gestionar señales en scripts"
+      }
+     ]
+    },
+    {
+     "cmd": "type orden / command -v orden / help",
+     "fn": "Ayudas para saber cómo resuelve el shell una orden y para órdenes internas de Bash.",
+     "lista": [
+      {
+       "s": "I3",
+       "p": "5"
+      }
+     ]
+    },
+    {
+     "cmd": "$?  $$  $!",
+     "fn": "`$?` estado de salida de la última orden; `$$` PID del shell actual; `$!` PID del último proceso en segundo plano.",
+     "lista": [
+      {
+       "s": "I3",
+       "p": "4",
+       "e": "Tabla de variables"
+      }
+     ]
+    }
+   ],
+   "ordenesNota": "La guía lista estas herramientas y variables. Las explicaciones de opciones y señales son estándar de Linux/Bash; el resumen R34 (no oficial) aporta la regla de asignación y la herencia del entorno.",
+   "ejemplos": [
+    {
+     "id": "i3-e1",
+     "t": "Variable del shell frente a variable exportada",
+     "cmds": "SALUDO=hola\nexport DESPEDIDA=adios\nbash -c 'echo \"SALUDO=${SALUDO-no heredada}\"; echo \"DESPEDIDA=$DESPEDIDA\"'\n# Salida:\nSALUDO=no heredada\nDESPEDIDA=adios",
+     "md": "`bash -c` inicia un **hijo directo**. `SALUDO` (no exportada) no se hereda; `DESPEDIDA` (exportada) sí. Ejemplo tomado del resumen R34 (no oficial).",
+     "src": [
+      {
+       "s": "R34",
+       "p": "1"
+      },
+      {
+       "s": "I3",
+       "p": "7",
+       "e": "Incidencia 3"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i3-e2",
+     "t": "Ciclo de vida de una variable",
+     "cmds": "$ DIR=crates\n$ ls $DIR\n$ DIR=tests\n$ echo \"$DIR\"\ntests\n$ unset DIR\n$ echo \"[$DIR]\"\n[]",
+     "md": "Una variable sin definir se expande como **cadena vacía**. Reutilizar el valor evita repetirlo y permite cambiarlo en un solo sitio. (Nombres de ejemplo ficticios.)",
+     "src": [
+      {
+       "s": "I3",
+       "p": "7",
+       "e": "Incidencia 2"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i3-e3",
+     "t": "Probar, hacer persistente y recargar",
+     "cmds": "$ alias ll='ls -l'                      # solo sesión actual\n$ echo \"alias ll='ls -l'\" >> ~/.bashrc  # persistente (añade al final)\n$ source ~/.bashrc                      # recarga en la sesión actual",
+     "md": "Hay tres momentos distintos: **probar** en la sesión, **hacerlo persistente** en `~/.bashrc` y **recargar** con `source` (o abrir una sesión nueva). Cuidado: `>` en lugar de `>>` **sobrescribiría** `.bashrc`.",
+     "src": [
+      {
+       "s": "I3",
+       "p": "7",
+       "e": "Incidencias 5–6"
+      },
+      {
+       "s": "I3",
+       "p": "8",
+       "e": "Nota técnica"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i3-e4",
+     "t": "Leer la salida de `ps`",
+     "cmds": "$ ps\n  PID TTY          TIME CMD\n 1203 pts/0    00:00:00 bash\n 4321 pts/0    00:00:00 sleep\n 4330 pts/0    00:00:00 ps",
+     "md": "Cada fila es un **proceso** con su PID. `sleep` es el **programa**; `4321` es el proceso concreto que el sistema creó al ejecutarlo. Con `ps aux` aparecen usuario y estado (`R` ejecución/listo, `S` dormido, `T` detenido, `Z` zombi). (Salida ficticia.)",
+     "src": [
+      {
+       "s": "I3",
+       "p": "8"
+      },
+      {
+       "s": "I3",
+       "p": "4"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i3-e5",
+     "t": "Trabajos en primer y segundo plano",
+     "cmds": "$ sleep 100 &\n[1] 4321\n$ sleep 200\n^Z\n[2]+  Stopped   sleep 200\n$ jobs\n[1]-  Running   sleep 100 &\n[2]+  Stopped   sleep 200\n$ bg %2\n$ fg %1",
+     "md": "`&` lanza en segundo plano (el shell imprime número de trabajo y PID). `Ctrl+Z` suspende; `bg %2` lo reanuda en segundo plano; `fg %1` trae el trabajo 1 a primer plano. `jobs` solo ve los trabajos **de este shell**. (Salida ficticia; el espaciado puede variar.)",
+     "src": [
+      {
+       "s": "I3",
+       "p": "8–9",
+       "e": "Incidencia 9"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i3-e6",
+     "t": "Señales",
+     "cmds": "$ kill -l            # lista de señales\n$ kill 4321          # SIGTERM: petición de terminar (por defecto)\n$ kill -STOP 4321    # suspender\n$ kill -CONT 4321    # reanudar\n$ kill -9 4321       # SIGKILL: forzado (último recurso)",
+     "md": "Cada señal tiene un efecto distinto. La guía pide experimentar sobre una **tarea propia y no crítica**, justificar la señal usada y comprobar el efecto.",
+     "src": [
+      {
+       "s": "I3",
+       "p": "9",
+       "e": "Incidencia 10"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i3-e7",
+     "t": "`trap` en un script",
+     "cmds": "#!/bin/bash\necho \"Iniciando revision de ripgrep...\"\ntrap 'echo \"Interrupcion recibida\"; exit 0' INT\nwhile true\ndo\n    echo \"Revisando el proyecto ripgrep...\"\n    sleep 5\ndone",
+     "md": "Se añade solo la línea `trap`: al pulsar `Ctrl+C` (señal `INT`) se ejecuta la acción asociada y el script termina limpiamente. Es el esqueleto que propone la guía (sin acentos para evitar problemas de codificación).",
+     "src": [
+      {
+       "s": "I3",
+       "p": "9",
+       "e": "Incidencia 11"
+      }
+     ],
+     "o": "c"
+    }
+   ],
+   "ejercicios": [
+    {
+     "id": "i3-x1",
+     "tipo": "prediccion",
+     "t": "Herencia de variables",
+     "enun": "```\nA=1\nexport B=2\nbash -c 'echo \"A=$A B=$B\"'\nB=3\nbash -c 'echo \"B=$B\"'\nbash -c 'B=9; echo \"hijo B=$B\"'\necho \"padre B=$B\"\n```\n¿Qué imprime cada `echo`?",
+     "sol": "1. `A= B=2` → `A` no está exportada (vacía en el hijo); `B` sí.\n2. `B=3` → el hijo recibe una **copia del entorno actual**: el cambio posterior del padre afecta a los hijos futuros.\n3. `hijo B=9`.\n4. `padre B=3` → el cambio del hijo **no** modifica al padre.\nLa exportación solo pasa información hacia los procesos hijos creados después (R34, resumen no oficial).",
+     "src": [
+      {
+       "s": "I3",
+       "p": "7",
+       "e": "Incidencia 3"
+      },
+      {
+       "s": "R34",
+       "p": "1"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i3-x2",
+     "tipo": "seleccion",
+     "t": "Consultar el entorno",
+     "enun": "¿Cómo obtienes: (a) el usuario de la sesión, (b) el directorio personal, (c) el intérprete, (d) los directorios de `PATH`? ¿Qué diferencia hay entre `env` y `set`?",
+     "sol": "(a) `echo \"$USER\"`; (b) `echo \"$HOME\"`; (c) `echo \"$SHELL\"`; (d) `echo \"$PATH\"` (o `printenv PATH`; los directorios van **separados por dos puntos**).\n`env` lista las variables **exportadas** (entorno); `set` muestra las variables y otros elementos **del shell**, no solo las exportadas.",
+     "src": [
+      {
+       "s": "I3",
+       "p": "6",
+       "e": "Incidencia 1"
+      },
+      {
+       "s": "I3",
+       "p": "4"
+      },
+      {
+       "s": "R34",
+       "p": "1"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i3-x3",
+     "tipo": "diagnostico",
+     "t": "El alias «no funciona»",
+     "enun": "Has añadido `alias ll='ls -l'` a `~/.bashrc`, pero en la terminal que ya tenías abierta `ll` da *command not found*. ¿Por qué y cómo lo resuelves sin cerrar la terminal?",
+     "sol": "`~/.bashrc` se lee al **iniciar** un shell interactivo nuevo; la sesión abierta no lo ha releído. Se recarga con `source ~/.bashrc` (o se abre una sesión nueva). Es la diferencia entre **cambiar**, **recargar** y **comprobar en una nueva sesión**.",
+     "src": [
+      {
+       "s": "I3",
+       "p": "7",
+       "e": "Incidencia 6"
+      },
+      {
+       "s": "I3",
+       "p": "8",
+       "e": "Nota técnica"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i3-x4",
+     "tipo": "diagnostico",
+     "t": "Asignación con espacios",
+     "enun": "```\n$ NOMBRE = Ana\nbash: NOMBRE: command not found\n$ SALUDO=hola mundo\nbash: mundo: command not found\n```\n¿Qué está mal en cada línea y cómo se corrige?",
+     "sol": "La asignación se escribe **sin espacios** alrededor de `=`; con espacios, Bash interpreta `NOMBRE` como una orden. Un valor con espacios debe ir **entrecomillado**: `NOMBRE=Ana` y `SALUDO=\"hola mundo\"`. (Reglas de R34, resumen no oficial.)",
+     "src": [
+      {
+       "s": "R34",
+       "p": "1"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i3-x5",
+     "tipo": "prediccion",
+     "t": "Trabajos del shell",
+     "enun": "```\n$ sleep 100 &\n[1] 4321\n$ sleep 200\n^Z\n$ jobs\n$ bg %2\n$ jobs\n```\nDescribe el estado de cada trabajo tras el primer y el segundo `jobs`.",
+     "sol": "Primer `jobs`: `[1]- Running sleep 100 &` y `[2]+ Stopped sleep 200` (el `+` marca el trabajo actual; el `-`, el anterior).\nTras `bg %2`: ambos aparecen **Running** en segundo plano. `Ctrl+Z` suspende; `bg` reanuda sin traer a primer plano.",
+     "src": [
+      {
+       "s": "I3",
+       "p": "8–9",
+       "e": "Incidencia 9"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i3-x6",
+     "tipo": "diagnostico",
+     "t": "Trabajo o proceso",
+     "enun": "En otra terminal ejecutas `jobs` y no aparece el `sleep 100 &` lanzado en la primera, pero `ps` sí lo muestra. ¿Por qué? ¿Cómo lo detienes en cada caso?",
+     "sol": "`jobs` solo muestra los **trabajos del shell actual**; el proceso existe en el sistema y `ps` lo ve (tiene PID). Desde la primera terminal: `kill %1` (por número de trabajo). Desde la otra: `kill PID` (por identificador de proceso). Un trabajo es una abstracción del shell; el proceso es lo que el sistema crea para ejecutar la orden.",
+     "src": [
+      {
+       "s": "I3",
+       "p": "8"
+      },
+      {
+       "s": "I3",
+       "p": "9",
+       "e": "Incidencia 9"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i3-x7",
+     "tipo": "seleccion",
+     "t": "Elegir la señal",
+     "enun": "Para una tarea propia y no crítica (PID 4321), indica la orden: (a) pedir que termine de forma ordenada, (b) suspenderla, (c) reanudarla, (d) forzar el fin si no responde, (e) interrumpir una orden en primer plano.",
+     "sol": "(a) `kill 4321` (SIGTERM). (b) `kill -STOP 4321` (o `Ctrl+Z` en primer plano). (c) `kill -CONT 4321` (o `bg`/`fg`). (d) `kill -9 4321` (SIGKILL; último recurso, no se puede capturar). (e) `Ctrl+C` (SIGINT).\nCriterio de la guía: identificar bien el proceso, comprender su estado y valorar las consecuencias **antes** de intervenir y comprobar el efecto después. No se actúa sobre procesos ajenos o críticos.",
+     "src": [
+      {
+       "s": "I3",
+       "p": "9",
+       "e": "Incidencia 10"
+      },
+      {
+       "s": "I3",
+       "p": "10",
+       "e": "Píldora conceptual"
+      }
+     ],
+     "o": "c",
+     "peligro": true
+    },
+    {
+     "id": "i3-x8",
+     "tipo": "escritura",
+     "t": "Completar el script con `trap`",
+     "enun": "Completa el esqueleto para que, al pulsar `Ctrl+C`, muestre «Interrupcion recibida» y termine:\n```\n#!/bin/bash\necho \"Iniciando revision de ripgrep...\"\n# (completa aquí)\nwhile true\ndo\n    echo \"Revisando el proyecto ripgrep...\"\n    sleep 5\ndone\n```",
+     "sol": "```\ntrap 'echo \"Interrupcion recibida\"; exit 0' INT\n```\nSe coloca **antes del bucle**. `INT` es la señal que envía `Ctrl+C`. Sin `trap`, `Ctrl+C` terminaría el script sin mensaje. Se prueba ejecutando el script y pulsando `Ctrl+C`.",
+     "src": [
+      {
+       "s": "I3",
+       "p": "9",
+       "e": "Incidencia 11"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i3-x9",
+     "tipo": "prediccion",
+     "t": "Variables especiales",
+     "enun": "```\n$ ls /noexiste\nls: cannot access '/noexiste': No such file or directory\n$ echo $?\n$ echo $?\n$ sleep 60 &\n$ echo $!\n```\n¿Qué valores aparecen en cada `echo` (de forma cualitativa)? ¿Qué es `$$`?",
+     "sol": "- Primer `echo $?` → un valor **distinto de 0** (`2` con GNU `ls`): la orden anterior falló.\n- Segundo `echo $?` → `0`: ahora el estado es el del `echo` anterior, que tuvo éxito.\n- `echo $!` → el **PID del último proceso en segundo plano** (`sleep 60`).\n- `$$` es el PID del shell actual.\nDespués de comprobar, finaliza el `sleep` de prueba para no dejar procesos innecesarios.",
+     "src": [
+      {
+       "s": "I3",
+       "p": "4",
+       "e": "Tabla de variables"
+      },
+      {
+       "s": "I3",
+       "p": "10",
+       "e": "Incidencia 12"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i3-x10",
+     "tipo": "diagnostico",
+     "t": "La orden «no se encuentra»",
+     "enun": "Tienes `./revisar.sh` en tu directorio actual. Escribes `revisar.sh` y obtienes `command not found`. ¿Por qué? ¿Qué orden te dice cómo resuelve el shell un nombre?",
+     "sol": "El shell busca las órdenes **solo en los directorios de `PATH`**, y el directorio actual normalmente no está en `PATH`; por eso se escribe `./revisar.sh`. `command -v revisar.sh` o `type revisar.sh` muestran cómo/dónde resuelve el shell una orden (la guía menciona `type` y `command -v`).",
+     "src": [
+      {
+       "s": "I3",
+       "p": "4",
+       "e": "PATH"
+      },
+      {
+       "s": "I3",
+       "p": "5"
+      }
+     ],
+     "o": "c"
+    }
+   ],
+   "errores": [
+    {
+     "t": "Creer que una variable sin `export` llega al proceso hijo",
+     "md": "Solo las variables exportadas forman parte del entorno de los hijos creados después.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I3",
+       "p": "7",
+       "e": "Incidencia 3"
+      },
+      {
+       "s": "R34",
+       "p": "1"
+      }
+     ]
+    },
+    {
+     "t": "Escribir espacios en la asignación",
+     "md": "`VAR = valor` falla; se escribe `VAR=valor` y los valores con espacios, entre comillas.",
+     "o": "r",
+     "src": [
+      {
+       "s": "R34",
+       "p": "1"
+      }
+     ]
+    },
+    {
+     "t": "Confundir probar, recargar y persistir",
+     "md": "Que algo funcione una vez no significa que sea persistente ni que esté en el lugar adecuado.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I3",
+       "p": "8",
+       "e": "Nota técnica"
+      }
+     ]
+    },
+    {
+     "t": "Sobrescribir `.bashrc` al redirigir con `>`",
+     "md": "`>` trunca el archivo; para añadir, `>>`. Haz copia o prueba antes de tocar configuración permanente.",
+     "o": "c",
+     "src": [
+      {
+       "s": "I3",
+       "p": "7",
+       "e": "Incidencia 6"
+      }
+     ]
+    },
+    {
+     "t": "Confundir programa/orden con proceso",
+     "md": "No es lo mismo el programa o la orden que el proceso concreto que el sistema crea para ejecutarlo.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I3",
+       "p": "8",
+       "e": "Píldora conceptual"
+      }
+     ]
+    },
+    {
+     "t": "Confundir trabajo (`jobs`) con proceso (`ps`)",
+     "md": "El trabajo lo gestiona el shell; el proceso lo gestiona el sistema.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I3",
+       "p": "9",
+       "e": "Incidencia 9"
+      }
+     ]
+    },
+    {
+     "t": "Actuar sobre procesos sin identificarlos",
+     "md": "Identifica primero el proceso propio y su PID; experimenta solo con tareas propias y no críticas.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I3",
+       "p": "9",
+       "e": "Incidencia 10"
+      },
+      {
+       "s": "I3",
+       "p": "10"
+      }
+     ]
+    },
+    {
+     "t": "Usar `kill -9` por defecto",
+     "md": "Una señal debe ser adecuada al objetivo; SIGKILL es el último recurso.",
+     "o": "c",
+     "src": [
+      {
+       "s": "I3",
+       "p": "9",
+       "e": "Incidencia 10"
+      }
+     ]
+    },
+    {
+     "t": "Dejar procesos de prueba en ejecución",
+     "md": "La guía pide dejar el entorno sin procesos de prueba innecesarios.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I3",
+       "p": "10",
+       "e": "Incidencia 12"
+      },
+      {
+       "s": "I3",
+       "p": "10",
+       "e": "5.3"
+      }
+     ]
+    }
+   ],
+   "distinciones": [
+    {
+     "t": "Variable del shell vs variable exportada (de entorno)",
+     "md": "La exportada pasa al entorno de los hijos creados después; la del shell solo existe en esa instancia.",
+     "src": [
+      {
+       "s": "I3",
+       "p": "3"
+      },
+      {
+       "s": "I3",
+       "p": "7"
+      },
+      {
+       "s": "R34",
+       "p": "1"
+      }
+     ]
+    },
+    {
+     "t": "Proceso (`ps`) vs trabajo (`jobs`)",
+     "md": "El proceso lo identifica el PID en el sistema; el trabajo es una gestión del shell (`&`, `Ctrl+Z`, `bg`, `fg`).",
+     "src": [
+      {
+       "s": "I3",
+       "p": "4"
+      },
+      {
+       "s": "I3",
+       "p": "8"
+      },
+      {
+       "s": "I3",
+       "p": "9"
+      }
+     ]
+    },
+    {
+     "t": "Probar vs recargar vs persistir",
+     "md": "Probar en la sesión, recargar con `source`, comprobar en una nueva sesión.",
+     "src": [
+      {
+       "s": "I3",
+       "p": "8"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "i4",
+   "num": 4,
+   "doc": "I4",
+   "titulo": "Incidencia 04 · Procesamiento de información del proyecto",
+   "sub": "Redirecciones, filtros, búsquedas, patrones, tuberías y empaquetado de recursos",
+   "resultados": [
+    "Usar las principales redirecciones para controlar la entrada, la salida y los mensajes de error de las órdenes.",
+    "Seleccionar filtros y construir tuberías para transformar, ordenar, resumir o conservar información.",
+    "Distinguir entre localizar archivos con `find` y buscar contenido con `grep` o `ripgrep`.",
+    "Usar patrones de nombres (Sesión 2) y expresiones regulares básicas para búsquedas de contenido más precisas.",
+    "Combinar búsquedas, filtros, tuberías y redirecciones para generar pequeños informes y comprobar sus resultados.",
+    "Empaquetar, comprimir y recuperar recursos, verificando que la información se conserva.",
+    "Consultar la documentación y justificar las decisiones adoptadas."
+   ],
+   "resultadosSrc": [
+    {
+     "s": "I4",
+     "p": "3",
+     "e": "Resultados de aprendizaje"
+    }
+   ],
+   "examinables": [
+    {
+     "t": "Redirección vs filtro vs tubería",
+     "md": "La guía pide poder explicar la diferencia: una **redirección** cambia el origen o destino de los flujos de una orden; un **filtro** lee datos, los procesa y escribe el resultado; una **tubería** conecta la salida de una orden con la entrada de la siguiente.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I4",
+       "p": "10",
+       "e": "9. Antes de cerrar"
+      },
+      {
+       "s": "R34",
+       "p": "3",
+       "e": "Resumen (no oficial)"
+      }
+     ]
+    },
+    {
+     "t": "Controlar entrada, salida y errores",
+     "md": "Operadores `>`, `>>`, `<`, `2>`, `2>>` y `2>&1`: sobrescribir frente a añadir; separar o reunir salida normal y errores en archivos.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I4",
+       "p": "4",
+       "e": "Tabla de herramientas"
+      },
+      {
+       "s": "I4",
+       "p": "5–6",
+       "e": "Incidencia 1"
+      },
+      {
+       "s": "R34",
+       "p": "2",
+       "e": "Resumen (no oficial)"
+      }
+     ]
+    },
+    {
+     "t": "Filtros y tuberías esenciales",
+     "md": "`head`, `tail`, `wc`, `sort`, `uniq`, `cut`, `tee` y la tubería `|`; explicar qué función desempeña cada etapa de una tubería.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I4",
+       "p": "4"
+      },
+      {
+       "s": "I4",
+       "p": "6",
+       "e": "Incidencia 2"
+      },
+      {
+       "s": "R34",
+       "p": "3–4",
+       "e": "Resumen (no oficial)"
+      }
+     ]
+    },
+    {
+     "t": "`find` vs `grep`/`rg`",
+     "md": "`find` **localiza** archivos y directorios; `grep` y `ripgrep` **buscan información dentro** de archivos. «Antes de construir una búsqueda, identificad primero qué es lo que necesitáis localizar.»",
+     "o": "a",
+     "src": [
+      {
+       "s": "I4",
+       "p": "3"
+      },
+      {
+       "s": "I4",
+       "p": "4",
+       "e": "Nota técnica"
+      },
+      {
+       "s": "I4",
+       "p": "10"
+      }
+     ]
+    },
+    {
+     "t": "Patrón de nombres vs expresión regular",
+     "md": "Los patrones de nombres del shell seleccionan **nombres de archivos**; las expresiones regulares describen **patrones de texto** y se usan con `grep`/`rg`. `*.rs` es un patrón del shell, no una expresión regular.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I4",
+       "p": "4",
+       "e": "Nota técnica"
+      },
+      {
+       "s": "I4",
+       "p": "8",
+       "e": "Incidencia 5"
+      },
+      {
+       "s": "I4",
+       "p": "10"
+      }
+     ]
+    },
+    {
+     "t": "Expresiones regulares básicas y anclas",
+     "md": "Construir una expresión que seleccione las líneas de encabezado de versión y no otras; explicar la función de las **anclas** y qué casos quedan fuera. Una regex demasiado general o demasiado restrictiva debe comprobarse.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I4",
+       "p": "8",
+       "e": "Incidencia 6 y Advertencia"
+      },
+      {
+       "s": "R34",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "t": "Generar un informe con redirecciones y `tee`",
+     "md": "Reunir resultados en `informe_revision.txt` desde el terminal con redirecciones y `tee`, revisarlo y comprobar que cada apartado contiene lo que debe.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I4",
+       "p": "8",
+       "e": "Incidencia 7"
+      }
+     ]
+    },
+    {
+     "t": "Empaquetar con `tar`, comprimir con `gzip` y comprobar",
+     "md": "Crear un `.tar`, comprimirlo con `gzip`, comprobar su contenido **sin extraerlo**, extraerlo en otro directorio y verificar que se recuperan archivos y estructura.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I4",
+       "p": "8–9",
+       "e": "Incidencia 8"
+      }
+     ]
+    }
+   ],
+   "ordenes": [
+    {
+     "cmd": "orden > archivo",
+     "fn": "Redirige la salida normal (stdout) a un archivo: lo **crea o sobrescribe**.",
+     "lista": [
+      {
+       "s": "I4",
+       "p": "4",
+       "e": "Controlar la entrada y la salida"
+      }
+     ],
+     "nota": "Semántica de cada operador según el resumen R34 p.2 (no oficial)."
+    },
+    {
+     "cmd": "orden >> archivo",
+     "fn": "Redirige stdout **añadiendo al final**, sin borrar lo anterior.",
+     "lista": [
+      {
+       "s": "I4",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "orden < archivo",
+     "fn": "Hace que la orden lea su entrada (stdin) desde un archivo.",
+     "lista": [
+      {
+       "s": "I4",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "orden 2> archivo / 2>> archivo",
+     "fn": "Redirige los **errores** (stderr, descriptor 2) a un archivo (sobrescribe / añade).",
+     "lista": [
+      {
+       "s": "I4",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "orden > archivo 2>&1",
+     "fn": "Reúne stdout y stderr en el mismo archivo. El **orden importa**: se aplican de izquierda a derecha.",
+     "lista": [
+      {
+       "s": "I4",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "head / tail",
+     "fn": "Primeras / últimas líneas (`-n N`).",
+     "lista": [
+      {
+       "s": "I4",
+       "p": "4",
+       "e": "Procesar y resumir información"
+      }
+     ]
+    },
+    {
+     "cmd": "wc",
+     "fn": "Cuenta líneas (`-l`), palabras (`-w`) y bytes (`-c`); `wc -l < archivo` muestra solo el número.",
+     "lista": [
+      {
+       "s": "I4",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "sort",
+     "fn": "Ordena líneas (textual por defecto; `-n` numérico, `-r` inverso, `-u` sin repetidas).",
+     "lista": [
+      {
+       "s": "I4",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "uniq",
+     "fn": "Elimina líneas **consecutivas** repetidas (`-c` las cuenta); por eso se usa tras `sort`.",
+     "lista": [
+      {
+       "s": "I4",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "cut",
+     "fn": "Selecciona caracteres (`-c`) o campos (`-f`, con `-d` para el delimitador).",
+     "lista": [
+      {
+       "s": "I4",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "tee [-a] archivo",
+     "fn": "Copia stdin a stdout **y** a un archivo; `-a` añade en lugar de sobrescribir.",
+     "lista": [
+      {
+       "s": "I4",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "orden1 | orden2",
+     "fn": "Tubería: conecta stdout de la primera con stdin de la segunda (stderr no entra por defecto).",
+     "lista": [
+      {
+       "s": "I4",
+       "p": "4",
+       "e": "Combinar herramientas"
+      }
+     ]
+    },
+    {
+     "cmd": "find ruta -type f -name 'patrón'",
+     "fn": "Localiza archivos por tipo y nombre recorriendo la jerarquía.",
+     "lista": [
+      {
+       "s": "I4",
+       "p": "4",
+       "e": "Localizar archivos"
+      }
+     ]
+    },
+    {
+     "cmd": "grep [opciones] patrón archivos",
+     "fn": "Busca **líneas** cuyo contenido cumple un patrón (`-i` ignora mayúsculas, `-v` invierte, `-n` numera, `-r` recursivo).",
+     "lista": [
+      {
+       "s": "I4",
+       "p": "4",
+       "e": "Buscar contenido y utilizar expresiones regulares"
+      }
+     ],
+     "nota": "`-r` es una opción estándar de `grep`; no figura en la tabla de la guía."
+    },
+    {
+     "cmd": "rg patrón [ruta]",
+     "fn": "ripgrep: búsqueda de contenido en un proyecto (recursiva por defecto). Es una herramienta distinta de la copia del código fuente.",
+     "lista": [
+      {
+       "s": "I4",
+       "p": "4",
+       "e": "Buscar en el proyecto"
+      },
+      {
+       "s": "I4",
+       "p": "3–4"
+      }
+     ]
+    },
+    {
+     "cmd": "tar",
+     "fn": "`tar -cf paquete.tar dir/` crea; `tar -tf paquete.tar` lista; `tar -xf paquete.tar -C destino` extrae.",
+     "lista": [
+      {
+       "s": "I4",
+       "p": "4",
+       "e": "Empaquetar y comprimir"
+      }
+     ],
+     "nota": "Las opciones de `tar` son sintaxis estándar."
+    },
+    {
+     "cmd": "gzip",
+     "fn": "`gzip paquete.tar` comprime (genera `paquete.tar.gz` y reemplaza al original); `gzip -d`/`gunzip` descomprime.",
+     "lista": [
+      {
+       "s": "I4",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "cmd": "man / --help / whatis / apropos",
+     "fn": "Consulta de documentación.",
+     "lista": [
+      {
+       "s": "I4",
+       "p": "4",
+       "e": "Consultar documentación"
+      }
+     ]
+    }
+   ],
+   "ordenesNota": "La guía lista estas herramientas; el resumen R34 (no oficial) detalla redirecciones, filtros y `grep`. Las opciones de `tar`, `gzip` y `grep -r` son estándar de Linux.",
+   "ejemplos": [
+    {
+     "id": "i4-e1",
+     "t": "Sobrescribir frente a añadir",
+     "cmds": "echo uno > r.txt\necho dos >> r.txt\necho tres > r.txt\ncat r.txt\n# Salida:\ntres",
+     "md": "`>` crea o **trunca**; `>>` **conserva y añade**. El último `>` borra lo anterior.",
+     "src": [
+      {
+       "s": "I4",
+       "p": "5–6",
+       "e": "Incidencia 1"
+      },
+      {
+       "s": "R34",
+       "p": "2"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i4-e2",
+     "t": "Salida normal y errores por separado",
+     "cmds": "ls /etc/hostname /noexiste > ok.txt 2> err.txt\ncat ok.txt\n/etc/hostname\ncat err.txt\nls: cannot access '/noexiste': No such file or directory",
+     "md": "El descriptor 1 (stdout) va a `ok.txt` y el 2 (stderr) a `err.txt`. Aunque ambos salgan por pantalla, son **flujos distintos**.",
+     "src": [
+      {
+       "s": "R34",
+       "p": "2"
+      },
+      {
+       "s": "I4",
+       "p": "6"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i4-e3",
+     "t": "El orden de `2>&1`",
+     "cmds": "orden > todo.txt 2>&1     # ambos flujos van al archivo\norden 2>&1 > salida.txt   # stderr conserva el destino previo de 1 (la pantalla)",
+     "md": "Las redirecciones se aplican de **izquierda a derecha**; `2>&1` copia el destino que tenga el descriptor 1 **en ese momento**.",
+     "src": [
+      {
+       "s": "R34",
+       "p": "2"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i4-e4",
+     "t": "Tubería con filtros",
+     "cmds": "$ cat notas.txt\npera\nmanzana\npera\nkiwi\nmanzana\npera\n$ sort notas.txt | uniq -c\n      1 kiwi\n      2 manzana\n      3 pera",
+     "md": "`sort` agrupa las líneas iguales y `uniq -c` cuenta las repetidas **consecutivas**. Sin `sort`, `uniq` no vería los duplicados no consecutivos. (Datos ficticios.)",
+     "src": [
+      {
+       "s": "I4",
+       "p": "4"
+      },
+      {
+       "s": "R34",
+       "p": "3"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i4-e5",
+     "t": "Informe con `tee`",
+     "cmds": "echo \"== Líneas de CHANGELOG ==\" > informe_revision.txt\nwc -l CHANGELOG.md >> informe_revision.txt\necho \"== Componentes ==\" >> informe_revision.txt\nls crates | sort | tee -a informe_revision.txt",
+     "md": "El primer `>` crea el informe; el resto usa `>>` o `tee -a` para **añadir**. `tee -a` muestra por pantalla y añade al archivo; sin `-a`, `tee` sobrescribiría el informe.",
+     "src": [
+      {
+       "s": "I4",
+       "p": "8",
+       "e": "Incidencia 7"
+      },
+      {
+       "s": "R34",
+       "p": "3"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i4-e6",
+     "t": "`find` frente a `grep`",
+     "cmds": "find crates -type f -name '*.rs' > archivos_rust.txt\nwc -l < archivos_rust.txt\ngrep 'crates/' Cargo.toml > componentes_config.txt\ngrep -r -n -E 'TODO|FIXME' . > pendientes.txt",
+     "md": "`find` **localiza archivos** por nombre; `grep` **busca líneas** dentro de un archivo conocido (`Cargo.toml`) o, con `-r`, dentro de muchos archivos. `wc -l < archivo` cuenta rutas y muestra solo el número.",
+     "src": [
+      {
+       "s": "I4",
+       "p": "6–7",
+       "e": "Incidencias 3–4"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i4-e7",
+     "t": "Empaquetar, comprimir y comprobar",
+     "cmds": "tar -cf resultados.tar resultados/\ngzip resultados.tar\ntar -tzf resultados.tar.gz\nmkdir prueba && tar -xzf resultados.tar.gz -C prueba\nls -R prueba",
+     "md": "Primero `.tar` y luego `gzip` (como pide la guía); `tar -tzf` lista **sin extraer**; se extrae en un directorio distinto y se comprueba la estructura.",
+     "src": [
+      {
+       "s": "I4",
+       "p": "8–9",
+       "e": "Incidencia 8"
+      }
+     ],
+     "o": "c"
+    }
+   ],
+   "ejercicios": [
+    {
+     "id": "i4-x1",
+     "tipo": "prediccion",
+     "t": "Sobrescribir y añadir",
+     "enun": "```\necho uno > r.txt\necho dos > r.txt\necho tres >> r.txt\ncat r.txt\n```\n¿Qué muestra `cat`? ¿Y si la segunda línea fuera `echo dos >> r.txt`?",
+     "sol": "Primer caso: `dos` y `tres` (el segundo `>` **sobrescribió** `uno`). Segundo caso: `uno`, `dos`, `tres` (`>>` conserva). Es la diferencia observable que pide la Incidencia 1.",
+     "src": [
+      {
+       "s": "I4",
+       "p": "5–6",
+       "e": "Incidencia 1"
+      },
+      {
+       "s": "R34",
+       "p": "2"
+      }
+     ],
+     "o": "c",
+     "peligro": true
+    },
+    {
+     "id": "i4-x2",
+     "tipo": "prediccion",
+     "t": "stdout y stderr",
+     "enun": "`ls /etc/hostname /noexiste > out.txt 2> err.txt` — ¿qué contiene cada archivo y qué sale por pantalla? ¿Y con `ls /etc/hostname /noexiste > todo.txt 2>&1`?",
+     "sol": "`out.txt` contiene `/etc/hostname`; `err.txt`, el mensaje de error de `ls` sobre `/noexiste`; en pantalla no sale nada. Con `> todo.txt 2>&1`, **ambos** (salida normal y error) acaban en `todo.txt`. El texto del error depende del idioma.",
+     "src": [
+      {
+       "s": "R34",
+       "p": "2"
+      },
+      {
+       "s": "I4",
+       "p": "6",
+       "e": "Incidencia 1"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i4-x3",
+     "tipo": "diagnostico",
+     "t": "El orden de las redirecciones",
+     "enun": "¿En qué se diferencian `orden > todo.txt 2>&1` y `orden 2>&1 > todo.txt`? ¿Dónde acaba el mensaje de error en cada caso?",
+     "sol": "En la primera, el descriptor 1 apunta a `todo.txt` **antes** de que `2>&1` copie su destino: ambos flujos van al archivo. En la segunda, `2>&1` copia primero el destino del 1 (la pantalla) y después el 1 se redirige: el **error sigue yendo a la pantalla** y solo la salida normal va al archivo.",
+     "src": [
+      {
+       "s": "R34",
+       "p": "2"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i4-x4",
+     "tipo": "prediccion",
+     "t": "Filtros y tuberías",
+     "enun": "Con `notas.txt` = `pera, manzana, pera, kiwi, manzana, pera` (una por línea):\n1. `uniq notas.txt`\n2. `sort notas.txt | uniq`\n3. `sort notas.txt | uniq -c`\n4. `sort -r notas.txt | head -n 2`",
+     "sol": "1. Sin ordenar, **no hay duplicados consecutivos**: sale igual que la entrada (6 líneas).\n2. `kiwi`, `manzana`, `pera`.\n3. `1 kiwi`, `2 manzana`, `3 pera`.\n4. `pera`, `pera` (orden inverso: pera, pera, pera, manzana, manzana, kiwi; se toman las 2 primeras).",
+     "src": [
+      {
+       "s": "I4",
+       "p": "6",
+       "e": "Incidencia 2"
+      },
+      {
+       "s": "R34",
+       "p": "3"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i4-x5",
+     "tipo": "prediccion",
+     "t": "`cut`",
+     "enun": "1. `printf 'hi\\nbye\\n' | cut -c 2`\n2. `echo \"root:x:0:0\" | cut -d ':' -f 1,3`",
+     "sol": "1. `i` y `y`: el segundo carácter de cada línea (el resumen R34 señala que el original muestra por error `b` para «bye»).\n2. `root:0`: campos 1 y 3, separados por `:`. Un delimitador es un carácter concreto (`-d ':'`).",
+     "src": [
+      {
+       "s": "R34",
+       "p": "4"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i4-x6",
+     "tipo": "prediccion",
+     "t": "Opciones de `grep`",
+     "enun": "`log.txt` contiene:\n```\nINFO inicio\nERROR disco\ninfo fin\nError red\n```\n¿Qué muestra cada orden?\n1. `grep error log.txt`\n2. `grep -i error log.txt`\n3. `grep -v INFO log.txt`\n4. `grep -n -i info log.txt`\n5. `grep '^E' log.txt`",
+     "sol": "1. Nada: `error` en minúsculas no aparece (`ERROR` y `Error` no coinciden sin `-i`).\n2. `ERROR disco` y `Error red`.\n3. `ERROR disco`, `info fin` y `Error red` (se quita solo la línea que contiene `INFO` en mayúsculas).\n4. `1:INFO inicio` y `3:info fin`.\n5. `ERROR disco` y `Error red` (el ancla `^` exige que la línea **empiece** por `E`).",
+     "src": [
+      {
+       "s": "R34",
+       "p": "4"
+      },
+      {
+       "s": "I4",
+       "p": "8",
+       "e": "Incidencia 6"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i4-x7",
+     "tipo": "seleccion",
+     "t": "`find`, `grep` o `rg`",
+     "enun": "Elige la herramienta y escribe una orden sencilla:\n1. ¿Dónde está el archivo `Cargo.toml` del proyecto?\n2. ¿En qué archivos del proyecto aparece `FIXME`?\n3. ¿Qué líneas de `Cargo.toml` mencionan `crates/`?\n4. Lista de todos los archivos `.rs` bajo `crates`.\n5. ¿Cuántos archivos `.rs` hay?",
+     "sol": "1. `find . -name Cargo.toml` (**localizar** archivos → `find`).\n2. `grep -rn FIXME .` o `rg FIXME` (buscar **contenido** en muchos archivos).\n3. `grep 'crates/' Cargo.toml` (archivo conocido → `grep`).\n4. `find crates -type f -name '*.rs'`.\n5. `find crates -type f -name '*.rs' | wc -l`.\nCriterio de la guía: identificar primero qué hay que localizar.",
+     "src": [
+      {
+       "s": "I4",
+       "p": "3"
+      },
+      {
+       "s": "I4",
+       "p": "4",
+       "e": "Nota técnica"
+      },
+      {
+       "s": "I4",
+       "p": "6–7",
+       "e": "Incidencias 3–4"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i4-x8",
+     "tipo": "interpretacion",
+     "t": "Patrón del shell o expresión regular",
+     "enun": "Clasifica: (a) `*.rs`, (b) `^## [0-9]`, (c) `README*.md`, (d) `FIXME|TODO`. ¿Con qué herramienta se usa cada uno?",
+     "sol": "(a) **Patrón de nombres del shell** (selecciona archivos; también como argumento de `find -name '*.rs'` entre comillas). (b) **Expresión regular** (`grep`/`rg`): `^` ancla al inicio de línea. (c) Patrón de nombres. (d) Expresión regular (alternancia; con `grep -E` o con `rg`). *No* son lo mismo: `*.rs` **no** es una expresión regular.",
+     "src": [
+      {
+       "s": "I4",
+       "p": "4",
+       "e": "Nota técnica"
+      },
+      {
+       "s": "I4",
+       "p": "8",
+       "e": "Incidencia 5"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i4-x9",
+     "tipo": "prediccion",
+     "t": "Anclas en una expresión regular",
+     "enun": "`CHANGELOG.md` (ficticio) contiene:\n```\n## 1.2.3 (2025-01-31)\nCorregido el fallo 12 en ## 1.0.0 notes\nVersion 2.0.0 de la API\n## Sin publicar\n```\n¿Qué líneas selecciona cada orden?\n1. `grep '^## [0-9]' CHANGELOG.md`\n2. `grep '## [0-9]' CHANGELOG.md`\n3. `grep '[0-9]' CHANGELOG.md`",
+     "sol": "1. Solo la línea 1: con `^`, la línea debe **empezar** por `## ` seguido de cifra.\n2. Líneas 1 y 2: sin ancla, también coincide `## 1.0.0` en mitad de la línea 2.\n3. Líneas 1, 2 y 3: cualquier línea con una cifra.\nLa guía advierte que una expresión **demasiado general** incluye líneas que no son versión y una **demasiado restrictiva** excluye versiones válidas: hay que comprobar ambos casos.",
+     "src": [
+      {
+       "s": "I4",
+       "p": "8",
+       "e": "Incidencia 6 y Advertencia"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i4-x10",
+     "tipo": "prediccion",
+     "t": "Extraer nombres de componentes",
+     "enun": "`Cargo.toml` (ficticio) contiene:\n```\nmembers = [\n  \"crates/core\",\n  \"crates/cli\",\n  \"crates/core\",\n]\n```\nEscribe una tubería que muestre los nombres de los componentes, sin ruta, ordenados y sin repeticiones. ¿Qué hace cada etapa?",
+     "sol": "`grep 'crates/' Cargo.toml | cut -d'/' -f2 | cut -d'\"' -f1 | sort | uniq`\n- `grep 'crates/'`: se queda con las líneas con la ruta.\n- `cut -d'/' -f2`: toma lo que hay tras `crates/` (`core\",`).\n- `cut -d'\"' -f1`: quita la comilla y lo que sigue.\n- `sort | uniq`: ordena y elimina repetidas consecutivas.\nResultado: `cli` y `core`. (También puede usarse `tr -d '\",'` en lugar del segundo `cut`.)",
+     "src": [
+      {
+       "s": "I4",
+       "p": "6",
+       "e": "Incidencia 2 apartado 3"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i4-x11",
+     "tipo": "diagnostico",
+     "t": "`ls | wc -w` como contador",
+     "enun": "En un directorio hay `mi archivo.txt` y `b.txt`. ¿Qué cuentan `ls | wc -w` y `ls | wc -l`? ¿Cuál es fiable para contar archivos?",
+     "sol": "`ls | wc -w` → **3** (cuenta palabras y el nombre con espacio se separa en dos). `ls | wc -l` → **2** (con una tubería, `ls` escribe un nombre por línea). `wc -l` es más fiable aquí; el resumen R34 avisa de que `ls | wc -w` no es un recuento fiable con espacios.",
+     "src": [
+      {
+       "s": "R34",
+       "p": "3"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i4-x12",
+     "tipo": "seleccion",
+     "t": "Empaquetar y comprobar",
+     "enun": "Tienes el directorio `resultados/`. Escribe las órdenes para: crear el `.tar`, comprimirlo, **ver su contenido sin extraerlo** y extraerlo en un directorio nuevo `prueba`.",
+     "sol": "`tar -cf resultados.tar resultados/` → `gzip resultados.tar` (genera `resultados.tar.gz`) → `tar -tzf resultados.tar.gz` (lista sin extraer) → `mkdir prueba` y `tar -xzf resultados.tar.gz -C prueba`. Después se comprueba con `ls -R prueba` que se han recuperado archivos y estructura. `gzip` sustituye al `.tar` original por el `.tar.gz`.",
+     "src": [
+      {
+       "s": "I4",
+       "p": "8–9",
+       "e": "Incidencia 8"
+      }
+     ],
+     "o": "c"
+    },
+    {
+     "id": "i4-x13",
+     "tipo": "diagnostico",
+     "t": "`tee` que borra el informe",
+     "enun": "Para añadir los componentes a `informe_revision.txt` ejecutas `ls crates | sort | tee informe_revision.txt` y desaparecen los apartados anteriores. ¿Qué ha pasado y cómo se corrige?",
+     "sol": "`tee` **sobrescribe** el archivo por defecto. Se corrige con `tee -a informe_revision.txt`, que **añade** al final y además muestra la salida por pantalla.",
+     "src": [
+      {
+       "s": "R34",
+       "p": "3"
+      },
+      {
+       "s": "I4",
+       "p": "8",
+       "e": "Incidencia 7"
+      }
+     ],
+     "o": "c",
+     "peligro": true
+    }
+   ],
+   "errores": [
+    {
+     "t": "Confundir `>` con `>>`",
+     "md": "`>` sobrescribe y `>>` añade. Perder datos por sobrescribir es el fallo más típico.",
+     "o": "r",
+     "src": [
+      {
+       "s": "R34",
+       "p": "2"
+      },
+      {
+       "s": "I4",
+       "p": "6"
+      }
+     ]
+    },
+    {
+     "t": "Olvidar que el orden de las redirecciones importa",
+     "md": "`> todo.txt 2>&1` y `2>&1 > todo.txt` no hacen lo mismo.",
+     "o": "r",
+     "src": [
+      {
+       "s": "R34",
+       "p": "2"
+      }
+     ]
+    },
+    {
+     "t": "Creer que stderr entra en la tubería",
+     "md": "Por defecto, solo stdout se conecta con la siguiente orden.",
+     "o": "r",
+     "src": [
+      {
+       "s": "R34",
+       "p": "3"
+      }
+     ]
+    },
+    {
+     "t": "Usar `uniq` sin ordenar",
+     "md": "`uniq` solo elimina líneas **consecutivas** repetidas.",
+     "o": "c",
+     "src": [
+      {
+       "s": "I4",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "t": "Ordenar como texto cuando son números",
+     "md": "La ordenación habitual es textual; para números se usa `-n`.",
+     "o": "r",
+     "src": [
+      {
+       "s": "R34",
+       "p": "3"
+      }
+     ]
+    },
+    {
+     "t": "Contar archivos con `ls | wc -w`",
+     "md": "No es fiable si los nombres tienen espacios.",
+     "o": "r",
+     "src": [
+      {
+       "s": "R34",
+       "p": "3"
+      }
+     ]
+    },
+    {
+     "t": "Delimitar mal con `cut`",
+     "md": "`-d` es un carácter concreto, no una palabra.",
+     "o": "r",
+     "src": [
+      {
+       "s": "R34",
+       "p": "4"
+      }
+     ]
+    },
+    {
+     "t": "Usar `find` para buscar contenido (o `grep` para localizar archivos)",
+     "md": "`find` localiza archivos; `grep`/`rg` buscan dentro de ellos.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I4",
+       "p": "3"
+      },
+      {
+       "s": "I4",
+       "p": "4",
+       "e": "Nota técnica"
+      }
+     ]
+    },
+    {
+     "t": "Pensar que `*.rs` es una expresión regular",
+     "md": "Es un patrón de nombres del shell; las expresiones regulares describen texto.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I4",
+       "p": "4",
+       "e": "Nota técnica"
+      }
+     ]
+    },
+    {
+     "t": "Regex demasiado general o demasiado restrictiva",
+     "md": "Comprueba con un conjunto pequeño de resultados antes de aplicar al archivo completo.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I4",
+       "p": "8",
+       "e": "Advertencia"
+      }
+     ]
+    },
+    {
+     "t": "Confundir la instalación de `rg` con la copia del código",
+     "md": "La copia de ripgrep contiene los archivos de trabajo; la instalación proporciona la herramienta `rg`.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I4",
+       "p": "4–5"
+      }
+     ]
+    },
+    {
+     "t": "Dar el paquete por bueno sin comprobarlo",
+     "md": "Hay que comprobar el contenido sin extraer y recuperar en un directorio distinto.",
+     "o": "a",
+     "src": [
+      {
+       "s": "I4",
+       "p": "8–9",
+       "e": "Incidencia 8"
+      }
+     ]
+    }
+   ],
+   "distinciones": [
+    {
+     "t": "Redirección vs filtro vs tubería",
+     "md": "Redirección: cambia origen/destino de flujos. Filtro: procesa datos. Tubería: conecta stdout con stdin.",
+     "src": [
+      {
+       "s": "I4",
+       "p": "10"
+      },
+      {
+       "s": "R34",
+       "p": "3–4"
+      }
+     ]
+    },
+    {
+     "t": "`find` vs `grep`/`rg`",
+     "md": "`find` localiza archivos; `grep`/`rg` buscan contenido dentro de archivos.",
+     "src": [
+      {
+       "s": "I4",
+       "p": "3"
+      },
+      {
+       "s": "I4",
+       "p": "4"
+      },
+      {
+       "s": "I4",
+       "p": "10"
+      }
+     ]
+    },
+    {
+     "t": "Patrón de nombres vs expresión regular",
+     "md": "El patrón selecciona nombres; la regex describe texto. `*.rs` no es una regex.",
+     "src": [
+      {
+       "s": "I4",
+       "p": "4"
+      },
+      {
+       "s": "I4",
+       "p": "10"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "test": [
+  {
+   "id": "pt01",
+   "inc": "i1",
+   "q": "¿Cuál de estas rutas es absoluta?",
+   "o": [
+    "../tmp/sensor_0910.csv",
+    "tmp/sensor_0910.csv",
+    "/home/ana/atlas/tmp/sensor_0910.csv",
+    "./tmp/sensor_0910.csv"
+   ],
+   "a": 2,
+   "e": "Una ruta absoluta parte de `/` y no depende del directorio actual. Las otras se interpretan desde el directorio de trabajo.",
+   "src": [
+    {
+     "s": "I1",
+     "p": "6",
+     "e": "Píldora conceptual"
+    }
+   ],
+   "orig": "c"
+  },
+  {
+   "id": "pt02",
+   "inc": "i1",
+   "q": "¿Qué orden informa del espacio libre del sistema de archivos que contiene el directorio actual?",
+   "o": [
+    "du -sh .",
+    "df -h .",
+    "ls -l",
+    "tree"
+   ],
+   "a": 1,
+   "e": "`df` informa del tamaño, uso y espacio libre del sistema de archivos; `du` mide lo que ocupan archivos y directorios.",
+   "src": [
+    {
+     "s": "I1",
+     "p": "6",
+     "e": "Pregunta 5"
+    },
+    {
+     "s": "I1",
+     "p": "9"
+    }
+   ],
+   "orig": "c"
+  },
+  {
+   "id": "pt03",
+   "inc": "i2",
+   "q": "Con `umask 027`, un archivo nuevo creado con `touch` tiene permisos…",
+   "o": [
+    "750",
+    "640",
+    "644",
+    "666"
+   ],
+   "a": 1,
+   "e": "666 − 027 → 640 (`rw-r-----`). Los archivos no parten con permiso de ejecución; los directorios nuevos darían 750.",
+   "src": [
+    {
+     "s": "I2",
+     "p": "7",
+     "e": "Incidencia 6"
+    }
+   ],
+   "orig": "c"
+  },
+  {
+   "id": "pt04",
+   "inc": "i2",
+   "q": "Tras `echo hola > a.txt; ln a.txt dura.txt; ln -s a.txt simb.txt; rm a.txt`, ¿qué ocurre?",
+   "o": [
+    "`cat dura.txt` muestra `hola` y `cat simb.txt` da error",
+    "Ambos muestran `hola`",
+    "Ambos dan error",
+    "`cat dura.txt` da error y `cat simb.txt` muestra `hola`"
+   ],
+   "a": 0,
+   "e": "El enlace físico es otro nombre del mismo archivo; el simbólico guarda la ruta `a.txt`, que ya no existe.",
+   "src": [
+    {
+     "s": "I2",
+     "p": "8",
+     "e": "Incidencia 11"
+    }
+   ],
+   "orig": "c"
+  },
+  {
+   "id": "pt05",
+   "inc": "i2",
+   "q": "`printf '%s\\n' *.md` muestra…",
+   "o": [
+    "los `.md` de todo el árbol de directorios",
+    "los `.md` del directorio actual",
+    "los `.md` solo si se escribe entre comillas",
+    "los `.md` ocultos"
+   ],
+   "a": 1,
+   "e": "El shell expande el patrón solo en el directorio actual. Para recorrer la jerarquía se usa `find`, con el patrón entre comillas.",
+   "src": [
+    {
+     "s": "I2",
+     "p": "9",
+     "e": "Píldora conceptual"
+    }
+   ],
+   "orig": "c"
+  },
+  {
+   "id": "pt06",
+   "inc": "i3",
+   "q": "Se ejecuta `A=1; export B=2; bash -c 'echo \"A=$A B=$B\"'`. ¿Qué imprime?",
+   "o": [
+    "A=1 B=2",
+    "A= B=2",
+    "A=1 B=",
+    "A= B="
+   ],
+   "a": 1,
+   "e": "`A` es solo del shell; `B` está exportada y el hijo la recibe en su entorno.",
+   "src": [
+    {
+     "s": "I3",
+     "p": "7",
+     "e": "Incidencia 3"
+    },
+    {
+     "s": "R34",
+     "p": "1"
+    }
+   ],
+   "orig": "c"
+  },
+  {
+   "id": "pt07",
+   "inc": "i3",
+   "q": "Tras `Ctrl+Z` sobre `sleep 200` en primer plano, ¿qué orden lo reanuda en segundo plano?",
+   "o": [
+    "fg %1",
+    "bg %1",
+    "jobs",
+    "kill %1"
+   ],
+   "a": 1,
+   "e": "`Ctrl+Z` lo suspende; `bg` lo reanuda en segundo plano y `fg` lo trae a primer plano.",
+   "src": [
+    {
+     "s": "I3",
+     "p": "4"
+    },
+    {
+     "s": "I3",
+     "p": "8–9",
+     "e": "Incidencia 9"
+    }
+   ],
+   "orig": "c"
+  },
+  {
+   "id": "pt08",
+   "inc": "i4",
+   "q": "¿Qué hace `orden 2>&1 > salida.txt`?",
+   "o": [
+    "Envía stdout y stderr a salida.txt",
+    "Envía stderr a la pantalla y stdout a salida.txt",
+    "Envía stdout a la pantalla y stderr a salida.txt",
+    "Descarta los errores"
+   ],
+   "a": 1,
+   "e": "Las redirecciones se aplican de izquierda a derecha: `2>&1` copia el destino actual del descriptor 1 (la pantalla) y después el 1 se redirige al archivo.",
+   "src": [
+    {
+     "s": "R34",
+     "p": "2"
+    }
+   ],
+   "orig": "c"
+  },
+  {
+   "id": "pt09",
+   "inc": "i4",
+   "q": "Para guardar la salida de una orden **conservando** lo que ya había en el archivo se usa…",
+   "o": [
+    "`>`",
+    "`>>`",
+    "`<`",
+    "`2>`"
+   ],
+   "a": 1,
+   "e": "`>` trunca; `>>` añade al final.",
+   "src": [
+    {
+     "s": "R34",
+     "p": "2"
+    },
+    {
+     "s": "I4",
+     "p": "5–6"
+    }
+   ],
+   "orig": "c"
+  },
+  {
+   "id": "pt10",
+   "inc": "i4",
+   "q": "Quieres saber **dónde están** todos los archivos `Cargo.toml` del proyecto. ¿Qué herramienta es la adecuada?",
+   "o": [
+    "grep",
+    "find",
+    "tar",
+    "wc"
+   ],
+   "a": 1,
+   "e": "`find` localiza archivos; `grep` busca contenido dentro de ellos.",
+   "src": [
+    {
+     "s": "I4",
+     "p": "3"
+    },
+    {
+     "s": "I4",
+     "p": "4",
+     "e": "Nota técnica"
+    }
+   ],
+   "orig": "c"
+  },
+  {
+   "id": "pt11",
+   "inc": "i2",
+   "q": "En `ls -l`, una línea que empieza por `l` y muestra `nombre -> destino` corresponde a…",
+   "o": [
+    "un archivo ordinario",
+    "un directorio",
+    "un enlace simbólico",
+    "un enlace físico"
+   ],
+   "a": 2,
+   "e": "La `l` indica enlace simbólico; la flecha muestra su destino. Un enlace físico es un nombre más del mismo archivo y no se distingue por la flecha.",
+   "src": [
+    {
+     "s": "I2",
+     "p": "7",
+     "e": "Incidencia 5"
+    }
+   ],
+   "orig": "c"
+  },
+  {
+   "id": "pt12",
+   "inc": "i2",
+   "q": "El script `-rw-r--r--` debe poder leerse y ejecutarse por el propietario y el resto de usuarios, con los permisos mínimos necesarios. ¿Qué orden elegirías?",
+   "o": [
+    "chmod 777 script",
+    "chmod 755 script",
+    "chmod 700 script",
+    "chmod 644 script"
+   ],
+   "a": 1,
+   "e": "Se añade ejecución para todos (755 = `rwxr-xr-x`). `777` da escritura a todos y `700` quita acceso a los demás.",
+   "src": [
+    {
+     "s": "I2",
+     "p": "7",
+     "e": "Incidencia 4 y Advertencia"
+    }
+   ],
+   "orig": "c"
+  },
+  {
+   "id": "pt13",
+   "inc": "i4",
+   "q": "Sobre `uniq`, es correcto que…",
+   "o": [
+    "elimina cualquier línea repetida aunque no sea consecutiva",
+    "elimina líneas repetidas consecutivas, por lo que suele usarse tras `sort`",
+    "ordena las líneas",
+    "solo funciona con números"
+   ],
+   "a": 1,
+   "e": "`uniq` compara líneas adyacentes.",
+   "src": [
+    {
+     "s": "I4",
+     "p": "4"
+    },
+    {
+     "s": "R34",
+     "p": "3"
+    }
+   ],
+   "orig": "c"
+  },
+  {
+   "id": "pt14",
+   "inc": "i3",
+   "q": "¿Qué señal envía `Ctrl+C` a la orden en primer plano, y cómo se asocia una acción a ella en un script?",
+   "o": [
+    "SIGKILL, con `trap … KILL`",
+    "SIGINT, con `trap '…' INT`",
+    "SIGSTOP, con `trap … STOP`",
+    "SIGTERM, con `export`"
+   ],
+   "a": 1,
+   "e": "`Ctrl+C` envía SIGINT; `trap 'acción' INT` asocia una acción.",
+   "src": [
+    {
+     "s": "I3",
+     "p": "9",
+     "e": "Incidencia 11"
+    }
+   ],
+   "orig": "c"
+  }
+ ]
+}

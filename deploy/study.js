@@ -291,6 +291,7 @@ async function renderLobby(sid,conv){
   const exams=c.exams.map((e,i)=>({e,i,date:examDate(sid,conv,i)})).sort((a,b)=>(a.date||'9999').localeCompare(b.date||'9999'));
   main.innerHTML=`${pageHead(s.name,`${s.short} · lobby de estudio`,'#estudio/asignaturas',subjectColor(s))}
     <div class="segmented conv-tabs study-conv">${['ordinary','extraordinary'].map(v=>`<button data-sp-go="#estudio/${sid}/${v}" class="${conv===v?'active':''}">${v==='ordinary'?'Ordinaria':'Extraordinaria'}</button>`).join('')}</div>
+    ${sid==='ssoo'?'<div class="study-assign"><button class="btn primary" data-sp-go="#ssoo">Guía de estudio del examen: teoría y práctica</button></div>':''}
     ${data?`<p class="study-source">Contenidos según la ${esc(data.source)}. El material de estudio es de apoyo: contrástalo con los apuntes de clase.</p>`:`<p class="study-source">Aún no hay material interactivo para esta asignatura. Se muestran los contenidos que indica la guía para cada prueba.</p>`}
     <div class="study-exams">${exams.map(({e,i,date})=>{
       const topics=examTopics(sid,conv,i,data),p=topics.length?avg(topics.map(t=>topicProgress(sid,t))):null,d=daysTo(date),soon=d!==null&&d>=0&&d<=7;

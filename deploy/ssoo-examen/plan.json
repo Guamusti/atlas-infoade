@@ -1,0 +1,49 @@
+{
+ "aviso": "Ruta de estudio adaptable, sin fechas: tú decides el ritmo. Son recomendaciones de estudio, no contenido de los apuntes.",
+ "fases": [
+  {
+   "id": "f0",
+   "t": "0 · Diagnóstico sin apuntes",
+   "pasos": [
+    "Haz 10 preguntas de test de teoría **sin mirar los apuntes** (modo «Banco de preguntas»).",
+    "Resuelve un ejercicio de cada incidencia **escribiéndolo en papel** antes de abrir la solución.",
+    "Anota en «Errores que debo volver a practicar» todo lo que falles o dudes."
+   ]
+  },
+  {
+   "id": "f1",
+   "t": "1 · Recuperación activa de teoría",
+   "pasos": [
+    "Por cada tema: cierra los apuntes y escribe en 3 minutos todo lo que recuerdes (definiciones, pasos, comparaciones).",
+    "Compara con la guía de este Atlas y con las diapositivas; completa los huecos con otro color.",
+    "Repite con preguntas test y con los esquemas de desarrollo ocultos: intenta construir el esquema **antes** de verlo."
+   ]
+  },
+  {
+   "id": "f2",
+   "t": "2 · Práctica de terminal",
+   "pasos": [
+    "Por cada incidencia: **predice la salida** de los ejercicios en papel y solo después compruébala en una máquina Linux/Ubuntu.",
+    "Escribe las órdenes **de memoria** (sin `man`) y después revísalas con la documentación.",
+    "Practica las distinciones clave (absoluta/relativa, `du`/`df`, permisos/`umask`, enlaces, patrones/`find`, variables/`export`, `ps`/`jobs`, redirecciones/tuberías, `find`/`grep`)."
+   ]
+  },
+  {
+   "id": "f3",
+   "t": "3 · Desarrollo en papel",
+   "pasos": [
+    "Elige un tema de desarrollo, escribe un esquema de 3 minutos y redacta la respuesta en un tiempo limitado.",
+    "Autoevalúate con la rúbrica y anota qué conceptos faltaron."
+   ]
+  },
+  {
+   "id": "f4",
+   "t": "4 · Simulacros y repaso de errores",
+   "pasos": [
+    "Haz un simulacro de teoría y otro de práctica en papel, con tiempo.",
+    "Registra los fallos en el cuaderno de errores y vuelve a ellos en sesiones separadas (repaso espaciado).",
+    "Repite hasta que no cometas errores en lo que ya habías fallado."
+   ]
+  }
+ ]
+}

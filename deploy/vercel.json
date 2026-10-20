@@ -28,6 +28,10 @@
     {
       "source": "/personal",
       "destination": "/"
+    },
+    {
+      "source": "/ssoo",
+      "destination": "/"
     }
   ]
 }

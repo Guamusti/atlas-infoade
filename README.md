@@ -36,6 +36,18 @@ El botón **✦ Asistente** de la cabecera (o `Alt+I`) abre un chat en lenguaje 
 - Los datos se leen de las mismas estructuras que ya usa Atlas, así que cualquier examen o tarea nueva aparece en las respuestas sin cambios.
 - El service worker ignora las peticiones a otros orígenes para no copiar a su caché los modelos de IA.
 
+## Guía de estudio del examen de SSOO
+
+Página independiente en `#ssoo` (o `/ssoo`), con botón en el lobby de SSOO del portal de estudio y acceso desde el asistente («Guía del examen de SSOO»). Código en `deploy/ssoo-examen.js`; contenido en `deploy/ssoo-examen/*.json` (`meta`, `teoria`, `practica`, `simulacros`, `plan`), que es la fuente editable.
+
+- **Inicio**: formato conocido del examen (teoría y práctica separadas), aviso de que procede de un compañero y puede cambiar, lo que no se sabe (fecha, duración, penalización, temario oficial, nº de preguntas test), fuentes y limitaciones.
+- **Teoría**: mapa de temas con los epígrafes de las diapositivas, conceptos con relaciones, glosario, comparativas, banco de test con explicación, propuestas de desarrollo (esquema oculto + rúbrica) y estrategia para la pregunta de 2 puntos.
+- **Práctica** (solo Práctica 1, incidencias 1–4; la minishell no entra): objetivos y conceptos examinables, órdenes (con «modo memoria»), ejemplos, ejercicios con solución razonada oculta, errores frecuentes y distinciones clave con la página donde aparecen.
+- **Simulacros** de teoría y práctica en pantalla o **en papel** (imprimir enunciado y soluciones razonadas), con tiempos solo como sugerencia y registro de errores.
+- **Plan y seguimiento**: ruta de estudio sin fechas, casillas de progreso por tema e incidencia y «errores que debo volver a practicar» con repaso.
+- **Trazabilidad**: cada pieza indica su origen (*Apuntes*, *Resumen no oficial* o *Complemento*) y cita archivo y página del PDF. Los PDF **no** se incluyen en el repositorio; se pueden vincular desde Inicio → Fuentes (solo en la sesión) para que las citas los abran en la página indicada.
+- El progreso se guarda en `state.ssooExam` (IndexedDB y sincronización de Atlas).
+
 ## Estructura
 
 - `deploy/`: versión publicada de la aplicación y sus recursos PWA.

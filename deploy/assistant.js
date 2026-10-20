@@ -216,6 +216,7 @@ async function subjectAnswer(sid){
   }
   const pr=ups.find(e=>e.kind==='prueba'),actions=[];
   if(pr){L.push('','**Qué estudiar primero**',...studyLines(pr,today));actions.push(...studyActions(pr))}
+  if(sid==='ssoo')actions.push({label:'Guía del examen de SSOO',go:'#ssoo'});
   actions.push({label:'Abrir ficha',run:()=>typeof openSubject==='function'&&openSubject(sid)});
   return R(L.join('\n'),actions);
 }

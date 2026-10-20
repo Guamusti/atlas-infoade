@@ -1,0 +1,110 @@
+{
+ "simulacros": {
+  "teoria": [
+   {
+    "id": "st-a",
+    "titulo": "Simulacro de teoría A",
+    "descripcion": "20 preguntas tipo test del banco (10 por tema) y una pregunta de desarrollo. Entrénalo en papel.",
+    "test": [
+     "q02",
+     "q05",
+     "q07",
+     "q08",
+     "q10",
+     "q13",
+     "q19",
+     "q20",
+     "q22",
+     "q25",
+     "q33",
+     "q38",
+     "q41",
+     "q45",
+     "q47",
+     "q49",
+     "q52",
+     "q55",
+     "q57",
+     "q60"
+    ],
+    "desarrollo": "d05",
+    "tiempos": {
+     "test": "Sugerencia: unos 25–30 minutos para el test.",
+     "desarrollo": "Sugerencia: unos 15–20 minutos para el desarrollo."
+    }
+   },
+   {
+    "id": "st-b",
+    "titulo": "Simulacro de teoría B",
+    "descripcion": "Otras 20 preguntas del banco y un desarrollo distinto.",
+    "test": [
+     "q03",
+     "q06",
+     "q09",
+     "q14",
+     "q18",
+     "q21",
+     "q24",
+     "q28",
+     "q29",
+     "q30",
+     "q32",
+     "q34",
+     "q39",
+     "q42",
+     "q44",
+     "q46",
+     "q50",
+     "q51",
+     "q54",
+     "q56"
+    ],
+    "desarrollo": "d06",
+    "tiempos": {
+     "test": "Sugerencia: unos 25–30 minutos para el test.",
+     "desarrollo": "Sugerencia: unos 15–20 minutos para el desarrollo."
+    }
+   }
+  ],
+  "practica": [
+   {
+    "id": "sp-a",
+    "titulo": "Simulacro de práctica A",
+    "descripcion": "Dos preguntas tipo test (que según la información recibida restan) y cuatro ejercicios, uno por incidencia.",
+    "test": [
+     "pt03",
+     "pt08"
+    ],
+    "ejercicios": [
+     "i1-x2",
+     "i2-x3",
+     "i3-x5",
+     "i4-x6"
+    ],
+    "tiempos": {
+     "test": "Sugerencia: 5 minutos para las dos preguntas.",
+     "ejercicios": "Sugerencia: unos 10–12 minutos por ejercicio."
+    }
+   },
+   {
+    "id": "sp-b",
+    "titulo": "Simulacro de práctica B",
+    "descripcion": "Otras dos preguntas tipo test y cuatro ejercicios distintos, con alguna orden destructiva (ficticia) para practicar la precisión.",
+    "test": [
+     "pt05",
+     "pt06"
+    ],
+    "ejercicios": [
+     "i1-x5",
+     "i2-x6",
+     "i3-x7",
+     "i4-x9"
+    ],
+    "tiempos": {
+     "test": "Sugerencia: 5 minutos para las dos preguntas.",
+     "ejercicios": "Sugerencia: unos 10–12 minutos por ejercicio."
+    }
+   }
+  ]
+ }
+}
