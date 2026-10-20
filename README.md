@@ -26,6 +26,16 @@ Las guías docentes pueden descargarse localmente (no se incluyen en el reposito
 
 El script opcional `work/process_logo.py` genera iconos a partir de una imagen de origen; requiere Python con Pillow y recibe la ruta de la imagen como argumento.
 
+## Asistente de IA local
+
+El botón **✦ Asistente** de la cabecera (o `Alt+I`) abre un chat en lenguaje natural sobre el curso: «¿qué tengo que hacer hoy?», «¿cuándo es el próximo examen?», «¿qué me falta por estudiar de SSOO?», «tareas pendientes», «mis notas»… Código en `deploy/assistant.js` (y `deploy/ai-worker.js` para el modelo WebGPU).
+
+- **Datos exactos sin IA**: un planificador lee el estado de Atlas (horario, tareas, exámenes con fecha, notas) y el avance del portal de estudio. Fechas y días que faltan los calcula el código, nunca el modelo. Recomienda preparar el examen más próximo con los temas de menor avance y botones directos al portal de estudio.
+- **Con la IA activada** (chip «IA desactivada» → ajustes) el modelo añade un consejo a cada plan y contesta preguntas libres, incluso sobre el temario, apoyándose en esos datos y en extractos de `study/*.json`.
+- **Motores gratuitos y locales** (como en Paper Reader): IA integrada de Chrome/Edge, modelo WebGPU de WebLLM (descarga única de 0,9 a 6,4 GB, solo tras activarlo) o tu propio Ollama/LM Studio. Nada se envía a una API de pago. Los ajustes se guardan en `localStorage` (`atlas.ai-*`), por dispositivo, y no se sincronizan.
+- Los datos se leen de las mismas estructuras que ya usa Atlas, así que cualquier examen o tarea nueva aparece en las respuestas sin cambios.
+- El service worker ignora las peticiones a otros orígenes para no copiar a su caché los modelos de IA.
+
 ## Estructura
 
 - `deploy/`: versión publicada de la aplicación y sus recursos PWA.
