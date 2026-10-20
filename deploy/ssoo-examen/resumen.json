@@ -1,0 +1,213 @@
+{
+ "aviso": "Versión corta para repasar. El detalle y las citas completas están en Conceptos, Órdenes y Ejercicios.",
+ "teoria": [
+  {
+   "tema": "Tema 1 · Introducción",
+   "bloques": [
+    {
+     "id": "t1a",
+     "t": "Por qué existe el SO",
+     "src": [
+      {
+       "s": "T1",
+       "p": "3–9"
+      }
+     ],
+     "puntos": [
+      "Usar el hardware directamente es difícil: cada dispositivo es distinto, se **comparte** (recursos limitados, conflictos, privacidad) y debe poder usarlo quien no sabe de hardware.",
+      "El SO lo resuelve con **abstracciones** (disco → archivos, tarjeta de red → monitor de red…).",
+      "Definiciones: **Sánchez** = abstracciones y seguridad · **Deitel** = interfaz usuario–hardware · **Katzan** = ayuda a crear y controlar programas · **Madnik y Donovan** = gestiona recursos, optimiza y resuelve conflictos."
+     ]
+    },
+    {
+     "id": "t1b",
+     "t": "Lo que hay que saber del computador",
+     "src": [
+      {
+       "s": "T1",
+       "p": "10–30"
+      }
+     ],
+     "puntos": [
+      "**Arquitectura** = atributos visibles al programador. Elementos: **memoria, CPU, buses y E/S**.",
+      "**Memoria**: posiciones con dirección; capacidad = nº de posiciones direccionables (16 líneas de direcciones → 2¹⁶ = 64 KB con datos de 8 bits). Un programa debe estar en memoria para ejecutarse.",
+      "**CPU** = ALU + unidad de control. Registros: propósito general, datos, direcciones (**puntero de pila**), control y estado (**contador de programa**, **PSW**).",
+      "**Instrucción** = código de operación + operandos. Tipos: aritméticas, lógicas, transferencia, control/salto, E/S. Direccionamiento: implícito, inmediato, directo…",
+      "**Ciclo**: buscar → interpretar → leer datos → ejecutar → almacenar.",
+      "**Buses**: datos, direcciones y control. **E/S**: el controlador ofrece registros de datos, control y estado.",
+      "**Sondeo** (sencillo, carga a la CPU) frente a **interrupciones** (hardware adicional): evento → la CPU ejecuta la **ISR** → el **planificador** elige el siguiente proceso.",
+      "Arquitectura ↔ SO: CPU → ejecución de programas · memoria → programas y datos · E/S → dispositivos · interrupciones → eventos · **DMA** → E/S eficiente."
+     ]
+    },
+    {
+     "id": "t1c",
+     "t": "Evolución histórica",
+     "src": [
+      {
+       "s": "T1",
+       "p": "31–41"
+      }
+     ],
+     "puntos": [
+      "Máquina desnuda → **monitor residente** (reutiliza código de E/S) → **lotes** (hace falta operario) → **multiprogramación** (solapa E/S y CPU; necesita interrupciones y DMA; riesgo: monopolizar la CPU) → **tiempo compartido** (quantum, round-robin).",
+      "**DMA**: la CPU lo programa, transfiere sin ella y avisa con una interrupción.",
+      "**Tiempo real** = plazo acotado (no es «rápido»). **Distribuido** = varias máquinas que parecen una (middleware)."
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Tema 2 · Estructura del Sistema Operativo",
+   "bloques": [
+    {
+     "id": "t2a",
+     "t": "Descripción de un sistema",
+     "src": [
+      {
+       "s": "T2",
+       "p": "3–8"
+      }
+     ],
+     "puntos": [
+      "El SO está entre el ensamblador y la arquitectura. Tipos de descripción: **funcional** (qué obtiene el usuario, caja negra), **estructural** (organización interna: portabilidad, extensión, mantenimiento) y de la implementación.",
+      "Visión **amplia** (usuarios) frente a **restringida** (desarrolladores: administrador de recursos).",
+      "Al hardware le pide **modo dual** (usuario/supervisor, paso mediante llamada al sistema), **protección** (memoria, dispositivos, procesador con interrupciones) y **DMA**."
+     ]
+    },
+    {
+     "id": "t2b",
+     "t": "Diseño por capas",
+     "src": [
+      {
+       "s": "T2",
+       "p": "9–11"
+      }
+     ],
+     "puntos": [
+      "**Capa** = funciones bien definidas; ventajas: ocultación, evolución manteniendo interfaces, alternativas, capas transparentes y pruebas independientes.",
+      "Niveles clásicos: **1 procesador · 2 memoria · 3 procesos · 4 dispositivos · 5 información** (archivos y protección)."
+     ]
+    },
+    {
+     "id": "t2c",
+     "t": "El núcleo, eventos y llamadas al sistema",
+     "src": [
+      {
+       "s": "T2",
+       "p": "12–24"
+      }
+     ],
+     "puntos": [
+      "**Núcleo**: primer nivel, el más dependiente del hardware, siempre en modo supervisor. Funciones: procesos, eventos, conmutación, comunicación entre procesos, carga inicial.",
+      "**Eventos**: síncronos (**excepciones** y **llamadas al sistema** = TRAP) frente a asíncronos (**interrupciones**). La CPU pasa a modo supervisor.",
+      "**Llamada al sistema (SVC)**: programa → *wrapper* de biblioteca → instrucción de llamada → manejador (identifica nº y valida) → rutina de servicio → retorno. Linux `write`: `syscall` (`rax`=1). xv6: `ecall` (`a7`), retorno en `a0`. **POSIX** = API estándar portable.",
+      "**Estados**: ejecución →*dormir*→ espera →*despertar*→ listo →*despachar*→ ejecución; ejecución →*desalojar*→ listo."
+     ]
+    },
+    {
+     "id": "t2d",
+     "t": "Monolítico frente a micronúcleo",
+     "src": [
+      {
+       "s": "T2",
+       "p": "25–28"
+      }
+     ],
+     "puntos": [
+      "**Monolítico** (MS-DOS, Linux): todo el SO en el núcleo → mayor rendimiento; menos robusto y adaptable.",
+      "**Micronúcleo** (Mach, L4, Chorus): solo el micronúcleo en supervisor, el resto son procesos de sistema → más robusto y adaptable; menor rendimiento por las comunicaciones."
+     ]
+    },
+    {
+     "id": "t2e",
+     "t": "Ejemplos",
+     "src": [
+      {
+       "s": "T2",
+       "p": "29–34"
+      }
+     ],
+     "puntos": [
+      "**Linux** (capas, monolítico) · **Mach** (servidores en modo usuario) · **Windows** (modo usuario, dispatcher de servicios, kernel, **HAL**) · **macOS** (Darwin = Mach + BSD) · **iOS** (Cocoa Touch, Media, Core Services, Core OS, Kernel) · **Android** (aplicaciones, framework, librerías y runtime, kernel Linux)."
+     ]
+    }
+   ]
+  }
+ ],
+ "practica": [
+  {
+   "id": "i1",
+   "t": "Incidencia 1 · Sistema de archivos",
+   "src": [
+    {
+     "s": "I1",
+     "p": "3–9"
+    }
+   ],
+   "esencial": [
+    "**Ruta absoluta** (parte de `/`) frente a **relativa** (desde el directorio actual; `.`, `..`, `~`). Antes de ejecutar: ¿desde dónde se interpreta?",
+    "`ls` no muestra los **ocultos** (`ls -a`).",
+    "**Mover** (`mv`), **copiar** (`cp`) y **eliminar** (`rm`: no se deshace; `rmdir` solo vacíos). Comprueba `pwd` y la ruta antes de `rm`.",
+    "`du` = lo que **ocupa**; `df` = espacio **libre** del sistema de archivos.",
+    "Ayuda: `man`, `--help`, `whatis`, `apropos`. Dos órdenes seguidas: `;`."
+   ],
+   "ordenes": "`pwd` `cd` `ls` `touch` `cp` `mv` `rm` `mkdir` `rmdir` `cat` `less` `head` `tail` `file` `du` `df` `tree` `tar`"
+  },
+  {
+   "id": "i2",
+   "t": "Incidencia 2 · Permisos, enlaces, patrones y find",
+   "src": [
+    {
+     "s": "I2",
+     "p": "3–10"
+    }
+   ],
+   "esencial": [
+    "`rwx` no significa lo mismo en **archivo** (leer/escribir/ejecutar) que en **directorio** (listar/crear-borrar/acceder). Da solo los permisos necesarios (no `777`).",
+    "**umask**: archivo = 666 − máscara; directorio = 777 − máscara (`022` → 644/755; `027` → 640/750; `077` → 600/700).",
+    "**Enlace físico** (mismo inodo, sobrevive a borrar el otro nombre) frente a **simbólico** (guarda una ruta; se rompe si desaparece el destino).",
+    "**Patrones del shell** (`*`, `?`, `[]`, `[!]`) los expande el shell en el directorio actual y **no son regex**. `find . -type f -name '*.md'` recorre todo el árbol (con comillas). Comprueba antes con `printf`/`ls`."
+   ],
+   "ordenes": "`ls -l` `stat` `chmod` `umask` `ln` `ln -s` `printf` `find`"
+  },
+  {
+   "id": "i3",
+   "t": "Incidencia 3 · Entorno del shell y procesos",
+   "src": [
+    {
+     "s": "I3",
+     "p": "3–12"
+    }
+   ],
+   "esencial": [
+    "Variable del **shell** frente a **exportada** (`export`: la reciben los procesos hijos). Asignación sin espacios; `unset`; `$?` `$$` `$!`.",
+    "`.bashrc`: **probar** ≠ **recargar** (`source`) ≠ **nueva sesión**. Añade con `>>`, nunca con `>`.",
+    "**Proceso** (`ps`, PID, estado) ≠ **trabajo** del shell (`jobs`, `&`, `Ctrl+Z`, `bg`, `fg`).",
+    "**Señales**: `kill` (TERM por defecto), `-STOP`/`-CONT`, `-9` solo como último recurso; en scripts `trap 'acción' INT`. Identifica el proceso antes de intervenir."
+   ],
+   "ordenes": "`env` `printenv` `echo` `set` `export` `unset` `alias` `source` `ps` `pgrep` `top` `jobs` `bg` `fg` `kill` `trap`"
+  },
+  {
+   "id": "i4",
+   "t": "Incidencia 4 · Redirecciones, filtros y búsquedas",
+   "src": [
+    {
+     "s": "I4",
+     "p": "3–10"
+    },
+    {
+     "s": "R34",
+     "p": "2–4"
+    }
+   ],
+   "esencial": [
+    "`>` **sobrescribe**, `>>` **añade**, `2>` errores, `> f 2>&1` ambos (el **orden** importa), `|` conecta salida con entrada.",
+    "Filtros: `head` `tail` `wc` `sort` `uniq` (tras `sort`) `cut` `tee` (`-a` añade).",
+    "`find` **localiza archivos**; `grep`/`rg` **buscan contenido**. Un patrón del shell (`*.rs`) no es una regex; las anclas `^` y `$` fijan inicio y fin de línea.",
+    "Empaquetar: `tar` y luego `gzip`; comprobar con `tar -tzf`; extraer en otro directorio."
+   ],
+   "ordenes": "`>` `>>` `<` `2>` `2>&1` `head` `tail` `wc` `sort` `uniq` `cut` `tee` `|` `find` `grep` `rg` `tar` `gzip`"
+  }
+ ],
+ "practicaNota": "Los puntos de arriba salen de las guías de las incidencias (y del resumen R34 en la Incidencia 4); las cifras de `umask` y la sintaxis de las órdenes son complemento estándar de Linux."
+}

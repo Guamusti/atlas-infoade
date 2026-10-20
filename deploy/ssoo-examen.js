@@ -13,7 +13,7 @@ const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math
 const plural=(n,a,b)=>`${n} ${n===1?a:b}`;
 const ORIG={a:{lbl:'Apuntes',tip:'Aparece en los apuntes o guías oficiales entregados'},r:{lbl:'Resumen no oficial',tip:'Procede de un resumen o informe propio, no de un apunte oficial'},c:{lbl:'Complemento',tip:'Complemento estándar de Linux/Bash o recomendación de estudio: no está literal en los documentos'}};
 const TIPOS={prediccion:'Predicción',diagnostico:'Diagnóstico',seleccion:'Selección de orden',interpretacion:'Interpretación',escritura:'Escritura de orden'};
-const SECTEO=[['mapa','Mapa'],['conceptos','Conceptos'],['glosario','Glosario'],['comparativas','Comparativas'],['test','Test de repaso'],['desarrollo','Desarrollo'],['estrategia','Estrategia']];
+const SECTEO=[['resumen','Resumen'],['mapa','Mapa'],['conceptos','Conceptos'],['glosario','Glosario'],['comparativas','Comparativas'],['test','Test de repaso'],['desarrollo','Desarrollo'],['estrategia','Estrategia']];
 const SECPRA=[['resumen','Objetivos y conceptos'],['ordenes','Órdenes'],['ejemplos','Ejemplos'],['ejercicios','Ejercicios'],['errores','Errores frecuentes']];
 const CSS=`
 .sx-overlay{position:fixed;inset:0;z-index:255;background:var(--paper,#fffdf7);overflow:auto;display:none;-webkit-overflow-scrolling:touch;font-family:var(--font,'DM Sans',sans-serif);color:#17201b}
@@ -111,6 +111,7 @@ const CSS=`
   body>*:not(#sxPrint){display:none!important}
   #sxPrint{display:block!important;position:static;padding:0;color:#000;background:#fff;font:12pt/1.4 Georgia,serif}
   #sxPrint h1{font-size:18pt;margin:0 0 4pt}#sxPrint h2{font-size:13pt;margin:14pt 0 4pt;border-bottom:1px solid #000}
+  #sxPrint ul{margin:2pt 0 6pt 16pt;padding:0}#sxPrint li{margin:2pt 0}
   #sxPrint .q{margin:8pt 0;page-break-inside:avoid}#sxPrint .opt{margin-left:18pt}
   #sxPrint .lines{border-bottom:1px solid #999;height:20pt}
   #sxPrint pre{border:1px solid #999;padding:4pt;white-space:pre-wrap;font:10pt/1.3 monospace}
@@ -138,8 +139,8 @@ function whenReady(){
 }
 function load(){
   if(DATA)return Promise.resolve(DATA);
-  return loading??=Promise.all(['meta','teoria','practica','simulacros','plan'].map(n=>fetch(DIR+n+'.json').then(r=>{if(!r.ok)throw new Error(n);return r.json()}))).then(([meta,teoria,practica,sim,plan])=>{
-    DATA={meta,teoria,practica,sim:sim.simulacros,plan};
+  return loading??=Promise.all(['meta','teoria','practica','simulacros','plan','resumen'].map(n=>fetch(DIR+n+'.json').then(r=>{if(!r.ok)throw new Error(n);return r.json()}))).then(([meta,teoria,practica,sim,plan,resumen])=>{
+    DATA={meta,teoria,practica,sim:sim.simulacros,plan,resumen};
     DATA.Q=Object.fromEntries(teoria.test.map(q=>[q.id,q]));
     DATA.D=Object.fromEntries(teoria.desarrollo.map(d=>[d.id,d]));
     DATA.PT=Object.fromEntries(practica.test.map(q=>[q.id,q]));
@@ -207,10 +208,10 @@ function vInicio(){
   <div class="sx-grid2">
     <article class="sx-card t"><div class="sx-eyebrow" style="color:#2563eb">Parte 1</div><h2>Teoría</h2><ul>${M.formato[0].items.map(i=>`<li>${esc(i)}</li>`).join('')}</ul>
       ${bar(pt.pct)}<div class="sx-small">${pt.done}/${pt.total} subtemas repasados · ${pt.seen}/${pt.qtotal} preguntas contestadas${pt.seen?` (${Math.round(pt.ok/pt.seen*100)}% acertadas en la última vez)`:''}</div>
-      <div class="sx-row"><button class="sx-btn pri" data-go="#ssoo/teoria">Preparar teoría</button><button class="sx-btn" data-go="#ssoo/teoria/test">Test de repaso</button></div></article>
+      <div class="sx-row"><button class="sx-btn pri" data-go="#ssoo/teoria">Resumen de teoría</button><button class="sx-btn" data-go="#ssoo/teoria/test">Test de repaso</button></div></article>
     <article class="sx-card p"><div class="sx-eyebrow" style="color:var(--green,#16855b)">Parte 2</div><h2>Práctica</h2><ul>${M.formato[1].items.map(i=>`<li>${esc(i)}</li>`).join('')}</ul>
       ${bar(pp.pct)}<div class="sx-small">${pp.done}/${pp.total} casillas · ${pp.made}/${pp.extotal} ejercicios resueltos</div>
-      <div class="sx-row"><button class="sx-btn pri" data-go="#ssoo/practica">Preparar práctica</button><button class="sx-btn" data-go="#ssoo/practica/distinciones">Distinciones clave</button></div></article>
+      <div class="sx-row"><button class="sx-btn pri" data-go="#ssoo/practica">Resumen de práctica</button><button class="sx-btn" data-go="#ssoo/practica/distinciones">Distinciones clave</button></div></article>
   </div>
   <div class="sx-row"><button class="sx-btn" data-go="#ssoo/simulacros">Simulacros</button><button class="sx-btn" data-go="#ssoo/plan">Plan y seguimiento</button></div>
   <h2>Qué no se sabe todavía</h2>
@@ -230,11 +231,12 @@ function vInicio(){
 
 /* --- Teoría --- */
 function vTeoria(sec){
-  sec=SECTEO.some(s=>s[0]===sec)?sec:'mapa';
+  sec=SECTEO.some(s=>s[0]===sec)?sec:'resumen';
   const nav=`<div class="sx-sub">${SECTEO.map(([k,l])=>`<button class="sx-chip${k===sec?' on':''}" data-go="#ssoo/teoria/${k}">${l}</button>`).join('')}</div>`;
   const T=DATA.teoria,s=ST();
   let body='';
-  if(sec==='mapa'){
+  if(sec==='resumen')body=vResumenTeoria();
+  else if(sec==='mapa'){
     body=`<h1>Teoría</h1><p class="sx-lead">Mapa fiel a los apuntes: epígrafes de las diapositivas de los Temas 1 y 2. Marca cada subtema cuando puedas explicarlo <b>sin mirar</b>.</p>`+T.temas.map(t=>`<details class="sx-sec" open><summary><span>${esc(t.titulo)} <span class="sx-small">· ${esc(DATA.SRC[t.fuente].ruta.split('/').pop())}</span></summary><div class="in"><p class="sx-small">${esc(t.resumen)}</p>
       ${t.subtemas.map(x=>`<label class="sx-check"><input type="checkbox" data-chk="t:${x.id}"${s.checks['t:'+x.id]?' checked':''}><span><b>${esc(x.titulo)}</b><br><span class="sx-small">${x.epigrafes.map(esc).join(' · ')}</span><br><a href="#ssoo/teoria/conceptos/${x.id}" data-go="#ssoo/teoria/conceptos/${x.id}" class="sx-small">Ir a los conceptos →</a></span></label>`).join('')}</div></details>`).join('')
       +`<div class="sx-banner blue">Las diapositivas que son solo imagen o diagrama (niveles de capas, llamadas al sistema, diagrama de estados, esquemas de micronúcleo…) se han leído visualmente y se resumen en los conceptos con su página.</div>`;
@@ -265,6 +267,30 @@ function vTeoria(sec){
   return nav+body;
 }
 function rubScore(d){const s=ST(),n=d.rubrica.filter((_,i)=>s.rub[d.id+':'+i]).length;return`Autoevaluación: ${n} de ${d.rubrica.length} criterios cumplidos.`}
+
+/* --- Resúmenes (versión corta) --- */
+function vResumenTeoria(){
+  const R=DATA.resumen;
+  return`<h1>Resumen de teoría</h1><p class="sx-lead">${esc(R.aviso)}</p>
+    <div class="sx-row"><button class="sx-btn sm" data-act="printres" data-v="teoria">Imprimir resumen</button><button class="sx-btn sm" data-go="#ssoo/teoria/test">Test de repaso</button></div>`
+    +R.teoria.map(t=>`<h2>${esc(t.tema)}</h2>`+t.bloques.map(b=>`<article class="sx-concept"><h4>${esc(b.t)} ${srcs(b.src)}</h4>${md(b.puntos.map(x=>'- '+x).join('\n'))}<a class="sx-small" href="#ssoo/teoria/conceptos/${b.id}" data-go="#ssoo/teoria/conceptos/${b.id}">Ver el detalle →</a></article>`).join('')).join('')
+    +`<div class="sx-banner blue">Cada bloque cita sus diapositivas (T1 = Tema 1, T2 = Tema 2). Para ampliar: <button class="sx-chip" data-go="#ssoo/teoria/conceptos">Conceptos</button> <button class="sx-chip" data-go="#ssoo/teoria/comparativas">Comparativas</button> <button class="sx-chip" data-go="#ssoo/teoria/glosario">Glosario</button></div>`;
+}
+function vResumenPractica(){
+  const R=DATA.resumen;
+  return`<h1>Resumen de práctica</h1><p class="sx-lead">Solo la <b>Práctica 1, incidencias 1–4</b> (la minishell no entra). Todo en papel y con órdenes sencillas.</p>
+    <div class="sx-row"><button class="sx-btn sm" data-act="printres" data-v="practica">Imprimir resumen</button><button class="sx-btn sm" data-go="#ssoo/practica/distinciones">Distinciones clave</button><button class="sx-btn sm" data-go="#ssoo/practica/test">Test de práctica</button></div>`
+    +R.practica.map(x=>`<article class="sx-card p" style="margin:12px 0"><h3 style="margin:0 0 6px">${esc(x.t)} ${srcs(x.src)}</h3>${md(x.esencial.map(e=>'- '+e).join('\n'))}<div class="sx-small"><b>Órdenes:</b> ${inl(x.ordenes)}</div><div class="sx-row"><button class="sx-btn sm" data-go="#ssoo/practica/${x.id}/ordenes">Órdenes</button><button class="sx-btn sm" data-go="#ssoo/practica/${x.id}/ejercicios">Ejercicios</button><button class="sx-btn sm" data-go="#ssoo/practica/${x.id}/errores">Errores frecuentes</button></div></article>`).join('')
+    +`<p class="sx-small">${inl(R.practicaNota)}</p>`;
+}
+function printResumen(kind){
+  const R=DATA.resumen,plain=x=>String(x).replace(/\*\*/g,'').replace(/`/g,'').replace(/\*/g,'');
+  let h=`<h1>Sistemas Operativos · Resumen de ${kind==='teoria'?'teoría':'práctica'}</h1>`;
+  if(kind==='teoria')h+=R.teoria.map(t=>`<h2>${esc(t.tema)}</h2>`+t.bloques.map(b=>`<div class="q"><b>${esc(b.t)}</b> (${b.src.map(r=>r.s+' p.'+r.p).join(', ')})<ul>${b.puntos.map(p=>`<li>${esc(plain(p))}</li>`).join('')}</ul></div>`).join('')).join('');
+  else h+=R.practica.map(x=>`<h2>${esc(x.t)}</h2><div class="q"><ul>${x.esencial.map(p=>`<li>${esc(plain(p))}</li>`).join('')}</ul><div>Órdenes: ${esc(plain(x.ordenes))}</div></div>`).join('')+`<p><i>${esc(plain(R.practicaNota))}</i></p>`;
+  let box=document.getElementById('sxPrint');if(!box){box=document.createElement('div');box.id='sxPrint';document.body.append(box)}
+  box.innerHTML=h;const clear=()=>{box.innerHTML='';window.removeEventListener('afterprint',clear)};window.addEventListener('afterprint',clear);setTimeout(()=>window.print(),50);
+}
 
 /* --- Test de repaso (genérico para teoría y práctica) --- */
 function quizBank(kind){return kind==='teoria'?DATA.teoria.test:DATA.practica.test}
@@ -317,16 +343,11 @@ function qzSummary(){
 
 /* --- Práctica --- */
 function vPractica(inc,sec,item){
-  const P=DATA.practica,nav=`<div class="sx-sub"><button class="sx-chip${!inc?' on':''}" data-go="#ssoo/practica">Visión general</button>${P.incidencias.map(I=>`<button class="sx-chip${inc===I.id?' on':''}" data-go="#ssoo/practica/${I.id}">Incidencia ${I.num}</button>`).join('')}<button class="sx-chip${inc==='distinciones'?' on':''}" data-go="#ssoo/practica/distinciones">Distinciones</button><button class="sx-chip${inc==='test'?' on':''}" data-go="#ssoo/practica/test">Test de práctica</button></div>`;
+  const P=DATA.practica,nav=`<div class="sx-sub"><button class="sx-chip${!inc?' on':''}" data-go="#ssoo/practica">Resumen</button>${P.incidencias.map(I=>`<button class="sx-chip${inc===I.id?' on':''}" data-go="#ssoo/practica/${I.id}">Incidencia ${I.num}</button>`).join('')}<button class="sx-chip${inc==='distinciones'?' on':''}" data-go="#ssoo/practica/distinciones">Distinciones</button><button class="sx-chip${inc==='test'?' on':''}" data-go="#ssoo/practica/test">Test de práctica</button></div>`;
   if(inc==='distinciones')return nav+vDistinciones();
   if(inc==='test')return nav+`<h1>Test de práctica</h1><div id="sxQuiz">${quizConfig('practica')}</div>`;
   const I=P.incidencias.find(x=>x.id===inc);
-  if(!I){
-    const s=ST();
-    return nav+`<h1>Práctica 1 · Incidencias 1–4</h1><p class="sx-lead">Solo se tratan las cuatro incidencias de la <b>Práctica 1</b>. La práctica de minishell <b>no</b> entra y no se incluye. Las guías no traen soluciones: los ejercicios y las soluciones razonadas son <span class="sx-badge o-c">Complemento</span> basado en lo que piden las guías.</p>
-     <div class="sx-banner">Todo se responde <b>en papel</b> y se esperan <b>órdenes sencillas</b>: practica a escribir la orden y a <b>predecir su salida</b> antes de comprobarla en una máquina Linux.</div>
-     <div class="sx-grid2">${P.incidencias.map(I=>{const made=I.ejercicios.filter(e=>s.ejer[e.id]?.estado==='ok').length;return`<article class="sx-card p"><div class="sx-eyebrow" style="color:var(--green,#16855b)">Documento ${I.num}</div><h2 style="font-size:20px">${esc(I.titulo.replace(/^Incidencia \d+ · /,''))}</h2><p class="sx-small">${esc(I.sub)}</p>${bar(Math.round(made/I.ejercicios.length*100))}<div class="sx-small">${made}/${I.ejercicios.length} ejercicios resueltos · ${I.ordenes.length} órdenes</div><div class="sx-row"><button class="sx-btn pri" data-go="#ssoo/practica/${I.id}">Abrir</button></div></article>`}).join('')}</div>`;
-  }
+  if(!I)return nav+vResumenPractica();
   sec=SECPRA.some(s=>s[0]===sec)?sec:'resumen';
   const sub=`<div class="sx-sub">${SECPRA.map(([k,l])=>`<button class="sx-chip${k===sec?' on':''}" data-go="#ssoo/practica/${I.id}/${k}">${l}</button>`).join('')}</div>`;
   const s=ST();let body='';
@@ -596,6 +617,7 @@ function onClick(ev){
       if(b.dataset.v==='ko')addError('ejercicio',id,ex.t);else{const e=s.errores.find(e=>e.kind==='ejercicio'&&e.ref===id&&!e.resuelto);if(e)e.resuelto=true}
       const card=document.getElementById('ex-'+id);if(card){card.dataset.st=b.dataset.v;card.querySelector('.sx-st').innerHTML=stBadge(b.dataset.v)}
       toastMsg(b.dataset.v==='ok'?'Anotado como resuelto':'Añadido a errores a repasar');return save();}
+    case'printres':return printResumen(b.dataset.v);
     case'qstart':return qzStart(b.dataset.kind);
     case'qrestart':{const k=b.dataset.kind;$q('#sxQuiz').innerHTML=quizConfig(k);return}
     case'qpick':return qzPick(Number(b.dataset.oi));

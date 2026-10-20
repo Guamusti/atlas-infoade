@@ -41,6 +41,7 @@ El botón **✦ Asistente** de la cabecera (o `Alt+I`) abre un chat en lenguaje 
 Página independiente en `#ssoo` (o `/ssoo`), con botón en el lobby de SSOO del portal de estudio y acceso desde el asistente («Guía del examen de SSOO»). Código en `deploy/ssoo-examen.js`; contenido en `deploy/ssoo-examen/*.json` (`meta`, `teoria`, `practica`, `simulacros`, `plan`), que es la fuente editable.
 
 - **Inicio**: formato conocido del examen (teoría y práctica separadas), aviso de que procede de un compañero y puede cambiar, lo que no se sabe (fecha, duración, penalización, temario oficial, nº de preguntas test), fuentes y limitaciones.
+- **Resumen**: vista por defecto de Teoría y de Práctica, con lo esencial de cada tema e incidencia en pocas líneas (cada bloque cita sus páginas), enlaces al detalle y botón de imprimir. Contenido en `ssoo-examen/resumen.json` (~10 KB frente a ~200 KB del detalle).
 - **Teoría**: mapa de temas con los epígrafes de las diapositivas, conceptos con relaciones, glosario, comparativas, banco de test con explicación, propuestas de desarrollo (esquema oculto + rúbrica) y estrategia para la pregunta de 2 puntos.
 - **Práctica** (solo Práctica 1, incidencias 1–4; la minishell no entra): objetivos y conceptos examinables, órdenes (con «modo memoria»), ejemplos, ejercicios con solución razonada oculta, errores frecuentes y distinciones clave con la página donde aparecen.
 - **Simulacros** de teoría y práctica en pantalla o **en papel** (imprimir enunciado y soluciones razonadas), con tiempos solo como sugerencia y registro de errores.
