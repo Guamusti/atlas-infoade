@@ -307,11 +307,12 @@ async function renderExam(sid,conv,i,mode,topicFilter){
   const data=await loadStudy(sid),e=cfg(s,conv).exams[i];if(!e)return go(`#estudio/${sid}/${conv}`);
   const main=frame('subjects'),date=examDate(sid,conv,i),all=data?.topics||[],ids=examTopicIds(sid,conv,i,data),topics=examTopics(sid,conv,i,data);
   const active=topicFilter?topics.filter(t=>t.id===topicFilter):topics,note=examNote(sid,conv,i,data),base=`#estudio/${sid}/${conv}/${i}`;
+  const tipo=examTipo(sid,e,topics);
   main.innerHTML=`${pageHead(e.name,`${s.short} · ${conv==='ordinary'?'Ordinaria':'Extraordinaria'} · ${Math.round(e.weight*100)}% · ${dueLabel(date)}`,`#estudio/${sid}/${conv}`,subjectColor(s))}
     ${note?`<div class="history-note">${esc(note)}</div>`:''}
     ${data?`<div class="study-assign"><button class="btn" data-study-edit>Elegir temas</button>${Array.isArray(state.examTopics?.[`${sid}:${conv}:${i}`])?'<button class="btn ghost" data-study-reset>Usar los de la guía</button>':''}</div>`:''}
     ${!topics.length?`<div class="empty">${data?'Esta prueba no tiene temas asignados. Pulsa «Elegir temas».':'Sin material interactivo todavía para esta asignatura.'}</div>`:`
-    <div class="study-modes">${[['resumen','Apuntes'],['tarjetas','Tarjetas'],['test','Test'],...(topics.some(t=>t.labs?.length)?[['practica','Terminal']]:[])].map(([m,l])=>`<button class="${mode===m?'active':''}" data-sp-go="${base}/${m}${topicFilter?'/'+topicFilter:''}">${l}</button>`).join('')}</div>
+    <div class="study-modes">${[['resumen','Apuntes'],['tarjetas','Tarjetas'],['test','Test'],...(topics.some(t=>t.labs?.length)?[['practica','Terminal']]:[]),...(tipo?[['examen','Examen tipo']]:[])].map(([m,l])=>`<button class="${mode===m?'active':''}" data-sp-go="${base}/${m}${topicFilter?'/'+topicFilter:''}">${l}</button>`).join('')}</div>
     ${topics.length>1?`<label class="study-filter">Tema <select data-study-topic><option value="">Todos los de esta prueba (${topics.length})</option>${topics.map(t=>`<option value="${t.id}" ${t.id===topicFilter?'selected':''}>${esc(t.title)}</option>`).join('')}</select></label>`:''}
     <div id="studyPane"></div>`}`;
   main.querySelector('[data-study-topic]')?.addEventListener('change',ev=>go(`${base}/${mode}${ev.target.value?'/'+ev.target.value:''}`));
@@ -319,6 +320,7 @@ async function renderExam(sid,conv,i,mode,topicFilter){
   main.querySelector('[data-study-reset]')?.addEventListener('click',async()=>{delete state.examTopics[`${sid}:${conv}:${i}`];await idbSet();route()});
   const pane=main.querySelector('#studyPane');if(!pane)return;
   const entries=active.map(t=>({sid,t}));
+  if(mode==='examen'&&tipo)return renderExamenTipo(pane,tipo);
   if(mode==='tarjetas')return renderCards(pane,entries);
   if(mode==='test')return renderQuiz(pane,entries);
   if(mode==='practica')return renderLabs(pane,entries);
@@ -326,6 +328,23 @@ async function renderExam(sid,conv,i,mode,topicFilter){
     ${t.notes?`<div class="sn">${renderNotes(t.notes)}</div>${t.source?`<div class="sn-source">Fuente: ${esc(t.source)}</div>`:''}<details class="sn-guide"><summary>Contenidos según la guía docente</summary><ul class="study-guide">${t.guide.map(g=>`<li>${esc(g)}</li>`).join('')}</ul></details>`:`<div class="study-label">Contenidos de la guía docente</div><ul class="study-guide">${t.guide.map(g=>`<li>${esc(g)}</li>`).join('')}</ul>
     <div class="study-label">Claves para el examen</div><ul class="study-summary">${t.summary.map(g=>`<li>${esc(g)}</li>`).join('')}</ul>`}</section>`).join('');
   initWidgets(pane);
+}
+/* Examen tipo: solo para SSOO, y solo en las pruebas cuyo formato se conoce (teoría: test + desarrollo; práctica: Práctica 1, incidencias 1-4). */
+function examTipo(sid,e,topics){
+  if(sid!=='ssoo')return null;
+  const ids=topics.map(t=>t.id);
+  if(/^Teor[ií]a/i.test(e.name)){const temas=[...new Set(ids.map(x=>(x.match(/^t(\d)/)||[])[1]).filter(Boolean))].map(n=>'t'+n);return temas.length?{kind:'teoria',arg:temas.join(',')}:null}
+  const incs=ids.map(x=>(x.match(/^l(\d)$/)||[])[1]).filter(Boolean).map(n=>'i'+n);
+  return incs.length?{kind:'practica',arg:incs.join(',')}:null;
+}
+function renderExamenTipo(pane,tipo){
+  const t=tipo.kind==='teoria';
+  pane.innerHTML=`<section class="study-topic"><div class="study-topic-head"><h3>Examen tipo · ${t?'Teoría':'Práctica'}</h3></div>
+    <div class="study-label">Formato que se conoce</div>
+    <ul class="study-guide"><li>El examen es <b>en papel</b>.</li>${t?'<li>Test: <b>8 puntos</b>. El test <b>no resta</b>.</li><li>Una pregunta de <b>desarrollo: 2 puntos</b>.</li>':'<li><b>Dos preguntas tipo test que sí restan.</b></li><li>Ejercicios de incidencias con <b>órdenes sencillas</b>.</li><li>Evaluable hasta las <b>cuatro incidencias de la Práctica 1</b> (la minishell no entra).</li>'}</ul>
+    <div class="history-note">Formato orientativo: viene de un compañero y podría cambiar. No se conocen fecha, duración, ${t?'nº de preguntas tipo test':'fórmula de penalización'} ni temario oficial detallado, así que el examen tipo usa ${t?'una cantidad de test de práctica (20)':'un número de ejercicios de práctica (uno por incidencia)'} y los tiempos son solo sugerencias.</div>
+    <div class="study-assign"><button class="btn primary" data-sp-go="#ssoo/simulacros/examen-${tipo.kind}/${tipo.arg}">Empezar examen tipo</button><button class="btn" data-sp-go="#ssoo/${t?'teoria':'practica'}">Guía de ${t?'teoría':'práctica'}</button></div>
+    <p class="sn-source">Preguntas y ejercicios de práctica basados en los apuntes; puedes hacerlo en pantalla o imprimirlo para resolverlo en papel.</p></section>`;
 }
 function editTopics(sid,conv,i,all,ids){
   const pop=document.createElement('div');pop.className='study-picker';
@@ -476,7 +495,7 @@ function route(){
   if(h==='#estudio'||h==='#estudio/')return renderHome();
   if((m=h.match(/^#estudio\/asignaturas(?:\/(1|2|all))?$/)))return renderSubjects(m[1]);
   if((m=h.match(/^#estudio\/repaso(?:\/([\w-]+)\/(tarjetas|test|practica))?$/)))return renderReview(m[1],m[2]);
-  if((m=h.match(/^#estudio\/([\w-]+)(?:\/(ordinary|extraordinary)(?:\/(\d+)(?:\/(resumen|tarjetas|test|practica)(?:\/([\w-]+))?)?)?)?$/))){
+  if((m=h.match(/^#estudio\/([\w-]+)(?:\/(ordinary|extraordinary)(?:\/(\d+)(?:\/(resumen|tarjetas|test|practica|examen)(?:\/([\w-]+))?)?)?)?$/))){
     const [,sid,conv=state.activeConv,i,mode='resumen',topic]=m;
     return i===undefined?renderLobby(sid,conv):renderExam(sid,conv,Number(i),mode,topic);
   }

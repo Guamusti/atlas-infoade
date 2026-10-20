@@ -46,6 +46,7 @@ Página independiente en `#ssoo` (o `/ssoo`), con botón en el lobby de SSOO del
 - **Simulacros** de teoría y práctica en pantalla o **en papel** (imprimir enunciado y soluciones razonadas), con tiempos solo como sugerencia y registro de errores.
 - **Plan y seguimiento**: ruta de estudio sin fechas, casillas de progreso por tema e incidencia y «errores que debo volver a practicar» con repaso.
 - **Trazabilidad**: cada pieza indica su origen (*Apuntes*, *Resumen no oficial* o *Complemento*) y cita archivo y página del PDF. Los PDF **no** se incluyen en el repositorio; se pueden vincular desde Inicio → Fuentes (solo en la sesión) para que las citas los abran en la página indicada.
+- **Examen tipo** en el portal de estudio: en la página de cada prueba de SSOO con formato conocido (la de teoría y la de laboratorio de la Práctica 1, ordinaria y extraordinaria) hay una pestaña «Examen tipo» que genera un simulacro con ese formato y con los temas de esa prueba (`#ssoo/simulacros/examen-teoria/t1,t2` o `examen-practica/i1,i2,i3,i4`). No aparece en otras asignaturas ni en pruebas cuyo formato no se conoce.
 - El progreso se guarda en `state.ssooExam` (IndexedDB y sincronización de Atlas).
 
 ## Estructura

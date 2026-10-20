@@ -367,7 +367,8 @@ function vDistinciones(){
 }
 
 /* --- Simulacros --- */
-function vSimulacros(id){
+function vSimulacros(id,arg){
+  if(id==='examen-teoria'||id==='examen-practica'){if(!SIM||SIM.def.id!==id||SIM.arg!==(arg||'')){SIM=examenTipo(id,arg);SIM.arg=arg||''}return simView()}
   if(id&&SIM&&SIM.def.id===id)return simView();
   const all=[...DATA.sim.teoria.map(d=>({...d,kind:'teoria'})),...DATA.sim.practica.map(d=>({...d,kind:'practica'}))],hist=ST().sim;
   const card=d=>{const h=(hist[d.id]||[]).slice(-1)[0];return`<article class="sx-card ${d.kind==='teoria'?'t':'p'}"><h2 style="font-size:20px">${esc(d.titulo)}</h2><p class="sx-small">${esc(d.descripcion)}</p><p class="sx-small">${Object.values(d.tiempos).map(esc).join(' ')}</p>${h?`<div class="sx-small">Último intento: ${h.a} aciertos · ${h.f} fallos · ${h.b} en blanco</div>`:''}<div class="sx-row"><button class="sx-btn pri" data-act="simopen" data-id="${d.id}">Abrir</button></div></article>`};
@@ -377,17 +378,31 @@ function vSimulacros(id){
   <h2>Práctica</h2><p class="sx-small">Dos preguntas tipo test (que según la información recibida restan) y ejercicios de incidencias con órdenes sencillas.</p><div class="sx-grid2">${all.filter(d=>d.kind==='practica').map(card).join('')}
    <article class="sx-card p"><h2 style="font-size:20px">Simulacro de práctica aleatorio</h2><p class="sx-small">2 preguntas tipo test y 1 ejercicio de cada incidencia, al azar.</p><div class="sx-row"><button class="sx-btn pri" data-act="simrandom">Crear</button></div></article></div>`;
 }
-function simOpen(def){
+function simBuild(def){
   const kind=def.kind||(def.test.some(i=>DATA.Q[i])?'teoria':'practica');
   const tests=def.test.map(i=>(kind==='teoria'?DATA.Q:DATA.PT)[i]);
-  SIM={def:{...def,kind},kind,tests,orders:tests.map(q=>shuffle(q.o.map((_,i)=>i))),picks:tests.map(()=>null),
+  return{def:{...def,kind},kind,tests,orders:tests.map(q=>shuffle(q.o.map((_,i)=>i))),picks:tests.map(()=>null),
     dev:kind==='teoria'?DATA.D[def.desarrollo]:null,ejs:kind==='practica'?def.ejercicios.map(i=>DATA.EX[i]):[],
     marks:{},stage:'intro',start:null,saved:false};
-  location.hash=`#ssoo/simulacros/${def.id}`;
+}
+function simOpen(def){SIM=simBuild(def);location.hash=`#ssoo/simulacros/${def.id}`}
+/* Examen tipo con el formato conocido (se abre desde el portal de estudio): #ssoo/simulacros/examen-teoria/t1,t2 | examen-practica/i1,i2,i3,i4 */
+function examenTipo(id,arg){
+  const kind=id==='examen-teoria'?'teoria':'practica',filt=(arg||'').split(',').filter(Boolean);
+  if(kind==='teoria'){
+    const temas=filt.length?filt:['t1','t2'],pool=DATA.teoria.test.filter(q=>temas.includes(q.tema)),devs=DATA.teoria.desarrollo.filter(d=>temas.includes(d.tema));
+    return simBuild({id,kind,titulo:'Examen tipo de teoría',descripcion:`En papel. Test de ${Math.min(20,pool.length)} preguntas de práctica (según la información recibida el test vale 8 puntos y no resta; el número real se desconoce) y una pregunta de desarrollo (2 puntos). Temas: ${temas.map(t=>t==='t1'?'Tema 1':'Tema 2').join(' y ')}.`,
+      test:shuffle(pool).slice(0,20).map(q=>q.id),desarrollo:shuffle(devs.length?devs:DATA.teoria.desarrollo)[0].id,
+      tiempos:{test:'Sugerencia: aproximadamente 1 minuto por pregunta.',desarrollo:'Sugerencia: unos 15–20 minutos para el desarrollo.'}});
+  }
+  const incs=filt.length?filt:['i1','i2','i3','i4'],pts=shuffle(DATA.practica.test.filter(q=>incs.includes(q.inc))),pool=pts.length>=2?pts:shuffle(DATA.practica.test);
+  return simBuild({id,kind,titulo:'Examen tipo de práctica',descripcion:'En papel. Dos preguntas tipo test (que según la información recibida sí restan) y un ejercicio de cada incidencia de la Práctica 1 con órdenes sencillas. La minishell no entra.',
+    test:pool.slice(0,2).map(q=>q.id),ejercicios:incs.map(i=>shuffle(DATA.practica.incidencias.find(I=>I.id===i).ejercicios)[0].id),
+    tiempos:{test:'Sugerencia: 5 minutos para las dos preguntas.',ejercicios:'Sugerencia: unos 10–12 minutos por ejercicio.'}});
 }
 function simView(){
   const S=SIM,d=S.def;
-  const head=`<div class="sx-row"><button class="sx-btn sm" data-act="simexit">← Simulacros</button></div><h1>${esc(d.titulo)}</h1>`;
+  const head=`<div class="sx-row"><button class="sx-btn sm" data-act="simexit">← ${S.arg!==undefined?'Volver':'Simulacros'}</button>${S.arg!==undefined&&S.stage==='intro'?'<button class="sx-btn sm" data-act="simregen">Otro examen tipo</button>':''}</div><h1>${esc(d.titulo)}</h1>`;
   if(S.stage==='intro'){
     return head+`<p class="sx-lead">${esc(d.descripcion||'')}</p><div class="sx-banner">${Object.values(d.tiempos).map(esc).join(' ')} <b>Son sugerencias</b>, no la duración oficial.</div>
       ${S.kind==='practica'?'<div class="sx-banner red">Las dos preguntas tipo test restan según la información recibida. <b>No se conoce la fórmula</b>: no se calcula nota; se cuentan aciertos, fallos y blancos.</div>':'<div class="sx-banner">El test de teoría no resta según la información recibida.</div>'}
@@ -505,7 +520,7 @@ function renderMain(keepScroll){
   let html='';
   if(tab==='teoria')html=vTeoria(p[1]);
   else if(tab==='practica')html=vPractica(p[1],p[2],p[3]);
-  else if(tab==='simulacros')html=vSimulacros(p[1]);
+  else if(tab==='simulacros')html=vSimulacros(p[1],p[2]);
   else if(tab==='plan')html=vPlan();
   else html=vInicio();
   mainEl.innerHTML=html;
@@ -526,6 +541,7 @@ async function open(){
 function close(){
   if(!overlay?.classList.contains('open'))return;
   clearInterval(timer);overlay.classList.remove('open');document.body.style.overflow='';closePop();
+  if(SIM&&SIM.arg!==undefined)SIM=null;   // el examen tipo se genera de nuevo al volver
   const back=prevHash&&!/^#ssoo/.test(prevHash)?prevHash:'';
   if(/\/ssoo\/?$/.test(location.pathname))history.pushState(null,'',location.pathname.replace(/\/ssoo\/?$/,'/')+location.search+back);
   else if(location.hash!==back)history.replaceState(null,'',location.pathname+location.search+back);
@@ -535,7 +551,7 @@ function go(h){if(location.hash!==h)location.hash=h;else renderMain()}
 function route(){
   const p=parse();
   if(p){if(!overlay?.classList.contains('open'))prevHash=lastHash;open()}
-  else if(overlay?.classList.contains('open')){clearInterval(timer);overlay.classList.remove('open');document.body.style.overflow='';closePop()}
+  else if(overlay?.classList.contains('open')){clearInterval(timer);overlay.classList.remove('open');document.body.style.overflow='';closePop();if(SIM&&SIM.arg!==undefined)SIM=null}
 }
 let lastHash=/^#ssoo/.test(location.hash)?'':location.hash;
 function onHash(ev){
@@ -589,7 +605,8 @@ function onClick(ev){
     case'simopen':{const d=[...DATA.sim.teoria.map(x=>({...x,kind:'teoria'})),...DATA.sim.practica.map(x=>({...x,kind:'practica'}))].find(x=>x.id===id);return simOpen(d)}
     case'simcustom':{const n=Number($q('#simN').value)||20,ids=shuffle(DATA.teoria.test.map(q=>q.id)).slice(0,n);return simOpen({id:'st-custom',titulo:`Simulacro de teoría a medida (${n} preguntas)`,descripcion:'Test aleatorio y un tema de desarrollo al azar.',kind:'teoria',test:ids,desarrollo:shuffle(DATA.teoria.desarrollo)[0].id,tiempos:{test:`Sugerencia: aproximadamente 1 minuto por pregunta.`,desarrollo:'Sugerencia: unos 15–20 minutos para el desarrollo.'}})}
     case'simrandom':{const ids=shuffle(DATA.practica.test.map(q=>q.id)).slice(0,2),exs=DATA.practica.incidencias.map(I=>shuffle(I.ejercicios)[0].id);return simOpen({id:'sp-custom',titulo:'Simulacro de práctica aleatorio',descripcion:'2 preguntas tipo test y 1 ejercicio de cada incidencia.',kind:'practica',test:ids,ejercicios:exs,tiempos:{test:'Sugerencia: 5 minutos para las dos preguntas.',ejercicios:'Sugerencia: unos 10–12 minutos por ejercicio.'}})}
-    case'simexit':{clearInterval(timer);SIM=null;return go('#ssoo/simulacros')}
+    case'simexit':{clearInterval(timer);const fromEx=SIM&&SIM.arg!==undefined;SIM=null;if(fromEx&&prevHash&&!/^#ssoo/.test(prevHash))return close();return go('#ssoo/simulacros')}
+    case'simregen':{const a=SIM.arg,id=SIM.def.id;SIM=examenTipo(id,a);SIM.arg=a;return renderMain()}
     case'simstage':{SIM.stage=b.dataset.v;SIM.fromScreen=false;if(SIM.stage==='screen'){SIM.timer=!!$q('#simTimer')?.checked;SIM.start=Date.now()}if(SIM.stage==='corr'){SIM.marks={}}return renderMain()}
     case'simprint':return printSheet(b.dataset.v);
     case'simsubmit':return simSubmit();
